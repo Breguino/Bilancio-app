@@ -11,6 +11,15 @@ export default function SignupPage({
     return (
       <main className="min-h-screen flex items-center justify-center px-6">
         <div className="w-full max-w-sm text-center">
+          <Link
+            href="/"
+            className="flex w-fit mx-auto items-center gap-1.5 text-sm font-medium text-ink-secondary dark:text-neutral-400 hover:text-accent transition-colors mb-6"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            Torna alla home
+          </Link>
           <h1 className="text-2xl font-extrabold tracking-tight mb-2">Controlla la tua email</h1>
           <p className="text-ink-secondary dark:text-neutral-400 text-sm">
             Ti abbiamo inviato un link di conferma. Aprilo per attivare il tuo account, poi torna
@@ -24,6 +33,16 @@ export default function SignupPage({
   return (
     <main className="min-h-screen flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
+        <Link
+          href="/"
+          className="flex w-fit items-center gap-1.5 text-sm font-medium text-ink-secondary dark:text-neutral-400 hover:text-accent transition-colors mb-6"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Torna alla home
+        </Link>
+
         <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg mb-8" aria-label="Bilancino">
           <Logo size={40} />
         </Link>
