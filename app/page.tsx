@@ -161,7 +161,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <nav className="sticky top-0 z-20 border-b border-transparent backdrop-blur bg-white/90 dark:bg-neutral-950/90">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
+        <div className="max-w-6xl mx-auto px-6 py-4 relative flex items-center justify-between gap-6">
           <Link href="/" className="inline-flex items-center gap-2" aria-label="Bilancino">
             <Logo size={30} />
           </Link>
@@ -184,7 +184,7 @@ export default function HomePage() {
             >
               Accedi
             </Link>
-            <details className="sm:hidden relative">
+            <details className="sm:hidden">
               <summary
                 aria-label="Menu"
                 className="list-none cursor-pointer w-9 h-9 rounded-full border border-border dark:border-neutral-800 flex items-center justify-center [&::-webkit-details-marker]:hidden"
@@ -193,7 +193,7 @@ export default function HomePage() {
                   <path d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </summary>
-              <div className="absolute right-0 top-11 w-56 rounded-xl border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-lg p-2 flex flex-col text-sm font-medium text-ink-secondary dark:text-neutral-400">
+              <div className="absolute right-6 top-full mt-2 w-56 rounded-xl border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-lg p-2 flex flex-col text-sm font-medium text-ink-secondary dark:text-neutral-400">
                 <a href="#funzionalita" className="px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5">
                   Funzionalità
                 </a>
