@@ -21,6 +21,7 @@ export default async function AppLayout({
     { href: "/goals", label: "Obiettivi" },
     { href: "/compare", label: "Confronta" },
     { href: "/yearly", label: "Annuale" },
+    { href: "/statistics", label: "Statistiche" },
     { href: "/contacts", label: "Contatti" },
   ];
 
