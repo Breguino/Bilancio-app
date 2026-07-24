@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #fbfbf8;
+  color: #14151a;
+}
+
+.dark body {
+  background: #0b0b10;
+  color: #f3f3f6;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus {
+  transform: scale(1.015);
+  animation: field-focus-pulse 0.4s ease-out;
+}
+
+@keyframes field-focus-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.35);
+  }
+  100% {
+    box-shadow: 0 0 0 8px rgba(79, 70, 229, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  input,
+  select,
+  textarea {
+    transition: none;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    animation: none;
+    transform: none;
+  }
+}
+
+main > * {
+  animation: page-fade-in 0.15s ease-out;
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main > * {
+    animation: none;
+  }
+}
+
+.bar-fill {
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sparkline-path {
+  transition: d 0.6s ease;
+}
+
+.sparkline-dot {
+  transition: cx 0.6s ease, cy 0.6s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-fill,
+  .sparkline-path,
+  .sparkline-dot {
+    transition: none;
+  }
+}
+
+.hero-chart-line {
+  animation: hero-draw-in 1.2s ease forwards;
+}
+
+@keyframes hero-draw-in {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-chart-line {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}

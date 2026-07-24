@@ -1,0 +1,52 @@
+"use server";
+
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import { createClient } from "@/lib/supabase/server";
+
+export async function addGoal(formData: FormData) {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+
+  const name = String(formData.get("name") || "").trim();
+  const target = parseFloat(String(formData.get("target") || "0"));
+  if (!name || !(target > 0)) {
+    redirect("/goals?error=" + encodeURIComponent("Indica un nome e un importo target maggiore di zero."));
+  }
+
+  await supabase.from("goals").insert({ user_id: user.id, name, target, saved: 0 });
+  revalidatePath("/goals");
+  redirect("/goals?success=" + encodeURIComponent("Obiettivo creato"));
+}
+
+export async function contribute(formData: FormData) {
+  const supabase = createClient();
+  const id = String(formData.get("id") || "");
+  const amount = parseFloat(String(formData.get("amount") || "0"));
+  if (!id) return;
+  if (!(amount > 0)) {
+    redirect("/goals?error=" + encodeURIComponent("Indica un importo di contributo maggiore di zero."));
+  }
+
+  const { data: goal } = await supabase.from("goals").select("saved").eq("id", id).single();
+  if (!goal) return;
+
+  await supabase
+    .from("goals")
+    .update({ saved: Number(goal.saved) + amount })
+    .eq("id", id);
+
+  revalidatePath("/goals");
+  redirect("/goals?success=" + encodeURIComponent("Contributo aggiunto"));
+}
+
+export async function deleteGoal(formData: FormData) {
+  const supabase = createClient();
+  const id = String(formData.get("id") || "");
+  if (!id) return;
+  await supabase.from("goals").delete().eq("id", id);
+  revalidatePath("/goals");
+}

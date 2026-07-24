@@ -1,0 +1,105 @@
+import { notFound } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import { Logo } from "@/components/logo";
+import { PrintButton } from "@/components/print-button";
+
+const eur = new Intl.NumberFormat("it-IT", {
+  style: "currency",
+  currency: "EUR",
+  useGrouping: true,
+});
+const dateFmt = new Intl.DateTimeFormat("it-IT", { day: "2-digit", month: "long", year: "numeric" });
+
+export default async function ReceiptPage({ params }: { params: { id: string } }) {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { data: transaction } = await supabase
+    .from("transactions")
+    .select("*, contact:contacts(id, name, email)")
+    .eq("id", params.id)
+    .maybeSingle();
+
+  if (!transaction || !transaction.contact_id || Number(transaction.amount) <= 0) {
+    notFound();
+  }
+
+  const receiptNumber = transaction.id.slice(0, 8).toUpperCase();
+  const issuedOn = dateFmt.format(new Date());
+  const [y, m, d] = transaction.date.split("-").map(Number);
+  const transactionDate = dateFmt.format(new Date(y, m - 1, d));
+
+  return (
+    <div className="flex flex-col gap-6 items-center">
+      <div className="w-full max-w-lg border border-border dark:border-neutral-800 rounded-xl bg-white dark:bg-neutral-900 p-8 print:border-0 print:shadow-none">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-2">
+            <Logo size={36} />
+            <span className="font-extrabold text-lg">Bilancino</span>
+          </div>
+          <div className="text-right">
+            <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500">Ricevuta</p>
+            <p className="num text-sm font-bold">#{receiptNumber}</p>
+          </div>
+        </div>
+
+        <h1 className="text-xl font-extrabold tracking-tight mb-6">Ricevuta di pagamento</h1>
+
+        <div className="grid grid-cols-2 gap-6 text-sm mb-6">
+          <div>
+            <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Da</p>
+            <p className="font-medium">{user?.email}</p>
+          </div>
+          <div>
+            <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">A</p>
+            <p className="font-medium">{transaction.contact?.name}</p>
+            {transaction.contact?.email ? (
+              <p className="text-ink-secondary dark:text-neutral-400 text-xs">{transaction.contact.email}</p>
+            ) : null}
+          </div>
+          <div>
+            <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Data pagamento</p>
+            <p className="font-medium">{transactionDate}</p>
+          </div>
+          <div>
+            <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Emessa il</p>
+            <p className="font-medium">{issuedOn}</p>
+          </div>
+        </div>
+
+        <div className="border border-border dark:border-neutral-800 rounded-lg overflow-hidden mb-6">
+          <div className="flex items-center justify-between px-4 py-3 bg-surface-alt dark:bg-neutral-800 text-xs font-semibold uppercase text-ink-muted dark:text-neutral-400">
+            <span>Descrizione</span>
+            <span>Importo</span>
+          </div>
+          <div className="flex items-center justify-between px-4 py-3 text-sm">
+            <span>
+              {transaction.description}
+              {transaction.category ? (
+                <span className="text-ink-muted dark:text-neutral-500"> · {transaction.category}</span>
+              ) : null}
+            </span>
+            <span className="num font-medium">{eur.format(Number(transaction.amount))}</span>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between border-t border-ink dark:border-neutral-100 pt-4">
+          <span className="font-bold">Totale ricevuto</span>
+          <span className="num text-xl font-extrabold">{eur.format(Number(transaction.amount))}</span>
+        </div>
+      </div>
+
+      <div className="print:hidden flex items-center gap-3">
+        <PrintButton />
+        <a
+          href="/dashboard"
+          className="text-sm font-semibold text-ink-muted dark:text-neutral-500 hover:text-accent px-2 py-2"
+        >
+          ← Torna alla Panoramica
+        </a>
+      </div>
+    </div>
+  );
+}
