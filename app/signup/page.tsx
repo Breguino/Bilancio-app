@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { signup } from "./actions";
 import { Logo } from "@/components/logo";
+import { PasswordInput } from "@/components/password-input";
 
 export default function SignupPage({
   searchParams,
@@ -76,15 +77,7 @@ export default function SignupPage({
             <label htmlFor="password" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
               Password
             </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              minLength={8}
-              autoComplete="new-password"
-              className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-            />
+            <PasswordInput id="password" name="password" autoComplete="new-password" required minLength={8} />
             <span className="text-xs text-ink-muted dark:text-neutral-500">Almeno 8 caratteri.</span>
           </div>
           <button

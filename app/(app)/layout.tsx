@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Home } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "@/components/logo";
@@ -47,6 +48,14 @@ export default async function AppLayout({
             <span className="text-ink-muted dark:text-neutral-500 text-sm hidden lg:inline">
               {user?.email}
             </span>
+            <Link
+              href="/"
+              aria-label="Torna al sito pubblico"
+              title="Torna al sito"
+              className="w-9 h-9 rounded-full border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 flex items-center justify-center hover:border-accent hover:text-accent transition-colors shrink-0"
+            >
+              <Home size={16} strokeWidth={1.75} />
+            </Link>
             <ThemeToggle />
             <div className="md:hidden">
               <MobileMenu items={navLinks} />

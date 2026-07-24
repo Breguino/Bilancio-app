@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { login } from "./actions";
 import { Logo } from "@/components/logo";
+import { PasswordInput } from "@/components/password-input";
 
 export default function LoginPage({
   searchParams,
@@ -54,14 +55,7 @@ export default function LoginPage({
             <label htmlFor="password" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
               Password
             </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              autoComplete="current-password"
-              className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-            />
+            <PasswordInput id="password" name="password" autoComplete="current-password" required />
           </div>
           <button
             type="submit"
