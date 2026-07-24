@@ -55,20 +55,19 @@ function buildHeroChart() {
   };
 }
 
+const heroFeature = {
+  title: "Panoramica",
+  tag: "Un colpo d'occhio ogni mese",
+  body: "Entrate, uscite, risparmio netto e andamento degli ultimi 6 mesi — con budget a rischio e promemoria in scadenza già in vista appena apri l'app.",
+  icon: LineChart,
+};
+
 const features = [
-  {
-    title: "Panoramica",
-    tag: "Un colpo d'occhio ogni mese",
-    body: "Entrate, uscite, risparmio netto e andamento degli ultimi 6 mesi — con budget a rischio e promemoria in scadenza già in vista appena apri l'app.",
-    icon: LineChart,
-    wide: true,
-  },
   {
     title: "Budget per categoria",
     tag: "Sai sempre quanto ti resta",
     body: "Imposta un limite per categoria: le barre passano da verde ad ambra a rosso via via che ti avvicini o superi la soglia.",
     icon: BarChart3,
-    wide: true,
   },
   {
     title: "Movimenti ricorrenti",
@@ -107,7 +106,7 @@ const faqItems = [
   },
   {
     q: "È gratuito?",
-    a: "Sì, al momento Bilancino è liberamente utilizzabile.",
+    a: "Sì, senza carta di credito: crei un account e lo usi liberamente. Essendo un progetto indipendente non posso garantirlo per sempre, ma potrai sempre esportare i tuoi dati in CSV.",
   },
   {
     q: "Come funzionano i movimenti ricorrenti?",
@@ -166,10 +165,10 @@ export default function HomePage() {
 
       <header className="max-w-6xl mx-auto px-6 pt-16 pb-20 sm:pt-20 sm:pb-28 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
         <div>
-          <span className="inline-flex items-center text-xs font-bold uppercase tracking-wide text-accent bg-accent-soft dark:bg-accent/20 rounded-full px-3 py-1.5 mb-6">
+          <span className="text-xs font-bold uppercase tracking-wide text-accent">
             Budget personale + CRM, con un vero account
           </span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mb-5">
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-5">
             Le tue finanze, finalmente <span className="text-accent">in ordine</span>.
           </h1>
           <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed max-w-[46ch] mb-8">
@@ -264,13 +263,37 @@ export default function HomePage() {
               Sei aree, ciascuna con uno scopo preciso
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+          <div className="rounded-2xl bg-accent-soft/60 dark:bg-accent/10 border border-accent/20 dark:border-accent/20 p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-[1.2fr_1fr] gap-8 items-center mb-4">
+            <div>
+              <div className="w-11 h-11 rounded-xl bg-accent text-white flex items-center justify-center mb-4">
+                <heroFeature.icon size={22} strokeWidth={1.75} />
+              </div>
+              <h3 className="text-xl font-bold mb-1.5">{heroFeature.title}</h3>
+              <p className="text-xs font-semibold text-accent mb-2">{heroFeature.tag}</p>
+              <p className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed max-w-[46ch]">
+                {heroFeature.body}
+              </p>
+            </div>
+            <div className="bg-white dark:bg-neutral-900 rounded-xl border border-border dark:border-neutral-800 p-5">
+              <div className="flex items-center justify-between text-xs mb-1.5">
+                <span className="font-medium">Benzina</span>
+                <span className="num text-ink-muted dark:text-neutral-500">210 € / 250 €</span>
+              </div>
+              <div className="h-2 rounded bg-surface-alt dark:bg-neutral-800 overflow-hidden mb-4">
+                <div className="h-full rounded bg-amber-500" style={{ width: "84%" }} />
+              </div>
+              <div className="flex items-center justify-between text-xs pt-3 border-t border-border dark:border-neutral-800">
+                <span className="text-ink-muted dark:text-neutral-500">Promemoria in scadenza</span>
+                <span className="num font-bold">2</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {features.map((f) => (
               <div
                 key={f.title}
-                className={`border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900 hover:-translate-y-0.5 hover:shadow-lg transition-all ${
-                  f.wide ? "lg:col-span-3" : "lg:col-span-2"
-                }`}
+                className="border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900 hover:-translate-y-0.5 hover:shadow-lg transition-all"
               >
                 <div className="w-10 h-10 rounded-xl bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-4">
                   <f.icon size={20} strokeWidth={1.75} />

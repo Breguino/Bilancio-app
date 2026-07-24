@@ -93,19 +93,19 @@ export default function IlServizioPage() {
             <div>
               <span className="text-xs font-bold uppercase tracking-wide text-accent">Prezzo</span>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[18ch]">
-                Gratuito, oggi
+                Gratuito, senza carta di credito
               </h2>
             </div>
             <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
               <p>
-                Bilancino è gratuito e liberamente utilizzabile in questo momento. È un progetto
-                indipendente in sviluppo continuo: non posso prometterti che rimarrà così per
-                sempre, ma è una promessa che nessun servizio serio dovrebbe fare senza riserve.
+                Crei un account e usi Bilancino senza pagare nulla e senza inserire una carta:
+                niente periodo di prova a tempo, niente upgrade nascosto dopo pochi giorni.
               </p>
               <p>
-                Se in futuro qualcosa dovesse cambiare, non troverai i tuoi dati in ostaggio: puoi
-                esportare in qualsiasi momento l'intero storico dei movimenti in CSV, senza dover
-                chiedere permesso a nessuno.
+                È un progetto indipendente in sviluppo continuo, quindi non posso prometterti che
+                resterà gratuito per sempre — ma qualunque cosa cambi, non troverai mai i tuoi dati
+                in ostaggio: puoi esportare in qualsiasi momento l'intero storico dei movimenti in
+                CSV, senza dover chiedere permesso a nessuno.
               </p>
             </div>
           </div>
