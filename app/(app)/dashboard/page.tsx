@@ -361,6 +361,7 @@ export default async function DashboardPage({
           <div className="flex flex-col gap-1 order-5">
             <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Importo (€)</label>
             <input
+              key={rows.length}
               name="amount"
               type="number"
               step="0.01"
