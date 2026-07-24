@@ -26,11 +26,11 @@ export default async function AppLayout({
   return (
     <div className="min-h-screen">
       <header className="print:hidden border-b border-border dark:border-neutral-800">
-        <div className="max-w-5xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
           <Link href="/dashboard" className="inline-flex items-center gap-2 font-extrabold" aria-label="Bilancino">
             <Logo />
           </Link>
-          <nav className="flex items-center gap-5 text-sm font-medium overflow-x-auto">
+          <nav className="hidden md:flex items-center gap-5 text-sm font-medium">
             {navLinks.map((l) => (
               <Link
                 key={l.href}
@@ -46,6 +46,27 @@ export default async function AppLayout({
               {user?.email}
             </span>
             <ThemeToggle />
+            <details className="md:hidden">
+              <summary
+                aria-label="Menu"
+                className="list-none cursor-pointer w-9 h-9 rounded-full border border-border dark:border-neutral-700 flex items-center justify-center [&::-webkit-details-marker]:hidden"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </summary>
+              <div className="fixed inset-x-4 top-[76px] z-30 rounded-2xl border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-xl p-3 flex flex-col gap-1 text-base font-semibold">
+                {navLinks.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className="px-4 py-3.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5"
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+            </details>
             <form action="/logout" method="post">
               <button
                 type="submit"

@@ -193,18 +193,18 @@ export default function HomePage() {
                   <path d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </summary>
-              <div className="absolute right-6 top-full mt-2 w-56 rounded-xl border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-lg p-2 flex flex-col text-sm font-medium text-ink-secondary dark:text-neutral-400">
-                <a href="#funzionalita" className="px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5">
+              <div className="fixed inset-x-4 top-[76px] z-30 rounded-2xl border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-xl p-3 flex flex-col gap-1 text-base font-semibold text-ink dark:text-neutral-100">
+                <a href="#funzionalita" className="px-4 py-3.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5">
                   Funzionalità
                 </a>
-                <a href="#perche" className="px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5">
+                <a href="#perche" className="px-4 py-3.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5">
                   Perché Bilancino
                 </a>
-                <a href="#faq" className="px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5">
+                <a href="#faq" className="px-4 py-3.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5">
                   FAQ
                 </a>
                 <div className="h-px bg-border dark:bg-neutral-800 my-1" />
-                <Link href="/login" className="px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5">
+                <Link href="/login" className="px-4 py-3.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5">
                   Accedi
                 </Link>
               </div>
