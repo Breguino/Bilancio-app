@@ -4,6 +4,7 @@ import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { MobileMenu } from "@/components/mobile-menu";
+import { StatsDemo } from "@/components/stats-demo";
 
 const eur0 = new Intl.NumberFormat("it-IT", {
   style: "currency",
@@ -173,6 +174,9 @@ export default function HomePage() {
             <a href="#perche" className="hover:text-ink dark:hover:text-neutral-100">
               Perché Bilancino
             </a>
+            <a href="#statistiche" className="hover:text-ink dark:hover:text-neutral-100">
+              Statistiche
+            </a>
             <a href="#faq" className="hover:text-ink dark:hover:text-neutral-100">
               FAQ
             </a>
@@ -190,6 +194,7 @@ export default function HomePage() {
                 items={[
                   { href: "#funzionalita", label: "Funzionalità" },
                   { href: "#perche", label: "Perché Bilancino" },
+                  { href: "#statistiche", label: "Statistiche" },
                   { href: "#faq", label: "FAQ" },
                   { href: "/login", label: "Accedi" },
                 ]}
@@ -386,6 +391,27 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section id="statistiche" className="py-16 sm:py-20 scroll-mt-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wide text-accent">Statistiche</span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 mb-6 [text-wrap:balance] max-w-[22ch]">
+                Non solo numeri: statistica ed econometria
+              </h2>
+              <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed max-w-[56ch] mb-4">
+                Bilancino calcola per te trend e previsioni (regressione lineare), media e deviazione
+                standard del risparmio con intervallo di confidenza al 95%, e segnala le spese
+                statisticamente anomale rispetto alle tue abitudini per categoria.
+              </p>
+              <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed max-w-[56ch]">
+                Prova il calcolatore qui a fianco: cambia i numeri e guarda i risultati aggiornarsi
+                all'istante, con la stessa identica formula usata dentro l'app.
+              </p>
+            </div>
+            <StatsDemo />
           </div>
         </section>
 
