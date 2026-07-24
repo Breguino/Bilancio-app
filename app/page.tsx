@@ -1,10 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Logo } from "@/components/logo";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { FaqAccordion } from "@/components/faq-accordion";
-import { MobileMenu } from "@/components/mobile-menu";
 import { StatsDemo } from "@/components/stats-demo";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 
 const eur0 = new Intl.NumberFormat("it-IT", {
   style: "currency",
@@ -162,53 +161,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <nav className="sticky top-0 z-20 relative border-b border-transparent backdrop-blur bg-white/90 dark:bg-neutral-950/90">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
-          <Link href="/" className="inline-flex items-center gap-2" aria-label="Bilancino">
-            <Logo size={30} />
-          </Link>
-          <div className="hidden sm:flex items-center gap-7 text-sm font-medium text-ink-secondary dark:text-neutral-400">
-            <a href="#funzionalita" className="hover:text-ink dark:hover:text-neutral-100">
-              Funzionalità
-            </a>
-            <a href="#perche" className="hover:text-ink dark:hover:text-neutral-100">
-              Perché Bilancino
-            </a>
-            <a href="#statistiche" className="hover:text-ink dark:hover:text-neutral-100">
-              Statistiche
-            </a>
-            <a href="#faq" className="hover:text-ink dark:hover:text-neutral-100">
-              FAQ
-            </a>
-          </div>
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <Link
-              href="/login"
-              className="hidden sm:inline text-sm font-semibold text-ink-secondary dark:text-neutral-400 hover:text-ink dark:hover:text-neutral-100"
-            >
-              Accedi
-            </Link>
-            <div className="sm:hidden">
-              <MobileMenu
-                items={[
-                  { href: "#funzionalita", label: "Funzionalità" },
-                  { href: "#perche", label: "Perché Bilancino" },
-                  { href: "#statistiche", label: "Statistiche" },
-                  { href: "#faq", label: "FAQ" },
-                  { href: "/login", label: "Accedi" },
-                ]}
-              />
-            </div>
-            <Link
-              href="/signup"
-              className="bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-4 py-2 transition-colors whitespace-nowrap"
-            >
-              Crea un account
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <SiteHeader />
 
       <header className="max-w-6xl mx-auto px-6 pt-16 pb-20 sm:pt-20 sm:pb-28 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
         <div>
@@ -447,12 +400,7 @@ export default function HomePage() {
         </section>
       </main>
 
-      <footer className="max-w-6xl mx-auto px-6 py-10 text-center text-sm text-ink-muted dark:text-neutral-500">
-        Bilancino — budget personale, non un gestionale. ·{" "}
-        <Link href="/login" className="underline hover:text-accent">
-          Accedi
-        </Link>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

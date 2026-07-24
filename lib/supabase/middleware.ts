@@ -1,7 +1,14 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLIC_EXACT = ["/", "/robots.txt", "/sitemap.xml"];
+const PUBLIC_EXACT = [
+  "/",
+  "/robots.txt",
+  "/sitemap.xml",
+  "/chi-siamo",
+  "/cosa-offriamo",
+  "/il-servizio",
+];
 const PUBLIC_PREFIXES = ["/login", "/signup", "/auth", "/logout"];
 
 function isPublicPath(path: string) {
