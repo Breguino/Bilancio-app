@@ -101,7 +101,7 @@ const groups = [
         body: "Bilancino calcola media e deviazione standard del tuo risparmio, con un intervallo di confidenza al 95%: non solo quanto risparmi in media, ma quanto è affidabile quella media.",
       },
       {
-        icon: "⚠",
+        icon: "▲",
         title: "Rilevamento spese anomale",
         body: "Uno z-score confronta ogni spesa con le tue abitudini storiche per quella categoria e segnala quelle statisticamente fuori norma — utile per accorgersi di una spesa insolita prima che diventi un'abitudine.",
       },
