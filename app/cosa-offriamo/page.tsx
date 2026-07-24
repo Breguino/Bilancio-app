@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { AppMockup } from "@/components/app-mockup";
 import {
   Tags,
   BarChart3,
@@ -147,15 +148,18 @@ export default function CosaOffriamoPage() {
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
-        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
-          <span className="text-xs font-bold uppercase tracking-wide text-accent">Cosa offriamo</span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
-            Ogni funzionalità, spiegata per intero.
-          </h1>
-          <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
-            La pagina principale mostra le funzionalità in breve. Qui trovi il tour completo:
-            cosa fa davvero ogni parte di Bilancino, e perché è fatta così.
-          </p>
+        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wide text-accent">Cosa offriamo</span>
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
+              Ogni funzionalità, spiegata per intero.
+            </h1>
+            <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
+              La pagina principale mostra le funzionalità in breve. Qui trovi il tour completo:
+              cosa fa davvero ogni parte di Bilancino, e perché è fatta così.
+            </p>
+          </div>
+          <AppMockup />
         </header>
 
         {groups.map((group) => (
