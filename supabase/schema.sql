@@ -158,3 +158,91 @@ create policy "contact_notes_delete_own" on public.contact_notes
   for delete using (auth.uid() = user_id);
 
 create index if not exists contact_notes_contact_idx on public.contact_notes (contact_id);
+
+-- ---------- Automazione: generazione ricorrenze in background ----------
+-- Fino a qui, i movimenti ricorrenti si generavano solo quando l'utente
+-- apriva l'app (Panoramica/Ricorrenti chiamavano generateDueRecurringTransactions
+-- in lib/recurring.ts, scoped alla sessione RLS dell'utente). Con pg_cron
+-- lo stesso identico calcolo (vedi nextOccurrence) gira ogni notte per TUTTI
+-- gli utenti, anche se non aprono mai l'app.
+create extension if not exists pg_cron with schema pg_catalog;
+grant usage on schema cron to postgres;
+grant all privileges on all tables in schema cron to postgres;
+
+create or replace function public.next_occurrence(d date, freq text)
+returns date
+language plpgsql
+immutable
+set search_path = ''
+as $$
+declare
+  y int := extract(year from d)::int;
+  m int := extract(month from d)::int;
+  day int := extract(day from d)::int;
+  months int := case when freq = 'yearly' then 12 else 1 end;
+  new_year int;
+  new_month int;
+  last_day int;
+begin
+  if freq = 'weekly' then
+    return d + 7;
+  end if;
+
+  new_year := y + ((m - 1 + months) / 12);
+  new_month := ((m - 1 + months) % 12) + 1;
+  last_day := extract(day from (make_date(new_year, new_month, 1) + interval '1 month - 1 day'))::int;
+
+  return make_date(new_year, new_month, least(day, last_day));
+end;
+$$;
+
+-- security definer: deve operare su tutti gli utenti, non solo quello
+-- loggato. Per questo NON deve mai essere chiamabile dalla REST API
+-- pubblica (vedi revoke sotto) — solo pg_cron la esegue.
+create or replace function public.generate_due_recurring_transactions()
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  r record;
+  cursor_date date;
+  guard int;
+  still_active boolean;
+  today date := current_date;
+begin
+  for r in
+    select * from recurring_transactions
+    where active = true and next_date <= today
+  loop
+    cursor_date := r.next_date;
+    guard := 0;
+
+    while cursor_date <= today and guard < 500 loop
+      insert into transactions (user_id, description, category, amount, date, contact_id, recurring_id)
+      values (r.user_id, r.description, r.category, r.amount, cursor_date, r.contact_id, r.id);
+
+      cursor_date := public.next_occurrence(cursor_date, r.frequency);
+      guard := guard + 1;
+
+      exit when r.end_date is not null and cursor_date > r.end_date;
+    end loop;
+
+    still_active := not (r.end_date is not null and cursor_date > r.end_date);
+
+    update recurring_transactions
+    set next_date = cursor_date, active = still_active
+    where id = r.id;
+  end loop;
+end;
+$$;
+
+revoke execute on function public.generate_due_recurring_transactions() from anon, authenticated, public;
+
+select cron.unschedule(jobid) from cron.job where jobname = 'generate-due-recurring-transactions';
+select cron.schedule(
+  'generate-due-recurring-transactions',
+  '0 3 * * *', -- ogni notte alle 03:00 UTC
+  $$select public.generate_due_recurring_transactions();$$
+);
