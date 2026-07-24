@@ -33,8 +33,8 @@ export default async function ReceiptPage({ params }: { params: { id: string } }
 
   return (
     <div className="flex flex-col gap-6 items-center">
-      <div className="w-full max-w-lg border border-border dark:border-neutral-800 rounded-xl bg-white dark:bg-neutral-900 p-8 print:border-0 print:shadow-none">
-        <div className="flex items-center justify-between mb-8">
+      <div className="w-full max-w-lg border border-border dark:border-neutral-800 rounded-xl bg-white dark:bg-neutral-900 p-6 sm:p-8 print:border-0 print:shadow-none">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
           <div className="flex items-center gap-2">
             <Logo size={36} />
             <span className="font-extrabold text-lg">Bilancino</span>
@@ -74,14 +74,14 @@ export default async function ReceiptPage({ params }: { params: { id: string } }
             <span>Descrizione</span>
             <span>Importo</span>
           </div>
-          <div className="flex items-center justify-between px-4 py-3 text-sm">
-            <span>
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 text-sm">
+            <span className="min-w-0 break-words">
               {transaction.description}
               {transaction.category ? (
                 <span className="text-ink-muted dark:text-neutral-500"> · {transaction.category}</span>
               ) : null}
             </span>
-            <span className="num font-medium">{eur.format(Number(transaction.amount))}</span>
+            <span className="num font-medium shrink-0">{eur.format(Number(transaction.amount))}</span>
           </div>
         </div>
 
