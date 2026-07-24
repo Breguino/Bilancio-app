@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { FaqAccordion } from "@/components/faq-accordion";
+import { MobileMenu } from "@/components/mobile-menu";
 
 const eur0 = new Intl.NumberFormat("it-IT", {
   style: "currency",
@@ -160,8 +161,8 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <nav className="sticky top-0 z-20 border-b border-transparent backdrop-blur bg-white/90 dark:bg-neutral-950/90">
-        <div className="max-w-6xl mx-auto px-6 py-4 relative flex items-center justify-between gap-6">
+      <nav className="sticky top-0 z-20 relative border-b border-transparent backdrop-blur bg-white/90 dark:bg-neutral-950/90">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
           <Link href="/" className="inline-flex items-center gap-2" aria-label="Bilancino">
             <Logo size={30} />
           </Link>
@@ -184,31 +185,16 @@ export default function HomePage() {
             >
               Accedi
             </Link>
-            <details className="sm:hidden">
-              <summary
-                aria-label="Menu"
-                className="list-none cursor-pointer w-9 h-9 rounded-full border border-border dark:border-neutral-800 flex items-center justify-center [&::-webkit-details-marker]:hidden"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <path d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </summary>
-              <div className="fixed inset-x-4 top-[76px] z-30 rounded-2xl border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-xl p-3 flex flex-col gap-1 text-base font-semibold text-ink dark:text-neutral-100">
-                <a href="#funzionalita" className="px-4 py-3.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5">
-                  Funzionalità
-                </a>
-                <a href="#perche" className="px-4 py-3.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5">
-                  Perché Bilancino
-                </a>
-                <a href="#faq" className="px-4 py-3.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5">
-                  FAQ
-                </a>
-                <div className="h-px bg-border dark:bg-neutral-800 my-1" />
-                <Link href="/login" className="px-4 py-3.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5">
-                  Accedi
-                </Link>
-              </div>
-            </details>
+            <div className="sm:hidden">
+              <MobileMenu
+                items={[
+                  { href: "#funzionalita", label: "Funzionalità" },
+                  { href: "#perche", label: "Perché Bilancino" },
+                  { href: "#faq", label: "FAQ" },
+                  { href: "/login", label: "Accedi" },
+                ]}
+              />
+            </div>
             <Link
               href="/signup"
               className="bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-4 py-2 transition-colors whitespace-nowrap"
