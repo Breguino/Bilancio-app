@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    images: ["/og-image.jpg"],
+    images: ["/chi-siamo-photo.jpg"],
     locale: "it_IT",
     type: "website",
   },
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: ["/og-image.jpg"],
+    images: ["/chi-siamo-photo.jpg"],
   },
 };
 
@@ -34,17 +35,28 @@ export default function ChiSiamoPage() {
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
-        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
-          <span className="text-xs font-bold uppercase tracking-wide text-accent">Chi siamo</span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
-            Un progetto indipendente, pensato per un problema preciso.
-          </h1>
-          <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
-            Bilancino non è una startup con un team, degli investitori o un ufficio marketing.
-            È un'applicazione sviluppata in autonomia, con un obiettivo circoscritto: mettere
-            insieme il budget personale e i contatti con cui hai un rapporto economico, senza
-            costringerti a scegliere tra un'app troppo semplice e un gestionale troppo complesso.
-          </p>
+        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wide text-accent">Chi siamo</span>
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
+              Un progetto indipendente, pensato per un problema preciso.
+            </h1>
+            <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
+              Bilancino non è una startup con un team, degli investitori o un ufficio marketing.
+              È un'applicazione sviluppata in autonomia, con un obiettivo circoscritto: mettere
+              insieme il budget personale e i contatti con cui hai un rapporto economico, senza
+              costringerti a scegliere tra un'app troppo semplice e un gestionale troppo complesso.
+            </p>
+          </div>
+          <div className="relative rounded-2xl overflow-hidden border border-border dark:border-neutral-800 aspect-[4/3]">
+            <Image
+              src="/chi-siamo-photo.jpg"
+              alt="Scrivania minimale con laptop, quaderno di appunti e caffè"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
         </header>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
