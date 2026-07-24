@@ -26,7 +26,7 @@ export default async function AppLayout({
 
   return (
     <div className="min-h-screen">
-      <header className="print:hidden relative border-b border-border dark:border-neutral-800">
+      <header className="print:hidden sticky top-0 z-20 relative border-b border-border dark:border-neutral-800 backdrop-blur bg-white/90 dark:bg-neutral-950/90">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
           <Link href="/dashboard" className="inline-flex items-center gap-2 font-extrabold" aria-label="Bilancino">
             <Logo />
