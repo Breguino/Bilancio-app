@@ -20,13 +20,13 @@ create table if not exists public.transactions (
 alter table public.transactions enable row level security;
 
 create policy "transactions_select_own" on public.transactions
-  for select using (auth.uid() = user_id);
+  for select using ((select auth.uid()) = user_id);
 create policy "transactions_insert_own" on public.transactions
-  for insert with check (auth.uid() = user_id);
+  for insert with check ((select auth.uid()) = user_id);
 create policy "transactions_update_own" on public.transactions
-  for update using (auth.uid() = user_id);
+  for update using ((select auth.uid()) = user_id);
 create policy "transactions_delete_own" on public.transactions
-  for delete using (auth.uid() = user_id);
+  for delete using ((select auth.uid()) = user_id);
 
 -- ---------- Budget per categoria ----------
 create table if not exists public.budgets (
@@ -41,13 +41,13 @@ create table if not exists public.budgets (
 alter table public.budgets enable row level security;
 
 create policy "budgets_select_own" on public.budgets
-  for select using (auth.uid() = user_id);
+  for select using ((select auth.uid()) = user_id);
 create policy "budgets_insert_own" on public.budgets
-  for insert with check (auth.uid() = user_id);
+  for insert with check ((select auth.uid()) = user_id);
 create policy "budgets_update_own" on public.budgets
-  for update using (auth.uid() = user_id);
+  for update using ((select auth.uid()) = user_id);
 create policy "budgets_delete_own" on public.budgets
-  for delete using (auth.uid() = user_id);
+  for delete using ((select auth.uid()) = user_id);
 
 -- ---------- Obiettivi di risparmio ----------
 create table if not exists public.goals (
@@ -62,13 +62,15 @@ create table if not exists public.goals (
 alter table public.goals enable row level security;
 
 create policy "goals_select_own" on public.goals
-  for select using (auth.uid() = user_id);
+  for select using ((select auth.uid()) = user_id);
 create policy "goals_insert_own" on public.goals
-  for insert with check (auth.uid() = user_id);
+  for insert with check ((select auth.uid()) = user_id);
 create policy "goals_update_own" on public.goals
-  for update using (auth.uid() = user_id);
+  for update using ((select auth.uid()) = user_id);
 create policy "goals_delete_own" on public.goals
-  for delete using (auth.uid() = user_id);
+  for delete using ((select auth.uid()) = user_id);
+
+create index if not exists goals_user_idx on public.goals (user_id);
 
 -- ---------- CRM: contatti/clienti ----------
 create table if not exists public.contacts (
@@ -84,13 +86,13 @@ create table if not exists public.contacts (
 alter table public.contacts enable row level security;
 
 create policy "contacts_select_own" on public.contacts
-  for select using (auth.uid() = user_id);
+  for select using ((select auth.uid()) = user_id);
 create policy "contacts_insert_own" on public.contacts
-  for insert with check (auth.uid() = user_id);
+  for insert with check ((select auth.uid()) = user_id);
 create policy "contacts_update_own" on public.contacts
-  for update using (auth.uid() = user_id);
+  for update using ((select auth.uid()) = user_id);
 create policy "contacts_delete_own" on public.contacts
-  for delete using (auth.uid() = user_id);
+  for delete using ((select auth.uid()) = user_id);
 
 -- ---------- Collega un movimento a un contatto/cliente (opzionale) ----------
 alter table public.transactions
@@ -120,20 +122,23 @@ create table if not exists public.recurring_transactions (
 alter table public.recurring_transactions enable row level security;
 
 create policy "recurring_transactions_select_own" on public.recurring_transactions
-  for select using (auth.uid() = user_id);
+  for select using ((select auth.uid()) = user_id);
 create policy "recurring_transactions_insert_own" on public.recurring_transactions
-  for insert with check (auth.uid() = user_id);
+  for insert with check ((select auth.uid()) = user_id);
 create policy "recurring_transactions_update_own" on public.recurring_transactions
-  for update using (auth.uid() = user_id);
+  for update using ((select auth.uid()) = user_id);
 create policy "recurring_transactions_delete_own" on public.recurring_transactions
-  for delete using (auth.uid() = user_id);
+  for delete using ((select auth.uid()) = user_id);
 
 create index if not exists recurring_transactions_user_next_idx
   on public.recurring_transactions (user_id, next_date);
+create index if not exists recurring_transactions_contact_idx
+  on public.recurring_transactions (contact_id);
 
 -- Collega un movimento generato alla ricorrenza che lo ha creato (evita duplicati)
 alter table public.transactions
   add column if not exists recurring_id uuid references public.recurring_transactions (id) on delete set null;
+create index if not exists transactions_recurring_idx on public.transactions (recurring_id);
 
 -- ---------- Note e promemoria per contatto ----------
 create table if not exists public.contact_notes (
@@ -149,15 +154,16 @@ create table if not exists public.contact_notes (
 alter table public.contact_notes enable row level security;
 
 create policy "contact_notes_select_own" on public.contact_notes
-  for select using (auth.uid() = user_id);
+  for select using ((select auth.uid()) = user_id);
 create policy "contact_notes_insert_own" on public.contact_notes
-  for insert with check (auth.uid() = user_id);
+  for insert with check ((select auth.uid()) = user_id);
 create policy "contact_notes_update_own" on public.contact_notes
-  for update using (auth.uid() = user_id);
+  for update using ((select auth.uid()) = user_id);
 create policy "contact_notes_delete_own" on public.contact_notes
-  for delete using (auth.uid() = user_id);
+  for delete using ((select auth.uid()) = user_id);
 
 create index if not exists contact_notes_contact_idx on public.contact_notes (contact_id);
+create index if not exists contact_notes_user_idx on public.contact_notes (user_id);
 
 -- ---------- Automazione: generazione ricorrenze in background ----------
 -- Fino a qui, i movimenti ricorrenti si generavano solo quando l'utente
