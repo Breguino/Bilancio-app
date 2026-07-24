@@ -156,8 +156,8 @@ export default async function RecurringPage({
         ) : (
           <div className="divide-y divide-border dark:divide-neutral-800 mt-3">
             {rows.map((r: any) => (
-              <div key={r.id} className="flex items-center justify-between px-5 py-3 text-sm gap-3">
-                <div className="flex items-center gap-3 min-w-0">
+              <div key={r.id} className="flex flex-wrap items-center justify-between px-5 py-3 text-sm gap-3">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 min-w-0">
                   <span className="truncate font-medium">{r.description}</span>
                   {r.category ? (
                     <span className="text-xs text-ink-muted dark:text-neutral-400 bg-surface-alt dark:bg-neutral-800 rounded-full px-2 py-0.5 shrink-0">

@@ -110,8 +110,8 @@ export default async function ContactDetailPage({
             {rows.map((n) => {
               const overdue = !n.done && n.remind_at && n.remind_at <= today;
               return (
-                <div key={n.id} className="flex items-center justify-between px-5 py-3 text-sm gap-3">
-                  <div className="flex items-center gap-3 min-w-0">
+                <div key={n.id} className="flex flex-wrap items-center justify-between px-5 py-3 text-sm gap-3">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 min-w-0">
                     <span className={`truncate ${n.done ? "line-through text-ink-muted dark:text-neutral-500" : ""}`}>
                       {n.note}
                     </span>

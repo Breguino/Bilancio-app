@@ -102,7 +102,7 @@ export default async function ContactsPage({
               const revenue = revenueByContact.get(c.id) || 0;
               const dueCount = dueCountByContact.get(c.id) || 0;
               return (
-                <div key={c.id} className="flex items-center justify-between px-5 py-3 text-sm gap-4">
+                <div key={c.id} className="flex flex-wrap items-center justify-between px-5 py-3 text-sm gap-4">
                   <div className="min-w-0">
                     <Link href={`/contacts/${c.id}`} className="font-semibold truncate hover:text-accent block">
                       {c.name}
@@ -114,7 +114,7 @@ export default async function ContactsPage({
                       <p className="text-ink-secondary dark:text-neutral-400 text-xs mt-0.5 truncate">{c.notes}</p>
                     ) : null}
                   </div>
-                  <div className="flex items-center gap-4 shrink-0">
+                  <div className="flex flex-wrap items-center gap-3 shrink-0">
                     {dueCount > 0 ? (
                       <span
                         className="text-xs font-semibold text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-950/40 rounded-full px-2.5 py-1"

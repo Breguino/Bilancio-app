@@ -396,22 +396,22 @@ export default async function DashboardPage({
             ⬇ Esporta CSV
           </a>
         </div>
-        <form method="get" className="flex flex-wrap items-end gap-3 px-5 pt-4">
-          <div className="flex flex-col gap-1">
+        <form method="get" className="flex flex-col sm:flex-row sm:flex-wrap sm:items-end gap-3 px-5 pt-4">
+          <div className="flex flex-col gap-1 w-full sm:w-auto">
             <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Cerca</label>
             <input
               name="q"
               defaultValue={filterQuery}
               placeholder="Descrizione…"
-              className="border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full sm:w-auto border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 w-full sm:w-auto">
             <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Categoria</label>
             <select
               name="category"
               defaultValue={filterCategory}
-              className="border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full sm:w-auto border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             >
               <option value="">Tutte</option>
               {categoryOptions.map((c) => (
@@ -421,12 +421,12 @@ export default async function DashboardPage({
               ))}
             </select>
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 w-full sm:w-auto">
             <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Cliente</label>
             <select
               name="contact"
               defaultValue={filterContact}
-              className="border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full sm:w-auto border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             >
               <option value="">Tutti</option>
               {contactList.map((c) => (
@@ -436,34 +436,34 @@ export default async function DashboardPage({
               ))}
             </select>
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 w-full sm:w-auto">
             <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Da</label>
             <input
               name="from"
               type="date"
               defaultValue={filterFrom}
-              className="border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full sm:w-auto border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 w-full sm:w-auto">
             <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">A</label>
             <input
               name="to"
               type="date"
               defaultValue={filterTo}
-              className="border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full sm:w-auto border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <button
             type="submit"
-            className="bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-5 py-2 transition-colors"
+            className="w-full sm:w-auto bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-5 py-2 transition-colors"
           >
             Filtra
           </button>
           {hasFilters ? (
             <a
               href="/dashboard"
-              className="text-xs font-semibold text-ink-muted dark:text-neutral-500 hover:text-accent px-1 py-2"
+              className="text-xs font-semibold text-ink-muted dark:text-neutral-500 hover:text-accent px-1 py-2 text-center sm:text-left"
             >
               Azzera
             </a>
@@ -476,7 +476,7 @@ export default async function DashboardPage({
         ) : (
           <div className="divide-y divide-border dark:divide-neutral-800 mt-3">
             {displayRows.map((t: any) => (
-              <div key={t.id} className="flex items-center justify-between px-5 py-3 text-sm gap-3">
+              <div key={t.id} className="flex flex-wrap items-center justify-between px-5 py-3 text-sm gap-3">
                 <div className="flex items-center gap-3 min-w-0">
                   <span className="text-ink-muted dark:text-neutral-500 num w-14 shrink-0">
                     {t.date.slice(8, 10)}/{t.date.slice(5, 7)}

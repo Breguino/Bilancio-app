@@ -47,7 +47,7 @@ export default async function ReceiptPage({ params }: { params: { id: string } }
 
         <h1 className="text-xl font-extrabold tracking-tight mb-6">Ricevuta di pagamento</h1>
 
-        <div className="grid grid-cols-2 gap-6 text-sm mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm mb-6">
           <div>
             <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Da</p>
             <p className="font-medium">{user?.email}</p>
