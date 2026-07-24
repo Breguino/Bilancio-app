@@ -2,6 +2,22 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import {
+  Tags,
+  BarChart3,
+  RefreshCw,
+  Target,
+  ArrowLeftRight,
+  CalendarDays,
+  Users,
+  StickyNote,
+  Receipt,
+  TrendingUp,
+  Sigma,
+  TriangleAlert,
+  Calculator,
+  Download,
+} from "lucide-react";
 
 const title = "Cosa offriamo — Bilancino";
 const description =
@@ -34,32 +50,32 @@ const groups = [
     title: "Movimenti, categorie e budget",
     items: [
       {
-        icon: "◐",
+        icon: Tags,
         title: "Movimenti con categorie",
         body: "Registra entrate e uscite assegnando una categoria: spesa, casa, trasporti, lavoro, e così via. La Panoramica riassume subito entrate, uscite e risparmio netto del mese, con l'andamento degli ultimi 6 mesi a colpo d'occhio.",
       },
       {
-        icon: "▤",
+        icon: BarChart3,
         title: "Budget per categoria",
         body: "Imposta un tetto di spesa mensile per ogni categoria. Bilancino mostra una barra che passa da verde ad ambra a rosso man mano che ti avvicini o superi la soglia, così te ne accorgi prima di sforare, non dopo.",
       },
       {
-        icon: "↻",
+        icon: RefreshCw,
         title: "Movimenti ricorrenti",
         body: "Affitto, stipendio, abbonamenti: imposta descrizione, importo e frequenza (settimanale, mensile o annuale) una sola volta. Un job automatico gira ogni notte e genera i movimenti alla scadenza — anche se non apri l'app per giorni, recuperando le occorrenze mancate al tuo prossimo accesso.",
       },
       {
-        icon: "◆",
+        icon: Target,
         title: "Obiettivi di risparmio",
         body: "Crea un obiettivo con un importo target — un fondo emergenza, un viaggio, un acquisto — e aggiungi un contributo quando vuoi, senza vincoli di ricorrenza. Vedi sempre quanto manca al traguardo.",
       },
       {
-        icon: "⇄",
+        icon: ArrowLeftRight,
         title: "Confronto mese su mese",
         body: "Metti a confronto due mesi qualsiasi per capire dove sono cambiate le tue abitudini di spesa, categoria per categoria.",
       },
       {
-        icon: "▧",
+        icon: CalendarDays,
         title: "Riepilogo annuale",
         body: "Una vista d'insieme sull'intero anno: totali di entrate, uscite e risparmio, utile per farsi un'idea a fine anno senza dover sommare mese per mese a mano.",
       },
@@ -70,17 +86,17 @@ const groups = [
     title: "Contatti, note e ricevute",
     items: [
       {
-        icon: "◎",
+        icon: Users,
         title: "Contatti e CRM leggero",
         body: "Ogni contatto ha una sua scheda con le entrate collegate: vedi subito quanto ti ha pagato nel tempo, senza dover cercare tra i movimenti. Utile se, oltre ai conti personali, segui anche qualche cliente o consulenza.",
       },
       {
-        icon: "✎",
+        icon: StickyNote,
         title: "Note e promemoria",
         body: "Aggiungi note libere a un contatto (accordi presi, dettagli da ricordare) e imposta promemoria per non perdere scadenze o follow-up.",
       },
       {
-        icon: "▣",
+        icon: Receipt,
         title: "Ricevute PDF",
         body: "Genera una ricevuta PDF per un pagamento ricevuto da un cliente, pronta da scaricare o inviare, senza dover aprire un altro programma.",
       },
@@ -91,22 +107,22 @@ const groups = [
     title: "Non solo numeri",
     items: [
       {
-        icon: "↗",
+        icon: TrendingUp,
         title: "Trend e previsioni",
         body: "Una regressione lineare sui tuoi movimenti calcola l'andamento di spesa o risparmio nel tempo e proietta una previsione per i mesi successivi, così vedi la direzione prima ancora che diventi evidente dai numeri grezzi.",
       },
       {
-        icon: "Σ",
+        icon: Sigma,
         title: "Media, deviazione standard e intervallo di confidenza",
         body: "Bilancino calcola media e deviazione standard del tuo risparmio, con un intervallo di confidenza al 95%: non solo quanto risparmi in media, ma quanto è affidabile quella media.",
       },
       {
-        icon: "▲",
+        icon: TriangleAlert,
         title: "Rilevamento spese anomale",
         body: "Uno z-score confronta ogni spesa con le tue abitudini storiche per quella categoria e segnala quelle statisticamente fuori norma — utile per accorgersi di una spesa insolita prima che diventi un'abitudine.",
       },
       {
-        icon: "⊞",
+        icon: Calculator,
         title: "Calcolatore interattivo",
         body: "Nella pagina Statistiche della home trovi un calcolatore che usa le stesse formule dell'app: cambia i numeri e guarda i risultati aggiornarsi all'istante, prima ancora di creare un account.",
       },
@@ -117,7 +133,7 @@ const groups = [
     title: "Sempre esportabili, mai bloccati",
     items: [
       {
-        icon: "⬇",
+        icon: Download,
         title: "Export CSV",
         body: "Dalla Panoramica scarichi in un clic l'intero storico dei movimenti in formato CSV, apribile in Excel o Fogli Google: i tuoi dati restano sempre portabili, non solo consultabili dentro l'app.",
       },
@@ -156,8 +172,8 @@ export default function CosaOffriamoPage() {
                   key={item.title}
                   className="border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center text-lg mb-4">
-                    {item.icon}
+                  <div className="w-10 h-10 rounded-xl bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-4">
+                    <item.icon size={20} strokeWidth={1.75} />
                   </div>
                   <h3 className="font-bold mb-2">{item.title}</h3>
                   <p className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed">{item.body}</p>

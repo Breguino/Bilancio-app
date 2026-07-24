@@ -4,6 +4,7 @@ import { FaqAccordion } from "@/components/faq-accordion";
 import { StatsDemo } from "@/components/stats-demo";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { LineChart, BarChart3, RefreshCw, Users, Target, Receipt, ShieldCheck, Lock, Briefcase } from "lucide-react";
 
 const eur0 = new Intl.NumberFormat("it-IT", {
   style: "currency",
@@ -59,39 +60,39 @@ const features = [
     title: "Panoramica",
     tag: "Un colpo d'occhio ogni mese",
     body: "Entrate, uscite, risparmio netto e andamento degli ultimi 6 mesi — con budget a rischio e promemoria in scadenza già in vista appena apri l'app.",
-    icon: "◐",
+    icon: LineChart,
     wide: true,
   },
   {
     title: "Budget per categoria",
     tag: "Sai sempre quanto ti resta",
     body: "Imposta un limite per categoria: le barre passano da verde ad ambra a rosso via via che ti avvicini o superi la soglia.",
-    icon: "▤",
+    icon: BarChart3,
     wide: true,
   },
   {
     title: "Movimenti ricorrenti",
     tag: "Le spese fisse si registrano da sole",
     body: "Affitto, stipendio, abbonamenti: imposta la frequenza e Bilancino crea il movimento in automatico alla scadenza.",
-    icon: "↻",
+    icon: RefreshCw,
   },
   {
     title: "Contatti e CRM",
     tag: "I tuoi clienti, con la loro storia",
     body: "Ogni contatto mostra le entrate collegate, con note e promemoria — utile se oltre ai conti personali segui anche dei clienti.",
-    icon: "◎",
+    icon: Users,
   },
   {
     title: "Obiettivi di risparmio",
     tag: "Un traguardo alla volta",
     body: "Crea un obiettivo con un importo target e aggiungi un contributo quando vuoi, senza vincoli.",
-    icon: "◆",
+    icon: Target,
   },
   {
     title: "Ricevute ed export",
     tag: "Tutto documentato",
     body: "Genera una ricevuta PDF per un pagamento cliente, o esporta l'intero storico in CSV in un clic.",
-    icon: "▣",
+    icon: Receipt,
   },
 ];
 
@@ -271,8 +272,8 @@ export default function HomePage() {
                   f.wide ? "lg:col-span-3" : "lg:col-span-2"
                 }`}
               >
-                <div className="w-10 h-10 rounded-xl bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center text-lg mb-4">
-                  {f.icon}
+                <div className="w-10 h-10 rounded-xl bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-4">
+                  <f.icon size={20} strokeWidth={1.75} />
                 </div>
                 <h3 className="font-bold mb-1.5">{f.title}</h3>
                 <p className="text-xs font-semibold text-ink-muted dark:text-neutral-500 mb-2">{f.tag}</p>
@@ -317,8 +318,8 @@ export default function HomePage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-8 border-t border-border dark:border-neutral-800">
               <div>
-                <div className="w-9 h-9 rounded-lg bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center text-base mb-2">
-                  ◍
+                <div className="w-9 h-9 rounded-lg bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-2">
+                  <ShieldCheck size={18} strokeWidth={1.75} />
                 </div>
                 <h4 className="font-bold mb-1">Account reale</h4>
                 <p className="text-sm text-ink-muted dark:text-neutral-500">
@@ -326,8 +327,8 @@ export default function HomePage() {
                 </p>
               </div>
               <div>
-                <div className="w-9 h-9 rounded-lg bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center text-base mb-2">
-                  ▦
+                <div className="w-9 h-9 rounded-lg bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-2">
+                  <Lock size={18} strokeWidth={1.75} />
                 </div>
                 <h4 className="font-bold mb-1">Isolamento per riga</h4>
                 <p className="text-sm text-ink-muted dark:text-neutral-500">
@@ -335,8 +336,8 @@ export default function HomePage() {
                 </p>
               </div>
               <div>
-                <div className="w-9 h-9 rounded-lg bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center text-base mb-2">
-                  ◫
+                <div className="w-9 h-9 rounded-lg bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-2">
+                  <Briefcase size={18} strokeWidth={1.75} />
                 </div>
                 <h4 className="font-bold mb-1">Pensato per freelance</h4>
                 <p className="text-sm text-ink-muted dark:text-neutral-500">
