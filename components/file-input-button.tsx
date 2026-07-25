@@ -21,7 +21,7 @@ export function FileInputButton({
       <label
         htmlFor={id}
         title={title}
-        className="text-xs font-semibold rounded-full px-2.5 py-1.5 bg-surface-alt dark:bg-neutral-800 text-ink dark:text-neutral-100 cursor-pointer hover:bg-border dark:hover:bg-neutral-700 transition-colors shrink-0"
+        className="text-xs font-semibold rounded-full px-2.5 py-1.5 border border-border dark:border-neutral-700 cursor-pointer hover:border-accent hover:text-accent transition-colors shrink-0"
       >
         Scegli file
       </label>
