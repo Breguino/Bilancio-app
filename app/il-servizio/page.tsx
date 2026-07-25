@@ -181,7 +181,7 @@ export default async function IlServizioPage() {
             href={user ? "/dashboard" : "/signup"}
             className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
           >
-            {user ? "Vai alla Dashboard →" : "Crea un account →"}
+            {user ? "Vai alla Dashboard →" : "Crea un account gratis →"}
           </Link>
         </section>
       </main>
