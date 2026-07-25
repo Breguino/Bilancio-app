@@ -6,6 +6,7 @@ import { ConfirmButton } from "@/components/confirm-button";
 import { ErrorBanner } from "@/components/error-banner";
 import { SubmitButton } from "@/components/submit-button";
 import { Toast } from "@/components/toast";
+import { FileInputButton } from "@/components/file-input-button";
 import { addTransaction, deleteTransaction, importTransactions } from "./actions";
 
 const eur = new Intl.NumberFormat("it-IT", {
@@ -399,13 +400,11 @@ export default async function DashboardPage({
             </a>
             <form action={importTransactions} className="flex items-center gap-1.5">
               <input type="hidden" name="return_path" value={returnPath} />
-              <input
-                type="file"
+              <FileInputButton
                 name="file"
                 accept=".csv,text/csv"
                 required
                 title="Importa un file CSV con colonne Data, Descrizione, Categoria, Cliente, Importo"
-                className="text-xs w-28 sm:w-36 text-ink-muted dark:text-neutral-500 file:mr-1.5 file:py-1.5 file:px-2.5 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-surface-alt dark:file:bg-neutral-800 file:text-ink dark:file:text-neutral-100 file:cursor-pointer"
               />
               <SubmitButton
                 pendingText="…"
