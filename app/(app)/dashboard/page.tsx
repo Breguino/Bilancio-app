@@ -45,7 +45,7 @@ function trendBadge(curr: number, prev: number, higherIsGood: boolean) {
   const cls = good ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400";
   return (
     <span className={`text-xs font-semibold num ${cls}`}>
-      {isUp ? "▲" : "▼"} {Math.abs(diffPct).toFixed(1)}%
+      {isUp ? "▲" : "▼"} {pct1(Math.abs(diffPct))}
     </span>
   );
 }

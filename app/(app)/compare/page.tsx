@@ -5,6 +5,7 @@ const eur = new Intl.NumberFormat("it-IT", {
   currency: "EUR",
   useGrouping: true,
 });
+const pct1 = (n: number) => n.toLocaleString("it-IT", { maximumFractionDigits: 1, minimumFractionDigits: 1 });
 const MONTH_NAMES = [
   "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
   "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre",
@@ -78,7 +79,7 @@ function deltaBadge(curr: number, prev: number, higherIsGood: boolean) {
   const cls = good ? "text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950/40" : "text-red-600 bg-red-50 dark:text-red-400 dark:bg-red-950/40";
   return (
     <span className={`text-xs font-semibold rounded-full px-2 py-0.5 num ${cls}`}>
-      {isUp ? "▲" : "▼"} {Math.abs(diffPct).toFixed(1)}%
+      {isUp ? "▲" : "▼"} {pct1(Math.abs(diffPct))}%
     </span>
   );
 }
