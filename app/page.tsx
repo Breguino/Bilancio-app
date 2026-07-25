@@ -169,7 +169,7 @@ export default async function HomePage() {
       />
       <SiteHeader />
 
-      <header className="max-w-6xl mx-auto px-6 pt-16 pb-20 sm:pt-20 sm:pb-28 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+      <header className="max-w-6xl mx-auto px-6 pt-16 pb-16 sm:pt-20 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
         <div>
           <span className="text-xs font-bold uppercase tracking-wide text-accent">
             Budget personale + CRM, con un vero account
@@ -262,7 +262,7 @@ export default async function HomePage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-6">
-        <section id="funzionalita" className="py-16 sm:py-20 scroll-mt-20">
+        <section id="funzionalita" className="py-12 sm:py-14 scroll-mt-20 border-t border-border dark:border-neutral-800">
           <div className="max-w-[60ch] mb-10">
             <span className="text-xs font-bold uppercase tracking-wide text-accent">Funzionalità</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
@@ -296,10 +296,12 @@ export default async function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {features.map((f) => (
+            {features.map((f, i) => (
               <div
                 key={f.title}
-                className="border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900 hover:-translate-y-0.5 hover:shadow-lg transition-all"
+                className={`border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900 hover:-translate-y-0.5 hover:shadow-lg transition-all ${
+                  i === features.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""
+                }`}
               >
                 <div className="w-10 h-10 rounded-xl bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-4">
                   <f.icon size={20} strokeWidth={1.75} />
@@ -312,7 +314,7 @@ export default async function HomePage() {
           </div>
         </section>
 
-        <section id="perche" className="py-16 sm:py-20 scroll-mt-20">
+        <section id="perche" className="py-12 sm:py-14 scroll-mt-20 border-t border-border dark:border-neutral-800">
           <div className="border border-border dark:border-neutral-800 rounded-2xl bg-white dark:bg-neutral-900 p-8 sm:p-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-10">
               <div>
@@ -377,7 +379,7 @@ export default async function HomePage() {
           </div>
         </section>
 
-        <section id="statistiche" className="py-16 sm:py-20 scroll-mt-20">
+        <section id="statistiche" className="py-12 sm:py-14 scroll-mt-20 border-t border-border dark:border-neutral-800">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div>
               <span className="text-xs font-bold uppercase tracking-wide text-accent">Statistiche</span>
@@ -402,7 +404,7 @@ export default async function HomePage() {
           </div>
         </section>
 
-        <section id="faq" className="py-16 sm:py-20 scroll-mt-20">
+        <section id="faq" className="py-12 sm:py-14 scroll-mt-20 border-t border-border dark:border-neutral-800">
           <div className="max-w-[60ch] mb-8">
             <span className="text-xs font-bold uppercase tracking-wide text-accent">FAQ</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
@@ -412,7 +414,7 @@ export default async function HomePage() {
           <FaqAccordion items={faqItems} />
         </section>
 
-        <section className="pb-20 sm:pb-28">
+        <section className="pt-12 sm:pt-14 pb-20 sm:pb-28 border-t border-border dark:border-neutral-800">
           <div className="relative rounded-2xl overflow-hidden">
             <Image src="/cta-bg.jpg" alt="" fill className="object-cover" aria-hidden="true" />
             <div className="absolute inset-0 bg-ink/75" />
