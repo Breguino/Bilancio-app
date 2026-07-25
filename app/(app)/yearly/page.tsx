@@ -56,7 +56,7 @@ export default async function YearlyPage() {
         </div>
         <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900">
           <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Tasso di risparmio</p>
-          <p className="text-xl font-bold num">{rate.toFixed(1)}%</p>
+          <p className="text-xl font-bold num">{pct1(rate)}</p>
         </div>
       </div>
 
