@@ -58,8 +58,16 @@ function parseCsvLines(text: string): string[][] {
   return rows.filter((r) => r.some((f) => f.trim() !== ""));
 }
 
+// Il nostro stesso export (app/api/export/route.ts) antepone un apice ai campi
+// che iniziano per =, +, - o @ per evitare che Excel/Google Sheets li legga
+// come formule. Un valore negativo diventa quindi "'-30": va tolto qui, altrimenti
+// reimportare il proprio export scarta ogni riga di spesa.
+function unescapeCsvField(raw: string): string {
+  return /^'[=+\-@]/.test(raw) ? raw.slice(1) : raw;
+}
+
 function parseDate(raw: string): string | null {
-  const s = raw.trim();
+  const s = unescapeCsvField(raw).trim();
   let m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (m) return `${m[1]}-${m[2]}-${m[3]}`;
   m = s.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/);
@@ -72,7 +80,7 @@ function parseDate(raw: string): string | null {
 }
 
 function parseAmount(raw: string): number | null {
-  let s = raw.trim().replace(/[€\s]/g, "");
+  let s = unescapeCsvField(raw).trim().replace(/[€\s]/g, "");
   if (!s) return null;
   const hasComma = s.includes(",");
   const hasDot = s.includes(".");
@@ -125,7 +133,7 @@ export function parseImportCsv(
       if (col) record[col] = line[i] ?? "";
     });
 
-    const description = (record.description || "").trim();
+    const description = unescapeCsvField((record.description || "").trim()).trim();
     const date = parseDate(record.date || "");
     const amount = parseAmount(record.amount || "");
 
@@ -134,10 +142,10 @@ export function parseImportCsv(
       continue;
     }
 
-    const categoryRaw = (record.category || "").trim();
+    const categoryRaw = unescapeCsvField((record.category || "").trim()).trim();
     const category = !categoryRaw || categoryRaw.toLowerCase() === "entrata" ? null : categoryRaw;
 
-    const contactRaw = (record.contact || "").trim();
+    const contactRaw = unescapeCsvField((record.contact || "").trim()).trim();
     let contact_id: string | null = null;
     if (contactRaw) {
       const match = contactByName.get(contactRaw.toLowerCase());
