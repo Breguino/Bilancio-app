@@ -6,7 +6,7 @@ import { ConfirmButton } from "@/components/confirm-button";
 import { ErrorBanner } from "@/components/error-banner";
 import { SubmitButton } from "@/components/submit-button";
 import { Toast } from "@/components/toast";
-import { addTransaction, deleteTransaction } from "./actions";
+import { addTransaction, deleteTransaction, importTransactions } from "./actions";
 
 const eur = new Intl.NumberFormat("it-IT", {
   style: "currency",
@@ -388,15 +388,38 @@ export default async function DashboardPage({
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl bg-white dark:bg-neutral-900 overflow-hidden">
-        <div className="flex items-center justify-between px-5 pt-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 px-5 pt-5">
           <h2 className="font-bold">{hasFilters ? "Risultati filtro" : "Movimenti del mese"}</h2>
-          <a
-            href="/api/export"
-            className="text-xs font-semibold border border-border dark:border-neutral-700 rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors"
-          >
-            ⬇ Esporta CSV
-          </a>
+          <div className="flex flex-wrap items-center gap-2">
+            <a
+              href="/api/export"
+              className="text-xs font-semibold border border-border dark:border-neutral-700 rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors"
+            >
+              ⬇ Esporta CSV
+            </a>
+            <form action={importTransactions} className="flex items-center gap-1.5">
+              <input type="hidden" name="return_path" value={returnPath} />
+              <input
+                type="file"
+                name="file"
+                accept=".csv,text/csv"
+                required
+                title="Importa un file CSV con colonne Data, Descrizione, Categoria, Cliente, Importo"
+                className="text-xs w-28 sm:w-36 text-ink-muted dark:text-neutral-500 file:mr-1.5 file:py-1.5 file:px-2.5 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-surface-alt dark:file:bg-neutral-800 file:text-ink dark:file:text-neutral-100 file:cursor-pointer"
+              />
+              <SubmitButton
+                pendingText="…"
+                className="text-xs font-semibold border border-border dark:border-neutral-700 rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors shrink-0"
+              >
+                ⬆ Importa
+              </SubmitButton>
+            </form>
+          </div>
         </div>
+        <p className="text-xs text-ink-muted dark:text-neutral-500 px-5 mt-1">
+          Stesse colonne del CSV esportato (Data, Descrizione, Categoria, Cliente, Importo). I clienti
+          vengono collegati solo se il nome corrisponde esattamente a un contatto già esistente.
+        </p>
         <form method="get" className="flex flex-col sm:flex-row sm:flex-wrap sm:items-end gap-3 px-5 pt-4">
           <div className="flex flex-col gap-1 w-full sm:w-auto">
             <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Cerca</label>
