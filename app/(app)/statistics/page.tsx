@@ -6,6 +6,7 @@ const eur = new Intl.NumberFormat("it-IT", {
   currency: "EUR",
   useGrouping: true,
 });
+const num2 = (n: number) => n.toLocaleString("it-IT", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
 
 const MONTH_NAMES = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
 
@@ -86,7 +87,7 @@ export default async function StatisticsPage() {
             <p className="text-sm mb-4">
               Il risparmio netto sta {regression.slope >= 0 ? "aumentando" : "diminuendo"} di circa{" "}
               <strong className="num">{eur.format(Math.abs(regression.slope))}</strong> al mese (R² ={" "}
-              {regression.r2.toFixed(2)}).
+              {num2(regression.r2)}).
             </p>
             <div className="flex flex-col gap-2">
               {months.map((k, i) => (
