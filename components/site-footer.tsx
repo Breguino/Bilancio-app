@@ -5,6 +5,7 @@ const MARKETING_FOOTER_LINKS = [
   { href: "/chi-siamo", label: "Chi siamo" },
   { href: "/cosa-offriamo", label: "Cosa offriamo" },
   { href: "/il-servizio", label: "Il servizio" },
+  { href: "/novita", label: "Novità" },
 ];
 
 export async function SiteFooter() {

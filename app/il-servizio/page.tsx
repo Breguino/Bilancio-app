@@ -108,10 +108,13 @@ export default async function IlServizioPage() {
                 niente periodo di prova a tempo, niente upgrade nascosto dopo pochi giorni.
               </p>
               <p>
-                È un progetto indipendente in sviluppo continuo, quindi non posso prometterti che
-                resterà gratuito per sempre — ma qualunque cosa cambi, non troverai mai i tuoi dati
-                in ostaggio: puoi esportare in qualsiasi momento l'intero storico dei movimenti in
-                CSV, senza dover chiedere permesso a nessuno.
+                È un progetto indipendente in{" "}
+                <Link href="/novita" className="text-accent font-medium hover:underline">
+                  sviluppo continuo
+                </Link>
+                , quindi non posso prometterti che resterà gratuito per sempre — ma qualunque cosa
+                cambi, non troverai mai i tuoi dati in ostaggio: puoi esportare in qualsiasi momento
+                l'intero storico dei movimenti in CSV, senza dover chiedere permesso a nessuno.
               </p>
             </div>
           </div>

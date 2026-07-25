@@ -8,6 +8,7 @@ const PUBLIC_EXACT = [
   "/chi-siamo",
   "/cosa-offriamo",
   "/il-servizio",
+  "/novita",
 ];
 const PUBLIC_PREFIXES = ["/login", "/signup", "/auth", "/logout"];
 
