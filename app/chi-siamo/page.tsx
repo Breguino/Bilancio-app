@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { createClient } from "@/lib/supabase/server";
 
 const title = "Chi siamo — Bilancino";
 const description =
@@ -29,7 +30,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ChiSiamoPage() {
+export default async function ChiSiamoPage() {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <div className="min-h-screen">
       <SiteHeader />
@@ -144,10 +150,10 @@ export default function ChiSiamoPage() {
               Scopri cosa offriamo
             </Link>
             <Link
-              href="/signup"
+              href={user ? "/dashboard" : "/signup"}
               className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
             >
-              Crea un account gratis →
+              {user ? "Vai alla Dashboard →" : "Crea un account gratis →"}
             </Link>
           </div>
         </section>
