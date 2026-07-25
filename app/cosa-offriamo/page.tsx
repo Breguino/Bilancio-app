@@ -107,6 +107,8 @@ const groups = [
   {
     tag: "Statistica e analisi",
     title: "Non solo numeri",
+    intro:
+      "Una sezione a parte, non un passaggio obbligato: budget e movimenti funzionano perfettamente anche se non ti interessano le formule qui sotto.",
     items: [
       {
         icon: TrendingUp,
@@ -175,6 +177,9 @@ export default async function CosaOffriamoPage() {
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
                 {group.title}
               </h2>
+              {"intro" in group ? (
+                <p className="text-ink-muted dark:text-neutral-500 text-sm leading-relaxed mt-3">{group.intro}</p>
+              ) : null}
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {group.items.map((item) => (

@@ -389,9 +389,13 @@ export default async function HomePage() {
                 standard del risparmio con intervallo di confidenza al 95%, e segnala le spese
                 statisticamente anomale rispetto alle tue abitudini per categoria.
               </p>
-              <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed max-w-[56ch]">
+              <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed max-w-[56ch] mb-4">
                 Prova il calcolatore qui a fianco: cambia i numeri e guarda i risultati aggiornarsi
                 all'istante, con la stessa identica formula usata dentro l'app.
+              </p>
+              <p className="text-ink-muted dark:text-neutral-500 text-sm leading-relaxed max-w-[56ch]">
+                Se le formule non ti interessano, nessun problema: sono una sezione a parte, non
+                un passaggio obbligato. Bilancino funziona benissimo anche solo con movimenti e budget.
               </p>
             </div>
             <StatsDemo />
