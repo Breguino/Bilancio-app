@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileMenu } from "@/components/mobile-menu";
+import { createClient } from "@/lib/supabase/server";
 
 export const MARKETING_NAV_LINKS = [
   { href: "/chi-siamo", label: "Chi siamo" },
@@ -10,7 +11,16 @@ export const MARKETING_NAV_LINKS = [
   { href: "/#faq", label: "FAQ" },
 ];
 
-export function SiteHeader() {
+export async function SiteHeader() {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const mobileItems = user
+    ? [...MARKETING_NAV_LINKS, { href: "/dashboard", label: "Dashboard" }]
+    : [...MARKETING_NAV_LINKS, { href: "/login", label: "Accedi" }];
+
   return (
     <nav className="sticky top-0 z-20 relative border-b border-transparent backdrop-blur bg-white/90 dark:bg-neutral-950/90">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
@@ -26,20 +36,22 @@ export function SiteHeader() {
         </div>
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <Link
-            href="/login"
-            className="hidden sm:inline text-sm font-semibold text-ink-secondary dark:text-neutral-400 hover:text-ink dark:hover:text-neutral-100"
-          >
-            Accedi
-          </Link>
+          {!user ? (
+            <Link
+              href="/login"
+              className="hidden sm:inline text-sm font-semibold text-ink-secondary dark:text-neutral-400 hover:text-ink dark:hover:text-neutral-100"
+            >
+              Accedi
+            </Link>
+          ) : null}
           <div className="sm:hidden">
-            <MobileMenu items={[...MARKETING_NAV_LINKS, { href: "/login", label: "Accedi" }]} />
+            <MobileMenu items={mobileItems} />
           </div>
           <Link
-            href="/signup"
+            href={user ? "/dashboard" : "/signup"}
             className="bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-4 py-2 transition-colors whitespace-nowrap"
           >
-            Crea un account
+            {user ? "Vai alla Dashboard" : "Crea un account"}
           </Link>
         </div>
       </div>
