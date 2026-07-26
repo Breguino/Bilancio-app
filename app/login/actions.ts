@@ -2,10 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-
-function safeNext(next: string) {
-  return next.startsWith("/") && !next.startsWith("//") ? next : "/dashboard";
-}
+import { safeNext } from "@/lib/safe-redirect";
 
 export async function login(formData: FormData) {
   const email = String(formData.get("email") || "");

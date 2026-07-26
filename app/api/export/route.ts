@@ -1,14 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-
-function csvField(v: unknown) {
-  let s = String(v ?? "");
-  // Neutralizza l'interpretazione come formula da parte di Excel/Google Sheets.
-  if (/^[=+\-@]/.test(s)) {
-    s = `'${s}`;
-  }
-  return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-}
+import { csvField } from "@/lib/csv-export";
 
 export async function GET(request: Request) {
   const supabase = createClient();
