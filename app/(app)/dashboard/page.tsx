@@ -535,10 +535,11 @@ export default async function DashboardPage({
                   ) : null}
                   <form action={deleteTransaction}>
                     <input type="hidden" name="id" value={t.id} />
+                    <input type="hidden" name="return_path" value={returnPath} />
                     <ConfirmButton
                       confirmMessage={`Eliminare il movimento "${t.description}"? Non si può annullare.`}
                       ariaLabel="Elimina movimento"
-                      className="text-ink-muted dark:text-neutral-500 hover:text-red-600 w-6 h-6 rounded"
+                      className="text-ink-muted dark:text-neutral-500 hover:text-red-600 w-9 h-9 -mr-2 rounded-full flex items-center justify-center shrink-0"
                     >
                       ✕
                     </ConfirmButton>

@@ -95,11 +95,35 @@ function withParam(path: string, key: string, value: string) {
 
 export async function deleteTransaction(formData: FormData) {
   const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+
   const id = String(formData.get("id") || "");
-  if (!id) return;
-  await supabase.from("transactions").delete().eq("id", id);
+  const returnPath = String(formData.get("return_path") || "/dashboard");
+
+  if (!id) {
+    redirect(withParam(returnPath, "error", "Movimento non trovato."));
+  }
+
+  // La delete va contata: senza `count` un id inesistente (o una riga filtrata da
+  // RLS) tornerebbe senza errore e senza cancellare niente, lasciando l'utente a
+  // fissare la stessa riga senza il minimo segnale di cosa sia andato storto.
+  const { error, count } = await supabase
+    .from("transactions")
+    .delete({ count: "exact" })
+    .eq("id", id);
+
+  if (error || count === 0) {
+    redirect(
+      withParam(returnPath, "error", "Non è stato possibile eliminare il movimento. Riprova.")
+    );
+  }
+
   revalidateAll();
   revalidatePath("/contacts");
+  redirect(withParam(returnPath, "success", "Movimento eliminato"));
 }
 
 function revalidateAll() {

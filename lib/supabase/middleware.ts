@@ -48,6 +48,13 @@ export async function updateSession(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   if (!isPublicPath(path) && !user) {
+    // Un redirect su una richiesta non-GET rompe le Server Action: Next.js prova a
+    // inoltrare la risposta dell'action attraverso il redirect e falla con
+    // "failed to forward action response", quindi il form non fa niente e l'utente
+    // non vede alcun errore. Neghiamo comunque, ma con uno stato che non redirige.
+    if (request.method !== "GET") {
+      return new NextResponse(null, { status: 401 });
+    }
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/login";
     redirectUrl.searchParams.set("next", path);
