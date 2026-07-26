@@ -5,7 +5,7 @@ import { StatsDemo } from "@/components/stats-demo";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { createClient } from "@/lib/supabase/server";
-import { LineChart, BarChart3, RefreshCw, Users, Target, Receipt, ShieldCheck, Lock, Briefcase } from "lucide-react";
+import { LineChart, BarChart3, RefreshCw, Users, Target, Receipt } from "lucide-react";
 
 const eur0 = new Intl.NumberFormat("it-IT", {
   style: "currency",
@@ -314,63 +314,6 @@ export default async function HomePage() {
                 <p className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed">{f.body}</p>
               </div>
             ))}
-          </div>
-        </section>
-
-        <section id="perche" className="py-12 sm:py-14 scroll-mt-20 border-t border-border dark:border-neutral-800">
-          <div className="border border-border dark:border-neutral-800 rounded-2xl bg-white dark:bg-neutral-900 p-8 sm:p-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-10">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wide text-accent">Perché Bilancino</span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 mb-6 [text-wrap:balance] max-w-[24ch]">
-                  Un solo posto per i conti e per i clienti
-                </h2>
-                <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed max-w-[62ch]">
-                  Bilancino nasce per chi vuole tenere insieme le finanze personali e i rapporti con
-                  i clienti, senza fogli di calcolo sparsi. Non è un gestionale per la partita IVA:
-                  se ti servono fatture ricorrenti, progetti e appuntamenti, esistono già strumenti
-                  pensati per quello. Se ti serve sapere quanto hai risparmiato questo mese e quanto
-                  ti deve un cliente, senza altro carico intorno, è per te.
-                </p>
-              </div>
-              <div className="relative rounded-2xl overflow-hidden border border-border dark:border-neutral-800 aspect-[4/3]">
-                <Image
-                  src="/perche-photo.jpg"
-                  alt="Persona che scrive appunti accanto al laptop"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-8 border-t border-border dark:border-neutral-800">
-              <div>
-                <div className="w-9 h-9 rounded-lg bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-2">
-                  <ShieldCheck size={18} strokeWidth={1.75} />
-                </div>
-                <h4 className="font-bold mb-1">Account reale</h4>
-                <p className="text-sm text-ink-muted dark:text-neutral-500">
-                  Email e password, dati sincronizzati e accessibili da qualunque dispositivo.
-                </p>
-              </div>
-              <div>
-                <div className="w-9 h-9 rounded-lg bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-2">
-                  <Lock size={18} strokeWidth={1.75} />
-                </div>
-                <h4 className="font-bold mb-1">Isolamento per riga</h4>
-                <p className="text-sm text-ink-muted dark:text-neutral-500">
-                  Row Level Security lato database: nessun dato è mai condiviso tra utenti diversi.
-                </p>
-              </div>
-              <div>
-                <div className="w-9 h-9 rounded-lg bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-2">
-                  <Briefcase size={18} strokeWidth={1.75} />
-                </div>
-                <h4 className="font-bold mb-1">Pensato per freelance</h4>
-                <p className="text-sm text-ink-muted dark:text-neutral-500">
-                  Budget personale e CRM clienti nello stesso posto, con ricevute pronte da inviare.
-                </p>
-              </div>
-            </div>
           </div>
         </section>
 
