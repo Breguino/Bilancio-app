@@ -9,8 +9,11 @@ export default function LoginPage({
   searchParams: { error?: string; next?: string };
 }) {
   return (
-    <main className="min-h-screen flex items-center justify-center px-6">
-      <div className="w-full max-w-sm">
+    // my-auto sul figlio, non items-center sul padre: se il contenuto supera il
+    // viewport (telefono corto o tastiera aperta) i margini collassano e il blocco
+    // parte dall'alto, invece di restare incollato sotto la barra del browser.
+    <main className="min-h-screen flex justify-center px-6 py-10">
+      <div className="w-full max-w-sm my-auto">
         <Link
           href="/"
           className="flex w-fit items-center gap-1.5 text-sm font-medium text-ink-secondary dark:text-neutral-400 hover:text-accent transition-colors mb-6"

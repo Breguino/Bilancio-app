@@ -180,7 +180,7 @@ export default async function HomePage() {
           <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed max-w-[46ch] mb-8">
             Le app di budget non sanno chi sono i tuoi clienti. I gestionali per freelance non
             sanno quanto hai risparmiato. Bilancino fa entrambe le cose, senza la complessità di
-            un gestionale — con un vero account che protegge i tuoi dati.
+            un gestionale.
           </p>
           <div className="flex items-center gap-3 flex-wrap">
             <Link
@@ -295,13 +295,16 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {/* 5 card su 6 colonne: le prime tre larghe 2, le ultime due larghe 3. Riempie
+              entrambe le righe senza celle vuote, e ogni card è larga il doppio rispetto
+              alle 5 colonne da 208px di prima, dove il testo risultava compresso. */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
             {features.map((f, i) => (
               <div
                 key={f.title}
                 className={`border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900 hover:-translate-y-0.5 hover:shadow-lg transition-all ${
-                  i === features.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""
-                }`}
+                  i < 3 ? "lg:col-span-2" : "lg:col-span-3"
+                } ${i === features.length - 1 ? "sm:col-span-2 lg:col-span-3" : ""}`}
               >
                 <div className="w-10 h-10 rounded-xl bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-4">
                   <f.icon size={20} strokeWidth={1.75} />
@@ -322,20 +325,12 @@ export default async function HomePage() {
                 <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 mb-6 [text-wrap:balance] max-w-[24ch]">
                   Un solo posto per i conti e per i clienti
                 </h2>
-                <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed max-w-[62ch] mb-4">
-                  Bilancino nasce per chi vuole tenere insieme le finanze personali e i rapporti con
-                  i clienti, senza fogli di calcolo sparsi e senza rinunciare alla sicurezza di un
-                  vero account.
-                </p>
-                <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed max-w-[62ch] mb-4">
-                  Non è un gestionale per la partita IVA: se ti servono fatture ricorrenti, progetti e
-                  appuntamenti, esistono già strumenti pensati per quello. Se ti serve sapere quanto hai
-                  risparmiato questo mese e quanto ti deve un cliente, senza altro carico intorno, è per te.
-                </p>
                 <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed max-w-[62ch]">
-                  Ogni account è isolato a livello di database: le policy di sicurezza (Row Level
-                  Security di Postgres) impediscono che i tuoi dati siano mai visibili a un altro
-                  utente, anche in caso di bug nel codice dell'app.
+                  Bilancino nasce per chi vuole tenere insieme le finanze personali e i rapporti con
+                  i clienti, senza fogli di calcolo sparsi. Non è un gestionale per la partita IVA:
+                  se ti servono fatture ricorrenti, progetti e appuntamenti, esistono già strumenti
+                  pensati per quello. Se ti serve sapere quanto hai risparmiato questo mese e quanto
+                  ti deve un cliente, senza altro carico intorno, è per te.
                 </p>
               </div>
               <div className="relative rounded-2xl overflow-hidden border border-border dark:border-neutral-800 aspect-[4/3]">
@@ -391,13 +386,10 @@ export default async function HomePage() {
                 standard del risparmio con intervallo di confidenza al 95%, e segnala le spese
                 statisticamente anomale rispetto alle tue abitudini per categoria.
               </p>
-              <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed max-w-[56ch] mb-4">
-                Prova il calcolatore qui a fianco: cambia i numeri e guarda i risultati aggiornarsi
-                all'istante, con la stessa identica formula usata dentro l'app.
-              </p>
               <p className="text-ink-muted dark:text-neutral-500 text-sm leading-relaxed max-w-[56ch]">
-                Se le formule non ti interessano, nessun problema: sono una sezione a parte, non
-                un passaggio obbligato. Bilancino funziona benissimo anche solo con movimenti e budget.
+                È una sezione a parte, non un passaggio obbligato: Bilancino funziona benissimo anche
+                solo con movimenti e budget. Se invece ti incuriosisce, prova il calcolatore qui a
+                fianco — è la stessa formula usata dentro l'app.
               </p>
             </div>
             <StatsDemo />

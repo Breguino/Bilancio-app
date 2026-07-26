@@ -10,8 +10,8 @@ export default function SignupPage({
 }) {
   if (searchParams.check_email) {
     return (
-      <main className="min-h-screen flex items-center justify-center px-6">
-        <div className="w-full max-w-sm text-center">
+      <main className="min-h-screen flex justify-center px-6 py-10">
+        <div className="w-full max-w-sm text-center my-auto">
           <Link
             href="/"
             className="flex w-fit mx-auto items-center gap-1.5 text-sm font-medium text-ink-secondary dark:text-neutral-400 hover:text-accent transition-colors mb-6"
@@ -32,8 +32,8 @@ export default function SignupPage({
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-6">
-      <div className="w-full max-w-sm">
+    <main className="min-h-screen flex justify-center px-6 py-10">
+      <div className="w-full max-w-sm my-auto">
         <Link
           href="/"
           className="flex w-fit items-center gap-1.5 text-sm font-medium text-ink-secondary dark:text-neutral-400 hover:text-accent transition-colors mb-6"

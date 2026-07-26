@@ -16,8 +16,8 @@ export default function ErrorPage({
   }, [error]);
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-6">
-      <div className="w-full max-w-sm text-center">
+    <main className="min-h-screen flex justify-center px-6 py-10">
+      <div className="w-full max-w-sm text-center my-auto">
         <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg mb-8" aria-label="Bilancino">
           <Logo size={40} />
         </Link>
