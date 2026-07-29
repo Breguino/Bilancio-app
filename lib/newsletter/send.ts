@@ -6,6 +6,7 @@ const BATCH_SIZE = 100;
 export type SendResult =
   | { reason: "no_draft"; sent: 0 }
   | { reason: "no_subscribers"; sent: 0 }
+  | { reason: "error"; sent: number; error: string }
   | { reason: "ok"; sent: number };
 
 // Prende la bozza più recente e la manda a tutti gli iscritti attivi. Usata
@@ -45,7 +46,16 @@ export async function sendDraftNewsletter(siteUrl: string): Promise<SendResult> 
       subject: issue.subject,
       html: `${issue.body_html}<p style="margin-top:32px;font-size:12px;color:#8b8c94">Non vuoi più ricevere questa newsletter? <a href="${siteUrl}/api/newsletter/unsubscribe?token=${s.unsubscribe_token}">Disiscriviti</a>.</p>`,
     }));
-    await resend.batch.send(emails);
+
+    // resend.batch.send() NON lancia un'eccezione sugli errori dell'API
+    // (es. modalità sandbox senza dominio verificato, chiave non valida):
+    // li restituisce in `error`. Ignorarlo segnava l'invio come riuscito
+    // anche quando Resend non aveva mandato nessuna email.
+    const { error } = await resend.batch.send(emails);
+    if (error) {
+      return { reason: "error", sent, error: error.message };
+    }
+
     sent += batch.length;
   }
 
