@@ -21,14 +21,19 @@ export function MobileMenu({ items }: { items: MenuItem[] }) {
           {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
         </svg>
       </button>
-      {/* max-height invece di grid-template-rows: l'animazione 0fr→1fr non si
-          apre in modo affidabile su tutti i motori di rendering — il pannello
-          restava a 0px anche con aria-expanded="true". max-height è la
-          tecnica CSS più datata ma la più universalmente supportata per
-          animare un'altezza "auto". */}
+      {/* Niente più trucchi di altezza animata (grid-template-rows 0fr→1fr,
+          poi max-height): in entrambi i casi il pannello restava alto ~0px
+          nonostante aria-expanded="true" e la classe giusta applicata —
+          confermato anche su telefono reale, non solo negli strumenti di
+          test. Qui l'elemento ha sempre la sua altezza naturale (nessun
+          max-height/grid da indovinare): si anima solo opacità e scala,
+          proprietà che non toccano il layout e quindi non possono collassare
+          il contenuto a zero. */}
       <div
-        className={`absolute inset-x-0 top-full z-30 overflow-hidden transition-[max-height] duration-300 ease-out bg-white/85 dark:bg-neutral-900/85 backdrop-blur-md border-b border-border dark:border-neutral-800 shadow-xl ${
-          open ? "max-h-96" : "max-h-0"
+        className={`absolute inset-x-0 top-full z-30 origin-top bg-white/85 dark:bg-neutral-900/85 backdrop-blur-md border-b border-border dark:border-neutral-800 shadow-xl transition duration-200 ease-out ${
+          open
+            ? "opacity-100 scale-y-100"
+            : "opacity-0 scale-y-95 invisible pointer-events-none"
         }`}
         aria-hidden={!open}
       >
