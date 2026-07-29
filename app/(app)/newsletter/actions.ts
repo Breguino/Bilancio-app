@@ -51,6 +51,13 @@ export async function sendNow() {
 
   revalidatePath("/newsletter");
 
+  if (result.reason === "error") {
+    redirect(
+      "/newsletter?error=" +
+        encodeURIComponent(`Resend ha rifiutato l'invio: ${result.error}`)
+    );
+  }
+
   const message =
     result.reason === "no_draft"
       ? "Nessuna bozza pronta da inviare."
