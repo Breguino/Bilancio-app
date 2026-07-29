@@ -89,9 +89,9 @@ const features = [
     icon: Target,
   },
   {
-    title: "Ricevute ed export",
-    tag: "Tutto documentato",
-    body: "Genera una ricevuta PDF per un pagamento cliente, o esporta l'intero storico in CSV in un clic.",
+    title: "Ricevute e dati portabili",
+    tag: "Tutto documentato, mai bloccato",
+    body: "Genera una ricevuta PDF per un pagamento cliente, esporta l'intero storico in CSV, o importa movimenti e contatti da un altro foglio in un clic.",
     icon: Receipt,
   },
 ];
