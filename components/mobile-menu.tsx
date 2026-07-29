@@ -30,7 +30,7 @@ export function MobileMenu({ items }: { items: MenuItem[] }) {
           proprietà che non toccano il layout e quindi non possono collassare
           il contenuto a zero. */}
       <div
-        className={`absolute inset-x-0 top-full z-30 origin-top bg-white dark:bg-neutral-900 border-b border-border dark:border-neutral-800 shadow-xl transition duration-200 ease-out ${
+        className={`absolute inset-x-3 top-full mt-2 z-30 origin-top rounded-2xl bg-white dark:bg-neutral-950 border border-border dark:border-neutral-800 shadow-xl transition duration-200 ease-out ${
           open
             ? "opacity-100 scale-y-100"
             : "opacity-0 scale-y-95 invisible pointer-events-none"
