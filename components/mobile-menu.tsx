@@ -21,25 +21,29 @@ export function MobileMenu({ items }: { items: MenuItem[] }) {
           {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
         </svg>
       </button>
+      {/* max-height invece di grid-template-rows: l'animazione 0fr→1fr non si
+          apre in modo affidabile su tutti i motori di rendering — il pannello
+          restava a 0px anche con aria-expanded="true". max-height è la
+          tecnica CSS più datata ma la più universalmente supportata per
+          animare un'altezza "auto". */}
       <div
-        className="absolute inset-x-0 top-full z-30 grid transition-[grid-template-rows] duration-300 ease-out bg-white/85 dark:bg-neutral-900/85 backdrop-blur-md border-b border-border dark:border-neutral-800 shadow-xl"
-        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+        className={`absolute inset-x-0 top-full z-30 overflow-hidden transition-[max-height] duration-300 ease-out bg-white/85 dark:bg-neutral-900/85 backdrop-blur-md border-b border-border dark:border-neutral-800 shadow-xl ${
+          open ? "max-h-96" : "max-h-0"
+        }`}
         aria-hidden={!open}
       >
-        <div className="overflow-hidden">
-          <nav className="flex flex-col gap-1 p-3 text-base font-semibold">
-            {items.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="px-4 py-3.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
+        <nav className="flex flex-col gap-1 p-3 text-base font-semibold">
+          {items.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              className="px-4 py-3.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </>
   );
