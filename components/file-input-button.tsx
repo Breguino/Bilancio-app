@@ -1,7 +1,10 @@
 "use client";
 
 import { useId, useState } from "react";
+import { useFormStatus } from "react-dom";
 
+// Scegliere il file avvia subito l'import (niente pulsante "Importa" separato
+// da premere dopo) — un solo gesto invece di due.
 export function FileInputButton({
   name,
   accept,
@@ -15,15 +18,20 @@ export function FileInputButton({
 }) {
   const id = useId();
   const [fileName, setFileName] = useState<string | null>(null);
+  const { pending } = useFormStatus();
 
   return (
     <div className="flex items-center gap-1.5 min-w-0">
       <label
         htmlFor={id}
         title={title}
-        className="text-xs font-semibold rounded-full px-2.5 py-1.5 border border-border dark:border-neutral-700 cursor-pointer hover:border-accent hover:text-accent transition-colors shrink-0"
+        className={`text-xs font-semibold rounded-full px-2.5 py-1.5 border border-border dark:border-neutral-700 transition-colors shrink-0 ${
+          pending
+            ? "opacity-60 cursor-not-allowed pointer-events-none"
+            : "cursor-pointer hover:border-accent hover:text-accent"
+        }`}
       >
-        Scegli file
+        {pending ? "Importo…" : "⬆ Importa CSV"}
       </label>
       <input
         id={id}
@@ -32,7 +40,11 @@ export function FileInputButton({
         accept={accept}
         required={required}
         title={title}
-        onChange={(e) => setFileName(e.target.files?.[0]?.name || null)}
+        disabled={pending}
+        onChange={(e) => {
+          setFileName(e.target.files?.[0]?.name || null);
+          if (e.target.files?.length) e.target.form?.requestSubmit();
+        }}
         className="sr-only"
       />
       <span className="text-xs text-ink-muted dark:text-neutral-500 truncate max-w-[7rem] sm:max-w-[10rem]">
