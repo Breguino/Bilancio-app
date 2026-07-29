@@ -4,7 +4,8 @@ import { ConfirmButton } from "@/components/confirm-button";
 import { ErrorBanner } from "@/components/error-banner";
 import { SubmitButton } from "@/components/submit-button";
 import { Toast } from "@/components/toast";
-import { addContact, deleteContact } from "./actions";
+import { FileInputButton } from "@/components/file-input-button";
+import { addContact, deleteContact, importContacts } from "./actions";
 
 const eur = new Intl.NumberFormat("it-IT", {
   style: "currency",
@@ -91,6 +92,21 @@ export default async function ContactsPage({
             Aggiungi contatto
           </SubmitButton>
         </form>
+
+        <div className="mt-5 pt-5 border-t border-border dark:border-neutral-800">
+          <form action={importContacts}>
+            <FileInputButton
+              name="file"
+              accept=".csv,text/csv"
+              required
+              title="Importa un file CSV con colonne Nome, Email, Telefono, Note"
+            />
+          </form>
+          <p className="text-xs text-ink-muted dark:text-neutral-500 mt-2">
+            Colonne Nome, Email, Telefono, Note. I contatti con lo stesso nome di uno già presente
+            vengono ignorati, per non creare doppioni.
+          </p>
+        </div>
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl bg-white dark:bg-neutral-900 overflow-hidden">

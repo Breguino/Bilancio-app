@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { parseImportCsv } from "@/lib/csv-import";
+import { parseImportCsv, parseContactsCsv } from "@/lib/csv-import";
 import { csvField } from "@/lib/csv-export";
 
 const noContacts: { id: string; name: string }[] = [];
@@ -96,5 +96,75 @@ describe("parseImportCsv", () => {
     expect(result.skipped).toBe(0);
     expect(result.imported).toBe(2);
     expect(result.rows.find((r) => r.description === "Enel")?.amount).toBe(-30);
+  });
+});
+
+describe("parseContactsCsv", () => {
+  it("parses a standard semicolon file with a header", () => {
+    const csv = [
+      "Nome;Email;Telefono;Note",
+      "Ardian Bregu;ardian@example.com;333123456;Cliente storico",
+      "Maria Rossi;;;",
+    ].join("\r\n");
+
+    const result = parseContactsCsv(csv, []);
+
+    expect(result.imported).toBe(2);
+    expect(result.skipped).toBe(0);
+    expect(result.duplicates).toBe(0);
+    expect(result.rows[0]).toEqual({
+      name: "Ardian Bregu",
+      email: "ardian@example.com",
+      phone: "333123456",
+      notes: "Cliente storico",
+    });
+    expect(result.rows[1]).toEqual({ name: "Maria Rossi", email: null, phone: null, notes: null });
+  });
+
+  it("skips rows without a name and counts them", () => {
+    const csv = ["Nome;Email;Telefono;Note", ";senza-nome@example.com;;", "Valido;;;"].join("\r\n");
+
+    const result = parseContactsCsv(csv, []);
+
+    expect(result.imported).toBe(1);
+    expect(result.skipped).toBe(1);
+    expect(result.rows[0].name).toBe("Valido");
+  });
+
+  it("skips contacts that already exist (case-insensitive) instead of duplicating them", () => {
+    const csv = ["Nome;Email;Telefono;Note", "ARDIAN BREGU;;;", "Nuovo Cliente;;;"].join("\r\n");
+
+    const result = parseContactsCsv(csv, ["Ardian Bregu"]);
+
+    expect(result.imported).toBe(1);
+    expect(result.duplicates).toBe(1);
+    expect(result.rows[0].name).toBe("Nuovo Cliente");
+  });
+
+  it("skips a name repeated twice within the same file after the first occurrence", () => {
+    const csv = ["Nome;Email;Telefono;Note", "Mario Verdi;;;", "Mario Verdi;;;"].join("\r\n");
+
+    const result = parseContactsCsv(csv, []);
+
+    expect(result.imported).toBe(1);
+    expect(result.duplicates).toBe(1);
+  });
+
+  it("falls back to positional columns when no recognizable header is present", () => {
+    const csv = "Senza intestazione;;333999888;";
+
+    const result = parseContactsCsv(csv, []);
+
+    expect(result.imported).toBe(1);
+    expect(result.rows[0]).toMatchObject({ name: "Senza intestazione", phone: "333999888" });
+  });
+
+  it("auto-detects a comma-delimited file", () => {
+    const csv = ["Nome,Email,Telefono,Note", "Giulia Bianchi,giulia@example.com,,"].join("\n");
+
+    const result = parseContactsCsv(csv, []);
+
+    expect(result.imported).toBe(1);
+    expect(result.rows[0]).toMatchObject({ name: "Giulia Bianchi", email: "giulia@example.com" });
   });
 });

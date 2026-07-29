@@ -40,6 +40,7 @@ const entries = [
       "I nuovi account vedono un messaggio di benvenuto la prima volta che aprono la Panoramica, invece delle card vuote a 0,00 €.",
       "L'app gira più vicino al database (stessa regione europea di Supabase), quindi le pagine rispondono più in fretta.",
       "Sistemato il menu mobile del sito pubblico, e aggiornate le pagine Cosa offriamo e le FAQ per parlare anche dell'importazione CSV, non solo dell'esportazione.",
+      "Ora si possono importare anche i contatti da CSV, non solo i movimenti: stesso file con Nome, Email, Telefono e Note, con i doppioni riconosciuti in automatico.",
     ],
   },
   {
@@ -65,7 +66,6 @@ const entries = [
 ];
 
 const ideas = [
-  "Importare anche i contatti da un file, non solo i movimenti.",
   "Un promemoria via email per le scadenze, oggi visibili solo dentro l'app.",
   "Valutare una versione installabile (PWA) per un uso più comodo da mobile.",
 ];
