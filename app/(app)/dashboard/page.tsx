@@ -88,6 +88,7 @@ export default async function DashboardPage({
     { data: upcomingRecurring },
     { data: upcomingReminders },
     { data: categoryHistory },
+    { count: allTimeTransactionCount },
   ] = await Promise.all([
     supabase
       .from("transactions")
@@ -117,7 +118,10 @@ export default async function DashboardPage({
       .not("category", "is", null)
       .order("date", { ascending: false })
       .limit(300),
+    supabase.from("transactions").select("id", { count: "exact", head: true }),
   ]);
+
+  const isNewAccount = (allTimeTransactionCount || 0) === 0;
 
   const categoryOptions = Array.from(
     new Set((allCategories || []).map((c) => c.category).filter((c): c is string => Boolean(c)))
@@ -214,41 +218,57 @@ export default async function DashboardPage({
   return (
     <div className="flex flex-col gap-8">
       <Toast message={searchParams.success} />
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-1">
-          Questo mese
-        </p>
-        <h1 className="text-2xl font-extrabold tracking-tight">
-          Ciao, {user?.email?.split("@")[0]}
-        </h1>
-      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex items-start justify-between gap-3">
-          <div>
-            <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Entrate</p>
-            <p className="text-2xl font-bold num">{eur.format(income)}</p>
-            {trendBadge(incomeSeries[last], incomeSeries[last - 1] ?? 0, true)}
-          </div>
-          <Sparkline values={incomeSeries} />
+      {isNewAccount ? (
+        <div className="border border-border dark:border-neutral-800 rounded-xl p-6 bg-white dark:bg-neutral-900">
+          <p className="text-2xl mb-2">👋</p>
+          <h1 className="text-2xl font-extrabold tracking-tight mb-1">
+            Benvenuto, {user?.email?.split("@")[0]}
+          </h1>
+          <p className="text-sm text-ink-secondary dark:text-neutral-400 max-w-md">
+            Il tuo account è pronto e i dati sono solo tuoi. Aggiungi il primo movimento qui sotto
+            — entrate, uscite e budget prenderanno forma da lì.
+          </p>
         </div>
-        <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex items-start justify-between gap-3">
+      ) : (
+        <>
           <div>
-            <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Uscite</p>
-            <p className="text-2xl font-bold num">{eur.format(expense)}</p>
-            {trendBadge(expenseSeries[last], expenseSeries[last - 1] ?? 0, false)}
+            <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-1">
+              Questo mese
+            </p>
+            <h1 className="text-2xl font-extrabold tracking-tight">
+              Ciao, {user?.email?.split("@")[0]}
+            </h1>
           </div>
-          <Sparkline values={expenseSeries} />
-        </div>
-        <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex items-start justify-between gap-3">
-          <div>
-            <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Netto</p>
-            <p className="text-2xl font-bold num">{eur.format(net)}</p>
-            {trendBadge(netSeries[last], netSeries[last - 1] ?? 0, true)}
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex items-start justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Entrate</p>
+                <p className="text-2xl font-bold num">{eur.format(income)}</p>
+                {trendBadge(incomeSeries[last], incomeSeries[last - 1] ?? 0, true)}
+              </div>
+              <Sparkline values={incomeSeries} />
+            </div>
+            <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex items-start justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Uscite</p>
+                <p className="text-2xl font-bold num">{eur.format(expense)}</p>
+                {trendBadge(expenseSeries[last], expenseSeries[last - 1] ?? 0, false)}
+              </div>
+              <Sparkline values={expenseSeries} />
+            </div>
+            <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex items-start justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Netto</p>
+                <p className="text-2xl font-bold num">{eur.format(net)}</p>
+                {trendBadge(netSeries[last], netSeries[last - 1] ?? 0, true)}
+              </div>
+              <Sparkline values={netSeries} />
+            </div>
           </div>
-          <Sparkline values={netSeries} />
-        </div>
-      </div>
+        </>
+      )}
 
       {budgetStatus.length > 0 ? (
         <div className="border border-border dark:border-neutral-800 rounded-xl p-5 bg-white dark:bg-neutral-900">
@@ -494,7 +514,11 @@ export default async function DashboardPage({
         </form>
         {displayRows.length === 0 ? (
           <p className="text-sm text-ink-muted dark:text-neutral-500 px-5 py-6">
-            Nessun movimento {hasFilters ? "trovato con questi filtri." : "questo mese."}
+            {hasFilters
+              ? "Nessun movimento trovato con questi filtri."
+              : isNewAccount
+              ? "I tuoi movimenti appariranno qui non appena ne aggiungi uno."
+              : "Nessun movimento questo mese."}
           </p>
         ) : (
           <div className="divide-y divide-border dark:divide-neutral-800 mt-3">
