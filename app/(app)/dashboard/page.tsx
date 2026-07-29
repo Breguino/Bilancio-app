@@ -426,12 +426,6 @@ export default async function DashboardPage({
                 required
                 title="Importa un file CSV con colonne Data, Descrizione, Categoria, Cliente, Importo"
               />
-              <SubmitButton
-                pendingText="…"
-                className="text-xs font-semibold border border-border dark:border-neutral-700 rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors shrink-0"
-              >
-                ⬆ Importa
-              </SubmitButton>
             </form>
           </div>
         </div>
