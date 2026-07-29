@@ -121,6 +121,10 @@ const faqItems = [
     q: "Posso esportare i miei dati?",
     a: "Sì: dalla Panoramica puoi scaricare un CSV con tutto lo storico dei movimenti, apribile in Excel o Fogli Google.",
   },
+  {
+    q: "C'è una newsletter?",
+    a: "Sì, facoltativa: un'email al mese con le novità su Bilancino, niente spam. Ti iscrivi con un indirizzo email dal fondo di questa pagina, e ogni email ha un link di disiscrizione con un clic.",
+  },
 ];
 
 const jsonLd = {
