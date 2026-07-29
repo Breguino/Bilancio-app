@@ -12,8 +12,9 @@ const PUBLIC_EXACT = [
   "/reset-password",
   "/privacy",
   "/termini",
+  "/newsletter/disiscritto",
 ];
-const PUBLIC_PREFIXES = ["/login", "/signup", "/auth", "/logout"];
+const PUBLIC_PREFIXES = ["/login", "/signup", "/auth", "/logout", "/api/cron", "/api/newsletter"];
 
 function isPublicPath(path: string) {
   if (PUBLIC_EXACT.includes(path)) return true;
