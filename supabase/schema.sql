@@ -252,3 +252,37 @@ select cron.schedule(
   '0 3 * * *', -- ogni notte alle 03:00 UTC
   $$select public.generate_due_recurring_transactions();$$
 );
+
+-- ---------- Newsletter: iscritti dal sito pubblico ----------
+create table if not exists public.newsletter_subscribers (
+  id uuid primary key default gen_random_uuid(),
+  email text not null unique,
+  unsubscribe_token uuid not null default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  unsubscribed_at timestamptz
+);
+
+alter table public.newsletter_subscribers enable row level security;
+
+-- Chiunque (anche anonimo) puo' iscriversi dal form pubblico. Nessuna policy
+-- di select/update/delete: la lista si legge/modifica solo lato server con
+-- la service role key (invio mensile, disiscrizione), mai dal client.
+create policy "newsletter_subscribers_insert_public" on public.newsletter_subscribers
+  for insert to anon, authenticated with check (true);
+
+create index if not exists newsletter_subscribers_unsub_token_idx
+  on public.newsletter_subscribers (unsubscribe_token);
+
+-- ---------- Newsletter: numeri (bozza scritta a mano, poi inviata) ----------
+create table if not exists public.newsletter_issues (
+  id uuid primary key default gen_random_uuid(),
+  subject text not null,
+  body_html text not null,
+  status text not null default 'draft' check (status in ('draft', 'sent')),
+  created_at timestamptz not null default now(),
+  sent_at timestamptz
+);
+
+alter table public.newsletter_issues enable row level security;
+-- Nessuna policy pubblica: solo la service role key la legge/scrive, dalla
+-- pagina admin e dal cron di invio (entrambi lato server).

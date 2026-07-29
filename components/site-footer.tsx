@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { NewsletterSubscribeForm } from "@/components/newsletter-subscribe-form";
 
 const MARKETING_FOOTER_LINKS = [
   { href: "/chi-siamo", label: "Chi siamo" },
@@ -22,7 +23,7 @@ export async function SiteFooter() {
   ];
 
   return (
-    <footer className="max-w-6xl mx-auto px-6 py-10 text-sm text-ink-muted dark:text-neutral-500">
+    <footer className="max-w-6xl mx-auto px-6 py-10 text-sm text-ink-muted dark:text-neutral-500 flex flex-col gap-6">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
         <p>Bilancino — budget personale, non un gestionale.</p>
         <nav className="flex items-center gap-5 flex-wrap justify-center">
@@ -32,6 +33,10 @@ export async function SiteFooter() {
             </Link>
           ))}
         </nav>
+      </div>
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-border dark:border-neutral-800 pt-6 text-center sm:text-left">
+        <p className="text-xs">Novità su Bilancino, una email al mese, niente spam.</p>
+        <NewsletterSubscribeForm />
       </div>
     </footer>
   );
