@@ -63,6 +63,8 @@ export async function sendNow() {
       ? "Nessuna bozza pronta da inviare."
       : result.reason === "no_subscribers"
       ? "Nessun iscritto a cui inviare."
+      : result.failed > 0
+      ? `Inviata a ${result.sent} iscritti (${result.failed} saltati, non consegnabili).`
       : `Inviata a ${result.sent} iscritti.`;
 
   redirect("/newsletter?success=" + encodeURIComponent(message));
