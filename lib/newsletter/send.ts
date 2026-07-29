@@ -7,7 +7,7 @@ export type SendResult =
   | { reason: "no_draft"; sent: 0 }
   | { reason: "no_subscribers"; sent: 0 }
   | { reason: "error"; sent: number; error: string }
-  | { reason: "ok"; sent: number };
+  | { reason: "ok"; sent: number; failed: number };
 
 // Prende la bozza più recente e la manda a tutti gli iscritti attivi. Usata
 // sia dal cron mensile che dal pulsante "Invia adesso" nella pagina admin.
@@ -37,6 +37,7 @@ export async function sendDraftNewsletter(siteUrl: string): Promise<SendResult> 
 
   const resend = getResendClient();
   let sent = 0;
+  let failed = 0;
 
   for (let i = 0; i < subscribers.length; i += BATCH_SIZE) {
     const batch = subscribers.slice(i, i + BATCH_SIZE);
@@ -47,16 +48,24 @@ export async function sendDraftNewsletter(siteUrl: string): Promise<SendResult> 
       html: `${issue.body_html}<p style="margin-top:32px;font-size:12px;color:#8b8c94">Non vuoi più ricevere questa newsletter? <a href="${siteUrl}/api/newsletter/unsubscribe?token=${s.unsubscribe_token}">Disiscriviti</a>.</p>`,
     }));
 
-    // resend.batch.send() NON lancia un'eccezione sugli errori dell'API
-    // (es. modalità sandbox senza dominio verificato, chiave non valida):
-    // li restituisce in `error`. Ignorarlo segnava l'invio come riuscito
-    // anche quando Resend non aveva mandato nessuna email.
-    const { error } = await resend.batch.send(emails);
+    // batchValidation "permissive": se un destinatario non è consegnabile
+    // (tipico in modalità sandbox senza dominio verificato, o un indirizzo
+    // che rimbalza in produzione) gli altri vengono comunque inviati invece
+    // di far fallire l'intero gruppo — con "strict" (il default) bastava un
+    // solo destinatario problematico per bloccare tutti.
+    const { data, error } = await resend.batch.send(emails, { batchValidation: "permissive" });
+
     if (error) {
       return { reason: "error", sent, error: error.message };
     }
 
-    sent += batch.length;
+    const batchFailed = data?.errors?.length ?? 0;
+    failed += batchFailed;
+    sent += batch.length - batchFailed;
+  }
+
+  if (sent === 0) {
+    return { reason: "error", sent: 0, error: "Nessun destinatario consegnabile (controlla la modalità sandbox di Resend)." };
   }
 
   await supabase
@@ -64,5 +73,5 @@ export async function sendDraftNewsletter(siteUrl: string): Promise<SendResult> 
     .update({ status: "sent", sent_at: new Date().toISOString() })
     .eq("id", issue.id);
 
-  return { reason: "ok", sent };
+  return { reason: "ok", sent, failed };
 }
