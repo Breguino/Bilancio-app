@@ -103,6 +103,11 @@ const groups = [
         title: "Ricevute PDF",
         body: "Genera una ricevuta PDF per un pagamento ricevuto da un cliente, pronta da scaricare o inviare, senza dover aprire un altro programma.",
       },
+      {
+        icon: Upload,
+        title: "Import contatti da CSV",
+        body: "Hai già una rubrica clienti da qualche altra parte? Carica un CSV con Nome, Email, Telefono e Note: Bilancino li aggiunge tutti insieme, saltando in automatico chi hai già in rubrica per non creare doppioni.",
+      },
     ],
   },
   {

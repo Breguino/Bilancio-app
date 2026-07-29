@@ -158,3 +158,77 @@ export function parseImportCsv(
 
   return { rows, imported: rows.length, skipped, unmatchedContacts };
 }
+
+export type ImportedContact = {
+  name: string;
+  email: string | null;
+  phone: string | null;
+  notes: string | null;
+};
+
+export type ContactImportResult = {
+  rows: ImportedContact[];
+  imported: number;
+  skipped: number;
+  duplicates: number;
+};
+
+const CONTACT_HEADER_ALIASES: Record<string, string> = {
+  nome: "name",
+  name: "name",
+  email: "email",
+  telefono: "phone",
+  phone: "phone",
+  note: "notes",
+  notes: "notes",
+};
+
+export function parseContactsCsv(
+  text: string,
+  existingContactNames: string[],
+  maxRows = 2000
+): ContactImportResult {
+  const lines = parseCsvLines(text);
+  if (lines.length === 0) return { rows: [], imported: 0, skipped: 0, duplicates: 0 };
+
+  const headerRow = lines[0].map((h) => CONTACT_HEADER_ALIASES[h.trim().toLowerCase()] || "");
+  const looksLikeHeader = headerRow.includes("name");
+  const dataLines = looksLikeHeader ? lines.slice(1) : lines;
+  const columns = looksLikeHeader ? headerRow : ["name", "email", "phone", "notes"];
+
+  // Case-insensitive: evita di duplicare un contatto già presente se lo stesso
+  // file (o uno sovrapposto) viene importato più di una volta.
+  const seenNames = new Set(existingContactNames.map((n) => n.trim().toLowerCase()));
+
+  const rows: ImportedContact[] = [];
+  let skipped = 0;
+  let duplicates = 0;
+
+  for (const line of dataLines.slice(0, maxRows)) {
+    const record: Record<string, string> = {};
+    columns.forEach((col, i) => {
+      if (col) record[col] = line[i] ?? "";
+    });
+
+    const name = unescapeCsvField((record.name || "").trim()).trim();
+    if (!name) {
+      skipped++;
+      continue;
+    }
+
+    const key = name.toLowerCase();
+    if (seenNames.has(key)) {
+      duplicates++;
+      continue;
+    }
+    seenNames.add(key);
+
+    const email = unescapeCsvField((record.email || "").trim()).trim() || null;
+    const phone = unescapeCsvField((record.phone || "").trim()).trim() || null;
+    const notes = unescapeCsvField((record.notes || "").trim()).trim() || null;
+
+    rows.push({ name, email, phone, notes });
+  }
+
+  return { rows, imported: rows.length, skipped, duplicates };
+}
