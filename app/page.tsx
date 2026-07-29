@@ -118,8 +118,8 @@ const faqItems = [
     a: "Prima di eliminare qualsiasi cosa ti viene sempre chiesta una conferma, ma una volta confermato non c'è un cestino: va reinserito a mano.",
   },
   {
-    q: "Posso esportare i miei dati?",
-    a: "Sì: dalla Panoramica puoi scaricare un CSV con tutto lo storico dei movimenti, apribile in Excel o Fogli Google.",
+    q: "Posso esportare o importare i miei dati?",
+    a: "Sì a entrambi: dalla Panoramica scarichi un CSV con tutto lo storico dei movimenti, apribile in Excel o Fogli Google. E se arrivi da un altro foglio o gestionale, puoi caricare un CSV con le stesse colonne per importare i tuoi movimenti esistenti in un colpo solo.",
   },
   {
     q: "C'è una newsletter?",

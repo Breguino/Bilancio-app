@@ -19,6 +19,7 @@ import {
   TriangleAlert,
   Calculator,
   Download,
+  Upload,
 } from "lucide-react";
 
 const title = "Cosa offriamo — Bilancino";
@@ -133,13 +134,18 @@ const groups = [
     ],
   },
   {
-    tag: "Portare fuori i dati",
-    title: "Sempre esportabili, mai bloccati",
+    tag: "I tuoi dati, non i nostri",
+    title: "Dati sempre portabili, in entrata e in uscita",
     items: [
       {
         icon: Download,
         title: "Export CSV",
         body: "Dalla Panoramica scarichi in un clic l'intero storico dei movimenti in formato CSV, apribile in Excel o Fogli Google: i tuoi dati restano sempre portabili, non solo consultabili dentro l'app.",
+      },
+      {
+        icon: Upload,
+        title: "Import CSV",
+        body: "Arrivi da un foglio di calcolo o da un altro gestionale? Carica un CSV con le colonne Data, Descrizione, Categoria, Cliente e Importo: Bilancino riconosce da solo l'intestazione, sia virgola che punto e virgola, date italiane o standard, e collega i clienti già esistenti per nome.",
       },
     ],
   },

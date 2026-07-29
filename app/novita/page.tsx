@@ -29,9 +29,19 @@ export const metadata: Metadata = {
   },
 };
 
-const LAST_UPDATED = "25 luglio 2026";
+const LAST_UPDATED = "29 luglio 2026";
 
 const entries = [
+  {
+    date: "29 luglio 2026",
+    items: [
+      "Nuova newsletter mensile, facoltativa: iscriviti con la tua email dal fondo del sito, un'email al mese, niente spam, disiscrizione con un clic da ogni email.",
+      "Importare un CSV ora è un solo passaggio: scegli il file e l'importazione parte subito, senza dover cercare un secondo pulsante \"Importa\".",
+      "I nuovi account vedono un messaggio di benvenuto la prima volta che aprono la Panoramica, invece delle card vuote a 0,00 €.",
+      "L'app gira più vicino al database (stessa regione europea di Supabase), quindi le pagine rispondono più in fretta.",
+      "Sistemato il menu mobile del sito pubblico, e aggiornate le pagine Cosa offriamo e le FAQ per parlare anche dell'importazione CSV, non solo dell'esportazione.",
+    ],
+  },
   {
     date: "25 luglio 2026",
     items: [
