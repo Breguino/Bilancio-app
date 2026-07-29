@@ -1,5 +1,7 @@
 # Bilancino — versione multi-utente
 
+**Sito live:** https://bilancio-app-six.vercel.app
+
 Budget personale + CRM contatti, con **account reali** (login/registrazione) e dati
 separati per ogni utente. A differenza della versione precedente (un Artifact statico),
 questa è un'applicazione vera: **Next.js** per il frontend/backend e **Supabase**
