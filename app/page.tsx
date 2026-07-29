@@ -326,12 +326,14 @@ export default async function HomePage() {
             <div>
               <span className="text-xs font-bold uppercase tracking-wide text-accent">Statistiche</span>
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 mb-6 [text-wrap:balance] max-w-[22ch]">
-                Non solo numeri: statistica ed econometria
+                Sai già come andrà il mese prossimo?
               </h2>
               <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed max-w-[56ch] mb-4">
-                Bilancino calcola per te trend e previsioni (regressione lineare), media e deviazione
-                standard del risparmio con intervallo di confidenza al 95%, e segnala le spese
-                statisticamente anomale rispetto alle tue abitudini per categoria.
+                Bilancino ti dice se stai risparmiando più o meno del solito, con una previsione
+                realistica per il mese che arriva e un avviso quando una spesa esce dai tuoi schemi
+                abituali. Dietro le quinte c'è vera statistica (regressione lineare, deviazione
+                standard, intervallo di confidenza al 95%) — ma a te arriva già spiegata in euro,
+                non in formule.
               </p>
               <p className="text-ink-muted dark:text-neutral-500 text-sm leading-relaxed max-w-[56ch]">
                 È una sezione a parte, non un passaggio obbligato: Bilancino funziona benissimo anche
