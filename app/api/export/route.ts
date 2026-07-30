@@ -15,6 +15,7 @@ export async function GET(request: Request) {
   const { data: transactions } = await supabase
     .from("transactions")
     .select("date, description, category, amount, contact:contacts(name)")
+    .is("deleted_at", null)
     .order("date", { ascending: true });
 
   const rows = [["Data", "Descrizione", "Categoria", "Cliente", "Importo"]];

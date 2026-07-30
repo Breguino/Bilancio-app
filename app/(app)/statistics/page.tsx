@@ -23,6 +23,7 @@ export default async function StatisticsPage() {
   const { data: transactions } = await supabase
     .from("transactions")
     .select("id, date, description, category, amount")
+    .is("deleted_at", null)
     .order("date", { ascending: true });
   const rows = transactions || [];
 

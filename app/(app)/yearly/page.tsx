@@ -9,7 +9,7 @@ const pct1 = (n: number) => n.toLocaleString("it-IT", { maximumFractionDigits: 1
 
 export default async function YearlyPage() {
   const supabase = createClient();
-  const { data: transactions } = await supabase.from("transactions").select("*");
+  const { data: transactions } = await supabase.from("transactions").select("*").is("deleted_at", null);
   const rows = transactions || [];
 
   const income = rows.filter((t) => t.amount > 0).reduce((s, t) => s + Number(t.amount), 0);

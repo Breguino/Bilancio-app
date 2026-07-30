@@ -30,7 +30,7 @@ export default async function ContactDetailPage({
       .eq("contact_id", params.id)
       .order("remind_at", { ascending: true, nullsFirst: false })
       .order("created_at", { ascending: false }),
-    supabase.from("transactions").select("amount").eq("contact_id", params.id),
+    supabase.from("transactions").select("amount").is("deleted_at", null).eq("contact_id", params.id),
   ]);
 
   if (!contact) notFound();

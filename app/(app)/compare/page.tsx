@@ -42,6 +42,7 @@ async function totalsFor(
   const { data } = await supabase
     .from("transactions")
     .select("*")
+    .is("deleted_at", null)
     .gte("date", start)
     .lte("date", end);
   const rows = data || [];

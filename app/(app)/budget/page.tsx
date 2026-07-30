@@ -29,7 +29,7 @@ export default async function BudgetPage({
 
   const [{ data: budgets }, { data: transactions }] = await Promise.all([
     supabase.from("budgets").select("*").order("category"),
-    supabase.from("transactions").select("*").gte("date", start).lte("date", end),
+    supabase.from("transactions").select("*").is("deleted_at", null).gte("date", start).lte("date", end),
   ]);
 
   const rows = transactions || [];

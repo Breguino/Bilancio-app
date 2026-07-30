@@ -107,13 +107,15 @@ export async function deleteTransaction(formData: FormData) {
     redirect(withParam(returnPath, "error", "Movimento non trovato."));
   }
 
-  // La delete va contata: senza `count` un id inesistente (o una riga filtrata da
-  // RLS) tornerebbe senza errore e senza cancellare niente, lasciando l'utente a
+  // Eliminazione "soft": sposta nel cestino invece di cancellare subito.
+  // Va contata: senza `count` un id inesistente (o una riga filtrata da RLS)
+  // tornerebbe senza errore e senza spostare niente, lasciando l'utente a
   // fissare la stessa riga senza il minimo segnale di cosa sia andato storto.
   const { error, count } = await supabase
     .from("transactions")
-    .delete({ count: "exact" })
-    .eq("id", id);
+    .update({ deleted_at: new Date().toISOString() }, { count: "exact" })
+    .eq("id", id)
+    .is("deleted_at", null);
 
   if (error || count === 0) {
     redirect(
@@ -123,7 +125,42 @@ export async function deleteTransaction(formData: FormData) {
 
   revalidateAll();
   revalidatePath("/contacts");
-  redirect(withParam(returnPath, "success", "Movimento eliminato"));
+  revalidatePath("/cestino");
+  redirect(withParam(returnPath, "success", "Movimento spostato nel cestino"));
+}
+
+export async function restoreTransaction(formData: FormData) {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+
+  const id = String(formData.get("id") || "");
+  if (!id) return;
+
+  await supabase.from("transactions").update({ deleted_at: null }).eq("id", id);
+
+  revalidateAll();
+  revalidatePath("/contacts");
+  revalidatePath("/cestino");
+  redirect(withParam("/cestino", "success", "Movimento ripristinato"));
+}
+
+export async function permanentlyDeleteTransaction(formData: FormData) {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+
+  const id = String(formData.get("id") || "");
+  if (!id) return;
+
+  await supabase.from("transactions").delete().eq("id", id).not("deleted_at", "is", null);
+
+  revalidatePath("/cestino");
+  redirect(withParam("/cestino", "success", "Movimento eliminato per sempre"));
 }
 
 function revalidateAll() {
