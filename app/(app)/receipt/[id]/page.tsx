@@ -20,6 +20,7 @@ export default async function ReceiptPage({ params }: { params: { id: string } }
     .from("transactions")
     .select("*, contact:contacts(id, name, email)")
     .eq("id", params.id)
+    .is("deleted_at", null)
     .maybeSingle();
 
   if (!transaction || !transaction.contact_id || Number(transaction.amount) <= 0) {

@@ -286,3 +286,41 @@ create table if not exists public.newsletter_issues (
 alter table public.newsletter_issues enable row level security;
 -- Nessuna policy pubblica: solo la service role key la legge/scrive, dalla
 -- pagina admin e dal cron di invio (entrambi lato server).
+
+-- ---------- Cestino per i movimenti eliminati ----------
+alter table public.transactions add column if not exists deleted_at timestamptz;
+
+-- L'indice esistente serve alle query di tutti i giorni (dashboard, budget,
+-- confronto, annuale...), che leggono solo le righe attive: lo rendiamo
+-- parziale così resta piccolo e veloce anche quando il cestino cresce.
+drop index if exists transactions_user_date_idx;
+create index transactions_user_date_idx
+  on public.transactions (user_id, date desc)
+  where deleted_at is null;
+
+-- Indice separato per il cestino stesso (poche righe, ma serve comunque per
+-- ordinarle senza uno scan completo della tabella).
+create index if not exists transactions_deleted_at_idx
+  on public.transactions (user_id, deleted_at desc)
+  where deleted_at is not null;
+
+-- Svuotamento automatico: righe cestinate da più di 30 giorni vengono
+-- eliminate per sempre, così il cestino non cresce all'infinito e le sue
+-- query restano veloci nel tempo.
+create or replace function public.purge_old_deleted_transactions()
+returns void
+language sql
+security definer
+set search_path = public
+as $$
+  delete from transactions where deleted_at is not null and deleted_at < now() - interval '30 days';
+$$;
+
+revoke execute on function public.purge_old_deleted_transactions() from anon, authenticated, public;
+
+select cron.unschedule(jobid) from cron.job where jobname = 'purge-old-deleted-transactions';
+select cron.schedule(
+  'purge-old-deleted-transactions',
+  '0 4 * * *', -- ogni notte alle 04:00 UTC
+  $$select public.purge_old_deleted_transactions();$$
+);

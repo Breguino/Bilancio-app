@@ -22,7 +22,11 @@ export default async function ContactsPage({
   const today = new Date().toISOString().slice(0, 10);
   const [{ data: contacts }, { data: transactions }, { data: dueNotes }] = await Promise.all([
     supabase.from("contacts").select("*").order("name", { ascending: true }),
-    supabase.from("transactions").select("contact_id, amount").not("contact_id", "is", null),
+    supabase
+      .from("transactions")
+      .select("contact_id, amount")
+      .is("deleted_at", null)
+      .not("contact_id", "is", null),
     supabase.from("contact_notes").select("contact_id").eq("done", false).lte("remind_at", today),
   ]);
 

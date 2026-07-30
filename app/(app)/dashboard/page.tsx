@@ -93,13 +93,19 @@ export default async function DashboardPage({
     supabase
       .from("transactions")
       .select("*, contact:contacts(id, name)")
+      .is("deleted_at", null)
       .gte("date", start)
       .lte("date", end)
       .order("date", { ascending: false }),
     supabase.from("contacts").select("id, name").order("name"),
-    supabase.from("transactions").select("date, amount").gte("date", trendStart).lte("date", end),
+    supabase
+      .from("transactions")
+      .select("date, amount")
+      .is("deleted_at", null)
+      .gte("date", trendStart)
+      .lte("date", end),
     supabase.from("budgets").select("*").order("category"),
-    supabase.from("transactions").select("category"),
+    supabase.from("transactions").select("category").is("deleted_at", null),
     supabase
       .from("recurring_transactions")
       .select("*")
@@ -115,10 +121,11 @@ export default async function DashboardPage({
     supabase
       .from("transactions")
       .select("description, category")
+      .is("deleted_at", null)
       .not("category", "is", null)
       .order("date", { ascending: false })
       .limit(300),
-    supabase.from("transactions").select("id", { count: "exact", head: true }),
+    supabase.from("transactions").select("id", { count: "exact", head: true }).is("deleted_at", null),
   ]);
 
   const isNewAccount = (allTimeTransactionCount || 0) === 0;
@@ -204,6 +211,7 @@ export default async function DashboardPage({
     let filterQueryBuilder = supabase
       .from("transactions")
       .select("*, contact:contacts(id, name)")
+      .is("deleted_at", null)
       .order("date", { ascending: false })
       .limit(200);
     if (filterCategory) filterQueryBuilder = filterQueryBuilder.eq("category", filterCategory);
@@ -413,6 +421,12 @@ export default async function DashboardPage({
           <h2 className="font-bold">{hasFilters ? "Risultati filtro" : "Movimenti del mese"}</h2>
           <div className="flex flex-wrap items-center gap-2">
             <a
+              href="/cestino"
+              className="text-xs font-semibold border border-border dark:border-neutral-700 rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors"
+            >
+              🗑 Cestino
+            </a>
+            <a
               href="/api/export"
               className="text-xs font-semibold border border-border dark:border-neutral-700 rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors"
             >
@@ -555,7 +569,7 @@ export default async function DashboardPage({
                     <input type="hidden" name="id" value={t.id} />
                     <input type="hidden" name="return_path" value={returnPath} />
                     <ConfirmButton
-                      confirmMessage={`Eliminare il movimento "${t.description}"? Non si può annullare.`}
+                      confirmMessage={`Spostare "${t.description}" nel cestino? Potrai ripristinarlo entro 30 giorni.`}
                       ariaLabel="Elimina movimento"
                       className="text-ink-muted dark:text-neutral-500 hover:text-red-600 w-9 h-9 -mr-2 rounded-full flex items-center justify-center shrink-0"
                     >
