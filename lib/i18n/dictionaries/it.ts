@@ -180,6 +180,9 @@ const it = {
     noSubscribers: "Nessun iscritto a cui inviare.",
     sentWithFailedTemplate: "Inviata a {sent} iscritti ({failed} saltati, non consegnabili).",
     sentTemplate: "Inviata a {sent} iscritti.",
+    unsubscribePrompt: "Non vuoi più ricevere questa newsletter?",
+    unsubscribeLinkText: "Disiscriviti",
+    noDeliverableSubscribersError: "Nessun destinatario consegnabile (controlla la modalità sandbox di Resend).",
   },
   cestino: {
     eyebrow: "Cestino",
@@ -474,6 +477,18 @@ const it = {
     backToSiteAriaLabel: "Torna al sito pubblico",
     backToSiteTitle: "Torna al sito",
     logout: "Esci",
+  },
+  csv: {
+    headers: ["Data", "Descrizione", "Categoria", "Cliente", "Importo"],
+    incomeLabel: "Entrata",
+  },
+  errors: {
+    somethingWrongTitle: "Qualcosa è andato storto",
+    somethingWrongBody: "Si è verificato un errore imprevisto. Riprova, o torna alla home.",
+    retry: "Riprova",
+    backToHome: "Torna alla home",
+    notFoundTitle: "Pagina non trovata",
+    notFoundBody: "Il link che hai seguito non esiste più, o l'indirizzo è sbagliato.",
   },
   chiSiamo: {
     metaTitle: "Chi siamo — Bilancino",

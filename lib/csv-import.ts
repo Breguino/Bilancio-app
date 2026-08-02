@@ -143,7 +143,8 @@ export function parseImportCsv(
     }
 
     const categoryRaw = unescapeCsvField((record.category || "").trim()).trim();
-    const category = !categoryRaw || categoryRaw.toLowerCase() === "entrata" ? null : categoryRaw;
+    const isIncomeMarker = ["entrata", "income"].includes(categoryRaw.toLowerCase());
+    const category = !categoryRaw || isIncomeMarker ? null : categoryRaw;
 
     const contactRaw = unescapeCsvField((record.contact || "").trim()).trim();
     let contact_id: string | null = null;

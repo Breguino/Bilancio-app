@@ -182,6 +182,9 @@ const en: Dictionary = {
     noSubscribers: "No subscribers to send to.",
     sentWithFailedTemplate: "Sent to {sent} subscribers ({failed} skipped, undeliverable).",
     sentTemplate: "Sent to {sent} subscribers.",
+    unsubscribePrompt: "No longer want to receive this newsletter?",
+    unsubscribeLinkText: "Unsubscribe",
+    noDeliverableSubscribersError: "No deliverable recipients (check Resend's sandbox mode).",
   },
   cestino: {
     eyebrow: "Trash",
@@ -476,6 +479,18 @@ const en: Dictionary = {
     backToSiteAriaLabel: "Back to the public site",
     backToSiteTitle: "Back to the site",
     logout: "Log out",
+  },
+  csv: {
+    headers: ["Date", "Description", "Category", "Client", "Amount"],
+    incomeLabel: "Income",
+  },
+  errors: {
+    somethingWrongTitle: "Something went wrong",
+    somethingWrongBody: "An unexpected error occurred. Try again, or go back home.",
+    retry: "Try again",
+    backToHome: "Back to home",
+    notFoundTitle: "Page not found",
+    notFoundBody: "The link you followed no longer exists, or the address is wrong.",
   },
   chiSiamo: {
     metaTitle: "About us — Bilancino",
