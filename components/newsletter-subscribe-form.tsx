@@ -5,7 +5,7 @@ import { subscribeToNewsletter, type SubscribeState } from "@/lib/newsletter/sub
 
 const initialState: SubscribeState = { status: "idle" };
 
-function SubmitButton() {
+function SubmitButton({ label }: { label: string }) {
   const { pending } = useFormStatus();
   return (
     <button
@@ -15,12 +15,18 @@ function SubmitButton() {
         pending ? "opacity-60 cursor-not-allowed" : ""
       }`}
     >
-      {pending ? "…" : "Iscriviti"}
+      {pending ? "…" : label}
     </button>
   );
 }
 
-export function NewsletterSubscribeForm() {
+export function NewsletterSubscribeForm({
+  emailPlaceholder = "La tua email",
+  subscribeLabel = "Iscriviti",
+}: {
+  emailPlaceholder?: string;
+  subscribeLabel?: string;
+}) {
   const [state, formAction] = useFormState(subscribeToNewsletter, initialState);
 
   if (state.status === "success") {
@@ -34,10 +40,10 @@ export function NewsletterSubscribeForm() {
           type="email"
           name="email"
           required
-          placeholder="La tua email"
+          placeholder={emailPlaceholder}
           className="text-xs border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent w-40"
         />
-        <SubmitButton />
+        <SubmitButton label={subscribeLabel} />
       </div>
       {state.status === "error" ? (
         <span className="text-xs text-red-600 dark:text-red-400">{state.message}</span>

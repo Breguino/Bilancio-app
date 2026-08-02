@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 function revalidateAll() {
   revalidatePath("/dashboard");
@@ -13,6 +14,7 @@ function revalidateAll() {
 }
 
 export async function addRecurring(formData: FormData) {
+  const { t } = getDictionary();
   const supabase = createClient();
   const {
     data: { user },
@@ -29,10 +31,10 @@ export async function addRecurring(formData: FormData) {
   const endDate = String(formData.get("end_date") || "").trim() || null;
 
   if (!description || !startDate || !(rawAmount > 0)) {
-    redirect("/recurring?error=" + encodeURIComponent("Compila descrizione, data e un importo maggiore di zero."));
+    redirect("/recurring?error=" + encodeURIComponent(t.recurring.validationError));
   }
   if (endDate && endDate < startDate) {
-    redirect("/recurring?error=" + encodeURIComponent("La data di fine non può essere precedente alla data di inizio."));
+    redirect("/recurring?error=" + encodeURIComponent(t.recurring.endBeforeStartError));
   }
 
   const amount = type === "income" ? rawAmount : -rawAmount;
@@ -50,7 +52,7 @@ export async function addRecurring(formData: FormData) {
   });
 
   revalidateAll();
-  redirect("/recurring?success=" + encodeURIComponent("Ricorrenza aggiunta"));
+  redirect("/recurring?success=" + encodeURIComponent(t.recurring.addedToast));
 }
 
 export async function toggleRecurring(formData: FormData) {

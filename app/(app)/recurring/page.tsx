@@ -5,24 +5,25 @@ import { ErrorBanner } from "@/components/error-banner";
 import { SubmitButton } from "@/components/submit-button";
 import { Toast } from "@/components/toast";
 import { addRecurring, deleteRecurring, toggleRecurring } from "./actions";
-
-const eur = new Intl.NumberFormat("it-IT", {
-  style: "currency",
-  currency: "EUR",
-  useGrouping: true,
-});
-
-const frequencyLabels: Record<string, string> = {
-  weekly: "Ogni settimana",
-  monthly: "Ogni mese",
-  yearly: "Ogni anno",
-};
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export default async function RecurringPage({
   searchParams,
 }: {
   searchParams: { error?: string; success?: string };
 }) {
+  const { locale, t } = getDictionary();
+  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
+    style: "currency",
+    currency: "EUR",
+    useGrouping: true,
+  });
+  const frequencyLabels: Record<string, string> = {
+    weekly: t.recurring.frequencyWeekly,
+    monthly: t.recurring.frequencyMonthly,
+    yearly: t.recurring.frequencyYearly,
+  };
+
   const supabase = createClient();
   await generateDueRecurringTransactions(supabase);
 
@@ -43,54 +44,54 @@ export default async function RecurringPage({
       <Toast message={searchParams.success} />
       <div>
         <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-1">
-          Automazioni
+          {t.recurring.automationsEyebrow}
         </p>
-        <h1 className="text-2xl font-extrabold tracking-tight">Movimenti ricorrenti</h1>
+        <h1 className="text-2xl font-extrabold tracking-tight">{t.recurring.title}</h1>
         <p className="text-ink-secondary dark:text-neutral-400 text-sm mt-1">
-          Vengono generati automaticamente alla scadenza e appaiono tra i movimenti del mese.
+          {t.recurring.subtitle}
         </p>
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl p-5 bg-white dark:bg-neutral-900">
-        <h2 className="font-bold mb-4">Nuova ricorrenza</h2>
+        <h2 className="font-bold mb-4">{t.recurring.newTitle}</h2>
         <div className="mb-4">
           <ErrorBanner message={searchParams.error} />
         </div>
         <form action={addRecurring} className="grid grid-cols-1 sm:grid-cols-6 gap-3 items-end">
           <div className="sm:col-span-2 flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Descrizione</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.recurring.descriptionLabel}</label>
             <input
               name="description"
               required
-              placeholder="Es. Affitto"
+              placeholder={t.recurring.descriptionPlaceholder}
               className="border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Tipo</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.recurring.typeLabel}</label>
             <select
               name="type"
               className="border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             >
-              <option value="expense">Spesa</option>
-              <option value="income">Entrata</option>
+              <option value="expense">{t.recurring.expenseOption}</option>
+              <option value="income">{t.recurring.incomeOption}</option>
             </select>
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Categoria</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.recurring.categoryLabel}</label>
             <input
               name="category"
-              placeholder="Es. Casa"
+              placeholder={t.recurring.categoryPlaceholder}
               className="border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Cliente</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.recurring.contactLabel}</label>
             <select
               name="contact_id"
               className="border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             >
-              <option value="">— nessuno —</option>
+              <option value="">{t.recurring.noneOption}</option>
               {contactList.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name}
@@ -99,7 +100,7 @@ export default async function RecurringPage({
             </select>
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Importo (€)</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.recurring.amountLabel}</label>
             <input
               name="amount"
               type="number"
@@ -110,18 +111,18 @@ export default async function RecurringPage({
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Frequenza</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.recurring.frequencyLabel}</label>
             <select
               name="frequency"
               className="border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             >
-              <option value="monthly">Ogni mese</option>
-              <option value="weekly">Ogni settimana</option>
-              <option value="yearly">Ogni anno</option>
+              <option value="monthly">{t.recurring.frequencyMonthly}</option>
+              <option value="weekly">{t.recurring.frequencyWeekly}</option>
+              <option value="yearly">{t.recurring.frequencyYearly}</option>
             </select>
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Dalla data</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.recurring.startDateLabel}</label>
             <input
               name="start_date"
               type="date"
@@ -131,7 +132,7 @@ export default async function RecurringPage({
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Fino al (opzionale)</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.recurring.endDateLabel}</label>
             <input
               name="end_date"
               type="date"
@@ -139,20 +140,20 @@ export default async function RecurringPage({
             />
           </div>
           <SubmitButton
-            pendingText="Aggiungo…"
+            pendingText={t.recurring.addingPending}
             className="sm:col-span-6 sm:w-fit bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-6 py-2.5 transition-colors"
           >
-            Aggiungi ricorrenza
+            {t.recurring.addSubmit}
           </SubmitButton>
         </form>
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl bg-white dark:bg-neutral-900 overflow-hidden">
         <div className="px-5 pt-5">
-          <h2 className="font-bold">Ricorrenze attive</h2>
+          <h2 className="font-bold">{t.recurring.activeListTitle}</h2>
         </div>
         {rows.length === 0 ? (
-          <p className="text-sm text-ink-muted dark:text-neutral-500 px-5 py-6">Nessun movimento ricorrente ancora.</p>
+          <p className="text-sm text-ink-muted dark:text-neutral-500 px-5 py-6">{t.recurring.emptyState}</p>
         ) : (
           <div className="divide-y divide-border dark:divide-neutral-800 mt-3">
             {rows.map((r: any) => (
@@ -170,12 +171,12 @@ export default async function RecurringPage({
                     </span>
                   ) : null}
                   <span className="text-xs text-ink-muted dark:text-neutral-500 shrink-0">
-                    {frequencyLabels[r.frequency] || r.frequency} · prossima: {r.next_date.slice(8, 10)}/
+                    {frequencyLabels[r.frequency] || r.frequency} · {t.recurring.nextPrefix}: {r.next_date.slice(8, 10)}/
                     {r.next_date.slice(5, 7)}/{r.next_date.slice(0, 4)}
                   </span>
                   {!r.active ? (
                     <span className="text-xs font-semibold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 rounded-full px-2 py-0.5 shrink-0">
-                      in pausa
+                      {t.recurring.paused}
                     </span>
                   ) : null}
                 </div>
@@ -195,14 +196,16 @@ export default async function RecurringPage({
                       type="submit"
                       className="text-xs font-semibold border border-border dark:border-neutral-700 rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors"
                     >
-                      {r.active ? "Pausa" : "Riprendi"}
+                      {r.active ? t.recurring.pauseAction : t.recurring.resumeAction}
                     </button>
                   </form>
                   <form action={deleteRecurring}>
                     <input type="hidden" name="id" value={r.id} />
                     <ConfirmButton
-                      confirmMessage={`Eliminare la ricorrenza "${r.description}"? Non si può annullare.`}
-                      ariaLabel="Elimina ricorrenza"
+                      confirmMessage={t.recurring.deleteConfirmTemplate.replace("{description}", r.description)}
+                      confirmLabel={t.common.deleteAction}
+                      cancelLabel={t.common.cancelAction}
+                      ariaLabel={t.recurring.deleteAriaLabel}
                       className="text-ink-muted dark:text-neutral-500 hover:text-red-600 w-6 h-6 rounded"
                     >
                       ✕

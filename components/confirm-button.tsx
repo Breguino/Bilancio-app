@@ -6,12 +6,14 @@ import { createPortal } from "react-dom";
 export function ConfirmButton({
   confirmMessage,
   confirmLabel = "Elimina",
+  cancelLabel = "Annulla",
   className,
   ariaLabel,
   children,
 }: {
   confirmMessage: string;
   confirmLabel?: string;
+  cancelLabel?: string;
   className?: string;
   ariaLabel?: string;
   children: React.ReactNode;
@@ -115,7 +117,7 @@ export function ConfirmButton({
                     onClick={close}
                     className="text-sm font-semibold rounded-full px-4 py-2 border border-border dark:border-neutral-700 hover:border-accent hover:text-accent transition-colors"
                   >
-                    Annulla
+                    {cancelLabel}
                   </button>
                   <button
                     type="button"

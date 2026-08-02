@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendDraftNewsletter } from "@/lib/newsletter/send";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 async function assertOwner() {
   const supabase = createClient();
@@ -19,13 +20,14 @@ async function assertOwner() {
 
 export async function saveDraft(formData: FormData) {
   await assertOwner();
+  const { t } = getDictionary();
 
   const subject = String(formData.get("subject") || "").trim();
   const bodyHtml = String(formData.get("body_html") || "").trim();
   const id = String(formData.get("id") || "").trim();
 
   if (!subject || !bodyHtml) {
-    redirect("/newsletter?error=" + encodeURIComponent("Scrivi oggetto e testo prima di salvare."));
+    redirect("/newsletter?error=" + encodeURIComponent(t.newsletterAdmin.fieldsRequiredError));
   }
 
   const admin = createAdminClient();
@@ -40,11 +42,12 @@ export async function saveDraft(formData: FormData) {
   }
 
   revalidatePath("/newsletter");
-  redirect("/newsletter?success=" + encodeURIComponent("Bozza salvata"));
+  redirect("/newsletter?success=" + encodeURIComponent(t.newsletterAdmin.draftSavedToast));
 }
 
 export async function sendNow() {
   await assertOwner();
+  const { t } = getDictionary();
 
   const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://bilancino-app.vercel.app";
   const result = await sendDraftNewsletter(origin);
@@ -54,18 +57,20 @@ export async function sendNow() {
   if (result.reason === "error") {
     redirect(
       "/newsletter?error=" +
-        encodeURIComponent(`Resend ha rifiutato l'invio: ${result.error}`)
+        encodeURIComponent(t.newsletterAdmin.resendRejectedError.replace("{error}", result.error))
     );
   }
 
   const message =
     result.reason === "no_draft"
-      ? "Nessuna bozza pronta da inviare."
+      ? t.newsletterAdmin.noDraftReady
       : result.reason === "no_subscribers"
-      ? "Nessun iscritto a cui inviare."
+      ? t.newsletterAdmin.noSubscribers
       : result.failed > 0
-      ? `Inviata a ${result.sent} iscritti (${result.failed} saltati, non consegnabili).`
-      : `Inviata a ${result.sent} iscritti.`;
+      ? t.newsletterAdmin.sentWithFailedTemplate
+          .replace("{sent}", String(result.sent))
+          .replace("{failed}", String(result.failed))
+      : t.newsletterAdmin.sentTemplate.replace("{sent}", String(result.sent));
 
   redirect("/newsletter?success=" + encodeURIComponent(message));
 }

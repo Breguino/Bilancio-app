@@ -3,56 +3,29 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { createClient } from "@/lib/supabase/server";
+import { dictionaryFor } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
 
-const title = "Il servizio — Bilancino";
-const description =
-  "Come funziona Bilancino dal primo accesso, quanto costa oggi, come sono protetti i tuoi dati (account reale e Row Level Security) e cosa puoi fare se un giorno vuoi andartene.";
-
-export const metadata: Metadata = {
-  title,
-  description,
-  alternates: {
-    canonical: "/il-servizio",
-  },
-  openGraph: {
+export function generateMetadata(): Metadata {
+  const t = dictionaryFor(getLocale());
+  const { metaTitle: title, metaDescription: description } = t.ilServizio;
+  return {
     title,
     description,
-    images: ["/og-image.jpg"],
-    locale: "it_IT",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title,
-    description,
-    images: ["/og-image.jpg"],
-  },
-};
-
-const steps = [
-  {
-    n: "01",
-    title: "Crei un account",
-    body: "Bastano un'email e una password. Nessuna carta di credito, nessun periodo di prova a tempo: appena confermi l'email sei dentro.",
-  },
-  {
-    n: "02",
-    title: "Aggiungi i tuoi dati man mano",
-    body: "Non c'è un'importazione obbligatoria all'inizio: registri un movimento quando succede, aggiungi un contatto quando serve, imposti un budget o un obiettivo quando ha senso per te. Bilancino cresce insieme ai tuoi dati, non li richiede tutti subito.",
-  },
-  {
-    n: "03",
-    title: "Una settimana tipo",
-    body: "Segni le spese man mano che le fai, controlli la Panoramica per vedere se sei dentro budget, e se hai incassato da un cliente registri l'entrata collegata al contatto e, se serve, generi la ricevuta. I movimenti ricorrenti (affitto, stipendio, abbonamenti) si aggiungono da soli, anche nei giorni in cui non apri l'app.",
-  },
-  {
-    n: "04",
-    title: "A fine mese",
-    body: "Dai un'occhiata al confronto con il mese precedente e alle statistiche — trend, media e spese anomale — per capire se qualcosa è cambiato nelle tue abitudini.",
-  },
-];
+    alternates: { canonical: "/il-servizio" },
+    openGraph: {
+      title,
+      description,
+      images: ["/og-image.jpg"],
+      locale: getLocale() === "it" ? "it_IT" : "en_US",
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title, description, images: ["/og-image.jpg"] },
+  };
+}
 
 export default async function IlServizioPage() {
+  const t = dictionaryFor(getLocale());
   const supabase = createClient();
   const {
     data: { user },
@@ -64,24 +37,24 @@ export default async function IlServizioPage() {
 
       <main className="max-w-6xl mx-auto px-6">
         <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
-          <span className="text-xs font-bold uppercase tracking-wide text-accent">Il servizio</span>
+          <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.eyebrow}</span>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
-            Come funziona, quanto costa, come sono protetti i tuoi dati.
+            {t.ilServizio.heroTitle}
           </h1>
           <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
-            Tutto quello che vorresti sapere prima di creare un account, in una pagina sola.
+            {t.ilServizio.heroBody}
           </p>
         </header>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <div className="max-w-[60ch] mb-10">
-            <span className="text-xs font-bold uppercase tracking-wide text-accent">Come funziona</span>
+            <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.howItWorksEyebrow}</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
-              Dal primo accesso alla routine settimanale
+              {t.ilServizio.howItWorksTitle}
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {steps.map((step) => (
+            {t.ilServizio.steps.map((step) => (
               <div
                 key={step.n}
                 className="border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900"
@@ -97,24 +70,19 @@ export default async function IlServizioPage() {
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wide text-accent">Prezzo</span>
+              <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.priceEyebrow}</span>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[18ch]">
-                Gratuito, senza carta di credito
+                {t.ilServizio.priceTitle}
               </h2>
             </div>
             <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
+              <p>{t.ilServizio.pricePara1}</p>
               <p>
-                Crei un account e usi Bilancino senza pagare nulla e senza inserire una carta:
-                niente periodo di prova a tempo, niente upgrade nascosto dopo pochi giorni.
-              </p>
-              <p>
-                È un progetto indipendente in{" "}
+                {t.ilServizio.pricePara2Pre}{" "}
                 <Link href="/novita" className="text-accent font-medium hover:underline">
-                  sviluppo continuo
+                  {t.ilServizio.pricePara2Link}
                 </Link>
-                , quindi non posso prometterti che resterà gratuito per sempre — ma qualunque cosa
-                cambi, non troverai mai i tuoi dati in ostaggio: puoi esportare in qualsiasi momento
-                l'intero storico dei movimenti in CSV, senza dover chiedere permesso a nessuno.
+                {t.ilServizio.pricePara2Post}
               </p>
             </div>
           </div>
@@ -123,27 +91,15 @@ export default async function IlServizioPage() {
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wide text-accent">Sicurezza e privacy</span>
+              <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.securityEyebrow}</span>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[20ch]">
-                Un vero account, dati isolati per riga
+                {t.ilServizio.securityTitle}
               </h2>
             </div>
             <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
-              <p>
-                L'accesso avviene con email e password reali, non con un semplice codice locale:
-                i tuoi dati sono legati al tuo account e sincronizzati su ogni dispositivo da cui
-                fai login.
-              </p>
-              <p>
-                A livello di database, Bilancino applica Row Level Security di Postgres: ogni
-                riga di dati è vincolata al proprio utente, e nessun altro account può leggerla o
-                modificarla — anche in caso di un errore nel codice dell'applicazione, la
-                protezione resta a livello di database, non solo nell'interfaccia.
-              </p>
-              <p>
-                I dati di utenti diversi non vengono mai condivisi, aggregati o mostrati tra loro:
-                ogni account vede solo ed esclusivamente i propri movimenti, contatti e obiettivi.
-              </p>
+              {t.ilServizio.securityParagraphs.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
             </div>
           </div>
         </section>
@@ -151,40 +107,31 @@ export default async function IlServizioPage() {
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wide text-accent">I tuoi dati</span>
+              <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.dataEyebrow}</span>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[20ch]">
-                Puoi sempre portarli via
+                {t.ilServizio.dataTitle}
               </h2>
             </div>
             <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
-              <p>
-                Dalla Panoramica puoi esportare in qualunque momento l'intero storico dei
-                movimenti in formato CSV, apribile in Excel o Fogli Google. Non è un'opzione
-                nascosta in fondo a un menu: è pensata per essere usata quando vuoi, senza dover
-                chiedere niente.
-              </p>
-              <p>
-                Prima di eliminare qualcosa — un movimento, un contatto, un obiettivo — ti viene
-                sempre chiesta una conferma esplicita, per evitare cancellazioni per errore.
-              </p>
+              {t.ilServizio.dataParagraphs.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
             </div>
           </div>
         </section>
 
         <section className="py-14 sm:py-20 flex flex-col items-center text-center gap-5 border-t border-border dark:border-neutral-800">
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
-            {user ? "Bentornato: riprendi da dove hai lasciato." : "Pronto a mettere ordine nei tuoi conti?"}
+            {user ? t.home.ctaTitleReturning : t.home.ctaTitleNew}
           </h2>
           <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">
-            {user
-              ? "I tuoi movimenti, budget e contatti ti aspettano in Panoramica."
-              : "Crea un account in meno di un minuto — bastano un'email e una password."}
+            {user ? t.home.ctaBodyReturning : t.home.ctaBodyNew}
           </p>
           <Link
             href={user ? "/dashboard" : "/signup"}
             className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
           >
-            {user ? "Vai alla Dashboard →" : "Crea un account gratis →"}
+            {user ? t.home.ctaDashboard : t.home.ctaSignupFree}
           </Link>
         </section>
       </main>

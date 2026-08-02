@@ -3,8 +3,10 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export async function setBudget(formData: FormData) {
+  const { t } = getDictionary();
   const supabase = createClient();
   const {
     data: { user },
@@ -14,7 +16,7 @@ export async function setBudget(formData: FormData) {
   const category = String(formData.get("category") || "").trim();
   const limit = parseFloat(String(formData.get("monthly_limit") || "0"));
   if (!category || !(limit > 0)) {
-    redirect("/budget?error=" + encodeURIComponent("Indica una categoria e un limite maggiore di zero."));
+    redirect("/budget?error=" + encodeURIComponent(t.budget.validationError));
   }
 
   await supabase
@@ -25,7 +27,7 @@ export async function setBudget(formData: FormData) {
     );
 
   revalidatePath("/budget");
-  redirect("/budget?success=" + encodeURIComponent("Budget salvato"));
+  redirect("/budget?success=" + encodeURIComponent(t.budget.savedToast));
 }
 
 export async function deleteBudget(formData: FormData) {

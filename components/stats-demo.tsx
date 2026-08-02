@@ -3,16 +3,42 @@
 import { useMemo, useState } from "react";
 import { linearRegression, confidenceInterval95, sampleStdDev, mean } from "@/lib/statistics";
 
-const eur = new Intl.NumberFormat("it-IT", {
-  style: "currency",
-  currency: "EUR",
-  maximumFractionDigits: 0,
-});
-
 const DEFAULT_VALUES = [620, 780, 710, 890, 940];
 
-export function StatsDemo() {
+type StatsDemoLabels = {
+  eyebrow: string;
+  title: string;
+  body: string;
+  monthLabel: string;
+  average: string;
+  stdDev: string;
+  forecastMonth6: string;
+  ci95: string;
+};
+
+const DEFAULT_LABELS: StatsDemoLabels = {
+  eyebrow: "Provalo tu stesso",
+  title: "Il motore statistico, dal vivo",
+  body: "Modifica il risparmio netto degli ultimi 5 mesi: previsione, media e intervallo di confidenza si aggiornano subito, con la stessa formula usata dentro l'app.",
+  monthLabel: "Mese",
+  average: "Media",
+  stdDev: "Dev. standard",
+  forecastMonth6: "Previsione mese 6",
+  ci95: "IC 95%",
+};
+
+export function StatsDemo({
+  labels = DEFAULT_LABELS,
+  numberLocale = "it-IT",
+}: {
+  labels?: StatsDemoLabels;
+  numberLocale?: string;
+} = {}) {
   const [values, setValues] = useState<number[]>(DEFAULT_VALUES);
+  const eur = useMemo(
+    () => new Intl.NumberFormat(numberLocale, { style: "currency", currency: "EUR", maximumFractionDigits: 0 }),
+    [numberLocale]
+  );
 
   function updateValue(i: number, raw: string) {
     const n = Number(raw);
@@ -27,18 +53,17 @@ export function StatsDemo() {
 
   return (
     <div className="border border-border dark:border-neutral-800 rounded-2xl p-6 sm:p-8 bg-white dark:bg-neutral-900">
-      <p className="text-xs font-bold uppercase tracking-wide text-accent mb-2">Provalo tu stesso</p>
-      <h3 className="text-xl font-extrabold tracking-tight mb-1">Il motore statistico, dal vivo</h3>
+      <p className="text-xs font-bold uppercase tracking-wide text-accent mb-2">{labels.eyebrow}</p>
+      <h3 className="text-xl font-extrabold tracking-tight mb-1">{labels.title}</h3>
       <p className="text-ink-secondary dark:text-neutral-400 text-sm mb-6">
-        Modifica il risparmio netto degli ultimi 5 mesi: previsione, media e intervallo di confidenza si aggiornano
-        subito, con la stessa formula usata dentro l'app.
+        {labels.body}
       </p>
 
       <div className="grid grid-cols-5 gap-2 mb-6">
         {values.map((v, i) => (
           <div key={i} className="flex flex-col gap-1">
             <label className="text-[10px] font-semibold uppercase text-ink-muted dark:text-neutral-500 text-center">
-              Mese {i + 1}
+              {labels.monthLabel} {i + 1}
             </label>
             <input
               type="number"
@@ -52,19 +77,19 @@ export function StatsDemo() {
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-border dark:border-neutral-800 pt-5">
         <div>
-          <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">Media</p>
+          <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{labels.average}</p>
           <p className="num font-bold">{eur.format(avg)}</p>
         </div>
         <div>
-          <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">Dev. standard</p>
+          <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{labels.stdDev}</p>
           <p className="num font-bold">{eur.format(stdDev)}</p>
         </div>
         <div>
-          <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">Previsione mese 6</p>
+          <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{labels.forecastMonth6}</p>
           <p className="num font-bold text-accent">{forecast !== null ? eur.format(forecast) : "—"}</p>
         </div>
         <div>
-          <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">IC 95%</p>
+          <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{labels.ci95}</p>
           <p className="num font-bold text-sm">{ci ? `${eur.format(ci.lower)} — ${eur.format(ci.upper)}` : "—"}</p>
         </div>
       </div>

@@ -2,12 +2,15 @@ import Link from "next/link";
 import { signup } from "./actions";
 import { Logo } from "@/components/logo";
 import { PasswordInput } from "@/components/password-input";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export default function SignupPage({
   searchParams,
 }: {
   searchParams: { error?: string; check_email?: string };
 }) {
+  const { t } = getDictionary();
+
   if (searchParams.check_email) {
     return (
       <main className="min-h-screen flex justify-center px-6 py-10">
@@ -19,12 +22,12 @@ export default function SignupPage({
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
-            Torna alla home
+            {t.auth.backToHome}
           </Link>
-          <h1 className="text-2xl font-extrabold tracking-tight mb-2">Controlla la tua email</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight mb-2">{t.auth.signup.checkEmailTitle}</h1>
           <p className="text-ink-secondary dark:text-neutral-400 text-sm">
-            Ti abbiamo inviato un link di conferma. Aprilo per attivare il tuo account, poi torna
-            ad <Link href="/login" className="text-accent font-medium">accedere</Link>.
+            {t.auth.signup.checkEmailBodyPre}{" "}
+            <Link href="/login" className="text-accent font-medium">{t.auth.signup.checkEmailLoginWord}</Link>.
           </p>
         </div>
       </main>
@@ -41,16 +44,16 @@ export default function SignupPage({
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
-          Torna alla home
+          {t.auth.backToHome}
         </Link>
 
         <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg mb-8" aria-label="Bilancino">
           <Logo size={40} />
         </Link>
 
-        <h1 className="text-2xl font-extrabold tracking-tight mb-1">Crea il tuo account</h1>
+        <h1 className="text-2xl font-extrabold tracking-tight mb-1">{t.auth.signup.title}</h1>
         <p className="text-ink-secondary dark:text-neutral-400 text-sm mb-6">
-          Ogni account ha i propri dati, separati e privati.
+          {t.auth.signup.subtitle}
         </p>
 
         {searchParams.error ? (
@@ -62,7 +65,7 @@ export default function SignupPage({
         <form action={signup} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
             <label htmlFor="email" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
-              Email
+              {t.auth.emailLabel}
             </label>
             <input
               id="email"
@@ -75,23 +78,31 @@ export default function SignupPage({
           </div>
           <div className="flex flex-col gap-1.5">
             <label htmlFor="password" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
-              Password
+              {t.auth.signup.passwordLabel}
             </label>
-            <PasswordInput id="password" name="password" autoComplete="new-password" required minLength={8} />
-            <span className="text-xs text-ink-muted dark:text-neutral-500">Almeno 8 caratteri.</span>
+            <PasswordInput
+              id="password"
+              name="password"
+              autoComplete="new-password"
+              required
+              minLength={8}
+              showLabel={t.auth.passwordInput.show}
+              hideLabel={t.auth.passwordInput.hide}
+            />
+            <span className="text-xs text-ink-muted dark:text-neutral-500">{t.auth.signup.minChars}</span>
           </div>
           <button
             type="submit"
             className="mt-2 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full py-2.5 transition-colors"
           >
-            Registrati
+            {t.auth.signup.submit}
           </button>
         </form>
 
         <p className="text-sm text-ink-secondary dark:text-neutral-400 mt-6">
-          Hai gia' un account?{" "}
+          {t.auth.signup.haveAccount}{" "}
           <Link href="/login" className="text-accent font-medium">
-            Accedi
+            {t.auth.signup.loginLink}
           </Link>
         </p>
       </div>

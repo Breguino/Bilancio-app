@@ -2,24 +2,27 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileMenu } from "@/components/mobile-menu";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { createClient } from "@/lib/supabase/server";
-
-export const MARKETING_NAV_LINKS = [
-  { href: "/chi-siamo", label: "Chi siamo" },
-  { href: "/cosa-offriamo", label: "Cosa offriamo" },
-  { href: "/il-servizio", label: "Il servizio" },
-  { href: "/#faq", label: "FAQ" },
-];
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export async function SiteHeader() {
   const supabase = createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  const { locale, t } = getDictionary();
+
+  const marketingNavLinks = [
+    { href: "/chi-siamo", label: t.nav.chiSiamo },
+    { href: "/cosa-offriamo", label: t.nav.cosaOffriamo },
+    { href: "/il-servizio", label: t.nav.ilServizio },
+    { href: "/#faq", label: t.nav.faq },
+  ];
 
   const mobileItems = user
-    ? [...MARKETING_NAV_LINKS, { href: "/dashboard", label: "Dashboard" }]
-    : [...MARKETING_NAV_LINKS, { href: "/login", label: "Accedi" }];
+    ? [...marketingNavLinks, { href: "/dashboard", label: t.nav.dashboard }]
+    : [...marketingNavLinks, { href: "/login", label: t.nav.accedi }];
 
   return (
     <nav className="sticky top-0 z-20 relative border-b border-transparent backdrop-blur bg-white/90 dark:bg-neutral-950/90">
@@ -28,20 +31,21 @@ export async function SiteHeader() {
           <Logo size={30} />
         </Link>
         <div className="hidden sm:flex items-center gap-7 text-sm font-medium text-ink-secondary dark:text-neutral-400">
-          {MARKETING_NAV_LINKS.map((link) => (
+          {marketingNavLinks.map((link) => (
             <Link key={link.href} href={link.href} className="hover:text-ink dark:hover:text-neutral-100">
               {link.label}
             </Link>
           ))}
         </div>
         <div className="flex items-center gap-3">
-          <ThemeToggle />
+          <LanguageSwitcher locale={locale} label={t.common.langSwitchLabel} />
+          <ThemeToggle ariaLabel={t.shared.themeToggle.ariaLabel} title={t.shared.themeToggle.title} />
           {!user ? (
             <Link
               href="/login"
               className="hidden sm:inline text-sm font-semibold text-ink-secondary dark:text-neutral-400 hover:text-ink dark:hover:text-neutral-100"
             >
-              Accedi
+              {t.nav.accedi}
             </Link>
           ) : null}
           <div className="sm:hidden">
@@ -51,7 +55,7 @@ export async function SiteHeader() {
             href={user ? "/dashboard" : "/signup"}
             className="bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-4 py-2 transition-colors whitespace-nowrap"
           >
-            {user ? "Vai alla Dashboard" : "Crea un account"}
+            {user ? t.nav.vaiDashboard : t.nav.creaAccount}
           </Link>
         </div>
       </div>

@@ -4,10 +4,12 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { parseImportCsv } from "@/lib/csv-import";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 const MAX_IMPORT_FILE_BYTES = 2 * 1024 * 1024;
 
 export async function addTransaction(formData: FormData) {
+  const { t } = getDictionary();
   const supabase = createClient();
   const {
     data: { user },
@@ -23,7 +25,7 @@ export async function addTransaction(formData: FormData) {
   const returnPath = String(formData.get("return_path") || "/dashboard");
 
   if (!description || !date || !(rawAmount > 0)) {
-    redirect(withParam(returnPath, "error", "Compila descrizione, data e un importo maggiore di zero."));
+    redirect(withParam(returnPath, "error", t.dashboard.addTransactionValidationError));
   }
 
   const amount = type === "income" ? rawAmount : -rawAmount;
@@ -39,10 +41,11 @@ export async function addTransaction(formData: FormData) {
 
   revalidateAll();
   revalidatePath("/contacts");
-  redirect(withParam(returnPath, "success", "Movimento aggiunto"));
+  redirect(withParam(returnPath, "success", t.dashboard.addedToast));
 }
 
 export async function importTransactions(formData: FormData) {
+  const { t } = getDictionary();
   const supabase = createClient();
   const {
     data: { user },
@@ -53,10 +56,10 @@ export async function importTransactions(formData: FormData) {
   const file = formData.get("file");
 
   if (!(file instanceof File) || file.size === 0) {
-    redirect(withParam(returnPath, "error", "Seleziona un file CSV da importare."));
+    redirect(withParam(returnPath, "error", t.dashboard.selectFileError));
   }
   if (file.size > MAX_IMPORT_FILE_BYTES) {
-    redirect(withParam(returnPath, "error", "Il file è troppo grande (limite 2 MB)."));
+    redirect(withParam(returnPath, "error", t.dashboard.fileTooLargeError));
   }
 
   const text = await file.text();
@@ -64,13 +67,7 @@ export async function importTransactions(formData: FormData) {
   const { rows, imported, skipped, unmatchedContacts } = parseImportCsv(text, contacts || []);
 
   if (imported === 0) {
-    redirect(
-      withParam(
-        returnPath,
-        "error",
-        "Nessuna riga valida trovata nel file. Controlla che le colonne siano Data, Descrizione, Categoria, Cliente, Importo."
-      )
-    );
+    redirect(withParam(returnPath, "error", t.dashboard.noValidRowsError));
   }
 
   const CHUNK_SIZE = 500;
@@ -82,9 +79,9 @@ export async function importTransactions(formData: FormData) {
   revalidateAll();
   revalidatePath("/contacts");
 
-  const parts = [`${imported} movimenti importati`];
-  if (skipped > 0) parts.push(`${skipped} righe ignorate`);
-  if (unmatchedContacts > 0) parts.push(`${unmatchedContacts} clienti non riconosciuti`);
+  const parts = [t.dashboard.importedCount.replace("{n}", String(imported))];
+  if (skipped > 0) parts.push(t.dashboard.skippedCount.replace("{n}", String(skipped)));
+  if (unmatchedContacts > 0) parts.push(t.dashboard.unmatchedContactsCount.replace("{n}", String(unmatchedContacts)));
   redirect(withParam(returnPath, "success", parts.join(", ")));
 }
 
@@ -94,6 +91,7 @@ function withParam(path: string, key: string, value: string) {
 }
 
 export async function deleteTransaction(formData: FormData) {
+  const { t } = getDictionary();
   const supabase = createClient();
   const {
     data: { user },
@@ -104,7 +102,7 @@ export async function deleteTransaction(formData: FormData) {
   const returnPath = String(formData.get("return_path") || "/dashboard");
 
   if (!id) {
-    redirect(withParam(returnPath, "error", "Movimento non trovato."));
+    redirect(withParam(returnPath, "error", t.dashboard.transactionNotFoundError));
   }
 
   // Eliminazione "soft": sposta nel cestino invece di cancellare subito.
@@ -118,18 +116,17 @@ export async function deleteTransaction(formData: FormData) {
     .is("deleted_at", null);
 
   if (error || count === 0) {
-    redirect(
-      withParam(returnPath, "error", "Non è stato possibile eliminare il movimento. Riprova.")
-    );
+    redirect(withParam(returnPath, "error", t.dashboard.deleteFailedError));
   }
 
   revalidateAll();
   revalidatePath("/contacts");
   revalidatePath("/cestino");
-  redirect(withParam(returnPath, "success", "Movimento spostato nel cestino"));
+  redirect(withParam(returnPath, "success", t.dashboard.movedToTrashToast));
 }
 
 export async function restoreTransaction(formData: FormData) {
+  const { t } = getDictionary();
   const supabase = createClient();
   const {
     data: { user },
@@ -144,10 +141,11 @@ export async function restoreTransaction(formData: FormData) {
   revalidateAll();
   revalidatePath("/contacts");
   revalidatePath("/cestino");
-  redirect(withParam("/cestino", "success", "Movimento ripristinato"));
+  redirect(withParam("/cestino", "success", t.dashboard.restoredToast));
 }
 
 export async function permanentlyDeleteTransaction(formData: FormData) {
+  const { t } = getDictionary();
   const supabase = createClient();
   const {
     data: { user },
@@ -160,7 +158,7 @@ export async function permanentlyDeleteTransaction(formData: FormData) {
   await supabase.from("transactions").delete().eq("id", id).not("deleted_at", "is", null);
 
   revalidatePath("/cestino");
-  redirect(withParam("/cestino", "success", "Movimento eliminato per sempre"));
+  redirect(withParam("/cestino", "success", t.dashboard.permanentlyDeletedToast));
 }
 
 function revalidateAll() {

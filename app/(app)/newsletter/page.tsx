@@ -6,12 +6,14 @@ import { Toast } from "@/components/toast";
 import { SubmitButton } from "@/components/submit-button";
 import { ConfirmButton } from "@/components/confirm-button";
 import { saveDraft, sendNow } from "./actions";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export default async function NewsletterAdminPage({
   searchParams,
 }: {
   searchParams: { error?: string; success?: string };
 }) {
+  const { locale, t } = getDictionary();
   const supabase = createClient();
   const {
     data: { user },
@@ -48,15 +50,14 @@ export default async function NewsletterAdminPage({
     <div className="flex flex-col gap-8 max-w-2xl">
       <Toast message={searchParams.success} />
       <div>
-        <h1 className="text-2xl font-extrabold tracking-tight">Newsletter</h1>
+        <h1 className="text-2xl font-extrabold tracking-tight">{t.newsletterAdmin.title}</h1>
         <p className="text-sm text-ink-secondary dark:text-neutral-400 mt-1">
-          {subscriberCount ?? 0} iscritti attivi. Parte automaticamente il 1° di ogni mese; puoi
-          anche inviarla subito qui sotto.
+          {subscriberCount ?? 0} {t.newsletterAdmin.subscriberCountSuffix}
         </p>
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl p-5 bg-white dark:bg-neutral-900">
-        <h2 className="font-bold mb-4">Bozza del prossimo numero</h2>
+        <h2 className="font-bold mb-4">{t.newsletterAdmin.draftTitle}</h2>
         <div className="mb-4">
           <ErrorBanner message={searchParams.error} />
         </div>
@@ -64,7 +65,7 @@ export default async function NewsletterAdminPage({
           <input type="hidden" name="id" value={draft?.id || ""} />
           <div className="flex flex-col gap-1">
             <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
-              Oggetto
+              {t.newsletterAdmin.subjectLabel}
             </label>
             <input
               name="subject"
@@ -75,7 +76,7 @@ export default async function NewsletterAdminPage({
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
-              Testo (HTML semplice — va bene anche solo testo normale)
+              {t.newsletterAdmin.bodyLabel}
             </label>
             <textarea
               name="body_html"
@@ -87,34 +88,35 @@ export default async function NewsletterAdminPage({
           </div>
           <div>
             <SubmitButton
-              pendingText="Salvo…"
+              pendingText={t.newsletterAdmin.savingPending}
               className="bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-5 py-2.5 transition-colors"
             >
-              Salva bozza
+              {t.newsletterAdmin.saveDraft}
             </SubmitButton>
           </div>
         </form>
         <form action={sendNow} className="mt-3">
           <ConfirmButton
-            confirmMessage="Inviare subito questa bozza a tutti gli iscritti attivi? Non si può annullare."
-            confirmLabel="Invia"
-            ariaLabel="Invia adesso"
+            confirmMessage={t.newsletterAdmin.sendConfirmMessage}
+            confirmLabel={t.newsletterAdmin.sendConfirmLabel}
+            cancelLabel={t.common.cancelAction}
+            ariaLabel={t.newsletterAdmin.sendAriaLabel}
             className="text-xs font-semibold border border-border dark:border-neutral-700 rounded-full px-4 py-2 hover:border-accent hover:text-accent transition-colors"
           >
-            ⬆ Invia adesso
+            {t.newsletterAdmin.sendNow}
           </ConfirmButton>
         </form>
       </div>
 
       {sentIssues && sentIssues.length > 0 ? (
         <div className="border border-border dark:border-neutral-800 rounded-xl p-5 bg-white dark:bg-neutral-900">
-          <h2 className="font-bold mb-3">Numeri già inviati</h2>
+          <h2 className="font-bold mb-3">{t.newsletterAdmin.sentIssuesTitle}</h2>
           <ul className="flex flex-col gap-2 text-sm">
             {sentIssues.map((i) => (
               <li key={i.id} className="flex items-center justify-between gap-3">
                 <span className="truncate">{i.subject}</span>
                 <span className="text-xs text-ink-muted dark:text-neutral-500 shrink-0">
-                  {i.sent_at ? new Date(i.sent_at).toLocaleDateString("it-IT") : ""}
+                  {i.sent_at ? new Date(i.sent_at).toLocaleDateString(locale === "it" ? "it-IT" : "en-GB") : ""}
                 </span>
               </li>
             ))}

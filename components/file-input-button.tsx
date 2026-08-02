@@ -10,11 +10,17 @@ export function FileInputButton({
   accept,
   required,
   title,
+  importingLabel = "Importo…",
+  importLabel = "⬆ Importa CSV",
+  noFileLabel = "Nessun file",
 }: {
   name: string;
   accept?: string;
   required?: boolean;
   title?: string;
+  importingLabel?: string;
+  importLabel?: string;
+  noFileLabel?: string;
 }) {
   const id = useId();
   const [fileName, setFileName] = useState<string | null>(null);
@@ -31,7 +37,7 @@ export function FileInputButton({
             : "cursor-pointer hover:border-accent hover:text-accent"
         }`}
       >
-        {pending ? "Importo…" : "⬆ Importa CSV"}
+        {pending ? importingLabel : importLabel}
       </label>
       <input
         id={id}
@@ -48,7 +54,7 @@ export function FileInputButton({
         className="sr-only"
       />
       <span className="text-xs text-ink-muted dark:text-neutral-500 truncate max-w-[7rem] sm:max-w-[10rem]">
-        {fileName || "Nessun file"}
+        {fileName || noFileLabel}
       </span>
     </div>
   );

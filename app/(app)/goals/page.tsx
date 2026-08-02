@@ -4,19 +4,22 @@ import { ErrorBanner } from "@/components/error-banner";
 import { SubmitButton } from "@/components/submit-button";
 import { Toast } from "@/components/toast";
 import { addGoal, contribute, deleteGoal } from "./actions";
-
-const eur = new Intl.NumberFormat("it-IT", {
-  style: "currency",
-  currency: "EUR",
-  useGrouping: true,
-});
-const pct1 = (n: number) => n.toLocaleString("it-IT", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export default async function GoalsPage({
   searchParams,
 }: {
   searchParams: { error?: string; success?: string };
 }) {
+  const { locale, t } = getDictionary();
+  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
+    style: "currency",
+    currency: "EUR",
+    useGrouping: true,
+  });
+  const pct1 = (n: number) =>
+    n.toLocaleString(locale === "it" ? "it-IT" : "en-IE", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
+
   const supabase = createClient();
   const { data: goals } = await supabase.from("goals").select("*").order("created_at");
   const rows = goals || [];
@@ -27,29 +30,29 @@ export default async function GoalsPage({
       <div className="flex items-center justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-1">
-            Risparmio
+            {t.goals.savingEyebrow}
           </p>
-          <h1 className="text-2xl font-extrabold tracking-tight">Obiettivi</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight">{t.goals.title}</h1>
         </div>
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl p-5 bg-white dark:bg-neutral-900">
-        <h2 className="font-bold mb-4">Nuovo obiettivo</h2>
+        <h2 className="font-bold mb-4">{t.goals.newGoalTitle}</h2>
         <div className="mb-4">
           <ErrorBanner message={searchParams.error} />
         </div>
         <form action={addGoal} className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Nome</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.goals.nameLabel}</label>
             <input
               name="name"
               required
-              placeholder="Es. Vacanza estate"
+              placeholder={t.goals.namePlaceholder}
               className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Importo target (€)</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.goals.targetLabel}</label>
             <input
               name="target"
               type="number"
@@ -60,16 +63,16 @@ export default async function GoalsPage({
             />
           </div>
           <SubmitButton
-            pendingText="Creo…"
+            pendingText={t.goals.creatingPending}
             className="bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-6 py-2.5 transition-colors sm:w-fit"
           >
-            Crea obiettivo
+            {t.goals.createSubmit}
           </SubmitButton>
         </form>
       </div>
 
       {rows.length === 0 ? (
-        <p className="text-sm text-ink-muted dark:text-neutral-500">Nessun obiettivo ancora — creane uno sopra.</p>
+        <p className="text-sm text-ink-muted dark:text-neutral-500">{t.goals.emptyState}</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {rows.map((g) => {
@@ -80,8 +83,10 @@ export default async function GoalsPage({
                 <form action={deleteGoal} className="absolute top-3 right-3">
                   <input type="hidden" name="id" value={g.id} />
                   <ConfirmButton
-                    confirmMessage={`Eliminare l'obiettivo "${g.name}"? Non si può annullare.`}
-                    ariaLabel="Elimina obiettivo"
+                    confirmMessage={t.goals.deleteConfirmTemplate.replace("{name}", g.name)}
+                    confirmLabel={t.common.deleteAction}
+                    cancelLabel={t.common.cancelAction}
+                    ariaLabel={t.goals.deleteAriaLabel}
                     className="text-ink-muted dark:text-neutral-500 hover:text-red-600 text-xs w-5 h-5"
                   >
                     ✕
@@ -98,7 +103,7 @@ export default async function GoalsPage({
                   <div className="bar-fill h-full rounded bg-accent" style={{ width: `${pct}%` }} />
                 </div>
                 <p className="text-xs text-ink-muted dark:text-neutral-500 mt-1">
-                  {pct1(pct)} {reached ? "— obiettivo raggiunto" : "del target"}
+                  {pct1(pct)} {reached ? t.goals.reachedSuffix : t.goals.ofTargetSuffix}
                 </p>
                 <form action={contribute} className="flex items-center gap-2 mt-3">
                   <input type="hidden" name="id" value={g.id} />
@@ -107,14 +112,14 @@ export default async function GoalsPage({
                     type="number"
                     step="0.01"
                     min="0.01"
-                    placeholder="Importo (€)"
+                    placeholder={t.goals.contributionAmountPlaceholder}
                     className="border border-border dark:border-neutral-800 rounded-lg px-2.5 py-1.5 text-xs w-28 bg-white dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-accent"
                   />
                   <SubmitButton
-                    pendingText="Aggiungo…"
+                    pendingText={t.goals.addingPending}
                     className="border border-border dark:border-neutral-800 rounded-full px-3 py-1.5 text-xs font-semibold bg-white dark:bg-neutral-900 hover:border-accent hover:text-accent transition-colors"
                   >
-                    + Contributo
+                    {t.goals.contributeSubmit}
                   </SubmitButton>
                 </form>
               </div>

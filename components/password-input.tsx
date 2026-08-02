@@ -9,12 +9,16 @@ export function PasswordInput({
   autoComplete,
   required,
   minLength,
+  showLabel = "Mostra password",
+  hideLabel = "Nascondi password",
 }: {
   id: string;
   name: string;
   autoComplete: string;
   required?: boolean;
   minLength?: number;
+  showLabel?: string;
+  hideLabel?: string;
 }) {
   const [visible, setVisible] = useState(false);
 
@@ -32,7 +36,7 @@ export function PasswordInput({
       <button
         type="button"
         onClick={() => setVisible((v) => !v)}
-        aria-label={visible ? "Nascondi password" : "Mostra password"}
+        aria-label={visible ? hideLabel : showLabel}
         className="absolute right-2.5 top-1/2 -translate-y-1/2 text-ink-muted dark:text-neutral-500 hover:text-accent transition-colors"
       >
         {visible ? <EyeOff size={16} strokeWidth={1.75} /> : <Eye size={16} strokeWidth={1.75} />}

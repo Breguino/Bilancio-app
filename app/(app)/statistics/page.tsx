@@ -1,24 +1,24 @@
 import { createClient } from "@/lib/supabase/server";
 import { linearRegression, confidenceInterval95, sampleStdDev, zScoreOutliers } from "@/lib/statistics";
-
-const eur = new Intl.NumberFormat("it-IT", {
-  style: "currency",
-  currency: "EUR",
-  useGrouping: true,
-});
-const num2 = (n: number) => n.toLocaleString("it-IT", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
-
-const MONTH_NAMES = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 function monthKey(dateStr: string) {
   return dateStr.slice(0, 7);
 }
-function monthLabel(key: string) {
-  const [y, m] = key.split("-").map(Number);
-  return `${MONTH_NAMES[m - 1]} ${y}`;
-}
 
 export default async function StatisticsPage() {
+  const { locale, t } = getDictionary();
+  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
+    style: "currency",
+    currency: "EUR",
+    useGrouping: true,
+  });
+  const num2 = (n: number) => n.toLocaleString(locale === "it" ? "it-IT" : "en-IE", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+  const monthLabel = (key: string) => {
+    const [y, m] = key.split("-").map(Number);
+    return `${t.statistics.monthNamesShort[m - 1]} ${y}`;
+  };
+
   const supabase = createClient();
   const { data: transactions } = await supabase
     .from("transactions")
@@ -66,29 +66,30 @@ export default async function StatisticsPage() {
     <div className="flex flex-col gap-8">
       <div>
         <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-1">
-          Analisi
+          {t.statistics.eyebrow}
         </p>
-        <h1 className="text-2xl font-extrabold tracking-tight">Statistiche</h1>
+        <h1 className="text-2xl font-extrabold tracking-tight">{t.statistics.title}</h1>
         <p className="text-ink-secondary dark:text-neutral-400 text-sm mt-1">
-          Statistica descrittiva, inferenziale e trend econometrici sui tuoi movimenti.
+          {t.statistics.subtitle}
         </p>
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl p-5 bg-white dark:bg-neutral-900">
-        <h2 className="font-bold mb-1">Andamento e previsione</h2>
+        <h2 className="font-bold mb-1">{t.statistics.trendTitle}</h2>
         <p className="text-xs text-ink-muted dark:text-neutral-500 mb-4">
-          Regressione lineare (OLS) sul risparmio netto mensile.
+          {t.statistics.trendSubtitle}
         </p>
         {!regression ? (
           <p className="text-sm text-ink-muted dark:text-neutral-500">
-            Servono almeno 2 mesi di storico per calcolare un trend.
+            {t.statistics.trendInsufficientData}
           </p>
         ) : (
           <>
             <p className="text-sm mb-4">
-              Il risparmio netto sta {regression.slope >= 0 ? "aumentando" : "diminuendo"} di circa{" "}
-              <strong className="num">{eur.format(Math.abs(regression.slope))}</strong> al mese (R² ={" "}
-              {num2(regression.r2)}).
+              {t.statistics.trendPre} {regression.slope >= 0 ? t.statistics.increasing : t.statistics.decreasing}{" "}
+              {t.statistics.trendMid}{" "}
+              <strong className="num">{eur.format(Math.abs(regression.slope))}</strong>{" "}
+              {t.statistics.trendPost} {num2(regression.r2)}).
             </p>
             <div className="flex flex-col gap-2">
               {months.map((k, i) => (
@@ -102,7 +103,7 @@ export default async function StatisticsPage() {
                   key={`f${i}`}
                   className="flex items-center justify-between text-sm border-t border-dashed border-border dark:border-neutral-700 pt-2 mt-1"
                 >
-                  <span className="text-accent">Previsione +{i + 1} mese</span>
+                  <span className="text-accent">{t.statistics.forecastLabel.replace("{n}", String(i + 1))}</span>
                   <span className="num text-accent font-semibold">{eur.format(v)}</span>
                 </div>
               ))}
@@ -112,29 +113,28 @@ export default async function StatisticsPage() {
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl p-5 bg-white dark:bg-neutral-900">
-        <h2 className="font-bold mb-1">Statistiche descrittive</h2>
+        <h2 className="font-bold mb-1">{t.statistics.descriptiveTitle}</h2>
         <p className="text-xs text-ink-muted dark:text-neutral-500 mb-4">
-          Calcolate sul risparmio netto mensile di tutto lo storico.
+          {t.statistics.descriptiveSubtitle}
         </p>
         {netSeries.length === 0 ? (
-          <p className="text-sm text-ink-muted dark:text-neutral-500">Nessun dato disponibile.</p>
+          <p className="text-sm text-ink-muted dark:text-neutral-500">{t.statistics.noDataAvailable}</p>
         ) : !ci ? (
           <p className="text-sm text-ink-muted dark:text-neutral-500">
-            Con un solo mese di storico ({eur.format(netSeries[0])}) non è possibile calcolare deviazione standard o
-            intervallo di confidenza — servono almeno 2 mesi.
+            {t.statistics.singleMonthNoticeTemplate.replace("{amount}", eur.format(netSeries[0]))}
           </p>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div>
-              <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">Media mensile</p>
+              <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{t.statistics.monthlyAverage}</p>
               <p className="num font-bold">{eur.format(ci.mean)}</p>
             </div>
             <div>
-              <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">Deviazione std.</p>
+              <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{t.statistics.stdDev}</p>
               <p className="num font-bold">{eur.format(stdDev)}</p>
             </div>
             <div className="col-span-2">
-              <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">Intervallo di confidenza 95%</p>
+              <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{t.statistics.confidenceInterval95}</p>
               <p className="num font-bold">
                 {eur.format(ci.lower)} — {eur.format(ci.upper)}
               </p>
@@ -144,13 +144,12 @@ export default async function StatisticsPage() {
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl p-5 bg-white dark:bg-neutral-900">
-        <h2 className="font-bold mb-1">Spese anomale rilevate</h2>
+        <h2 className="font-bold mb-1">{t.statistics.anomaliesTitle}</h2>
         <p className="text-xs text-ink-muted dark:text-neutral-500 mb-4">
-          Transazioni che si scostano di oltre 2 deviazioni standard dalla media della loro categoria (servono almeno
-          4 movimenti nella stessa categoria).
+          {t.statistics.anomaliesSubtitle}
         </p>
         {outliers.length === 0 ? (
-          <p className="text-sm text-ink-muted dark:text-neutral-500">Nessuna spesa anomala rilevata.</p>
+          <p className="text-sm text-ink-muted dark:text-neutral-500">{t.statistics.noAnomalies}</p>
         ) : (
           <div className="flex flex-col gap-3">
             {outliers.map((o) => (
