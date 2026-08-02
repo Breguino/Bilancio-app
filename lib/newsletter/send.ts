@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getResendClient, NEWSLETTER_FROM } from "@/lib/resend";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 const BATCH_SIZE = 100;
 
@@ -12,6 +13,7 @@ export type SendResult =
 // Prende la bozza più recente e la manda a tutti gli iscritti attivi. Usata
 // sia dal cron mensile che dal pulsante "Invia adesso" nella pagina admin.
 export async function sendDraftNewsletter(siteUrl: string): Promise<SendResult> {
+  const { t } = getDictionary();
   const supabase = createAdminClient();
 
   const { data: issue } = await supabase
@@ -45,7 +47,7 @@ export async function sendDraftNewsletter(siteUrl: string): Promise<SendResult> 
       from: NEWSLETTER_FROM,
       to: s.email,
       subject: issue.subject,
-      html: `${issue.body_html}<p style="margin-top:32px;font-size:12px;color:#8b8c94">Non vuoi più ricevere questa newsletter? <a href="${siteUrl}/api/newsletter/unsubscribe?token=${s.unsubscribe_token}">Disiscriviti</a>.</p>`,
+      html: `${issue.body_html}<p style="margin-top:32px;font-size:12px;color:#8b8c94">${t.newsletterAdmin.unsubscribePrompt} <a href="${siteUrl}/api/newsletter/unsubscribe?token=${s.unsubscribe_token}">${t.newsletterAdmin.unsubscribeLinkText}</a>.</p>`,
     }));
 
     // batchValidation "permissive": se un destinatario non è consegnabile
@@ -65,7 +67,7 @@ export async function sendDraftNewsletter(siteUrl: string): Promise<SendResult> 
   }
 
   if (sent === 0) {
-    return { reason: "error", sent: 0, error: "Nessun destinatario consegnabile (controlla la modalità sandbox di Resend)." };
+    return { reason: "error", sent: 0, error: t.newsletterAdmin.noDeliverableSubscribersError };
   }
 
   await supabase
