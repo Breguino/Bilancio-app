@@ -4,6 +4,13 @@ const it = {
     deleteAction: "Elimina",
     cancelAction: "Annulla",
   },
+  cookieConsent: {
+    message: "Uso Google Analytics, con il tuo consenso, per capire come viene usato il sito.",
+    accept: "Accetta",
+    reject: "Rifiuta",
+    privacyLinkText: "Scopri di più",
+    managePreferences: "Gestisci preferenze cookie",
+  },
   shared: {
     savingPending: "Salvataggio…",
     fileInput: {
@@ -750,8 +757,9 @@ const it = {
     ],
     cookiesTitle: "Cookie",
     cookiesParagraphs: [
-      "Solo il cookie strettamente necessario per mantenere la sessione di accesso, gestito da Supabase Auth. Nessun cookie di marketing o di profilazione.",
-      "Per capire quante persone usano l'app uso Vercel Analytics, che non usa cookie e non traccia i singoli utenti: raccoglie solo dati aggregati e anonimi, come le pagine più visitate.",
+      "Il cookie strettamente necessario per mantenere la sessione di accesso, gestito da Supabase Auth: questo non richiede consenso, perché senza non potresti restare loggato.",
+      "Per capire quante persone usano l'app uso anche Vercel Analytics, che non usa cookie e non traccia i singoli utenti: raccoglie solo dati aggregati e anonimi, come le pagine più visitate.",
+      "Con il tuo consenso — te lo chiedo con un banner al primo accesso — uso anche Google Analytics per capire come viene usato il sito nel dettaglio: da dove arrivano i visitatori, quali pagine funzionano meglio. Questo comporta cookie di Google e l'invio di alcuni dati anche a server negli Stati Uniti. Puoi rifiutarlo senza che l'app smetta di funzionare, e puoi cambiare idea in qualsiasi momento da \"Gestisci preferenze cookie\" in fondo al sito.",
     ],
     yourDataTitle: "I tuoi dati restano tuoi",
     yourDataPara1: "Dalla Panoramica puoi esportare in qualsiasi momento l'intero storico dei movimenti in CSV, senza chiedere permesso a nessuno.",
