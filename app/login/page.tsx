@@ -2,12 +2,15 @@ import Link from "next/link";
 import { login } from "./actions";
 import { Logo } from "@/components/logo";
 import { PasswordInput } from "@/components/password-input";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export default function LoginPage({
   searchParams,
 }: {
   searchParams: { error?: string; next?: string };
 }) {
+  const { t } = getDictionary();
+
   return (
     // my-auto sul figlio, non items-center sul padre: se il contenuto supera il
     // viewport (telefono corto o tastiera aperta) i margini collassano e il blocco
@@ -21,16 +24,16 @@ export default function LoginPage({
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
-          Torna alla home
+          {t.auth.backToHome}
         </Link>
 
         <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg mb-8" aria-label="Bilancino">
           <Logo size={40} />
         </Link>
 
-        <h1 className="text-2xl font-extrabold tracking-tight mb-1">Accedi</h1>
+        <h1 className="text-2xl font-extrabold tracking-tight mb-1">{t.auth.login.title}</h1>
         <p className="text-ink-secondary dark:text-neutral-400 text-sm mb-6">
-          Entra con il tuo account per vedere i tuoi dati.
+          {t.auth.login.subtitle}
         </p>
 
         {searchParams.error ? (
@@ -43,7 +46,7 @@ export default function LoginPage({
           <input type="hidden" name="next" value={searchParams.next || "/dashboard"} />
           <div className="flex flex-col gap-1.5">
             <label htmlFor="email" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
-              Email
+              {t.auth.emailLabel}
             </label>
             <input
               id="email"
@@ -57,26 +60,33 @@ export default function LoginPage({
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center justify-between">
               <label htmlFor="password" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
-                Password
+                {t.auth.login.passwordLabel}
               </label>
               <Link href="/reset-password" className="text-xs font-medium text-accent hover:underline">
-                Password dimenticata?
+                {t.auth.login.forgotPassword}
               </Link>
             </div>
-            <PasswordInput id="password" name="password" autoComplete="current-password" required />
+            <PasswordInput
+              id="password"
+              name="password"
+              autoComplete="current-password"
+              required
+              showLabel={t.auth.passwordInput.show}
+              hideLabel={t.auth.passwordInput.hide}
+            />
           </div>
           <button
             type="submit"
             className="mt-2 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full py-2.5 transition-colors"
           >
-            Accedi
+            {t.auth.login.submit}
           </button>
         </form>
 
         <p className="text-sm text-ink-secondary dark:text-neutral-400 mt-6">
-          Non hai un account?{" "}
+          {t.auth.login.noAccount}{" "}
           <Link href="/signup" className="text-accent font-medium">
-            Registrati
+            {t.auth.login.signupLink}
           </Link>
         </p>
       </div>

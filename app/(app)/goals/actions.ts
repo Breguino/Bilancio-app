@@ -3,8 +3,10 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export async function addGoal(formData: FormData) {
+  const { t } = getDictionary();
   const supabase = createClient();
   const {
     data: { user },
@@ -14,21 +16,22 @@ export async function addGoal(formData: FormData) {
   const name = String(formData.get("name") || "").trim();
   const target = parseFloat(String(formData.get("target") || "0"));
   if (!name || !(target > 0)) {
-    redirect("/goals?error=" + encodeURIComponent("Indica un nome e un importo target maggiore di zero."));
+    redirect("/goals?error=" + encodeURIComponent(t.goals.nameTargetValidationError));
   }
 
   await supabase.from("goals").insert({ user_id: user.id, name, target, saved: 0 });
   revalidatePath("/goals");
-  redirect("/goals?success=" + encodeURIComponent("Obiettivo creato"));
+  redirect("/goals?success=" + encodeURIComponent(t.goals.createdToast));
 }
 
 export async function contribute(formData: FormData) {
+  const { t } = getDictionary();
   const supabase = createClient();
   const id = String(formData.get("id") || "");
   const amount = parseFloat(String(formData.get("amount") || "0"));
   if (!id) return;
   if (!(amount > 0)) {
-    redirect("/goals?error=" + encodeURIComponent("Indica un importo di contributo maggiore di zero."));
+    redirect("/goals?error=" + encodeURIComponent(t.goals.contributionValidationError));
   }
 
   const { data: goal } = await supabase.from("goals").select("saved").eq("id", id).single();
@@ -40,7 +43,7 @@ export async function contribute(formData: FormData) {
     .eq("id", id);
 
   revalidatePath("/goals");
-  redirect("/goals?success=" + encodeURIComponent("Contributo aggiunto"));
+  redirect("/goals?success=" + encodeURIComponent(t.goals.contributedToast));
 }
 
 export async function deleteGoal(formData: FormData) {

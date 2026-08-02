@@ -6,12 +6,7 @@ import { ErrorBanner } from "@/components/error-banner";
 import { SubmitButton } from "@/components/submit-button";
 import { Toast } from "@/components/toast";
 import { addNote, deleteNote, toggleNoteDone } from "./actions";
-
-const eur = new Intl.NumberFormat("it-IT", {
-  style: "currency",
-  currency: "EUR",
-  useGrouping: true,
-});
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export default async function ContactDetailPage({
   params,
@@ -20,6 +15,13 @@ export default async function ContactDetailPage({
   params: { id: string };
   searchParams: { error?: string; success?: string };
 }) {
+  const { locale, t } = getDictionary();
+  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
+    style: "currency",
+    currency: "EUR",
+    useGrouping: true,
+  });
+
   const supabase = createClient();
 
   const [{ data: contact }, { data: notes }, { data: transactions }] = await Promise.all([
@@ -46,15 +48,15 @@ export default async function ContactDetailPage({
       <Toast message={searchParams.success} />
       <div>
         <Link href="/contacts" className="text-xs font-semibold text-accent hover:underline">
-          ← Contatti
+          {t.contactDetail.backToContacts}
         </Link>
         <h1 className="text-2xl font-extrabold tracking-tight mt-2">{contact.name}</h1>
         <p className="text-ink-secondary dark:text-neutral-400 text-sm mt-1">
-          {[contact.email, contact.phone].filter(Boolean).join(" · ") || "Nessun recapito"}
+          {[contact.email, contact.phone].filter(Boolean).join(" · ") || t.contactDetail.noContactInfo}
         </p>
         {revenue > 0 ? (
           <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 mt-2">
-            Entrate totali collegate: {eur.format(revenue)}
+            {t.contactDetail.totalRevenueLinked} {eur.format(revenue)}
           </p>
         ) : null}
         {contact.notes ? (
@@ -65,24 +67,24 @@ export default async function ContactDetailPage({
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl p-5 bg-white dark:bg-neutral-900">
-        <h2 className="font-bold mb-4">Nuova nota / promemoria</h2>
+        <h2 className="font-bold mb-4">{t.contactDetail.newNoteTitle}</h2>
         <div className="mb-4">
           <ErrorBanner message={searchParams.error} />
         </div>
         <form action={addNote} className="grid grid-cols-1 sm:grid-cols-6 gap-3 items-end">
           <input type="hidden" name="contact_id" value={contact.id} />
           <div className="sm:col-span-4 flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Nota</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.contactDetail.noteLabel}</label>
             <input
               name="note"
               required
-              placeholder="Es. Richiamare per rinnovo contratto"
+              placeholder={t.contactDetail.notePlaceholder}
               className="border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
-              Promemoria (opzionale)
+              {t.contactDetail.reminderLabel}
             </label>
             <input
               name="remind_at"
@@ -91,20 +93,20 @@ export default async function ContactDetailPage({
             />
           </div>
           <SubmitButton
-            pendingText="Aggiungo…"
+            pendingText={t.contactDetail.addingPending}
             className="bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-6 py-2.5 transition-colors"
           >
-            Aggiungi
+            {t.contactDetail.addSubmit}
           </SubmitButton>
         </form>
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl bg-white dark:bg-neutral-900 overflow-hidden">
         <div className="px-5 pt-5">
-          <h2 className="font-bold">Note e promemoria</h2>
+          <h2 className="font-bold">{t.contactDetail.notesListTitle}</h2>
         </div>
         {rows.length === 0 ? (
-          <p className="text-sm text-ink-muted dark:text-neutral-500 px-5 py-6">Nessuna nota ancora.</p>
+          <p className="text-sm text-ink-muted dark:text-neutral-500 px-5 py-6">{t.contactDetail.emptyState}</p>
         ) : (
           <div className="divide-y divide-border dark:divide-neutral-800 mt-3">
             {rows.map((n) => {
@@ -123,7 +125,7 @@ export default async function ContactDetailPage({
                             : "text-ink-muted dark:text-neutral-400 bg-surface-alt dark:bg-neutral-800"
                         }`}
                       >
-                        {overdue ? "Scaduto: " : "Promemoria: "}
+                        {overdue ? t.contactDetail.overduePrefix : t.contactDetail.reminderPrefix}{" "}
                         {n.remind_at.slice(8, 10)}/{n.remind_at.slice(5, 7)}/{n.remind_at.slice(0, 4)}
                       </span>
                     ) : null}
@@ -137,15 +139,17 @@ export default async function ContactDetailPage({
                         type="submit"
                         className="text-xs font-semibold border border-border dark:border-neutral-700 rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors"
                       >
-                        {n.done ? "Riapri" : "Fatto"}
+                        {n.done ? t.contactDetail.reopenAction : t.contactDetail.doneAction}
                       </button>
                     </form>
                     <form action={deleteNote}>
                       <input type="hidden" name="id" value={n.id} />
                       <input type="hidden" name="contact_id" value={contact.id} />
                       <ConfirmButton
-                        confirmMessage="Eliminare questa nota? Non si può annullare."
-                        ariaLabel="Elimina nota"
+                        confirmMessage={t.contactDetail.deleteNoteConfirm}
+                        confirmLabel={t.common.deleteAction}
+                        cancelLabel={t.common.cancelAction}
+                        ariaLabel={t.contactDetail.deleteNoteAriaLabel}
                         className="text-ink-muted dark:text-neutral-500 hover:text-red-600 w-6 h-6 rounded"
                       >
                         ✕

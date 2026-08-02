@@ -3,8 +3,10 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export async function addNote(formData: FormData) {
+  const { t } = getDictionary();
   const supabase = createClient();
   const {
     data: { user },
@@ -16,7 +18,7 @@ export async function addNote(formData: FormData) {
   const remindAt = String(formData.get("remind_at") || "").trim() || null;
   if (!contactId) return;
   if (!note) {
-    redirect(`/contacts/${contactId}?error=` + encodeURIComponent("Scrivi il testo della nota."));
+    redirect(`/contacts/${contactId}?error=` + encodeURIComponent(t.contactDetail.noteTextValidationError));
   }
 
   await supabase.from("contact_notes").insert({
@@ -27,7 +29,7 @@ export async function addNote(formData: FormData) {
   });
 
   revalidatePath(`/contacts/${contactId}`);
-  redirect(`/contacts/${contactId}?success=` + encodeURIComponent("Nota aggiunta"));
+  redirect(`/contacts/${contactId}?success=` + encodeURIComponent(t.contactDetail.noteAddedToast));
 }
 
 export async function toggleNoteDone(formData: FormData) {

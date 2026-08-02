@@ -5,13 +5,8 @@ import { StatsDemo } from "@/components/stats-demo";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { createClient } from "@/lib/supabase/server";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { LineChart, BarChart3, RefreshCw, Users, Target, Receipt } from "lucide-react";
-
-const eur0 = new Intl.NumberFormat("it-IT", {
-  style: "currency",
-  currency: "EUR",
-  maximumFractionDigits: 0,
-});
 
 function buildHeroChart() {
   const income = [2400, 2550, 2500, 2800, 3100, 3250];
@@ -56,109 +51,49 @@ function buildHeroChart() {
   };
 }
 
-const heroFeature = {
-  title: "Panoramica",
-  tag: "Un colpo d'occhio ogni mese",
-  body: "Entrate, uscite, risparmio netto e andamento degli ultimi 6 mesi — con budget a rischio e promemoria in scadenza già in vista appena apri l'app.",
-  icon: LineChart,
-};
-
-const features = [
-  {
-    title: "Budget per categoria",
-    tag: "Sai sempre quanto ti resta",
-    body: "Imposta un limite per categoria: le barre passano da verde ad ambra a rosso via via che ti avvicini o superi la soglia.",
-    icon: BarChart3,
-  },
-  {
-    title: "Movimenti ricorrenti",
-    tag: "Le spese fisse si registrano da sole",
-    body: "Affitto, stipendio, abbonamenti: imposta la frequenza e Bilancino crea il movimento in automatico alla scadenza.",
-    icon: RefreshCw,
-  },
-  {
-    title: "Contatti e CRM",
-    tag: "I tuoi clienti, con la loro storia",
-    body: "Ogni contatto mostra le entrate collegate, con note e promemoria — utile se oltre ai conti personali segui anche dei clienti.",
-    icon: Users,
-  },
-  {
-    title: "Obiettivi di risparmio",
-    tag: "Un traguardo alla volta",
-    body: "Crea un obiettivo con un importo target e aggiungi un contributo quando vuoi, senza vincoli.",
-    icon: Target,
-  },
-  {
-    title: "Ricevute e dati portabili",
-    tag: "Tutto documentato, mai bloccato",
-    body: "Genera una ricevuta PDF per un pagamento cliente, esporta l'intero storico in CSV, o importa movimenti e contatti da un altro foglio in un clic.",
-    icon: Receipt,
-  },
-];
-
-const faqItems = [
-  {
-    q: "I miei dati sono al sicuro?",
-    a: "Sì. Ogni account ha un login reale con email e password, e il database applica Row Level Security: nessun utente può leggere o modificare i dati di un altro, nemmeno in caso di errori nel codice dell'app.",
-  },
-  {
-    q: "Posso usarlo da più dispositivi?",
-    a: "Sì: i dati sono legati al tuo account, non al browser che usi, quindi sono sincronizzati e disponibili ovunque fai login.",
-  },
-  {
-    q: "È gratuito?",
-    a: "Sì, senza carta di credito: crei un account e lo usi liberamente. Essendo un progetto indipendente non posso garantirlo per sempre, ma potrai sempre esportare i tuoi dati in CSV.",
-  },
-  {
-    q: "Come funzionano i movimenti ricorrenti?",
-    a: "Imposti descrizione, importo, frequenza (settimanale, mensile o annuale) e una data di inizio: Bilancino genera da solo il movimento ogni volta che scade, recuperando anche le occorrenze mancate se non apri l'app per un po'.",
-  },
-  {
-    q: "Posso recuperare un movimento cancellato per errore?",
-    a: "Prima di eliminare qualsiasi cosa ti viene sempre chiesta una conferma, ma una volta confermato non c'è un cestino: va reinserito a mano.",
-  },
-  {
-    q: "Posso esportare o importare i miei dati?",
-    a: "Sì a entrambi: dalla Panoramica scarichi un CSV con tutto lo storico dei movimenti, apribile in Excel o Fogli Google. E se arrivi da un altro foglio o gestionale, puoi caricare un CSV con le stesse colonne per importare i tuoi movimenti esistenti in un colpo solo.",
-  },
-  {
-    q: "C'è una newsletter?",
-    a: "Sì, facoltativa: un'email al mese con le novità su Bilancino, niente spam. Ti iscrivi con un indirizzo email dal fondo di questa pagina, e ogni email ha un link di disiscrizione con un clic.",
-  },
-];
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "SoftwareApplication",
-      name: "Bilancino",
-      applicationCategory: "FinanceApplication",
-      operatingSystem: "Web",
-      description:
-        "Budget personale e contesto clienti in un unico posto, con account reale e dati isolati per utente.",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "EUR",
-      },
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: faqItems.map((item) => ({
-        "@type": "Question",
-        name: item.q,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.a,
-        },
-      })),
-    },
-  ],
-};
+const featureIcons = [BarChart3, RefreshCw, Users, Target, Receipt];
 
 export default async function HomePage() {
   const chart = buildHeroChart();
+  const { locale, t } = getDictionary();
+  const eur0 = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  });
+
+  const heroFeature = { ...t.home.heroFeature, icon: LineChart };
+  const features = t.home.features.map((f, i) => ({ ...f, icon: featureIcons[i] }));
+  const faqItems = t.home.faqItems;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        name: "Bilancino",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Web",
+        description: t.home.jsonLdDescription,
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "EUR",
+        },
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: faqItems.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.a,
+          },
+        })),
+      },
+    ],
+  };
 
   const supabase = createClient();
   const {
@@ -176,28 +111,26 @@ export default async function HomePage() {
       <header className="max-w-6xl mx-auto px-6 pt-16 pb-16 sm:pt-20 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
         <div>
           <span className="text-xs font-bold uppercase tracking-wide text-accent">
-            Budget personale + CRM, con un vero account
+            {t.home.heroEyebrow}
           </span>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-5">
-            Le tue finanze, finalmente <span className="text-accent">in ordine</span>.
+            {t.home.heroTitlePre} <span className="text-accent">{t.home.heroTitleAccent}</span>.
           </h1>
           <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed max-w-[46ch] mb-8">
-            Le app di budget non sanno chi sono i tuoi clienti. I gestionali per freelance non
-            sanno quanto hai risparmiato. Bilancino fa entrambe le cose, senza la complessità di
-            un gestionale.
+            {t.home.heroBody}
           </p>
           <div className="flex items-center gap-3 flex-wrap">
             <Link
               href={user ? "/dashboard" : "/signup"}
               className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
             >
-              {user ? "Vai alla Dashboard →" : "Crea un account gratis →"}
+              {user ? t.home.ctaDashboard : t.home.ctaSignupFree}
             </Link>
             <a
               href="#funzionalita"
               className="border border-border dark:border-neutral-800 font-bold text-sm rounded-full px-6 py-3.5 hover:border-accent hover:text-accent transition-colors"
             >
-              Scopri come funziona
+              {t.home.ctaHowItWorks}
             </a>
           </div>
         </div>
@@ -206,7 +139,7 @@ export default async function HomePage() {
         <div className="relative rounded-2xl overflow-hidden border border-border dark:border-neutral-800 shadow-[0_24px_60px_-20px_rgba(20,21,26,0.18)] dark:shadow-none aspect-[16/10]">
           <Image
             src="/og-image.jpg"
-            alt="Persona che controlla le proprie finanze da laptop"
+            alt={t.home.heroImageAlt}
             fill
             className="object-cover"
             priority
@@ -215,10 +148,10 @@ export default async function HomePage() {
         <div className="border border-border dark:border-neutral-800 rounded-2xl bg-white dark:bg-neutral-900 p-6 shadow-[0_24px_60px_-20px_rgba(20,21,26,0.18)] dark:shadow-none">
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
-              Andamento · esempio
+              {t.home.chartExample}
             </span>
             <span className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
-              Ultimi 6 mesi
+              {t.home.chartLast6Months}
             </span>
           </div>
           <svg viewBox={`0 0 ${chart.w} ${chart.h}`} className="w-full h-auto overflow-visible" aria-hidden="true">
@@ -242,19 +175,19 @@ export default async function HomePage() {
           <div className="grid grid-cols-3 gap-3 mt-5 pt-5 border-t border-border dark:border-neutral-800">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
-                Entrate
+                {t.home.entrate}
               </p>
               <p className="num font-bold text-accent mt-0.5">{eur0.format(chart.lastIncome)}</p>
             </div>
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
-                Uscite
+                {t.home.uscite}
               </p>
               <p className="num font-bold text-rose-500 dark:text-rose-400 mt-0.5">{eur0.format(chart.lastExpense)}</p>
             </div>
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
-                Netto
+                {t.home.netto}
               </p>
               <p className="num font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">
                 {eur0.format(chart.lastNet)}
@@ -268,9 +201,9 @@ export default async function HomePage() {
       <main className="max-w-6xl mx-auto px-6">
         <section id="funzionalita" className="py-12 sm:py-14 scroll-mt-20 border-t border-border dark:border-neutral-800">
           <div className="max-w-[60ch] mb-10">
-            <span className="text-xs font-bold uppercase tracking-wide text-accent">Funzionalità</span>
+            <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.home.featuresEyebrow}</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
-              Sei aree, ciascuna con uno scopo preciso
+              {t.home.featuresTitle}
             </h2>
           </div>
           <div className="rounded-2xl bg-accent-soft/60 dark:bg-accent/10 border border-accent/20 dark:border-accent/20 p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-[1.2fr_1fr] gap-8 items-center mb-4">
@@ -286,14 +219,14 @@ export default async function HomePage() {
             </div>
             <div className="bg-white dark:bg-neutral-900 rounded-xl border border-border dark:border-neutral-800 p-5">
               <div className="flex items-center justify-between text-xs mb-1.5">
-                <span className="font-medium">Benzina</span>
+                <span className="font-medium">{t.home.demoCategory}</span>
                 <span className="num text-ink-muted dark:text-neutral-500">210 € / 250 €</span>
               </div>
               <div className="h-2 rounded bg-surface-alt dark:bg-neutral-800 overflow-hidden mb-4">
                 <div className="h-full rounded bg-amber-500" style={{ width: "84%" }} />
               </div>
               <div className="flex items-center justify-between text-xs pt-3 border-t border-border dark:border-neutral-800">
-                <span className="text-ink-muted dark:text-neutral-500">Promemoria in scadenza</span>
+                <span className="text-ink-muted dark:text-neutral-500">{t.home.demoDueSoon}</span>
                 <span className="num font-bold">2</span>
               </div>
             </div>
@@ -324,32 +257,26 @@ export default async function HomePage() {
         <section id="statistiche" className="py-12 sm:py-14 scroll-mt-20 border-t border-border dark:border-neutral-800">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wide text-accent">Statistiche</span>
+              <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.home.statsEyebrow}</span>
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 mb-6 [text-wrap:balance] max-w-[22ch]">
-                Sai già come andrà il mese prossimo?
+                {t.home.statsTitle}
               </h2>
               <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed max-w-[56ch] mb-4">
-                Bilancino ti dice se stai risparmiando più o meno del solito, con una previsione
-                realistica per il mese che arriva e un avviso quando una spesa esce dai tuoi schemi
-                abituali. Dietro le quinte c'è vera statistica (regressione lineare, deviazione
-                standard, intervallo di confidenza al 95%) — ma a te arriva già spiegata in euro,
-                non in formule.
+                {t.home.statsBody}
               </p>
               <p className="text-ink-muted dark:text-neutral-500 text-sm leading-relaxed max-w-[56ch]">
-                È una sezione a parte, non un passaggio obbligato: Bilancino funziona benissimo anche
-                solo con movimenti e budget. Se invece ti incuriosisce, prova il calcolatore qui a
-                fianco — è la stessa formula usata dentro l'app.
+                {t.home.statsNote}
               </p>
             </div>
-            <StatsDemo />
+            <StatsDemo labels={t.shared.statsDemo} numberLocale={locale === "it" ? "it-IT" : "en-IE"} />
           </div>
         </section>
 
         <section id="faq" className="py-12 sm:py-14 scroll-mt-20 border-t border-border dark:border-neutral-800">
           <div className="max-w-[60ch] mb-8">
-            <span className="text-xs font-bold uppercase tracking-wide text-accent">FAQ</span>
+            <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.home.faqEyebrow}</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
-              Domande frequenti
+              {t.home.faqTitle}
             </h2>
           </div>
           <FaqAccordion items={faqItems} />
@@ -361,18 +288,16 @@ export default async function HomePage() {
             <div className="absolute inset-0 bg-ink/75" />
             <div className="relative z-10 text-white px-8 py-14 sm:px-16 sm:py-16 flex flex-col items-center text-center gap-5">
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
-                {user ? "Bentornato: riprendi da dove hai lasciato." : "Pronto a mettere ordine nei tuoi conti?"}
+                {user ? t.home.ctaTitleReturning : t.home.ctaTitleNew}
               </h2>
               <p className="text-white/70 max-w-[46ch]">
-                {user
-                  ? "I tuoi movimenti, budget e contatti ti aspettano in Panoramica."
-                  : "Crea un account in meno di un minuto — bastano un'email e una password."}
+                {user ? t.home.ctaBodyReturning : t.home.ctaBodyNew}
               </p>
               <Link
                 href={user ? "/dashboard" : "/signup"}
                 className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
               >
-                {user ? "Vai alla Dashboard →" : "Crea un account gratis →"}
+                {user ? t.home.ctaDashboard : t.home.ctaSignupFree}
               </Link>
             </div>
           </div>

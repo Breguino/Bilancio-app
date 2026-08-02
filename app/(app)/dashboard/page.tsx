@@ -8,13 +8,7 @@ import { SubmitButton } from "@/components/submit-button";
 import { Toast } from "@/components/toast";
 import { FileInputButton } from "@/components/file-input-button";
 import { addTransaction, deleteTransaction, importTransactions } from "./actions";
-
-const eur = new Intl.NumberFormat("it-IT", {
-  style: "currency",
-  currency: "EUR",
-  useGrouping: true,
-});
-const pct1 = (n: number) => n.toLocaleString("it-IT", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 function monthBounds(date = new Date()) {
   const start = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -35,10 +29,16 @@ function lastNMonthKeys(n: number, ref = new Date()) {
   return keys;
 }
 
-function trendBadge(curr: number, prev: number, higherIsGood: boolean) {
+function trendBadge(
+  curr: number,
+  prev: number,
+  higherIsGood: boolean,
+  pct1: (n: number) => string,
+  newLabel: string
+) {
   if (prev === 0 && curr === 0) return null;
   if (prev === 0) {
-    return <span className="text-xs font-semibold text-ink-muted dark:text-neutral-500">nuovo</span>;
+    return <span className="text-xs font-semibold text-ink-muted dark:text-neutral-500">{newLabel}</span>;
   }
   const diffPct = ((curr - prev) / Math.abs(prev)) * 100;
   const isUp = curr >= prev;
@@ -64,6 +64,15 @@ export default async function DashboardPage({
     success?: string;
   };
 }) {
+  const { locale, t } = getDictionary();
+  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
+    style: "currency",
+    currency: "EUR",
+    useGrouping: true,
+  });
+  const pct1 = (n: number) =>
+    n.toLocaleString(locale === "it" ? "it-IT" : "en-IE", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
+
   const supabase = createClient();
   const {
     data: { user },
@@ -162,7 +171,7 @@ export default async function DashboardPage({
       date: r.next_date as string,
       icon: "🔁",
       title: r.description as string,
-      sub: `${Number(r.amount) > 0 ? "+" : "−"}${eur.format(Math.abs(Number(r.amount)))} · ricorrente`,
+      sub: `${Number(r.amount) > 0 ? "+" : "−"}${eur.format(Math.abs(Number(r.amount)))} · ${t.dashboard.recurringSuffix}`,
       href: "/recurring",
     })),
     ...(upcomingReminders || []).map((n) => ({
@@ -170,7 +179,7 @@ export default async function DashboardPage({
       date: n.remind_at as string,
       icon: "🔔",
       title: n.note as string,
-      sub: n.contact?.name || "Contatto",
+      sub: n.contact?.name || t.dashboard.contactFallback,
       href: `/contacts/${n.contact_id}`,
     })),
   ]
@@ -231,46 +240,45 @@ export default async function DashboardPage({
         <div className="border border-border dark:border-neutral-800 rounded-xl p-6 bg-white dark:bg-neutral-900">
           <p className="text-2xl mb-2">👋</p>
           <h1 className="text-2xl font-extrabold tracking-tight mb-1">
-            Benvenuto, {user?.email?.split("@")[0]}
+            {t.dashboard.welcomeTitle}, {user?.email?.split("@")[0]}
           </h1>
           <p className="text-sm text-ink-secondary dark:text-neutral-400 max-w-md">
-            Il tuo account è pronto e i dati sono solo tuoi. Aggiungi il primo movimento qui sotto
-            — entrate, uscite e budget prenderanno forma da lì.
+            {t.dashboard.welcomeBody}
           </p>
         </div>
       ) : (
         <>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-1">
-              Questo mese
+              {t.dashboard.thisMonth}
             </p>
             <h1 className="text-2xl font-extrabold tracking-tight">
-              Ciao, {user?.email?.split("@")[0]}
+              {t.dashboard.greeting}, {user?.email?.split("@")[0]}
             </h1>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex items-start justify-between gap-3">
               <div>
-                <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Entrate</p>
+                <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">{t.home.entrate}</p>
                 <p className="text-2xl font-bold num">{eur.format(income)}</p>
-                {trendBadge(incomeSeries[last], incomeSeries[last - 1] ?? 0, true)}
+                {trendBadge(incomeSeries[last], incomeSeries[last - 1] ?? 0, true, pct1, t.dashboard.trendNew)}
               </div>
               <Sparkline values={incomeSeries} />
             </div>
             <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex items-start justify-between gap-3">
               <div>
-                <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Uscite</p>
+                <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">{t.home.uscite}</p>
                 <p className="text-2xl font-bold num">{eur.format(expense)}</p>
-                {trendBadge(expenseSeries[last], expenseSeries[last - 1] ?? 0, false)}
+                {trendBadge(expenseSeries[last], expenseSeries[last - 1] ?? 0, false, pct1, t.dashboard.trendNew)}
               </div>
               <Sparkline values={expenseSeries} />
             </div>
             <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex items-start justify-between gap-3">
               <div>
-                <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">Netto</p>
+                <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">{t.home.netto}</p>
                 <p className="text-2xl font-bold num">{eur.format(net)}</p>
-                {trendBadge(netSeries[last], netSeries[last - 1] ?? 0, true)}
+                {trendBadge(netSeries[last], netSeries[last - 1] ?? 0, true, pct1, t.dashboard.trendNew)}
               </div>
               <Sparkline values={netSeries} />
             </div>
@@ -283,7 +291,7 @@ export default async function DashboardPage({
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-bold">Budget</h2>
             <a href="/budget" className="text-xs font-semibold text-accent hover:underline">
-              Vedi tutti →
+              {t.dashboard.seeAll}
             </a>
           </div>
           <div className="flex flex-col gap-4">
@@ -308,11 +316,11 @@ export default async function DashboardPage({
                   </div>
                   {over ? (
                     <p className="text-xs text-red-600 dark:text-red-400 font-semibold mt-1">
-                      ⚠ {pct1((b.ratio - 1) * 100)} oltre budget
+                      ⚠ {pct1((b.ratio - 1) * 100)} {t.dashboard.overBudgetSuffix}
                     </p>
                   ) : warn ? (
                     <p className="text-xs text-amber-600 dark:text-amber-400 font-semibold mt-1">
-                      {pct1(b.ratio * 100)} del budget
+                      {pct1(b.ratio * 100)} {t.dashboard.ofBudgetSuffix}
                     </p>
                   ) : null}
                 </div>
@@ -324,7 +332,7 @@ export default async function DashboardPage({
 
       {upcoming.length > 0 ? (
         <div className="border border-border dark:border-neutral-800 rounded-xl p-5 bg-white dark:bg-neutral-900">
-          <h2 className="font-bold mb-4">In scadenza</h2>
+          <h2 className="font-bold mb-4">{t.dashboard.dueSoon}</h2>
           <div className="flex flex-col gap-1">
             {upcoming.map((item) => (
               <a
@@ -345,9 +353,9 @@ export default async function DashboardPage({
                   }`}
                 >
                   {item.overdue
-                    ? "scaduto"
+                    ? t.dashboard.overdue
                     : item.date === today
-                    ? "oggi"
+                    ? t.dashboard.today
                     : `${item.date.slice(8, 10)}/${item.date.slice(5, 7)}`}
                 </span>
               </a>
@@ -357,29 +365,29 @@ export default async function DashboardPage({
       ) : null}
 
       <div className="border border-border dark:border-neutral-800 rounded-xl p-5 bg-white dark:bg-neutral-900">
-        <h2 className="font-bold mb-4">Aggiungi movimento</h2>
+        <h2 className="font-bold mb-4">{t.dashboard.addTransactionTitle}</h2>
         <div className="mb-4">
           <ErrorBanner message={searchParams.error} />
         </div>
         <form action={addTransaction} className="grid grid-cols-1 sm:grid-cols-6 gap-3 items-end">
           <DescriptionCategoryFields key={rows.length} history={categoryHistory || []} />
           <div className="flex flex-col gap-1 order-2">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Tipo</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.typeLabel}</label>
             <select
               name="type"
               className="border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             >
-              <option value="expense">Spesa</option>
-              <option value="income">Entrata</option>
+              <option value="expense">{t.dashboard.expenseOption}</option>
+              <option value="income">{t.dashboard.incomeOption}</option>
             </select>
           </div>
           <div className="flex flex-col gap-1 order-4">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Cliente</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.contactLabel}</label>
             <select
               name="contact_id"
               className="border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             >
-              <option value="">— nessuno —</option>
+              <option value="">{t.dashboard.noneOption}</option>
               {contactList.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name}
@@ -388,7 +396,7 @@ export default async function DashboardPage({
             </select>
           </div>
           <div className="flex flex-col gap-1 order-5">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Importo (€)</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.amountLabel}</label>
             <input
               key={rows.length}
               name="amount"
@@ -402,35 +410,35 @@ export default async function DashboardPage({
           <input type="hidden" name="date" value={today} />
           <input type="hidden" name="return_path" value={returnPath} />
           <SubmitButton
-            pendingText="Aggiungo…"
+            pendingText={t.dashboard.addingPending}
             className="order-6 sm:col-span-6 sm:w-fit bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-6 py-2.5 transition-colors"
           >
-            Aggiungi
+            {t.dashboard.addSubmit}
           </SubmitButton>
         </form>
         {contactList.length === 0 ? (
           <p className="text-xs text-ink-muted dark:text-neutral-500 mt-2">
-            Aggiungi un contatto nella pagina <a href="/contacts" className="text-accent">Contatti</a> per poter
-            collegare un movimento a un cliente.
+            {t.dashboard.contactHintPre} <a href="/contacts" className="text-accent">{t.appShell.navContatti}</a>{" "}
+            {t.dashboard.contactHintPost}
           </p>
         ) : null}
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl bg-white dark:bg-neutral-900 overflow-hidden">
         <div className="flex flex-wrap items-center justify-between gap-3 px-5 pt-5">
-          <h2 className="font-bold">{hasFilters ? "Risultati filtro" : "Movimenti del mese"}</h2>
+          <h2 className="font-bold">{hasFilters ? t.dashboard.filterResultsTitle : t.dashboard.monthTransactionsTitle}</h2>
           <div className="flex flex-wrap items-center gap-2">
             <a
               href="/cestino"
               className="text-xs font-semibold border border-border dark:border-neutral-700 rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors"
             >
-              🗑 Cestino
+              {t.dashboard.trashLink}
             </a>
             <a
               href="/api/export"
               className="text-xs font-semibold border border-border dark:border-neutral-700 rounded-full px-3 py-1.5 hover:border-accent hover:text-accent transition-colors"
             >
-              ⬇ Esporta CSV
+              {t.dashboard.exportCsv}
             </a>
             <form action={importTransactions} className="flex items-center gap-1.5">
               <input type="hidden" name="return_path" value={returnPath} />
@@ -438,33 +446,35 @@ export default async function DashboardPage({
                 name="file"
                 accept=".csv,text/csv"
                 required
-                title="Importa un file CSV con colonne Data, Descrizione, Categoria, Cliente, Importo"
+                title={t.dashboard.importTitle}
+                importingLabel={t.shared.fileInput.importingLabel}
+                importLabel={t.shared.fileInput.importLabel}
+                noFileLabel={t.shared.fileInput.noFileLabel}
               />
             </form>
           </div>
         </div>
         <p className="text-xs text-ink-muted dark:text-neutral-500 px-5 mt-1">
-          Stesse colonne del CSV esportato (Data, Descrizione, Categoria, Cliente, Importo). I clienti
-          vengono collegati solo se il nome corrisponde esattamente a un contatto già esistente.
+          {t.dashboard.importHint}
         </p>
         <form method="get" className="flex flex-col sm:flex-row sm:flex-wrap sm:items-end gap-3 px-5 pt-4">
           <div className="flex flex-col gap-1 w-full sm:w-auto">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Cerca</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.searchLabel}</label>
             <input
               name="q"
               defaultValue={filterQuery}
-              placeholder="Descrizione…"
+              placeholder={t.dashboard.descriptionPlaceholder}
               className="w-full sm:w-auto border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div className="flex flex-col gap-1 w-full sm:w-auto">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Categoria</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.categoryLabel}</label>
             <select
               name="category"
               defaultValue={filterCategory}
               className="w-full sm:w-auto border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             >
-              <option value="">Tutte</option>
+              <option value="">{t.dashboard.allCategoriesOption}</option>
               {categoryOptions.map((c) => (
                 <option key={c} value={c}>
                   {c}
@@ -473,13 +483,13 @@ export default async function DashboardPage({
             </select>
           </div>
           <div className="flex flex-col gap-1 w-full sm:w-auto">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Cliente</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.contactLabel}</label>
             <select
               name="contact"
               defaultValue={filterContact}
               className="w-full sm:w-auto border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             >
-              <option value="">Tutti</option>
+              <option value="">{t.dashboard.allContactsOption}</option>
               {contactList.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name}
@@ -488,7 +498,7 @@ export default async function DashboardPage({
             </select>
           </div>
           <div className="flex flex-col gap-1 w-full sm:w-auto">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Da</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.fromLabel}</label>
             <input
               name="from"
               type="date"
@@ -497,7 +507,7 @@ export default async function DashboardPage({
             />
           </div>
           <div className="flex flex-col gap-1 w-full sm:w-auto">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">A</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.toLabel}</label>
             <input
               name="to"
               type="date"
@@ -509,68 +519,70 @@ export default async function DashboardPage({
             type="submit"
             className="w-full sm:w-auto bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-5 py-2 transition-colors"
           >
-            Filtra
+            {t.dashboard.filterSubmit}
           </button>
           {hasFilters ? (
             <a
               href="/dashboard"
               className="text-xs font-semibold text-ink-muted dark:text-neutral-500 hover:text-accent px-1 py-2 text-center sm:text-left"
             >
-              Azzera
+              {t.dashboard.resetFilters}
             </a>
           ) : null}
         </form>
         {displayRows.length === 0 ? (
           <p className="text-sm text-ink-muted dark:text-neutral-500 px-5 py-6">
             {hasFilters
-              ? "Nessun movimento trovato con questi filtri."
+              ? t.dashboard.noResultsFiltered
               : isNewAccount
-              ? "I tuoi movimenti appariranno qui non appena ne aggiungi uno."
-              : "Nessun movimento questo mese."}
+              ? t.dashboard.noResultsNew
+              : t.dashboard.noResultsMonth}
           </p>
         ) : (
           <div className="divide-y divide-border dark:divide-neutral-800 mt-3">
-            {displayRows.map((t: any) => (
-              <div key={t.id} className="flex flex-wrap items-center justify-between px-5 py-3 text-sm gap-3">
+            {displayRows.map((tx: any) => (
+              <div key={tx.id} className="flex flex-wrap items-center justify-between px-5 py-3 text-sm gap-3">
                 <div className="flex items-center gap-3 min-w-0">
                   <span className="text-ink-muted dark:text-neutral-500 num w-14 shrink-0">
-                    {t.date.slice(8, 10)}/{t.date.slice(5, 7)}
+                    {tx.date.slice(8, 10)}/{tx.date.slice(5, 7)}
                   </span>
-                  <span className="truncate">{t.description}</span>
-                  {t.category ? (
+                  <span className="truncate">{tx.description}</span>
+                  {tx.category ? (
                     <span className="text-xs text-ink-muted dark:text-neutral-400 bg-surface-alt dark:bg-neutral-800 rounded-full px-2 py-0.5 shrink-0">
-                      {t.category}
+                      {tx.category}
                     </span>
                   ) : null}
-                  {t.contact ? (
+                  {tx.contact ? (
                     <span className="text-xs text-accent bg-accent-soft dark:bg-accent/20 rounded-full px-2 py-0.5 shrink-0">
-                      {t.contact.name}
+                      {tx.contact.name}
                     </span>
                   ) : null}
                 </div>
                 <div className="flex items-center gap-3 shrink-0">
                   <span
                     className={`num font-semibold ${
-                      t.amount > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-ink dark:text-neutral-100"
+                      tx.amount > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-ink dark:text-neutral-100"
                     }`}
                   >
-                    {t.amount > 0 ? "+" : "−"}
-                    {eur.format(Math.abs(Number(t.amount)))}
+                    {tx.amount > 0 ? "+" : "−"}
+                    {eur.format(Math.abs(Number(tx.amount)))}
                   </span>
-                  {t.amount > 0 && t.contact_id ? (
+                  {tx.amount > 0 && tx.contact_id ? (
                     <a
-                      href={`/receipt/${t.id}`}
+                      href={`/receipt/${tx.id}`}
                       className="text-xs font-semibold border border-border dark:border-neutral-700 rounded-full px-2.5 py-1 hover:border-accent hover:text-accent transition-colors shrink-0"
                     >
-                      Ricevuta
+                      {t.dashboard.receiptLink}
                     </a>
                   ) : null}
                   <form action={deleteTransaction}>
-                    <input type="hidden" name="id" value={t.id} />
+                    <input type="hidden" name="id" value={tx.id} />
                     <input type="hidden" name="return_path" value={returnPath} />
                     <ConfirmButton
-                      confirmMessage={`Spostare "${t.description}" nel cestino? Potrai ripristinarlo entro 30 giorni.`}
-                      ariaLabel="Elimina movimento"
+                      confirmMessage={t.dashboard.confirmDeleteTemplate.replace("{description}", tx.description)}
+                      confirmLabel={t.common.deleteAction}
+                      cancelLabel={t.common.cancelAction}
+                      ariaLabel={t.dashboard.deleteAriaLabel}
                       className="text-ink-muted dark:text-neutral-500 hover:text-red-600 w-9 h-9 -mr-2 rounded-full flex items-center justify-center shrink-0"
                     >
                       ✕

@@ -4,13 +4,7 @@ import { ErrorBanner } from "@/components/error-banner";
 import { SubmitButton } from "@/components/submit-button";
 import { Toast } from "@/components/toast";
 import { setBudget, deleteBudget } from "./actions";
-
-const eur = new Intl.NumberFormat("it-IT", {
-  style: "currency",
-  currency: "EUR",
-  useGrouping: true,
-});
-const pct1 = (n: number) => n.toLocaleString("it-IT", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 function monthBounds(date = new Date()) {
   const start = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -24,6 +18,15 @@ export default async function BudgetPage({
 }: {
   searchParams: { error?: string; success?: string };
 }) {
+  const { locale, t } = getDictionary();
+  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
+    style: "currency",
+    currency: "EUR",
+    useGrouping: true,
+  });
+  const pct1 = (n: number) =>
+    n.toLocaleString(locale === "it" ? "it-IT" : "en-IE", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
+
   const supabase = createClient();
   const { start, end } = monthBounds();
 
@@ -63,16 +66,17 @@ export default async function BudgetPage({
       <Toast message={searchParams.success} />
       <div>
         <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-1">
-          Questo mese
+          {t.budget.thisMonth}
         </p>
-        <h1 className="text-2xl font-extrabold tracking-tight">Categorie e budget</h1>
+        <h1 className="text-2xl font-extrabold tracking-tight">{t.budget.title}</h1>
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
         <span className="text-sm text-ink-secondary dark:text-neutral-400">
-          Budget assegnato:{" "}
-          <strong className="num text-ink dark:text-neutral-100">{eur.format(totalAssigned)}</strong> di{" "}
-          <strong className="num text-ink dark:text-neutral-100">{eur.format(income)}</strong> entrate
+          {t.budget.assignedPre}{" "}
+          <strong className="num text-ink dark:text-neutral-100">{eur.format(totalAssigned)}</strong>{" "}
+          {t.budget.assignedOf}{" "}
+          <strong className="num text-ink dark:text-neutral-100">{eur.format(income)}</strong> {t.budget.assignedIncome}
         </span>
         <div className="flex-1 h-1.5 rounded-full bg-surface-alt dark:bg-neutral-800 max-w-xs">
           <div
@@ -84,28 +88,28 @@ export default async function BudgetPage({
           className={`num text-sm font-semibold ${remaining < 0 ? "text-red-600" : "text-ink dark:text-neutral-100"}`}
         >
           {remaining < 0
-            ? `${eur.format(Math.abs(remaining))} oltre le entrate`
-            : `${eur.format(remaining)} da assegnare`}
+            ? `${eur.format(Math.abs(remaining))} ${t.budget.overIncome}`
+            : `${eur.format(remaining)} ${t.budget.toAssign}`}
         </span>
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl p-5 bg-white dark:bg-neutral-900">
-        <h2 className="font-bold mb-4">Imposta budget</h2>
+        <h2 className="font-bold mb-4">{t.budget.setBudgetTitle}</h2>
         <div className="mb-4">
           <ErrorBanner message={searchParams.error} />
         </div>
         <form action={setBudget} className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Categoria</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.budget.categoryLabel}</label>
             <input
               name="category"
               required
-              placeholder="Es. Casa"
+              placeholder={t.budget.categoryPlaceholder}
               className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Limite mensile (€)</label>
+            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.budget.monthlyLimitLabel}</label>
             <input
               name="monthly_limit"
               type="number"
@@ -116,21 +120,21 @@ export default async function BudgetPage({
             />
           </div>
           <SubmitButton
-            pendingText="Salvo…"
+            pendingText={t.budget.savingPending}
             className="bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-6 py-2.5 transition-colors sm:w-fit"
           >
-            Salva
+            {t.budget.save}
           </SubmitButton>
         </form>
         <p className="text-xs text-ink-muted dark:text-neutral-500 mt-2">
-          Se la categoria esiste già, il limite viene aggiornato.
+          {t.budget.upsertHint}
         </p>
       </div>
 
       <div className="border border-border dark:border-neutral-800 rounded-xl bg-white dark:bg-neutral-900 p-5">
         {ratioed.length === 0 ? (
           <p className="text-sm text-ink-muted dark:text-neutral-500">
-            Nessun budget impostato ancora — aggiungine uno sopra.
+            {t.budget.emptyState}
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
@@ -166,17 +170,19 @@ export default async function BudgetPage({
                       }`}
                     >
                       {over
-                        ? `⚠ ${pct1((c.ratio - 1) * 100)} oltre budget`
-                        : `${pct1(c.ratio * 100)} del budget`}
+                        ? `⚠ ${pct1((c.ratio - 1) * 100)} ${t.budget.overBudgetSuffix}`
+                        : `${pct1(c.ratio * 100)} ${t.budget.ofBudgetSuffix}`}
                     </span>
                     <form action={deleteBudget}>
                       <input type="hidden" name="id" value={c.id} />
                       <ConfirmButton
-                        confirmMessage={`Rimuovere il budget per "${c.category}"?`}
-                        ariaLabel="Rimuovi budget"
+                        confirmMessage={t.budget.removeConfirmTemplate.replace("{category}", c.category)}
+                        confirmLabel={t.common.deleteAction}
+                        cancelLabel={t.common.cancelAction}
+                        ariaLabel={t.budget.removeAriaLabel}
                         className="text-ink-muted dark:text-neutral-500 hover:text-red-600 text-xs"
                       >
-                        Rimuovi
+                        {t.budget.remove}
                       </ConfirmButton>
                     </form>
                   </div>

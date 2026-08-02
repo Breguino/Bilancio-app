@@ -1,13 +1,4 @@
-const eur = new Intl.NumberFormat("it-IT", {
-  style: "currency",
-  currency: "EUR",
-  maximumFractionDigits: 0,
-});
-
-const rows = [
-  { date: "23/07", description: "Stipendio", category: "Ardian Bregu", amount: 1000, positive: true },
-  { date: "23/07", description: "Enel", category: "Benzina", amount: -30, positive: false },
-];
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 /**
  * Static mock of the real Panoramica screen (fake example data), so
@@ -15,6 +6,17 @@ const rows = [
  * real authenticated screenshot.
  */
 export function AppMockup() {
+  const { locale, t } = getDictionary();
+  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  });
+  const rows = [
+    { date: "23/07", description: t.shared.appMockup.demoSalary, category: "Ardian Bregu", amount: 1000, positive: true },
+    { date: "23/07", description: t.shared.appMockup.demoUtility, category: t.shared.appMockup.demoCategory, amount: -30, positive: false },
+  ];
+
   return (
     <div className="rounded-2xl overflow-hidden border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-[0_24px_60px_-20px_rgba(20,21,26,0.18)] dark:shadow-none">
       <div className="flex items-center gap-1.5 px-4 py-3 border-b border-border dark:border-neutral-800 bg-surface-alt dark:bg-neutral-800/60">
@@ -28,25 +30,25 @@ export function AppMockup() {
 
       <div className="p-5">
         <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-3">
-          Esempio · Panoramica
+          {t.shared.appMockup.exampleOverview}
         </p>
 
         <div className="grid grid-cols-3 gap-3 mb-5">
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
-              Entrate
+              {t.shared.appMockup.entrate}
             </p>
             <p className="num font-bold text-emerald-600 dark:text-emerald-400 text-sm mt-0.5">{eur.format(1000)}</p>
           </div>
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
-              Uscite
+              {t.shared.appMockup.uscite}
             </p>
             <p className="num font-bold text-rose-500 dark:text-rose-400 text-sm mt-0.5">{eur.format(30)}</p>
           </div>
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
-              Netto
+              {t.shared.appMockup.netto}
             </p>
             <p className="num font-bold text-sm mt-0.5">{eur.format(970)}</p>
           </div>
@@ -54,7 +56,7 @@ export function AppMockup() {
 
         <div className="mb-5">
           <div className="flex items-center justify-between text-xs mb-1.5">
-            <span className="font-medium">Benzina</span>
+            <span className="font-medium">{t.shared.appMockup.demoCategory}</span>
             <span className="num text-ink-muted dark:text-neutral-500">30 € / 250 €</span>
           </div>
           <div className="h-2 rounded bg-surface-alt dark:bg-neutral-800 overflow-hidden">
