@@ -26,24 +26,32 @@ export async function SiteHeader() {
 
   return (
     <nav className="sticky top-0 z-20 relative border-b border-transparent backdrop-blur bg-white/90 dark:bg-neutral-950/90">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
-        <Link href="/" className="inline-flex items-center gap-2" aria-label="Bilancino">
+      <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 -ml-2 px-2 py-2 rounded-full hover:bg-surface-alt dark:hover:bg-neutral-800 transition-colors"
+          aria-label="Bilancino"
+        >
           <Logo size={30} />
         </Link>
-        <div className="hidden sm:flex items-center gap-7 text-sm font-medium text-ink-secondary dark:text-neutral-400">
+        <div className="hidden sm:flex items-center gap-1 text-sm font-medium text-ink-secondary dark:text-neutral-400">
           {marketingNavLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="hover:text-ink dark:hover:text-neutral-100">
+            <Link
+              key={link.href}
+              href={link.href}
+              className="rounded-full px-3.5 py-2 hover:bg-surface-alt dark:hover:bg-neutral-800 hover:text-ink dark:hover:text-neutral-100 transition-colors"
+            >
               {link.label}
             </Link>
           ))}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <LanguageSwitcher locale={locale} label={t.common.langSwitchLabel} />
           <ThemeToggle ariaLabel={t.shared.themeToggle.ariaLabel} title={t.shared.themeToggle.title} />
           {!user ? (
             <Link
               href="/login"
-              className="hidden sm:inline text-sm font-semibold text-ink-secondary dark:text-neutral-400 hover:text-ink dark:hover:text-neutral-100"
+              className="hidden sm:inline-flex items-center h-9 text-sm font-semibold text-ink-secondary dark:text-neutral-400 border border-border dark:border-neutral-700 rounded-full px-4 hover:border-accent hover:text-accent transition-colors whitespace-nowrap"
             >
               {t.nav.accedi}
             </Link>
@@ -53,9 +61,10 @@ export async function SiteHeader() {
           </div>
           <Link
             href={user ? "/dashboard" : "/signup"}
-            className="bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-4 py-2 transition-colors whitespace-nowrap"
+            className="inline-flex items-center h-9 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-4 transition-colors whitespace-nowrap"
           >
-            {user ? t.nav.vaiDashboard : t.nav.creaAccount}
+            <span className="sm:hidden">{user ? t.nav.vaiDashboardShort : t.nav.creaAccountShort}</span>
+            <span className="hidden sm:inline">{user ? t.nav.vaiDashboard : t.nav.creaAccount}</span>
           </Link>
         </div>
       </div>

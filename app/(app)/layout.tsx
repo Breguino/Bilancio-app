@@ -32,23 +32,27 @@ export default async function AppLayout({
   return (
     <div className="min-h-screen">
       <header className="print:hidden sticky top-0 z-20 relative border-b border-border dark:border-neutral-800 backdrop-blur bg-white/90 dark:bg-neutral-950/90">
-        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
-          <Link href="/dashboard" className="inline-flex items-center gap-2 font-extrabold" aria-label="Bilancino">
+        <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+          <Link
+            href="/dashboard"
+            className="inline-flex items-center gap-2 font-extrabold -ml-2 px-2 py-2 rounded-full hover:bg-surface-alt dark:hover:bg-neutral-800 transition-colors"
+            aria-label="Bilancino"
+          >
             <Logo />
           </Link>
-          <nav className="hidden md:flex items-center gap-5 text-sm font-medium">
+          <nav className="hidden md:flex items-center gap-1 text-sm font-medium">
             {navLinks.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-ink-secondary dark:text-neutral-400 hover:text-ink dark:hover:text-neutral-100 whitespace-nowrap"
+                className="rounded-full px-3 py-2 text-ink-secondary dark:text-neutral-400 hover:bg-surface-alt dark:hover:bg-neutral-800 hover:text-ink dark:hover:text-neutral-100 transition-colors whitespace-nowrap"
               >
                 {l.label}
               </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-3">
-            <span className="text-ink-muted dark:text-neutral-500 text-sm hidden lg:inline">
+          <div className="flex items-center gap-2">
+            <span className="text-ink-muted dark:text-neutral-500 text-sm hidden lg:inline mr-1">
               {user?.email}
             </span>
             <Link
@@ -67,7 +71,7 @@ export default async function AppLayout({
             <form action="/logout" method="post">
               <button
                 type="submit"
-                className="border border-border dark:border-neutral-700 rounded-full px-4 py-1.5 text-sm hover:border-accent hover:text-accent transition-colors"
+                className="inline-flex items-center h-9 border border-border dark:border-neutral-700 rounded-full px-4 text-sm font-medium hover:border-accent hover:text-accent transition-colors"
               >
                 {t.appShell.logout}
               </button>
