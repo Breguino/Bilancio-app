@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { NewsletterSubscribeForm } from "@/components/newsletter-subscribe-form";
+import { ManageCookiePreferencesLink } from "@/components/manage-cookie-preferences-link";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export async function SiteFooter() {
@@ -22,6 +23,8 @@ export async function SiteFooter() {
     ...marketingFooterLinks,
     user ? { href: "/dashboard", label: t.nav.dashboard } : { href: "/login", label: t.nav.accedi },
   ];
+
+  const hasAnalyticsConsent = Boolean(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID);
 
   return (
     <footer className="max-w-6xl mx-auto px-6 py-10 text-sm text-ink-muted dark:text-neutral-500 flex flex-col gap-6">
@@ -50,6 +53,11 @@ export async function SiteFooter() {
           subscribeLabel={t.shared.newsletterForm.subscribe}
         />
       </div>
+      {hasAnalyticsConsent ? (
+        <div className="text-center sm:text-left text-xs">
+          <ManageCookiePreferencesLink label={t.cookieConsent.managePreferences} />
+        </div>
+      ) : null}
     </footer>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AnalyticsConsent } from "@/components/analytics-consent";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 
@@ -42,6 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const locale = getLocale();
+  const t = dictionaryFor(locale);
   return (
     <html lang={locale} suppressHydrationWarning>
       <body>
@@ -49,6 +51,13 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
         <Analytics />
+        <AnalyticsConsent
+          message={t.cookieConsent.message}
+          accept={t.cookieConsent.accept}
+          reject={t.cookieConsent.reject}
+          privacyLinkText={t.cookieConsent.privacyLinkText}
+          privacyHref="/privacy"
+        />
       </body>
     </html>
   );

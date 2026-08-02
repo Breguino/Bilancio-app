@@ -6,6 +6,13 @@ const en: Dictionary = {
     deleteAction: "Delete",
     cancelAction: "Cancel",
   },
+  cookieConsent: {
+    message: "I use Google Analytics, with your consent, to understand how the site is used.",
+    accept: "Accept",
+    reject: "Decline",
+    privacyLinkText: "Learn more",
+    managePreferences: "Manage cookie preferences",
+  },
   shared: {
     savingPending: "Saving…",
     fileInput: {
@@ -752,8 +759,9 @@ const en: Dictionary = {
     ],
     cookiesTitle: "Cookies",
     cookiesParagraphs: [
-      "Only the cookie strictly necessary to keep you logged in, managed by Supabase Auth. No marketing or tracking cookies.",
-      "To understand how many people use the app, I use Vercel Analytics, which doesn't use cookies and doesn't track individual users: it only collects aggregate, anonymous data, like the most visited pages.",
+      "The cookie strictly necessary to keep you logged in, managed by Supabase Auth: this doesn't need consent, since without it you couldn't stay logged in.",
+      "To understand how many people use the app, I also use Vercel Analytics, which doesn't use cookies and doesn't track individual users: it only collects aggregate, anonymous data, like the most visited pages.",
+      "With your consent — I ask with a banner on your first visit — I also use Google Analytics for a more detailed picture of how the site is used: where visitors come from, which pages perform best. This involves Google cookies and sending some data to servers in the United States too. You can decline it without the app breaking, and you can change your mind at any time from \"Manage cookie preferences\" at the bottom of the site.",
     ],
     yourDataTitle: "Your data stays yours",
     yourDataPara1: "From the Overview you can export your entire transaction history to CSV at any time, without asking anyone for permission.",
