@@ -52,7 +52,9 @@ const en: Dictionary = {
     dashboard: "Dashboard",
     accedi: "Log in",
     creaAccount: "Create an account",
+    creaAccountShort: "Sign up",
     vaiDashboard: "Go to Dashboard",
+    vaiDashboardShort: "Dashboard",
   },
   siteFooter: {
     tagline: "Bilancino — personal budgeting, not accounting software.",

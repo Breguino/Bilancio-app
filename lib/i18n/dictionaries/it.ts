@@ -50,7 +50,9 @@ const it = {
     dashboard: "Dashboard",
     accedi: "Accedi",
     creaAccount: "Crea un account",
+    creaAccountShort: "Registrati",
     vaiDashboard: "Vai alla Dashboard",
+    vaiDashboardShort: "Dashboard",
   },
   siteFooter: {
     tagline: "Bilancino — budget personale, non un gestionale.",
