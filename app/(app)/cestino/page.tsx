@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { ConfirmButton } from "@/components/confirm-button";
+import { ErrorBanner } from "@/components/error-banner";
 import { Toast } from "@/components/toast";
 import { restoreTransaction, permanentlyDeleteTransaction } from "../dashboard/actions";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -7,7 +8,7 @@ import { getDictionary } from "@/lib/i18n/get-dictionary";
 export default async function CestinoPage({
   searchParams,
 }: {
-  searchParams: { success?: string };
+  searchParams: { success?: string; error?: string };
 }) {
   const { locale, t } = getDictionary();
   const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
@@ -28,6 +29,7 @@ export default async function CestinoPage({
   return (
     <div className="flex flex-col gap-8">
       <Toast message={searchParams.success} />
+      {searchParams.error ? <ErrorBanner message={searchParams.error} /> : null}
       <div>
         <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-1">
           {t.cestino.eyebrow}

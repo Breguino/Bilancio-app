@@ -31,9 +31,25 @@ export async function setBudget(formData: FormData) {
 }
 
 export async function deleteBudget(formData: FormData) {
+  const { t } = getDictionary();
   const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+
   const id = String(formData.get("id") || "");
   if (!id) return;
-  await supabase.from("budgets").delete().eq("id", id);
+
+  const { error, count } = await supabase
+    .from("budgets")
+    .delete({ count: "exact" })
+    .eq("id", id)
+    .eq("user_id", user.id);
+
+  if (error || count === 0) {
+    redirect("/budget?error=" + encodeURIComponent(t.common.notFoundError));
+  }
+
   revalidatePath("/budget");
 }
