@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { AppMockup } from "@/components/app-mockup";
+import { ContactsMockup } from "@/components/contacts-mockup";
+import { StatisticsMockup } from "@/components/statistics-mockup";
 import { AuthGate } from "@/components/auth-gate";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -75,17 +77,9 @@ export default function CosaOffriamoPage() {
           <AppMockup />
         </header>
 
-        {groups.map((group) => (
-          <section key={group.title} className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-            <div className="max-w-[60ch] mb-8">
-              <span className="text-xs font-bold uppercase tracking-wide text-accent">{group.tag}</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
-                {group.title}
-              </h2>
-              {"intro" in group ? (
-                <p className="text-ink-muted dark:text-neutral-500 text-sm leading-relaxed mt-3">{group.intro}</p>
-              ) : null}
-            </div>
+        {groups.map((group, gi) => {
+          const mockup = gi === 1 ? <ContactsMockup /> : gi === 2 ? <StatisticsMockup /> : null;
+          const cardGrid = (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {group.items.map((item) => (
                 <div
@@ -100,8 +94,30 @@ export default function CosaOffriamoPage() {
                 </div>
               ))}
             </div>
-          </section>
-        ))}
+          );
+
+          return (
+            <section key={group.title} className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+              <div className="max-w-[60ch] mb-8">
+                <span className="text-xs font-bold uppercase tracking-wide text-accent">{group.tag}</span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
+                  {group.title}
+                </h2>
+                {"intro" in group ? (
+                  <p className="text-ink-muted dark:text-neutral-500 text-sm leading-relaxed mt-3">{group.intro}</p>
+                ) : null}
+              </div>
+              {mockup ? (
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 items-start">
+                  {cardGrid}
+                  <div className="lg:sticky lg:top-24">{mockup}</div>
+                </div>
+              ) : (
+                cardGrid
+              )}
+            </section>
+          );
+        })}
 
         <section className="py-14 sm:py-20 flex flex-col items-center text-center gap-5 border-t border-border dark:border-neutral-800">
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[24ch]">
