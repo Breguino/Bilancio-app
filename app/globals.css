@@ -144,3 +144,22 @@ main > * {
     stroke-dashoffset: 0 !important;
   }
 }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.2, 0, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
