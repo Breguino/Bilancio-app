@@ -3,7 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { createClient } from "@/lib/supabase/server";
+import { AuthGate } from "@/components/auth-gate";
 
 const title = "Chi siamo — Bilancino";
 const description =
@@ -30,12 +30,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function ChiSiamoPage() {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+export default function ChiSiamoPage() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
@@ -149,12 +144,24 @@ export default async function ChiSiamoPage() {
             >
               Scopri cosa offriamo
             </Link>
-            <Link
-              href={user ? "/dashboard" : "/signup"}
-              className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
-            >
-              {user ? "Vai alla Dashboard →" : "Crea un account gratis →"}
-            </Link>
+            <AuthGate
+              loggedIn={
+                <Link
+                  href="/dashboard"
+                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                >
+                  Vai alla Dashboard →
+                </Link>
+              }
+              loggedOut={
+                <Link
+                  href="/signup"
+                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                >
+                  Crea un account gratis →
+                </Link>
+              }
+            />
           </div>
         </section>
       </main>

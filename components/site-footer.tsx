@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { AuthGate } from "@/components/auth-gate";
 import { NewsletterSubscribeForm } from "@/components/newsletter-subscribe-form";
 
 const MARKETING_FOOTER_LINKS = [
@@ -10,17 +10,7 @@ const MARKETING_FOOTER_LINKS = [
   { href: "/termini", label: "Termini" },
 ];
 
-export async function SiteFooter() {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const footerLinks = [
-    ...MARKETING_FOOTER_LINKS,
-    user ? { href: "/dashboard", label: "Dashboard" } : { href: "/login", label: "Accedi" },
-  ];
-
+export function SiteFooter() {
   return (
     <footer className="max-w-6xl mx-auto px-6 py-10 text-sm text-ink-muted dark:text-neutral-500 flex flex-col gap-6">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
@@ -34,11 +24,23 @@ export async function SiteFooter() {
           </Link>
         </div>
         <nav className="flex items-center gap-5 flex-wrap justify-center">
-          {footerLinks.map((link) => (
+          {MARKETING_FOOTER_LINKS.map((link) => (
             <Link key={link.href} href={link.href} className="hover:text-accent">
               {link.label}
             </Link>
           ))}
+          <AuthGate
+            loggedIn={
+              <Link href="/dashboard" className="hover:text-accent">
+                Dashboard
+              </Link>
+            }
+            loggedOut={
+              <Link href="/login" className="hover:text-accent">
+                Accedi
+              </Link>
+            }
+          />
         </nav>
       </div>
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-border dark:border-neutral-800 pt-6 text-center sm:text-left">

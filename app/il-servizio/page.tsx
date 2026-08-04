@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { createClient } from "@/lib/supabase/server";
+import { AuthGate } from "@/components/auth-gate";
 
 const title = "Il servizio — Bilancino";
 const description =
@@ -52,12 +52,7 @@ const steps = [
   },
 ];
 
-export default async function IlServizioPage() {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+export default function IlServizioPage() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
@@ -172,20 +167,40 @@ export default async function IlServizioPage() {
         </section>
 
         <section className="py-14 sm:py-20 flex flex-col items-center text-center gap-5 border-t border-border dark:border-neutral-800">
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
-            {user ? "Bentornato: riprendi da dove hai lasciato." : "Pronto a mettere ordine nei tuoi conti?"}
-          </h2>
-          <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">
-            {user
-              ? "I tuoi movimenti, budget e contatti ti aspettano in Panoramica."
-              : "Crea un account in meno di un minuto — bastano un'email e una password."}
-          </p>
-          <Link
-            href={user ? "/dashboard" : "/signup"}
-            className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
-          >
-            {user ? "Vai alla Dashboard →" : "Crea un account gratis →"}
-          </Link>
+          <AuthGate
+            loggedIn={
+              <>
+                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
+                  Bentornato: riprendi da dove hai lasciato.
+                </h2>
+                <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">
+                  I tuoi movimenti, budget e contatti ti aspettano in Panoramica.
+                </p>
+                <Link
+                  href="/dashboard"
+                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
+                >
+                  Vai alla Dashboard →
+                </Link>
+              </>
+            }
+            loggedOut={
+              <>
+                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
+                  Pronto a mettere ordine nei tuoi conti?
+                </h2>
+                <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">
+                  Crea un account in meno di un minuto — bastano un'email e una password.
+                </p>
+                <Link
+                  href="/signup"
+                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
+                >
+                  Crea un account gratis →
+                </Link>
+              </>
+            }
+          />
         </section>
       </main>
 

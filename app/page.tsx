@@ -4,7 +4,7 @@ import { FaqAccordion } from "@/components/faq-accordion";
 import { StatsDemo } from "@/components/stats-demo";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { createClient } from "@/lib/supabase/server";
+import { AuthGate } from "@/components/auth-gate";
 import { LineChart, BarChart3, RefreshCw, Users, Target, Receipt } from "lucide-react";
 
 const eur0 = new Intl.NumberFormat("it-IT", {
@@ -157,13 +157,8 @@ const jsonLd = {
   ],
 };
 
-export default async function HomePage() {
+export default function HomePage() {
   const chart = buildHeroChart();
-
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
   return (
     <div className="min-h-screen">
@@ -187,12 +182,24 @@ export default async function HomePage() {
             un gestionale.
           </p>
           <div className="flex items-center gap-3 flex-wrap">
-            <Link
-              href={user ? "/dashboard" : "/signup"}
-              className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
-            >
-              {user ? "Vai alla Dashboard →" : "Crea un account gratis →"}
-            </Link>
+            <AuthGate
+              loggedIn={
+                <Link
+                  href="/dashboard"
+                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                >
+                  Vai alla Dashboard →
+                </Link>
+              }
+              loggedOut={
+                <Link
+                  href="/signup"
+                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                >
+                  Crea un account gratis →
+                </Link>
+              }
+            />
             <a
               href="#funzionalita"
               className="border border-border dark:border-neutral-800 font-bold text-sm rounded-full px-6 py-3.5 hover:border-accent hover:text-accent transition-colors"
@@ -360,20 +367,40 @@ export default async function HomePage() {
             <Image src="/cta-bg.jpg" alt="" fill className="object-cover" aria-hidden="true" />
             <div className="absolute inset-0 bg-ink/75" />
             <div className="relative z-10 text-white px-8 py-14 sm:px-16 sm:py-16 flex flex-col items-center text-center gap-5">
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
-                {user ? "Bentornato: riprendi da dove hai lasciato." : "Pronto a mettere ordine nei tuoi conti?"}
-              </h2>
-              <p className="text-white/70 max-w-[46ch]">
-                {user
-                  ? "I tuoi movimenti, budget e contatti ti aspettano in Panoramica."
-                  : "Crea un account in meno di un minuto — bastano un'email e una password."}
-              </p>
-              <Link
-                href={user ? "/dashboard" : "/signup"}
-                className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
-              >
-                {user ? "Vai alla Dashboard →" : "Crea un account gratis →"}
-              </Link>
+              <AuthGate
+                loggedIn={
+                  <>
+                    <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
+                      Bentornato: riprendi da dove hai lasciato.
+                    </h2>
+                    <p className="text-white/70 max-w-[46ch]">
+                      I tuoi movimenti, budget e contatti ti aspettano in Panoramica.
+                    </p>
+                    <Link
+                      href="/dashboard"
+                      className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
+                    >
+                      Vai alla Dashboard →
+                    </Link>
+                  </>
+                }
+                loggedOut={
+                  <>
+                    <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
+                      Pronto a mettere ordine nei tuoi conti?
+                    </h2>
+                    <p className="text-white/70 max-w-[46ch]">
+                      Crea un account in meno di un minuto — bastano un'email e una password.
+                    </p>
+                    <Link
+                      href="/signup"
+                      className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
+                    >
+                      Crea un account gratis →
+                    </Link>
+                  </>
+                }
+              />
             </div>
           </div>
         </section>
