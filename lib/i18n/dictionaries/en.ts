@@ -663,7 +663,7 @@ const en: Dictionary = {
     metaDescription:
       "How Bilancino works from your first login, what it costs today, how your data is protected (a real account and Row Level Security), and what you can do if you ever want to leave.",
     eyebrow: "The service",
-    heroTitle: "How it works, what it costs, how your data is protected.",
+    heroTitle: "How Bilancino works, what it costs, and how your data is protected.",
     heroBody: "Everything you'd want to know before creating an account, on a single page.",
     howItWorksEyebrow: "How it works",
     howItWorksTitle: "From your first login to a weekly routine",
@@ -710,6 +710,10 @@ const en: Dictionary = {
       "From the Overview you can export your entire transaction history as a CSV at any time, openable in Excel or Google Sheets. It's not an option hidden at the bottom of a menu: it's meant to be used whenever you want, without having to ask for anything.",
       "Before deleting anything — a transaction, a contact, a goal — you're always asked for an explicit confirmation, to avoid accidental deletions.",
     ],
+    dataLeavePre:
+      "To correct or delete your data, including your account itself: there isn't yet an automatic in-app way to do it yourself, so email me at",
+    dataLeaveEmail: "a2n0g004@gmail.com",
+    dataLeavePost: "and I'll take care of it by hand.",
   },
   novita: {
     metaTitle: "What's new — Bilancino",

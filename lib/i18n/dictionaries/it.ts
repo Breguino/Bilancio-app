@@ -661,7 +661,7 @@ const it = {
     metaDescription:
       "Come funziona Bilancino dal primo accesso, quanto costa oggi, come sono protetti i tuoi dati (account reale e Row Level Security) e cosa puoi fare se un giorno vuoi andartene.",
     eyebrow: "Il servizio",
-    heroTitle: "Come funziona, quanto costa, come sono protetti i tuoi dati.",
+    heroTitle: "Come funziona Bilancino, quanto costa e come sono protetti i tuoi dati.",
     heroBody: "Tutto quello che vorresti sapere prima di creare un account, in una pagina sola.",
     howItWorksEyebrow: "Come funziona",
     howItWorksTitle: "Dal primo accesso alla routine settimanale",
@@ -708,6 +708,10 @@ const it = {
       "Dalla Panoramica puoi esportare in qualunque momento l'intero storico dei movimenti in formato CSV, apribile in Excel o Fogli Google. Non è un'opzione nascosta in fondo a un menu: è pensata per essere usata quando vuoi, senza dover chiedere niente.",
       "Prima di eliminare qualcosa — un movimento, un contatto, un obiettivo — ti viene sempre chiesta una conferma esplicita, per evitare cancellazioni per errore.",
     ],
+    dataLeavePre:
+      "Per correggere o cancellare i tuoi dati, incluso l'account stesso: oggi non c'è ancora una funzione automatica nell'app per farlo da solo, quindi scrivimi a",
+    dataLeaveEmail: "a2n0g004@gmail.com",
+    dataLeavePost: "e me ne occupo a mano.",
   },
   novita: {
     metaTitle: "Novità — Bilancino",

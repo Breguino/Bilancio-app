@@ -112,6 +112,13 @@ export default function IlServizioPage() {
               {t.ilServizio.dataParagraphs.map((p) => (
                 <p key={p}>{p}</p>
               ))}
+              <p>
+                {t.ilServizio.dataLeavePre}{" "}
+                <a href={`mailto:${t.ilServizio.dataLeaveEmail}`} className="text-accent font-medium hover:underline">
+                  {t.ilServizio.dataLeaveEmail}
+                </a>{" "}
+                {t.ilServizio.dataLeavePost}
+              </p>
             </div>
           </div>
         </section>
