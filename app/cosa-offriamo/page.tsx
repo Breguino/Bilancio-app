@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { AppMockup } from "@/components/app-mockup";
-import { createClient } from "@/lib/supabase/server";
+import { AuthGate } from "@/components/auth-gate";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import {
@@ -49,12 +49,8 @@ const groupIcons = [
   [Download, Upload],
 ];
 
-export default async function CosaOffriamoPage() {
+export default function CosaOffriamoPage() {
   const t = dictionaryFor(getLocale());
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
   const groups = t.cosaOffriamo.groups.map((group, gi) => ({
     ...group,
@@ -118,12 +114,24 @@ export default async function CosaOffriamoPage() {
             >
               {t.cosaOffriamo.ctaSeeService}
             </Link>
-            <Link
-              href={user ? "/dashboard" : "/signup"}
-              className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
-            >
-              {user ? t.home.ctaDashboard : t.home.ctaSignupFree}
-            </Link>
+            <AuthGate
+              loggedIn={
+                <Link
+                  href="/dashboard"
+                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                >
+                  {t.home.ctaDashboard}
+                </Link>
+              }
+              loggedOut={
+                <Link
+                  href="/signup"
+                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                >
+                  {t.home.ctaSignupFree}
+                </Link>
+              }
+            />
           </div>
         </section>
       </main>
