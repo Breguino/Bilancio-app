@@ -56,18 +56,66 @@ export async function addRecurring(formData: FormData) {
 }
 
 export async function toggleRecurring(formData: FormData) {
+  const { t } = getDictionary();
   const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+
   const id = String(formData.get("id") || "");
   const active = String(formData.get("active") || "") === "true";
   if (!id) return;
-  await supabase.from("recurring_transactions").update({ active: !active }).eq("id", id);
+
+  const willBeActive = !active;
+  if (willBeActive) {
+    // Riattivare una ricorrenza la cui prossima occorrenza è già oltre la
+    // data di fine genererebbe subito un movimento fuori dal periodo voluto
+    // (generateDueRecurringTransactions la riprende al primo caricamento).
+    const { data: recurring } = await supabase
+      .from("recurring_transactions")
+      .select("next_date, end_date")
+      .eq("id", id)
+      .eq("user_id", user.id)
+      .single();
+    if (recurring?.end_date && recurring.next_date > recurring.end_date) {
+      redirect("/recurring?error=" + encodeURIComponent(t.recurring.resumePastEndDateError));
+    }
+  }
+
+  const { error, count } = await supabase
+    .from("recurring_transactions")
+    .update({ active: willBeActive }, { count: "exact" })
+    .eq("id", id)
+    .eq("user_id", user.id);
+
+  if (error || count === 0) {
+    redirect("/recurring?error=" + encodeURIComponent(t.common.notFoundError));
+  }
+
   revalidateAll();
 }
 
 export async function deleteRecurring(formData: FormData) {
+  const { t } = getDictionary();
   const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
+
   const id = String(formData.get("id") || "");
   if (!id) return;
-  await supabase.from("recurring_transactions").delete().eq("id", id);
+
+  const { error, count } = await supabase
+    .from("recurring_transactions")
+    .delete({ count: "exact" })
+    .eq("id", id)
+    .eq("user_id", user.id);
+
+  if (error || count === 0) {
+    redirect("/recurring?error=" + encodeURIComponent(t.common.notFoundError));
+  }
+
   revalidateAll();
 }

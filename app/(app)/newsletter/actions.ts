@@ -32,11 +32,15 @@ export async function saveDraft(formData: FormData) {
 
   const admin = createAdminClient();
   if (id) {
-    await admin
+    const { error, count } = await admin
       .from("newsletter_issues")
-      .update({ subject, body_html: bodyHtml })
+      .update({ subject, body_html: bodyHtml }, { count: "exact" })
       .eq("id", id)
       .eq("status", "draft");
+
+    if (error || count === 0) {
+      redirect("/newsletter?error=" + encodeURIComponent(t.newsletterAdmin.draftNotFoundError));
+    }
   } else {
     await admin.from("newsletter_issues").insert({ subject, body_html: bodyHtml });
   }

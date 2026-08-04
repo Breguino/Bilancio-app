@@ -5,6 +5,8 @@ const en: Dictionary = {
     langSwitchLabel: "Change language",
     deleteAction: "Delete",
     cancelAction: "Cancel",
+    notFoundError: "Item not found or already removed.",
+    actionFailedError: "Action failed. Please try again.",
   },
   cookieConsent: {
     message: "I use Google Analytics, with your consent, to understand how the site is used.",
@@ -183,6 +185,7 @@ const en: Dictionary = {
     sendNow: "⬆ Send now",
     sentIssuesTitle: "Previously sent issues",
     fieldsRequiredError: "Write a subject and body before saving.",
+    draftNotFoundError: "This draft no longer exists or has already been sent.",
     draftSavedToast: "Draft saved",
     resendRejectedError: "Resend rejected the send: {error}",
     noDraftReady: "No draft ready to send.",
@@ -270,6 +273,7 @@ const en: Dictionary = {
     fileTooLargeError: "The file is too large (2 MB limit).",
     noValidContactsError: "No valid contacts found in the file. Check that the first column is Name.",
     importedCount: "{n} contacts imported",
+    partialImportError: "import stopped partway through, retry for the rest",
     duplicatesCount: "{n} already existing",
     skippedNoNameCount: "{n} rows without a name skipped",
   },
@@ -363,6 +367,7 @@ const en: Dictionary = {
     deleteAriaLabel: "Delete recurring transaction",
     validationError: "Fill in the description, date, and an amount greater than zero.",
     endBeforeStartError: "The end date can't be earlier than the start date.",
+    resumePastEndDateError: "This recurring transaction has expired (past its end date) and can't be resumed. Change the end date or create a new one.",
     addedToast: "Recurring transaction added",
   },
   goals: {
@@ -466,6 +471,7 @@ const en: Dictionary = {
     noValidRowsError:
       "No valid rows found in the file. Check that the columns are Date, Description, Category, Client, Amount.",
     importedCount: "{n} transactions imported",
+    partialImportError: "import stopped partway through, retry for the rest",
     skippedCount: "{n} rows skipped",
     unmatchedContactsCount: "{n} clients not recognized",
     transactionNotFoundError: "Transaction not found.",

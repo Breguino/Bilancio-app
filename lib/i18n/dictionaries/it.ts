@@ -3,6 +3,8 @@ const it = {
     langSwitchLabel: "Cambia lingua",
     deleteAction: "Elimina",
     cancelAction: "Annulla",
+    notFoundError: "Elemento non trovato o già rimosso.",
+    actionFailedError: "Operazione non riuscita. Riprova.",
   },
   cookieConsent: {
     message: "Uso Google Analytics, con il tuo consenso, per capire come viene usato il sito.",
@@ -181,6 +183,7 @@ const it = {
     sendNow: "⬆ Invia adesso",
     sentIssuesTitle: "Numeri già inviati",
     fieldsRequiredError: "Scrivi oggetto e testo prima di salvare.",
+    draftNotFoundError: "La bozza non esiste più o è già stata inviata.",
     draftSavedToast: "Bozza salvata",
     resendRejectedError: "Resend ha rifiutato l'invio: {error}",
     noDraftReady: "Nessuna bozza pronta da inviare.",
@@ -268,6 +271,7 @@ const it = {
     fileTooLargeError: "Il file è troppo grande (limite 2 MB).",
     noValidContactsError: "Nessun contatto valido trovato nel file. Controlla che la prima colonna sia il Nome.",
     importedCount: "{n} contatti importati",
+    partialImportError: "importazione interrotta a metà, riprova per i restanti",
     duplicatesCount: "{n} già esistenti",
     skippedNoNameCount: "{n} righe senza nome ignorate",
   },
@@ -361,6 +365,7 @@ const it = {
     deleteAriaLabel: "Elimina ricorrenza",
     validationError: "Compila descrizione, data e un importo maggiore di zero.",
     endBeforeStartError: "La data di fine non può essere precedente alla data di inizio.",
+    resumePastEndDateError: "Questa ricorrenza è scaduta (oltre la data di fine) e non può essere riattivata. Modifica la data di fine o creane una nuova.",
     addedToast: "Ricorrenza aggiunta",
   },
   goals: {
@@ -464,6 +469,7 @@ const it = {
     noValidRowsError:
       "Nessuna riga valida trovata nel file. Controlla che le colonne siano Data, Descrizione, Categoria, Cliente, Importo.",
     importedCount: "{n} movimenti importati",
+    partialImportError: "importazione interrotta a metà, riprova per i restanti",
     skippedCount: "{n} righe ignorate",
     unmatchedContactsCount: "{n} clienti non riconosciuti",
     transactionNotFoundError: "Movimento non trovato.",

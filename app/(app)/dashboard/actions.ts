@@ -71,15 +71,23 @@ export async function importTransactions(formData: FormData) {
   }
 
   const CHUNK_SIZE = 500;
+  let insertedCount = 0;
   for (let i = 0; i < rows.length; i += CHUNK_SIZE) {
     const chunk = rows.slice(i, i + CHUNK_SIZE).map((r) => ({ ...r, user_id: user.id }));
-    await supabase.from("transactions").insert(chunk);
+    const { error } = await supabase.from("transactions").insert(chunk);
+    if (error) break;
+    insertedCount += chunk.length;
   }
 
   revalidateAll();
   revalidatePath("/contacts");
 
-  const parts = [t.dashboard.importedCount.replace("{n}", String(imported))];
+  if (insertedCount === 0) {
+    redirect(withParam(returnPath, "error", t.common.actionFailedError));
+  }
+
+  const parts = [t.dashboard.importedCount.replace("{n}", String(insertedCount))];
+  if (insertedCount < imported) parts.push(t.dashboard.partialImportError);
   if (skipped > 0) parts.push(t.dashboard.skippedCount.replace("{n}", String(skipped)));
   if (unmatchedContacts > 0) parts.push(t.dashboard.unmatchedContactsCount.replace("{n}", String(unmatchedContacts)));
   redirect(withParam(returnPath, "success", parts.join(", ")));
@@ -136,7 +144,14 @@ export async function restoreTransaction(formData: FormData) {
   const id = String(formData.get("id") || "");
   if (!id) return;
 
-  await supabase.from("transactions").update({ deleted_at: null }).eq("id", id);
+  const { error, count } = await supabase
+    .from("transactions")
+    .update({ deleted_at: null }, { count: "exact" })
+    .eq("id", id);
+
+  if (error || count === 0) {
+    redirect(withParam("/cestino", "error", t.common.notFoundError));
+  }
 
   revalidateAll();
   revalidatePath("/contacts");
@@ -155,7 +170,15 @@ export async function permanentlyDeleteTransaction(formData: FormData) {
   const id = String(formData.get("id") || "");
   if (!id) return;
 
-  await supabase.from("transactions").delete().eq("id", id).not("deleted_at", "is", null);
+  const { error, count } = await supabase
+    .from("transactions")
+    .delete({ count: "exact" })
+    .eq("id", id)
+    .not("deleted_at", "is", null);
+
+  if (error || count === 0) {
+    redirect(withParam("/cestino", "error", t.common.notFoundError));
+  }
 
   revalidatePath("/cestino");
   redirect(withParam("/cestino", "success", t.dashboard.permanentlyDeletedToast));
