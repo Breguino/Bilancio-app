@@ -5,6 +5,7 @@ import { StatsDemo } from "@/components/stats-demo";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { AuthGate } from "@/components/auth-gate";
+import { Reveal } from "@/components/reveal";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { LineChart, BarChart3, RefreshCw, Users, Target, Receipt } from "lucide-react";
 
@@ -213,7 +214,7 @@ export default function HomePage() {
               {t.home.featuresTitle}
             </h2>
           </div>
-          <div className="rounded-2xl bg-accent-soft/60 dark:bg-accent/10 border border-accent/20 dark:border-accent/20 p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-[1.2fr_1fr] gap-8 items-center mb-4">
+          <Reveal className="rounded-2xl bg-accent-soft/60 dark:bg-accent/10 border border-accent/20 dark:border-accent/20 p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-[1.2fr_1fr] gap-8 items-center mb-4">
             <div>
               <div className="w-11 h-11 rounded-xl bg-accent text-white flex items-center justify-center mb-4">
                 <heroFeature.icon size={22} strokeWidth={1.75} />
@@ -237,32 +238,35 @@ export default function HomePage() {
                 <span className="num font-bold">2</span>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* 5 card su 6 colonne: le prime tre larghe 2, le ultime due larghe 3. Riempie
               entrambe le righe senza celle vuote, e ogni card è larga il doppio rispetto
               alle 5 colonne da 208px di prima, dove il testo risultava compresso. */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
             {features.map((f, i) => (
-              <div
+              <Reveal
                 key={f.title}
-                className={`border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900 hover:-translate-y-0.5 hover:shadow-lg transition-all ${
-                  i < 3 ? "lg:col-span-2" : "lg:col-span-3"
-                } ${i === features.length - 1 ? "sm:col-span-2 lg:col-span-3" : ""}`}
+                delay={i * 80}
+                className={`${i < 3 ? "lg:col-span-2" : "lg:col-span-3"} ${
+                  i === features.length - 1 ? "sm:col-span-2 lg:col-span-3" : ""
+                }`}
               >
-                <div className="w-10 h-10 rounded-xl bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-4">
-                  <f.icon size={20} strokeWidth={1.75} />
+                <div className="h-full border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900 hover:-translate-y-0.5 hover:shadow-lg transition-all">
+                  <div className="w-10 h-10 rounded-xl bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-4">
+                    <f.icon size={20} strokeWidth={1.75} />
+                  </div>
+                  <h3 className="font-bold mb-1.5">{f.title}</h3>
+                  <p className="text-xs font-semibold text-ink-muted dark:text-neutral-500 mb-2">{f.tag}</p>
+                  <p className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed">{f.body}</p>
                 </div>
-                <h3 className="font-bold mb-1.5">{f.title}</h3>
-                <p className="text-xs font-semibold text-ink-muted dark:text-neutral-500 mb-2">{f.tag}</p>
-                <p className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed">{f.body}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </section>
 
         <section id="statistiche" className="py-12 sm:py-14 scroll-mt-20 border-t border-border dark:border-neutral-800">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div>
               <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.home.statsEyebrow}</span>
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 mb-6 [text-wrap:balance] max-w-[22ch]">
@@ -276,21 +280,23 @@ export default function HomePage() {
               </p>
             </div>
             <StatsDemo labels={t.shared.statsDemo} numberLocale={locale === "it" ? "it-IT" : "en-IE"} />
-          </div>
+          </Reveal>
         </section>
 
         <section id="faq" className="py-12 sm:py-14 scroll-mt-20 border-t border-border dark:border-neutral-800">
-          <div className="max-w-[60ch] mb-8">
-            <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.home.faqEyebrow}</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
-              {t.home.faqTitle}
-            </h2>
-          </div>
-          <FaqAccordion items={faqItems} />
+          <Reveal>
+            <div className="max-w-[60ch] mb-8">
+              <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.home.faqEyebrow}</span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
+                {t.home.faqTitle}
+              </h2>
+            </div>
+            <FaqAccordion items={faqItems} />
+          </Reveal>
         </section>
 
         <section className="pt-12 sm:pt-14 pb-20 sm:pb-28 border-t border-border dark:border-neutral-800">
-          <div className="relative rounded-2xl overflow-hidden">
+          <Reveal className="relative rounded-2xl overflow-hidden">
             <Image src="/cta-bg.jpg" alt="" fill className="object-cover" aria-hidden="true" />
             <div className="absolute inset-0 bg-ink/75" />
             <div className="relative z-10 text-white px-8 py-14 sm:px-16 sm:py-16 flex flex-col items-center text-center gap-5">
@@ -325,7 +331,7 @@ export default function HomePage() {
                 }
               />
             </div>
-          </div>
+          </Reveal>
         </section>
       </main>
 

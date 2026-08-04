@@ -697,9 +697,39 @@ const en: Dictionary = {
     heroTitle: "What's changed, update after update.",
     heroBody:
       "I build Bilancino solo, so here you'll find exactly what I did and when — no inflated version numbers, just the things that actually changed.",
-    lastUpdated: "July 29, 2026",
+    lastUpdated: "August 4, 2026",
     lastUpdatedPrefix: "Last updated:",
     entries: [
+      {
+        date: "August 4, 2026",
+        items: [
+          "Fixed several spots in the app (goals, budget, contacts, recurring transactions, trash, newsletter) where an action could fail without showing anything, leaving you wondering if it worked — you'll now always see a clear message if something doesn't go through.",
+          "Resuming an already-expired recurring transaction now warns you with an error instead of silently generating a transaction outside its intended date range.",
+          "Updated a key dependency (Next.js) that had a security flaw in access control for protected pages: no data was ever exposed, but it's fixed regardless.",
+          "The public site's header and footer now read your sign-in state in the browser instead of on every server request — a small behind-the-scenes cleanup.",
+        ],
+      },
+      {
+        date: "August 3, 2026",
+        items: [
+          "Added Google Analytics to understand how the site is used, off by default: it only runs if you consent via the cookie banner on first visit, and you can change your mind anytime from \"Manage cookie preferences\" at the bottom of the site.",
+        ],
+      },
+      {
+        date: "August 2, 2026",
+        items: [
+          "Bilancino is now available in English too, with a language switcher in the header (public site and app).",
+          "Fixed several labels left in Italian on already-translated pages: error messages, the 404 page, CSV export, the newsletter footer.",
+          "More consistent header between the public site and the app, fixed a layout issue at mid-range screen widths.",
+        ],
+      },
+      {
+        date: "July 30, 2026",
+        items: [
+          "Added a trash bin: deleted transactions stay recoverable for 30 days before being gone for good, instead of being removed immediately.",
+          "Rebuilt the mobile menu: solid background instead of transparent, rounded corners, smoother opening animation.",
+        ],
+      },
       {
         date: "July 29, 2026",
         items: [

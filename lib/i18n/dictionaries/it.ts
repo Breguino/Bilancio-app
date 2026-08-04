@@ -695,9 +695,39 @@ const it = {
     heroTitle: "Cosa è cambiato, aggiornamento dopo aggiornamento.",
     heroBody:
       "Sviluppo Bilancino da solo, quindi qui trovi esattamente cosa ho fatto e quando — niente numeri di versione gonfiati, solo le cose che sono cambiate davvero.",
-    lastUpdated: "29 luglio 2026",
+    lastUpdated: "4 agosto 2026",
     lastUpdatedPrefix: "Ultimo aggiornamento:",
     entries: [
+      {
+        date: "4 agosto 2026",
+        items: [
+          "Sistemati diversi punti dell'app (obiettivi, budget, contatti, movimenti ricorrenti, cestino, newsletter) dove un'azione poteva fallire senza mostrare nulla, lasciandoti a chiederti se avesse funzionato — ora vedi sempre un messaggio chiaro se qualcosa non va a buon fine.",
+          "Riattivare una ricorrenza già scaduta ora avvisa con un errore invece di generare in silenzio un movimento fuori dalla data prevista.",
+          "Aggiornata una dipendenza chiave (Next.js) che conteneva una falla di sicurezza nel controllo di accesso alle pagine riservate: nessun dato è mai stato esposto, chiusa comunque per sicurezza.",
+          "Header e footer del sito pubblico ora leggono lo stato di accesso nel browser invece che ad ogni richiesta al server, un piccolo lavoro di pulizia dietro le quinte.",
+        ],
+      },
+      {
+        date: "3 agosto 2026",
+        items: [
+          "Aggiunto Google Analytics per capire come viene usato il sito, disattivato di default: parte solo se acconsenti dal banner cookie al primo accesso, e puoi cambiare idea in ogni momento da \"Gestisci preferenze cookie\" in fondo al sito.",
+        ],
+      },
+      {
+        date: "2 agosto 2026",
+        items: [
+          "Bilancino è ora disponibile anche in inglese, con un selettore di lingua nell'header (sito pubblico e app).",
+          "Sistemate diverse etichette rimaste in italiano nelle pagine già tradotte: messaggi di errore, pagina 404, esportazione CSV, footer della newsletter.",
+          "Header più coerente tra sito pubblico e app, corretto un problema di layout su schermi di larghezza intermedia.",
+        ],
+      },
+      {
+        date: "30 luglio 2026",
+        items: [
+          "Aggiunto un cestino: i movimenti eliminati restano recuperabili per 30 giorni prima di sparire per sempre, invece di essere cancellati subito.",
+          "Rifatto il menu mobile: sfondo pieno invece che trasparente, angoli arrotondati, animazione di apertura più fluida.",
+        ],
+      },
       {
         date: "29 luglio 2026",
         items: [
