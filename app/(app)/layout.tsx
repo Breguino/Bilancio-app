@@ -3,6 +3,7 @@ import { Home } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "@/components/logo";
+import { AppNav } from "@/components/app-nav";
 import { MobileMenu } from "@/components/mobile-menu";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -40,19 +41,9 @@ export default async function AppLayout({
           >
             <Logo />
           </Link>
-          <nav className="hidden md:flex items-center gap-1 text-sm font-medium">
-            {navLinks.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="rounded-full px-3 py-2 text-ink-secondary dark:text-neutral-400 hover:bg-surface-alt dark:hover:bg-neutral-800 hover:text-ink dark:hover:text-neutral-100 transition-colors whitespace-nowrap"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
+          <AppNav links={navLinks} />
           <div className="flex items-center gap-2">
-            <span className="text-ink-muted dark:text-neutral-500 text-sm hidden lg:inline mr-1">
+            <span className="text-ink-muted dark:text-neutral-500 text-sm hidden xl:inline mr-1">
               {user?.email}
             </span>
             <Link
@@ -65,7 +56,7 @@ export default async function AppLayout({
             </Link>
             <LanguageSwitcher locale={locale} label={t.common.langSwitchLabel} />
             <ThemeToggle ariaLabel={t.shared.themeToggle.ariaLabel} title={t.shared.themeToggle.title} />
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <MobileMenu items={navLinks} />
             </div>
             <form action="/logout" method="post">

@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 type MenuItem = { href: string; label: string };
 
 export function MobileMenu({ items }: { items: MenuItem[] }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <>
@@ -38,16 +40,24 @@ export function MobileMenu({ items }: { items: MenuItem[] }) {
         aria-hidden={!open}
       >
         <nav className="flex flex-col gap-1 p-3 text-base font-semibold">
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="px-4 py-3.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {items.map((item) => {
+            const active = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                aria-current={active ? "page" : undefined}
+                className={`px-4 py-3.5 rounded-xl transition-colors ${
+                  active
+                    ? "bg-accent-soft dark:bg-accent/20 text-accent"
+                    : "hover:bg-black/5 dark:hover:bg-white/5"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </>
