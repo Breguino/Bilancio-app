@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AuthProvider } from "@/components/auth-provider";
 import { AnalyticsConsent } from "@/components/analytics-consent";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
@@ -48,7 +49,7 @@ export default function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <AuthProvider>{children}</AuthProvider>
         </ThemeProvider>
         <Analytics />
         <AnalyticsConsent

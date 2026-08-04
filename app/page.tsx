@@ -4,7 +4,7 @@ import { FaqAccordion } from "@/components/faq-accordion";
 import { StatsDemo } from "@/components/stats-demo";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { createClient } from "@/lib/supabase/server";
+import { AuthGate } from "@/components/auth-gate";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { LineChart, BarChart3, RefreshCw, Users, Target, Receipt } from "lucide-react";
 
@@ -53,7 +53,7 @@ function buildHeroChart() {
 
 const featureIcons = [BarChart3, RefreshCw, Users, Target, Receipt];
 
-export default async function HomePage() {
+export default function HomePage() {
   const chart = buildHeroChart();
   const { locale, t } = getDictionary();
   const eur0 = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
@@ -95,11 +95,6 @@ export default async function HomePage() {
     ],
   };
 
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
   return (
     <div className="min-h-screen">
       <script
@@ -120,12 +115,24 @@ export default async function HomePage() {
             {t.home.heroBody}
           </p>
           <div className="flex items-center gap-3 flex-wrap">
-            <Link
-              href={user ? "/dashboard" : "/signup"}
-              className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
-            >
-              {user ? t.home.ctaDashboard : t.home.ctaSignupFree}
-            </Link>
+            <AuthGate
+              loggedIn={
+                <Link
+                  href="/dashboard"
+                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                >
+                  {t.home.ctaDashboard}
+                </Link>
+              }
+              loggedOut={
+                <Link
+                  href="/signup"
+                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                >
+                  {t.home.ctaSignupFree}
+                </Link>
+              }
+            />
             <a
               href="#funzionalita"
               className="border border-border dark:border-neutral-800 font-bold text-sm rounded-full px-6 py-3.5 hover:border-accent hover:text-accent transition-colors"
@@ -287,18 +294,36 @@ export default async function HomePage() {
             <Image src="/cta-bg.jpg" alt="" fill className="object-cover" aria-hidden="true" />
             <div className="absolute inset-0 bg-ink/75" />
             <div className="relative z-10 text-white px-8 py-14 sm:px-16 sm:py-16 flex flex-col items-center text-center gap-5">
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
-                {user ? t.home.ctaTitleReturning : t.home.ctaTitleNew}
-              </h2>
-              <p className="text-white/70 max-w-[46ch]">
-                {user ? t.home.ctaBodyReturning : t.home.ctaBodyNew}
-              </p>
-              <Link
-                href={user ? "/dashboard" : "/signup"}
-                className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
-              >
-                {user ? t.home.ctaDashboard : t.home.ctaSignupFree}
-              </Link>
+              <AuthGate
+                loggedIn={
+                  <>
+                    <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
+                      {t.home.ctaTitleReturning}
+                    </h2>
+                    <p className="text-white/70 max-w-[46ch]">{t.home.ctaBodyReturning}</p>
+                    <Link
+                      href="/dashboard"
+                      className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
+                    >
+                      {t.home.ctaDashboard}
+                    </Link>
+                  </>
+                }
+                loggedOut={
+                  <>
+                    <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
+                      {t.home.ctaTitleNew}
+                    </h2>
+                    <p className="text-white/70 max-w-[46ch]">{t.home.ctaBodyNew}</p>
+                    <Link
+                      href="/signup"
+                      className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
+                    >
+                      {t.home.ctaSignupFree}
+                    </Link>
+                  </>
+                }
+              />
             </div>
           </div>
         </section>

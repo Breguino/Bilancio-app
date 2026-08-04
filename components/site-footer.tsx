@@ -1,14 +1,10 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { AuthGate } from "@/components/auth-gate";
 import { NewsletterSubscribeForm } from "@/components/newsletter-subscribe-form";
 import { ManageCookiePreferencesLink } from "@/components/manage-cookie-preferences-link";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
-export async function SiteFooter() {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+export function SiteFooter() {
   const { t } = getDictionary();
 
   const marketingFooterLinks = [
@@ -17,11 +13,6 @@ export async function SiteFooter() {
     { href: "/il-servizio", label: t.nav.ilServizio },
     { href: "/privacy", label: t.siteFooter.privacy },
     { href: "/termini", label: t.siteFooter.termini },
-  ];
-
-  const footerLinks = [
-    ...marketingFooterLinks,
-    user ? { href: "/dashboard", label: t.nav.dashboard } : { href: "/login", label: t.nav.accedi },
   ];
 
   const hasAnalyticsConsent = Boolean(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID);
@@ -39,11 +30,23 @@ export async function SiteFooter() {
           </Link>
         </div>
         <nav className="flex items-center gap-5 flex-wrap justify-center">
-          {footerLinks.map((link) => (
+          {marketingFooterLinks.map((link) => (
             <Link key={link.href} href={link.href} className="hover:text-accent">
               {link.label}
             </Link>
           ))}
+          <AuthGate
+            loggedIn={
+              <Link href="/dashboard" className="hover:text-accent">
+                {t.nav.dashboard}
+              </Link>
+            }
+            loggedOut={
+              <Link href="/login" className="hover:text-accent">
+                {t.nav.accedi}
+              </Link>
+            }
+          />
         </nav>
       </div>
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-border dark:border-neutral-800 pt-6 text-center sm:text-left">

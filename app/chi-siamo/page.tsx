@@ -3,7 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { createClient } from "@/lib/supabase/server";
+import { AuthGate } from "@/components/auth-gate";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 
@@ -30,12 +30,8 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default async function ChiSiamoPage() {
+export default function ChiSiamoPage() {
   const t = dictionaryFor(getLocale());
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
   return (
     <div className="min-h-screen">
@@ -119,12 +115,24 @@ export default async function ChiSiamoPage() {
             >
               {t.chiSiamo.ctaSeeOffer}
             </Link>
-            <Link
-              href={user ? "/dashboard" : "/signup"}
-              className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
-            >
-              {user ? t.home.ctaDashboard : t.home.ctaSignupFree}
-            </Link>
+            <AuthGate
+              loggedIn={
+                <Link
+                  href="/dashboard"
+                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                >
+                  {t.home.ctaDashboard}
+                </Link>
+              }
+              loggedOut={
+                <Link
+                  href="/signup"
+                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                >
+                  {t.home.ctaSignupFree}
+                </Link>
+              }
+            />
           </div>
         </section>
       </main>
