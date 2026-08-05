@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { AuthGate } from "@/components/auth-gate";
+import { Reveal } from "@/components/reveal";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 
@@ -43,28 +44,29 @@ export default function IlServizioPage() {
         </header>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <div className="max-w-[60ch] mb-10">
+          <Reveal className="max-w-[60ch] mb-10">
             <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.howItWorksEyebrow}</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
               {t.ilServizio.howItWorksTitle}
             </h2>
-          </div>
+          </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {t.ilServizio.steps.map((step) => (
-              <div
+            {t.ilServizio.steps.map((step, i) => (
+              <Reveal
                 key={step.n}
+                delay={i * 80}
                 className="border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900"
               >
                 <span className="num text-xs font-bold text-accent">{step.n}</span>
                 <h3 className="font-bold mt-2 mb-1.5">{step.title}</h3>
                 <p className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed">{step.body}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </section>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.priceEyebrow}</span>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[18ch]">
@@ -81,11 +83,11 @@ export default function IlServizioPage() {
                 {t.ilServizio.pricePara2Post}
               </p>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.securityEyebrow}</span>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[20ch]">
@@ -97,11 +99,11 @@ export default function IlServizioPage() {
                 <p key={p}>{p}</p>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.dataEyebrow}</span>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[20ch]">
@@ -120,40 +122,42 @@ export default function IlServizioPage() {
                 {t.ilServizio.dataLeavePost}
               </p>
             </div>
-          </div>
+          </Reveal>
         </section>
 
-        <section className="py-14 sm:py-20 flex flex-col items-center text-center gap-5 border-t border-border dark:border-neutral-800">
-          <AuthGate
-            loggedIn={
-              <>
-                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
-                  {t.home.ctaTitleReturning}
-                </h2>
-                <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">{t.home.ctaBodyReturning}</p>
-                <Link
-                  href="/dashboard"
-                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
-                >
-                  {t.home.ctaDashboard}
-                </Link>
-              </>
-            }
-            loggedOut={
-              <>
-                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
-                  {t.home.ctaTitleNew}
-                </h2>
-                <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">{t.home.ctaBodyNew}</p>
-                <Link
-                  href="/signup"
-                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
-                >
-                  {t.home.ctaSignupFree}
-                </Link>
-              </>
-            }
-          />
+        <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
+          <Reveal className="flex flex-col items-center text-center gap-5">
+            <AuthGate
+              loggedIn={
+                <>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
+                    {t.home.ctaTitleReturning}
+                  </h2>
+                  <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">{t.home.ctaBodyReturning}</p>
+                  <Link
+                    href="/dashboard"
+                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
+                  >
+                    {t.home.ctaDashboard}
+                  </Link>
+                </>
+              }
+              loggedOut={
+                <>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
+                    {t.home.ctaTitleNew}
+                  </h2>
+                  <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">{t.home.ctaBodyNew}</p>
+                  <Link
+                    href="/signup"
+                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
+                  >
+                    {t.home.ctaSignupFree}
+                  </Link>
+                </>
+              }
+            />
+          </Reveal>
         </section>
       </main>
 

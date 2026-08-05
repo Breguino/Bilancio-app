@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { Reveal } from "@/components/reveal";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 
@@ -35,7 +36,7 @@ export default function TerminiPage() {
         </header>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
                 {t.termini.whatItIsTitle}
@@ -46,11 +47,11 @@ export default function TerminiPage() {
                 <p key={p}>{p}</p>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
                 {t.termini.whatItIsNotTitle}
@@ -61,11 +62,11 @@ export default function TerminiPage() {
                 <p key={p}>{p}</p>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
                 {t.termini.yourResponsibilityTitle}
@@ -76,11 +77,11 @@ export default function TerminiPage() {
                 <p key={p}>{p}</p>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
                 {t.termini.ifSomethingGoesWrongTitle}
@@ -91,19 +92,21 @@ export default function TerminiPage() {
                 <p key={p}>{p}</p>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         <section className="py-14 sm:py-16 border-t border-border dark:border-neutral-800">
-          <p className="text-sm text-ink-muted dark:text-neutral-500 max-w-[62ch]">
-            {t.termini.footerNotePre}{" "}
-            <Link href="/novita" className="text-accent hover:underline">{t.termini.footerNoteLink}</Link>
-            {t.termini.footerNoteMid}{" "}
-            <a href="mailto:a2n0g004@gmail.com" className="text-accent hover:underline">
-              a2n0g004@gmail.com
-            </a>
-            .
-          </p>
+          <Reveal>
+            <p className="text-sm text-ink-muted dark:text-neutral-500 max-w-[62ch]">
+              {t.termini.footerNotePre}{" "}
+              <Link href="/novita" className="text-accent hover:underline">{t.termini.footerNoteLink}</Link>
+              {t.termini.footerNoteMid}{" "}
+              <a href="mailto:a2n0g004@gmail.com" className="text-accent hover:underline">
+                a2n0g004@gmail.com
+              </a>
+              .
+            </p>
+          </Reveal>
         </section>
       </main>
 
