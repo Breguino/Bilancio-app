@@ -170,6 +170,14 @@ const it = {
         a: "Sì, senza carta di credito: crei un account e lo usi liberamente. Essendo un progetto indipendente non posso garantirlo per sempre, ma potrai sempre esportare i tuoi dati in CSV.",
       },
       {
+        q: "Si collega alla mia banca?",
+        a: "No, ed è una scelta voluta. I movimenti li inserisci tu, a mano o importando un CSV: Bilancino non chiede mai le credenziali del tuo conto e non si collega a nessun intermediario che legga i tuoi estratti. In cambio di qualche secondo in più a movimento, i tuoi dati bancari non passano da nessuna parte e sei tu a decidere cosa entra nel bilancio. Se cerchi la sincronizzazione automatica, strumenti come YNAB o Monarch la fanno bene — e sono a pagamento.",
+      },
+      {
+        q: "Cosa succede ai miei dati se il progetto chiude?",
+        a: "Domanda giusta da farsi con un progetto indipendente. Non posso promettere che Bilancino durerà per sempre, ma posso promettere due cose concrete: l'export CSV completo è sempre disponibile senza chiedere niente a nessuno, e se dovessi mai fermarmi lo scriverei qui e nella pagina Novità con un preavviso ragionevole, non spegnendo tutto da un giorno all'altro. I tuoi dati sono su Supabase in Europa e restano esportabili in un formato standard che apri con Excel o Fogli Google.",
+      },
+      {
         q: "Come funzionano i movimenti ricorrenti?",
         a: "Imposti descrizione, importo, frequenza (settimanale, mensile o annuale) e una data di inizio: Bilancino genera da solo il movimento ogni volta che scade, recuperando anche le occorrenze mancate se non apri l'app per un po'.",
       },
@@ -737,6 +745,13 @@ const it = {
     pricePara2Link: "sviluppo continuo",
     pricePara2Post:
       ", quindi non posso prometterti che resterà gratuito per sempre — ma qualunque cosa cambi, non troverai mai i tuoi dati in ostaggio: puoi esportare in qualsiasi momento l'intero storico dei movimenti in CSV, senza dover chiedere permesso a nessuno.",
+    manualEyebrow: "Inserimento dei dati",
+    manualTitle: "Niente collegamento al conto, per scelta",
+    manualParagraphs: [
+      "Bilancino non si collega alla tua banca. Non è una funzione mancante in attesa di essere aggiunta: è una decisione. Collegare un conto significa affidare le credenziali bancarie a un intermediario che legge i tuoi estratti in continuo, e per un progetto gestito da una persona sola è una responsabilità che ho scelto di non prendermi.",
+      "In pratica: i movimenti li inserisci tu, uno alla volta o importando un CSV dalla tua banca — ci mettono qualche secondo in più, ma nessun dato bancario passa da server terzi, e sei tu a decidere cosa finisce nel bilancio invece di ritrovarti una lista da ripulire.",
+      "Se invece la sincronizzazione automatica è la cosa che ti serve davvero, è giusto dirlo: strumenti come YNAB o Monarch la fanno bene, sono a pagamento, e per quell'esigenza specifica sono la scelta migliore.",
+    ],
     securityEyebrow: "Sicurezza e privacy",
     securityTitle: "Un vero account, dati isolati per riga",
     securityParagraphs: [
@@ -776,6 +791,7 @@ const it = {
           "Nuova grafica per l'email della newsletter, con anteprima live mentre la scrivi e possibilità di tenere più bozze in parallelo.",
           "Aggiunto un promemoria via email per le scadenze dei contatti: se un promemoria scade oggi, arriva anche un'email, non solo la notifica dentro l'app.",
           "Nuova pagina Impostazioni, con la possibilità di eliminare il proprio account e tutti i dati collegati da soli, senza dover scrivere una email e aspettare.",
+          "Spiegato apertamente perché Bilancino non si collega alla banca (è una scelta, non una funzione mancante) e cosa succederebbe ai tuoi dati se un giorno il progetto si fermasse: due nuove sezioni su Il servizio e Termini, più due FAQ in home.",
         ],
       },
       {
@@ -910,6 +926,12 @@ const it = {
     ifSomethingGoesWrongParagraphs: [
       "Bilancino è fornito così com'è, senza garanzie. Faccio il possibile perché funzioni correttamente — Row Level Security sui dati, conferma prima di ogni eliminazione, test automatici sui percorsi più delicati — ma nella misura massima consentita dalla legge non rispondo di eventuali perdite o danni derivanti dall'uso dell'app.",
       "Puoi smettere di usare il servizio quando vuoi. Posso sospendere un account in caso di abuso, ad esempio tentativi di accesso non autorizzato o uso illecito del servizio.",
+    ],
+    continuityTitle: "Se un giorno il progetto si ferma",
+    continuityParagraphs: [
+      "È la domanda che è giusto farsi prima di affidare i propri conti a un progetto gestito da una persona sola, e merita una risposta esplicita invece del silenzio.",
+      "Non posso promettere che Bilancino durerà per sempre: sarebbe una promessa che non sono in grado di mantenere. Posso però impegnarmi su due cose concrete. La prima: l'export completo in CSV resta sempre disponibile dentro l'app, senza dovermi chiedere niente — i tuoi dati non sono mai in ostaggio. La seconda: se dovessi mai decidere di fermarmi, lo scriverei su questa pagina e su Novità con un preavviso ragionevole per permetterti di esportare tutto con calma, invece di spegnere il servizio da un giorno all'altro.",
+      "Nel frattempo i dati sono ospitati su Supabase (database Postgres in Europa, a Francoforte) e il formato di export è un CSV standard, apribile in Excel o Fogli Google e importabile nella maggior parte degli altri strumenti di budget.",
     ],
     footerNotePre: "Se questi termini cambiano, aggiorno questa pagina — la cronologia reale delle modifiche al progetto è su",
     footerNoteLink: "Novità",

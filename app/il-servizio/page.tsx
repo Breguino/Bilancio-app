@@ -89,6 +89,22 @@ export default function IlServizioPage() {
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
+              <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.manualEyebrow}</span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[20ch]">
+                {t.ilServizio.manualTitle}
+              </h2>
+            </div>
+            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
+              {t.ilServizio.manualParagraphs.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
+            </div>
+          </Reveal>
+        </section>
+
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div>
               <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.securityEyebrow}</span>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[20ch]">
                 {t.ilServizio.securityTitle}
