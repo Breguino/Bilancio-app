@@ -721,9 +721,18 @@ const it = {
     heroTitle: "Cosa è cambiato, aggiornamento dopo aggiornamento.",
     heroBody:
       "Sviluppo Bilancino da solo, quindi qui trovi esattamente cosa ho fatto e quando — niente numeri di versione gonfiati, solo le cose che sono cambiate davvero.",
-    lastUpdated: "4 agosto 2026",
+    lastUpdated: "5 agosto 2026",
     lastUpdatedPrefix: "Ultimo aggiornamento:",
     entries: [
+      {
+        date: "5 agosto 2026",
+        items: [
+          "Aggiunto l'accesso con Google in fase di login e registrazione, oltre a email e password.",
+          "Risolto un problema per cui, in alcuni casi, dopo l'accesso con Google si finiva sulla home invece che sulla Panoramica.",
+          "Il selettore della lingua nell'header ora mostra le bandiere invece delle sigle IT/EN, e cambia lingua con un solo tocco.",
+          "Le animazioni di comparsa allo scroll, finora solo in home, sono arrivate anche su Chi siamo, Cosa offriamo, Il servizio, Novità, Termini e Privacy.",
+        ],
+      },
       {
         date: "4 agosto 2026",
         items: [
@@ -805,7 +814,8 @@ const it = {
       "Bilancino è un progetto indipendente sviluppato e gestito da una persona sola, non da un'azienda con un ufficio legale. Quello che segue è scritto in italiano semplice, non da un avvocato: se hai dubbi specifici, scrivimi.",
     dataCollectedTitle: "Che dati raccolgo",
     dataCollectedParagraphs: [
-      "Email e password per il tuo account, gestite da Supabase Auth: la password non è mai visibile in chiaro, nemmeno a me.",
+      "Email e password per il tuo account (o solo l'email, se scegli di accedere con Google), gestite da Supabase Auth: la password non è mai visibile in chiaro, nemmeno a me.",
+      "Se usi \"Continua con Google\", ricevo dal tuo account Google solo il nome e l'indirizzo email necessari per creare l'account — non accedo al resto dei tuoi dati Google.",
       "I dati finanziari che inserisci tu: movimenti, categorie, budget, obiettivi di risparmio, contatti e note, movimenti ricorrenti. Nient'altro — non chiedo indirizzo, telefono, né dati di pagamento, perché non mi servono per far funzionare l'app.",
     ],
     hostingTitle: "Dove sono ospitati",
@@ -841,6 +851,7 @@ const it = {
     whatItIsParagraphs: [
       "Bilancino è un'applicazione di budget personale e CRM leggero, sviluppata e gestita da una persona sola. Non è una società: non ci sono un servizio clienti in senso tradizionale né uno SLA garantito su tempi di risposta o uptime.",
       "Oggi è gratuita e senza carta di credito. Essendo un progetto indipendente non posso garantirlo per sempre, ma qualunque cosa cambi potrai sempre esportare il tuo storico in CSV.",
+      "Puoi accedere con email e password oppure con il tuo account Google: se scegli Google, quel passaggio di autenticazione resta soggetto anche ai loro termini di servizio, che non dipendono da me.",
     ],
     whatItIsNotTitle: "Cosa non è",
     whatItIsNotParagraphs: [
