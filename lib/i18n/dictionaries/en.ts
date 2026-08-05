@@ -872,6 +872,8 @@ const en: Dictionary = {
     backToHome: "Back to home",
     backToLogin: "Back to login",
     emailLabel: "Email",
+    continueWithGoogle: "Continue with Google",
+    orDivider: "or",
     passwordInput: {
       show: "Show password",
       hide: "Hide password",
