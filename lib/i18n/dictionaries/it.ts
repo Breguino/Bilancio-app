@@ -535,7 +535,25 @@ const it = {
     navNewsletter: "Newsletter",
     backToSiteAriaLabel: "Torna al sito pubblico",
     backToSiteTitle: "Torna al sito",
+    settingsAriaLabel: "Impostazioni",
+    settingsTitle: "Impostazioni",
     logout: "Esci",
+  },
+  impostazioni: {
+    title: "Impostazioni",
+    accountSectionTitle: "Account",
+    emailLabel: "Email",
+    exportSectionTitle: "I tuoi dati",
+    exportBody: "Puoi esportare in qualsiasi momento l'intero storico dei movimenti in CSV dalla Panoramica.",
+    dangerZoneTitle: "Zona pericolosa",
+    deleteAccountBody:
+      "Elimina il tuo account e tutti i dati collegati — movimenti, budget, obiettivi, contatti, note e ricorrenze. L'azione è immediata e non si può annullare: se vuoi tenere una copia dei tuoi dati, esportali prima da qui sopra.",
+    deleteAccountButton: "Elimina il mio account",
+    deleteConfirmMessage:
+      "Eliminare definitivamente il tuo account? Tutti i tuoi dati (movimenti, budget, obiettivi, contatti, ricorrenze) verranno cancellati per sempre. Non si può annullare.",
+    deleteConfirmLabel: "Elimina per sempre",
+    deleteAriaLabel: "Elimina il mio account",
+    deleteFailedError: "Non è stato possibile eliminare l'account. Riprova o scrivimi.",
   },
   csv: {
     headers: ["Data", "Descrizione", "Categoria", "Cliente", "Importo"],
@@ -733,9 +751,9 @@ const it = {
       "Prima di eliminare qualcosa — un movimento, un contatto, un obiettivo — ti viene sempre chiesta una conferma esplicita, per evitare cancellazioni per errore.",
     ],
     dataLeavePre:
-      "Per correggere o cancellare i tuoi dati, incluso l'account stesso: oggi non c'è ancora una funzione automatica nell'app per farlo da solo, quindi scrivimi a",
+      "Puoi eliminare il tuo account, con tutti i dati collegati, direttamente dalle Impostazioni dentro l'app: è immediato e non passa da me. Per qualsiasi altra richiesta sui tuoi dati puoi scrivermi a",
     dataLeaveEmail: "a2n0g004@gmail.com",
-    dataLeavePost: "e me ne occupo a mano.",
+    dataLeavePost: "quando vuoi.",
   },
   novita: {
     metaTitle: "Novità — Bilancino",
@@ -757,6 +775,7 @@ const it = {
           "Le animazioni di comparsa allo scroll, finora solo in home, sono arrivate anche su Chi siamo, Cosa offriamo, Il servizio, Novità, Termini e Privacy.",
           "Nuova grafica per l'email della newsletter, con anteprima live mentre la scrivi e possibilità di tenere più bozze in parallelo.",
           "Aggiunto un promemoria via email per le scadenze dei contatti: se un promemoria scade oggi, arriva anche un'email, non solo la notifica dentro l'app.",
+          "Nuova pagina Impostazioni, con la possibilità di eliminare il proprio account e tutti i dati collegati da soli, senza dover scrivere una email e aspettare.",
         ],
       },
       {
@@ -860,8 +879,8 @@ const it = {
     ],
     yourDataTitle: "I tuoi dati restano tuoi",
     yourDataPara1: "Dalla Panoramica puoi esportare in qualsiasi momento l'intero storico dei movimenti in CSV, senza chiedere permesso a nessuno.",
-    yourDataPara2Pre: "Per correggere o cancellare i tuoi dati, incluso l'account: oggi non c'è ancora una funzione automatica nell'app per farlo da solo. Scrivimi a",
-    yourDataPara2Post: "e me ne occupo a mano.",
+    yourDataPara2Pre: "Puoi eliminare il tuo account, e con esso tutti i dati collegati, direttamente dalle Impostazioni dentro l'app: la cancellazione è immediata e definitiva, non serve chiedere il permesso a nessuno. Per correzioni o altre richieste sui tuoi dati, scrivimi a",
+    yourDataPara2Post: "quando vuoi.",
     footerNotePre: "Se cambia qualcosa nel modo in cui tratto i dati, aggiorno questa pagina. Non c'è una newsletter né una notifica automatica: la cronologia reale delle modifiche al progetto è su",
     footerNoteLink: "Novità",
   },

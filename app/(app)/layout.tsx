@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Home } from "lucide-react";
+import { Home, Settings } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "@/components/logo";
@@ -58,6 +58,14 @@ export default async function AppLayout({
               className="w-9 h-9 rounded-full border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 flex items-center justify-center hover:border-accent hover:text-accent transition-colors shrink-0"
             >
               <Home size={16} strokeWidth={1.75} />
+            </Link>
+            <Link
+              href="/impostazioni"
+              aria-label={t.appShell.settingsAriaLabel}
+              title={t.appShell.settingsTitle}
+              className="w-9 h-9 rounded-full border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 flex items-center justify-center hover:border-accent hover:text-accent transition-colors shrink-0"
+            >
+              <Settings size={16} strokeWidth={1.75} />
             </Link>
             <LanguageSwitcher locale={locale} label={t.common.langSwitchLabel} />
             <ThemeToggle ariaLabel={t.shared.themeToggle.ariaLabel} title={t.shared.themeToggle.title} />
