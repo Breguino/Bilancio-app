@@ -16,6 +16,8 @@ export function buildNewsletterEmailHtml({
   unsubscribePrompt,
   unsubscribeLinkText,
   ctaLabel,
+  novitaPrompt,
+  novitaLinkText,
   heroImageUrl = `${siteUrl}/og-image.jpg`,
 }: {
   siteUrl: string;
@@ -24,6 +26,8 @@ export function buildNewsletterEmailHtml({
   unsubscribePrompt: string;
   unsubscribeLinkText: string;
   ctaLabel: string;
+  novitaPrompt: string;
+  novitaLinkText: string;
   heroImageUrl?: string;
 }) {
   return `<!DOCTYPE html>
@@ -66,6 +70,7 @@ export function buildNewsletterEmailHtml({
             <tr>
               <td style="padding:32px 32px 8px;font-family:${FONT_STACK};font-size:15px;line-height:1.7;color:#14151a;">
                 ${bodyHtml}
+                <p style="margin:8px 0 0;">${novitaPrompt} <a href="${siteUrl}/novita" style="color:#4f46e5;text-decoration:underline;">${novitaLinkText}</a>.</p>
               </td>
             </tr>
             <tr>

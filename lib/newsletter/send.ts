@@ -55,6 +55,8 @@ export async function sendDraftNewsletter(siteUrl: string): Promise<SendResult> 
         unsubscribePrompt: t.newsletterAdmin.unsubscribePrompt,
         unsubscribeLinkText: t.newsletterAdmin.unsubscribeLinkText,
         ctaLabel: t.newsletterAdmin.emailCtaLabel,
+        novitaPrompt: t.newsletterAdmin.emailNovitaPrompt,
+        novitaLinkText: t.newsletterAdmin.emailNovitaLinkText,
       }),
     }));
 

@@ -221,6 +221,8 @@ const en: Dictionary = {
     unsubscribePrompt: "No longer want to receive this newsletter?",
     unsubscribeLinkText: "Unsubscribe",
     emailCtaLabel: "Log in to Bilancino",
+    emailNovitaPrompt: "Want the full changelog?",
+    emailNovitaLinkText: "Read what's new",
     noDeliverableSubscribersError: "No deliverable recipients (check Resend's sandbox mode).",
   },
   cestino: {
