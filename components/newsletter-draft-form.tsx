@@ -34,6 +34,8 @@ export function NewsletterDraftForm({
     unsubscribePrompt: string;
     unsubscribeLinkText: string;
     ctaLabel: string;
+    novitaPrompt: string;
+    novitaLinkText: string;
   };
 }) {
   const [subject, setSubject] = useState(initialSubject);
@@ -48,6 +50,8 @@ export function NewsletterDraftForm({
         unsubscribePrompt: labels.unsubscribePrompt,
         unsubscribeLinkText: labels.unsubscribeLinkText,
         ctaLabel: labels.ctaLabel,
+        novitaPrompt: labels.novitaPrompt,
+        novitaLinkText: labels.novitaLinkText,
       })
     : "";
 

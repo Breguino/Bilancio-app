@@ -219,6 +219,8 @@ const it = {
     unsubscribePrompt: "Non vuoi più ricevere questa newsletter?",
     unsubscribeLinkText: "Disiscriviti",
     emailCtaLabel: "Accedi a Bilancino",
+    emailNovitaPrompt: "Vuoi la cronologia completa?",
+    emailNovitaLinkText: "Leggi tutte le novità",
     noDeliverableSubscribersError: "Nessun destinatario consegnabile (controlla la modalità sandbox di Resend).",
   },
   cestino: {
