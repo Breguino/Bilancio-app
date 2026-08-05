@@ -1,6 +1,7 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getResendClient, NEWSLETTER_FROM } from "@/lib/resend";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { buildNewsletterEmailHtml } from "@/lib/newsletter/email-template";
 
 const BATCH_SIZE = 100;
 
@@ -47,7 +48,13 @@ export async function sendDraftNewsletter(siteUrl: string): Promise<SendResult> 
       from: NEWSLETTER_FROM,
       to: s.email,
       subject: issue.subject,
-      html: `${issue.body_html}<p style="margin-top:32px;font-size:12px;color:#8b8c94">${t.newsletterAdmin.unsubscribePrompt} <a href="${siteUrl}/api/newsletter/unsubscribe?token=${s.unsubscribe_token}">${t.newsletterAdmin.unsubscribeLinkText}</a>.</p>`,
+      html: buildNewsletterEmailHtml({
+        siteUrl,
+        bodyHtml: issue.body_html,
+        unsubscribeUrl: `${siteUrl}/api/newsletter/unsubscribe?token=${s.unsubscribe_token}`,
+        unsubscribePrompt: t.newsletterAdmin.unsubscribePrompt,
+        unsubscribeLinkText: t.newsletterAdmin.unsubscribeLinkText,
+      }),
     }));
 
     // batchValidation "permissive": se un destinatario non è consegnabile
