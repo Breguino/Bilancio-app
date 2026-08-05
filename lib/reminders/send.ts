@@ -21,7 +21,7 @@ export async function sendDueReminders(siteUrl: string): Promise<ReminderSendRes
 
   const { data: dueNotes } = await supabase
     .from("contact_notes")
-    .select("user_id, note, contact_id, contact:contacts(name)")
+    .select("*, contact:contacts(name)")
     .eq("done", false)
     .eq("remind_at", today);
 
@@ -45,7 +45,7 @@ export async function sendDueReminders(siteUrl: string): Promise<ReminderSendRes
     if (!email) continue;
 
     const reminders = notes.map((n) => ({
-      contactName: (n.contact as { name: string } | null)?.name || t.dashboard.contactFallback,
+      contactName: n.contact?.name || t.dashboard.contactFallback,
       note: n.note as string,
       href: `/contacts/${n.contact_id}`,
     }));
