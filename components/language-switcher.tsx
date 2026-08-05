@@ -39,16 +39,23 @@ const LOCALE_NAMES: Record<Locale, string> = {
   en: "English",
 };
 
+const FLAGS: Record<Locale, typeof FlagIT> = {
+  it: FlagIT,
+  en: FlagGB,
+};
+
 export function LanguageSwitcher({ locale, label }: { locale: Locale; label: string }) {
   const pathname = usePathname();
   const nextLocale = locale === "it" ? "en" : "it";
+  const NextFlag = FLAGS[nextLocale];
 
   return (
     <div className="relative group shrink-0">
       <span
         role="tooltip"
-        className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-ink dark:bg-neutral-700 text-white text-xs font-medium px-2.5 py-1.5 shadow-md opacity-0 scale-95 translate-y-[-2px] pointer-events-none transition-all duration-150 ease-out group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:scale-100 group-focus-within:translate-y-0 z-30"
+        className="absolute left-1/2 top-full mt-2 -translate-x-1/2 flex items-center gap-1.5 whitespace-nowrap rounded-md bg-ink dark:bg-neutral-700 text-white text-xs font-medium px-2.5 py-1.5 shadow-md opacity-0 scale-95 translate-y-[-2px] pointer-events-none transition-all duration-150 ease-out group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:scale-100 group-focus-within:translate-y-0 z-30"
       >
+        <NextFlag className="w-4 h-3 rounded-[1px] shrink-0" />
         {LOCALE_NAMES[nextLocale]}
       </span>
       <form action={setLocale}>
