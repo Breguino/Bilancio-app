@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { setLocale } from "@/lib/i18n/actions";
-import { locales, type Locale } from "@/lib/i18n/locales";
+import type { Locale } from "@/lib/i18n/locales";
 
 // SVG invece di emoji bandiera: senza font emoji a colori (comune su Windows)
 // i caratteri regional-indicator delle emoji vengono mostrati come sigle testuali,
@@ -33,74 +32,28 @@ function FlagGB({ className }: { className?: string }) {
   );
 }
 
-const FLAGS: Record<Locale, typeof FlagIT> = {
-  it: FlagIT,
-  en: FlagGB,
-};
-
-const LOCALE_LABELS: Record<Locale, string> = {
-  it: "Italiano",
-  en: "English",
-};
-
 export function LanguageSwitcher({ locale, label }: { locale: Locale; label: string }) {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const CurrentFlag = FLAGS[locale];
+  const nextLocale = locale === "it" ? "en" : "it";
 
   return (
-    <div
-      ref={containerRef}
-      className="relative shrink-0"
-      onBlur={(e) => {
-        if (!containerRef.current?.contains(e.relatedTarget as Node)) setOpen(false);
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Escape") setOpen(false);
-      }}
-    >
+    <form action={setLocale} className="shrink-0">
+      <input type="hidden" name="path" value={pathname} />
       <button
-        type="button"
-        aria-haspopup="listbox"
-        aria-expanded={open}
+        type="submit"
+        name="locale"
+        value={nextLocale}
         aria-label={label}
-        onClick={() => setOpen((v) => !v)}
-        className="flex items-center justify-center w-9 h-9 rounded-full border border-border dark:border-neutral-700 bg-surface-alt dark:bg-neutral-800 overflow-hidden transition-colors hover:border-accent/50"
+        title={label}
+        className="relative w-9 h-9 rounded-full border border-border dark:border-neutral-700 bg-surface-alt dark:bg-neutral-800 overflow-hidden shrink-0 transition-colors hover:border-accent/50 active:scale-95"
       >
-        <CurrentFlag className="w-full h-full" />
+        <FlagIT
+          className={`absolute inset-0 w-full h-full transition-opacity duration-200 ease-out ${locale === "it" ? "opacity-100" : "opacity-0"}`}
+        />
+        <FlagGB
+          className={`absolute inset-0 w-full h-full transition-opacity duration-200 ease-out ${locale === "en" ? "opacity-100" : "opacity-0"}`}
+        />
       </button>
-
-      <form
-        action={setLocale}
-        role="listbox"
-        aria-label={label}
-        className={`absolute right-0 top-full mt-2 z-30 min-w-[9.5rem] rounded-xl border border-border dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-lg py-1 origin-top-right transition-all duration-150 ease-out ${
-          open ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
-        }`}
-      >
-        <input type="hidden" name="path" value={pathname} />
-        {locales.map((loc) => {
-          const Flag = FLAGS[loc];
-          return (
-            <button
-              key={loc}
-              type="submit"
-              name="locale"
-              value={loc}
-              role="option"
-              aria-selected={loc === locale}
-              tabIndex={open ? 0 : -1}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm font-medium text-left hover:bg-surface-alt dark:hover:bg-neutral-800 transition-colors ${
-                loc === locale ? "text-accent" : "text-ink-secondary dark:text-neutral-300"
-              }`}
-            >
-              <Flag className="w-5 h-3.5 rounded-[1px] shrink-0" />
-              {LOCALE_LABELS[loc]}
-            </button>
-          );
-        })}
-      </form>
-    </div>
+    </form>
   );
 }
