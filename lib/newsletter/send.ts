@@ -54,6 +54,7 @@ export async function sendDraftNewsletter(siteUrl: string): Promise<SendResult> 
         unsubscribeUrl: `${siteUrl}/api/newsletter/unsubscribe?token=${s.unsubscribe_token}`,
         unsubscribePrompt: t.newsletterAdmin.unsubscribePrompt,
         unsubscribeLinkText: t.newsletterAdmin.unsubscribeLinkText,
+        ctaLabel: t.newsletterAdmin.emailCtaLabel,
       }),
     }));
 

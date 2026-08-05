@@ -218,6 +218,7 @@ const it = {
     sentTemplate: "Inviata a {sent} iscritti.",
     unsubscribePrompt: "Non vuoi più ricevere questa newsletter?",
     unsubscribeLinkText: "Disiscriviti",
+    emailCtaLabel: "Accedi a Bilancino",
     noDeliverableSubscribersError: "Nessun destinatario consegnabile (controlla la modalità sandbox di Resend).",
   },
   cestino: {

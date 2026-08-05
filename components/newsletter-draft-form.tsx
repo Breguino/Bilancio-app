@@ -33,6 +33,7 @@ export function NewsletterDraftForm({
     saveDraft: string;
     unsubscribePrompt: string;
     unsubscribeLinkText: string;
+    ctaLabel: string;
   };
 }) {
   const [subject, setSubject] = useState(initialSubject);
@@ -46,6 +47,7 @@ export function NewsletterDraftForm({
         unsubscribeUrl: "#",
         unsubscribePrompt: labels.unsubscribePrompt,
         unsubscribeLinkText: labels.unsubscribeLinkText,
+        ctaLabel: labels.ctaLabel,
       })
     : "";
 

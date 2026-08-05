@@ -220,6 +220,7 @@ const en: Dictionary = {
     sentTemplate: "Sent to {sent} subscribers.",
     unsubscribePrompt: "No longer want to receive this newsletter?",
     unsubscribeLinkText: "Unsubscribe",
+    emailCtaLabel: "Log in to Bilancino",
     noDeliverableSubscribersError: "No deliverable recipients (check Resend's sandbox mode).",
   },
   cestino: {

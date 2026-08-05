@@ -15,6 +15,7 @@ export function buildNewsletterEmailHtml({
   unsubscribeUrl,
   unsubscribePrompt,
   unsubscribeLinkText,
+  ctaLabel,
   heroImageUrl = `${siteUrl}/og-image.jpg`,
 }: {
   siteUrl: string;
@@ -22,6 +23,7 @@ export function buildNewsletterEmailHtml({
   unsubscribeUrl: string;
   unsubscribePrompt: string;
   unsubscribeLinkText: string;
+  ctaLabel: string;
   heroImageUrl?: string;
 }) {
   return `<!DOCTYPE html>
@@ -62,8 +64,13 @@ export function buildNewsletterEmailHtml({
                 : ""
             }
             <tr>
-              <td style="padding:32px;font-family:${FONT_STACK};font-size:15px;line-height:1.7;color:#14151a;">
+              <td style="padding:32px 32px 8px;font-family:${FONT_STACK};font-size:15px;line-height:1.7;color:#14151a;">
                 ${bodyHtml}
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding:8px 32px 32px;">
+                <a href="${siteUrl}/login" style="display:inline-block;background-color:#4f46e5;color:#ffffff;font-family:${FONT_STACK};font-weight:700;font-size:14px;text-decoration:none;border-radius:999px;padding:12px 26px;">${ctaLabel}</a>
               </td>
             </tr>
             <tr>
