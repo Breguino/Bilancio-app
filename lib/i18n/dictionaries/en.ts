@@ -537,7 +537,25 @@ const en: Dictionary = {
     navNewsletter: "Newsletter",
     backToSiteAriaLabel: "Back to the public site",
     backToSiteTitle: "Back to the site",
+    settingsAriaLabel: "Settings",
+    settingsTitle: "Settings",
     logout: "Log out",
+  },
+  impostazioni: {
+    title: "Settings",
+    accountSectionTitle: "Account",
+    emailLabel: "Email",
+    exportSectionTitle: "Your data",
+    exportBody: "You can export your entire transaction history to CSV at any time from the Overview.",
+    dangerZoneTitle: "Danger zone",
+    deleteAccountBody:
+      "Delete your account and everything linked to it — transactions, budgets, goals, contacts, notes, and recurring transactions. This happens immediately and can't be undone: if you want to keep a copy of your data, export it above first.",
+    deleteAccountButton: "Delete my account",
+    deleteConfirmMessage:
+      "Permanently delete your account? All your data (transactions, budgets, goals, contacts, recurring transactions) will be erased for good. This can't be undone.",
+    deleteConfirmLabel: "Delete forever",
+    deleteAriaLabel: "Delete my account",
+    deleteFailedError: "Couldn't delete the account. Try again or email me.",
   },
   csv: {
     headers: ["Date", "Description", "Category", "Client", "Amount"],
@@ -735,9 +753,9 @@ const en: Dictionary = {
       "Before deleting anything — a transaction, a contact, a goal — you're always asked for an explicit confirmation, to avoid accidental deletions.",
     ],
     dataLeavePre:
-      "To correct or delete your data, including your account itself: there isn't yet an automatic in-app way to do it yourself, so email me at",
+      "You can delete your account, and everything linked to it, straight from Settings inside the app: it's immediate and doesn't go through me. For anything else about your data, email me at",
     dataLeaveEmail: "a2n0g004@gmail.com",
-    dataLeavePost: "and I'll take care of it by hand.",
+    dataLeavePost: "any time.",
   },
   novita: {
     metaTitle: "What's new — Bilancino",
@@ -759,6 +777,7 @@ const en: Dictionary = {
           "The scroll-in animations, previously only on the homepage, are now also on About us, What we offer, The service, What's new, Terms, and Privacy.",
           "New look for the newsletter email, with a live preview as you write it and the ability to keep several drafts in parallel.",
           "Added an email reminder for contact deadlines: if a reminder is due today, you now also get an email, not just the in-app notice.",
+          "New Settings page, where you can delete your account and all linked data yourself, without having to send an email and wait.",
         ],
       },
       {
@@ -862,8 +881,8 @@ const en: Dictionary = {
     ],
     yourDataTitle: "Your data stays yours",
     yourDataPara1: "From the Overview you can export your entire transaction history to CSV at any time, without asking anyone for permission.",
-    yourDataPara2Pre: "To correct or delete your data, including your account: there isn't yet an automatic in-app way to do it yourself. Email me at",
-    yourDataPara2Post: "and I'll take care of it by hand.",
+    yourDataPara2Pre: "You can delete your account, and with it all the data linked to it, straight from Settings inside the app: the deletion is immediate and permanent, no need to ask anyone. For corrections or any other request about your data, email me at",
+    yourDataPara2Post: "any time.",
     footerNotePre: "If anything changes in how I handle data, I'll update this page. There's no newsletter or automatic notification: the real changelog for the project is on",
     footerNoteLink: "What's new",
   },
