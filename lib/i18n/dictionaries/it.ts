@@ -93,7 +93,7 @@ const it = {
     newsletterBlurb: "Aggiornamenti su Bilancino via email, una volta al mese, niente spam.",
   },
   home: {
-    metaTitle: "Bilancino — budget personale, non un gestionale",
+    metaTitle: "App per budget personale e clienti, gratis — Bilancino",
     metaDescription:
       "Bilancino tiene insieme budget personale e contesto clienti, senza la complessità di un gestionale per la partita IVA. Account reale, dati isolati per utente.",
     jsonLdDescription:
@@ -576,7 +576,7 @@ const it = {
     notFoundBody: "Il link che hai seguito non esiste più, o l'indirizzo è sbagliato.",
   },
   chiSiamo: {
-    metaTitle: "Chi siamo — Bilancino",
+    metaTitle: "Chi c'è dietro Bilancino, e perché esiste",
     metaDescription:
       "Bilancino è un progetto indipendente nato per colmare il vuoto tra le app di budget personale e i gestionali per la partita IVA. Ecco perché esiste e per chi è pensato.",
     eyebrow: "Chi siamo",
@@ -604,7 +604,7 @@ const it = {
     ctaSeeOffer: "Scopri cosa offriamo",
   },
   cosaOffriamo: {
-    metaTitle: "Cosa offriamo — Bilancino",
+    metaTitle: "Spese, budget e clienti in un'unica app — Bilancino",
     metaDescription:
       "Un tour completo delle funzionalità di Bilancino: movimenti e categorie, budget, ricorrenze automatiche, obiettivi di risparmio, CRM clienti, ricevute, export e statistiche.",
     eyebrow: "Cosa offriamo",
@@ -707,7 +707,7 @@ const it = {
     ctaSeeService: "Scopri il servizio",
   },
   ilServizio: {
-    metaTitle: "Il servizio — Bilancino",
+    metaTitle: "Come funziona Bilancino: budget, clienti, ricorrenze",
     metaDescription:
       "Come funziona Bilancino dal primo accesso, quanto costa oggi, come sono protetti i tuoi dati (account reale e Row Level Security) e cosa puoi fare se un giorno vuoi andartene.",
     eyebrow: "Il servizio",
