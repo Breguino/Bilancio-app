@@ -231,6 +231,14 @@ const it = {
     emailNovitaLinkText: "Leggi tutte le novità",
     noDeliverableSubscribersError: "Nessun destinatario consegnabile (controlla la modalità sandbox di Resend).",
   },
+  reminderEmail: {
+    subjectSingular: "Un promemoria in scadenza oggi",
+    subjectPluralTemplate: "{count} promemoria in scadenza oggi",
+    greeting: "Ciao,",
+    introSingular: "Hai un promemoria che scade oggi:",
+    introPluralTemplate: "Hai {count} promemoria che scadono oggi:",
+    ctaLabel: "Vai ai contatti",
+  },
   cestino: {
     eyebrow: "Cestino",
     title: "Movimenti eliminati",
@@ -747,6 +755,8 @@ const it = {
           "Risolto un problema per cui, in alcuni casi, dopo l'accesso con Google si finiva sulla home invece che sulla Panoramica.",
           "Il selettore della lingua nell'header ora mostra le bandiere invece delle sigle IT/EN, e cambia lingua con un solo tocco.",
           "Le animazioni di comparsa allo scroll, finora solo in home, sono arrivate anche su Chi siamo, Cosa offriamo, Il servizio, Novità, Termini e Privacy.",
+          "Nuova grafica per l'email della newsletter, con anteprima live mentre la scrivi e possibilità di tenere più bozze in parallelo.",
+          "Aggiunto un promemoria via email per le scadenze dei contatti: se un promemoria scade oggi, arriva anche un'email, non solo la notifica dentro l'app.",
         ],
       },
       {
@@ -816,7 +826,6 @@ const it = {
     ideasBody:
       "Come per il resto di Bilancino, preferisco non prometterti date o funzioni prima di averle davvero costruite. Questa è solo la lista di cose a cui sto pensando in questo momento — potrebbero cambiare, essere ridimensionate o non arrivare mai.",
     ideas: [
-      "Un promemoria via email per le scadenze, oggi visibili solo dentro l'app.",
       "Valutare una versione installabile (PWA) per un uso più comodo da mobile.",
     ],
   },
