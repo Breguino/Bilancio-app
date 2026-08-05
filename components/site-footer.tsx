@@ -5,12 +5,15 @@ import { ManageCookiePreferencesLink } from "@/components/manage-cookie-preferen
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export function SiteFooter() {
-  const { t } = getDictionary();
+  const { locale, t } = getDictionary();
 
   const marketingFooterLinks = [
     { href: "/chi-siamo", label: t.nav.chiSiamo },
     { href: "/cosa-offriamo", label: t.nav.cosaOffriamo },
     { href: "/il-servizio", label: t.nav.ilServizio },
+    // Le guide esistono solo in italiano: il link compare solo in quella lingua,
+    // invece di portare chi naviga in inglese su una pagina che non può leggere.
+    ...(locale === "it" ? [{ href: "/guide/conti-personali-e-lavoro", label: t.siteFooter.guide }] : []),
     { href: "/privacy", label: t.siteFooter.privacy },
     { href: "/termini", label: t.siteFooter.termini },
   ];
