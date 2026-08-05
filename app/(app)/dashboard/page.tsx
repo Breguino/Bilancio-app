@@ -497,23 +497,29 @@ export default async function DashboardPage({
               ))}
             </select>
           </div>
-          <div className="flex flex-col gap-1 w-full sm:w-auto">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.fromLabel}</label>
-            <input
-              name="from"
-              type="date"
-              defaultValue={filterFrom}
-              className="w-full sm:w-auto border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
-          <div className="flex flex-col gap-1 w-full sm:w-auto">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.toLabel}</label>
-            <input
-              name="to"
-              type="date"
-              defaultValue={filterTo}
-              className="w-full sm:w-auto border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-            />
+          {/* "Da" e "A" sono una coppia: su mobile stanno affiancate a metà larghezza invece
+              di occupare una riga intera ciascuna, così il filtro per periodo si legge come un
+              intervallo unico e il form resta corto. Da sm in su il wrapper sparisce
+              (display:contents) e i due campi tornano in fila con gli altri filtri. */}
+          <div className="flex gap-3 w-full sm:contents">
+            <div className="flex flex-col gap-1 flex-1 min-w-0 sm:flex-none sm:w-auto">
+              <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.fromLabel}</label>
+              <input
+                name="from"
+                type="date"
+                defaultValue={filterFrom}
+                className="w-full min-w-0 appearance-none border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+            </div>
+            <div className="flex flex-col gap-1 flex-1 min-w-0 sm:flex-none sm:w-auto">
+              <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.toLabel}</label>
+              <input
+                name="to"
+                type="date"
+                defaultValue={filterTo}
+                className="w-full min-w-0 appearance-none border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+            </div>
           </div>
           <button
             type="submit"
@@ -541,22 +547,29 @@ export default async function DashboardPage({
         ) : (
           <div className="divide-y divide-border dark:divide-neutral-800 mt-3">
             {displayRows.map((tx: any) => (
-              <div key={tx.id} className="flex flex-wrap items-center justify-between px-5 py-3 text-sm gap-3">
-                <div className="flex items-center gap-3 min-w-0">
-                  <span className="text-ink-muted dark:text-neutral-500 num w-14 shrink-0">
-                    {tx.date.slice(8, 10)}/{tx.date.slice(5, 7)}
-                  </span>
-                  <span className="truncate">{tx.description}</span>
-                  {tx.category ? (
-                    <span className="text-xs text-ink-muted dark:text-neutral-400 bg-surface-alt dark:bg-neutral-800 rounded-full px-2 py-0.5 shrink-0">
-                      {tx.category}
+              {/* Su mobile la descrizione va da sola in cima e data + etichette scendono su
+                  una riga di dettaglio sotto: prima stavano tutte su una riga sola, così la
+                  descrizione veniva troncata quasi subito e l'importo finiva a capo sotto la
+                  data, staccato dal movimento a cui appartiene. Da sm in su il wrapper diventa
+                  display:contents e si torna alla riga unica compatta. */}
+              <div key={tx.id} className="flex items-start sm:items-center justify-between px-5 py-3 text-sm gap-3">
+                <div className="min-w-0 flex-1 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                  <span className="truncate order-1 sm:order-2">{tx.description}</span>
+                  <div className="flex items-center gap-2 min-w-0 order-2 sm:order-1 sm:contents">
+                    <span className="text-ink-muted dark:text-neutral-500 num text-xs sm:text-sm shrink-0 sm:w-14 sm:order-1">
+                      {tx.date.slice(8, 10)}/{tx.date.slice(5, 7)}
                     </span>
-                  ) : null}
-                  {tx.contact ? (
-                    <span className="text-xs text-accent bg-accent-soft dark:bg-accent/20 rounded-full px-2 py-0.5 shrink-0">
-                      {tx.contact.name}
-                    </span>
-                  ) : null}
+                    {tx.category ? (
+                      <span className="text-xs text-ink-muted dark:text-neutral-400 bg-surface-alt dark:bg-neutral-800 rounded-full px-2 py-0.5 shrink-0 sm:order-3">
+                        {tx.category}
+                      </span>
+                    ) : null}
+                    {tx.contact ? (
+                      <span className="text-xs text-accent bg-accent-soft dark:bg-accent/20 rounded-full px-2 py-0.5 shrink-0 sm:order-4">
+                        {tx.contact.name}
+                      </span>
+                    ) : null}
+                  </div>
                 </div>
                 <div className="flex items-center gap-3 shrink-0">
                   <span
