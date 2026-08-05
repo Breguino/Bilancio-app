@@ -30,6 +30,11 @@ export default async function AppLayout({
     { href: "/contacts", label: t.appShell.navContatti },
   ];
 
+  const ownerEmail = process.env.NEWSLETTER_ADMIN_EMAIL?.toLowerCase();
+  if (ownerEmail && user?.email?.toLowerCase() === ownerEmail) {
+    navLinks.push({ href: "/newsletter", label: t.appShell.navNewsletter });
+  }
+
   return (
     <div className="min-h-screen">
       <header className="print:hidden sticky top-0 z-20 relative border-b border-border dark:border-neutral-800 backdrop-blur bg-white/90 dark:bg-neutral-950/90">
