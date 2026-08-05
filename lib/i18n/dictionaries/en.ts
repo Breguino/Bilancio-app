@@ -233,6 +233,14 @@ const en: Dictionary = {
     emailNovitaLinkText: "Read what's new",
     noDeliverableSubscribersError: "No deliverable recipients (check Resend's sandbox mode).",
   },
+  reminderEmail: {
+    subjectSingular: "One reminder due today",
+    subjectPluralTemplate: "{count} reminders due today",
+    greeting: "Hi,",
+    introSingular: "You have a reminder due today:",
+    introPluralTemplate: "You have {count} reminders due today:",
+    ctaLabel: "Go to contacts",
+  },
   cestino: {
     eyebrow: "Trash",
     title: "Deleted transactions",
@@ -749,6 +757,8 @@ const en: Dictionary = {
           "Fixed an issue where, in some cases, signing in with Google would land you on the homepage instead of the Overview.",
           "The language switcher in the header now shows flags instead of the IT/EN letters, and switches language with a single tap.",
           "The scroll-in animations, previously only on the homepage, are now also on About us, What we offer, The service, What's new, Terms, and Privacy.",
+          "New look for the newsletter email, with a live preview as you write it and the ability to keep several drafts in parallel.",
+          "Added an email reminder for contact deadlines: if a reminder is due today, you now also get an email, not just the in-app notice.",
         ],
       },
       {
@@ -818,7 +828,6 @@ const en: Dictionary = {
     ideasBody:
       "As with the rest of Bilancino, I'd rather not promise dates or features before actually building them. This is just the list of things I'm thinking about right now — they might change, get scaled down, or never arrive.",
     ideas: [
-      "An email reminder for deadlines, today visible only inside the app.",
       "Evaluating an installable version (PWA) for more convenient mobile use.",
     ],
   },
