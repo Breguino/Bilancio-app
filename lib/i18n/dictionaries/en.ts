@@ -95,7 +95,7 @@ const en: Dictionary = {
     newsletterBlurb: "Updates about Bilancino by email, once a month, no spam.",
   },
   home: {
-    metaTitle: "Bilancino — personal budgeting, not accounting software",
+    metaTitle: "Free budgeting app with client tracking — Bilancino",
     metaDescription:
       "Bilancino brings together personal budgeting and client context, without the complexity of accounting software for freelancers. A real account, data isolated per user.",
     jsonLdDescription:
@@ -578,7 +578,7 @@ const en: Dictionary = {
     notFoundBody: "The link you followed no longer exists, or the address is wrong.",
   },
   chiSiamo: {
-    metaTitle: "About us — Bilancino",
+    metaTitle: "Who's behind Bilancino, and why it exists",
     metaDescription:
       "Bilancino is an independent project born to fill the gap between personal budgeting apps and full accounting software. Here's why it exists and who it's for.",
     eyebrow: "About us",
@@ -606,7 +606,7 @@ const en: Dictionary = {
     ctaSeeOffer: "See what we offer",
   },
   cosaOffriamo: {
-    metaTitle: "What we offer — Bilancino",
+    metaTitle: "Expenses, budgets and clients in one app — Bilancino",
     metaDescription:
       "A full tour of Bilancino's features: transactions and categories, budgets, automatic recurring transactions, savings goals, client CRM, receipts, export, and statistics.",
     eyebrow: "What we offer",
@@ -709,7 +709,7 @@ const en: Dictionary = {
     ctaSeeService: "See the service",
   },
   ilServizio: {
-    metaTitle: "The service — Bilancino",
+    metaTitle: "How Bilancino works: budgets, clients, recurring items",
     metaDescription:
       "How Bilancino works from your first login, what it costs today, how your data is protected (a real account and Row Level Security), and what you can do if you ever want to leave.",
     eyebrow: "The service",
