@@ -32,11 +32,6 @@ function FlagGB({ className }: { className?: string }) {
   );
 }
 
-const FLAGS: Record<Locale, typeof FlagIT> = {
-  it: FlagIT,
-  en: FlagGB,
-};
-
 export function LanguageSwitcher({ locale, label }: { locale: Locale; label: string }) {
   const pathname = usePathname();
   const nextLocale = locale === "it" ? "en" : "it";
@@ -53,18 +48,24 @@ export function LanguageSwitcher({ locale, label }: { locale: Locale; label: str
         className="relative inline-flex items-center w-16 h-9 rounded-full border border-border dark:border-neutral-700 bg-surface-alt dark:bg-neutral-800 transition-colors hover:border-accent/50 shrink-0"
       >
         <span className="absolute inset-0 flex items-center justify-between px-2.5 pointer-events-none select-none">
-          <FlagIT className={`w-4 h-3 rounded-[1px] ${locale === "it" ? "opacity-0" : "opacity-100"}`} />
-          <FlagGB className={`w-4 h-3 rounded-[1px] ${locale === "en" ? "opacity-0" : "opacity-100"}`} />
+          <FlagIT
+            className={`w-4 h-3 rounded-[1px] transition-opacity duration-300 ease-out ${locale === "it" ? "opacity-0" : "opacity-100"}`}
+          />
+          <FlagGB
+            className={`w-4 h-3 rounded-[1px] transition-opacity duration-300 ease-out ${locale === "en" ? "opacity-0" : "opacity-100"}`}
+          />
         </span>
         <span
-          className={`absolute top-0.5 left-0.5 w-8 h-8 rounded-full bg-white dark:bg-neutral-900 shadow-sm flex items-center justify-center overflow-hidden transition-transform duration-200 ease-out ${
+          className={`absolute top-0.5 left-0.5 w-8 h-8 rounded-full bg-white dark:bg-neutral-900 shadow-sm overflow-hidden transition-transform duration-[420ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] transform-gpu ${
             locale === "en" ? "translate-x-7" : "translate-x-0"
           }`}
         >
-          {(() => {
-            const Flag = FLAGS[locale];
-            return <Flag className="w-full h-full" />;
-          })()}
+          <FlagIT
+            className={`absolute inset-0 w-full h-full transition-opacity duration-300 ease-out ${locale === "it" ? "opacity-100" : "opacity-0"}`}
+          />
+          <FlagGB
+            className={`absolute inset-0 w-full h-full transition-opacity duration-300 ease-out ${locale === "en" ? "opacity-100" : "opacity-0"}`}
+          />
         </span>
       </button>
     </form>
