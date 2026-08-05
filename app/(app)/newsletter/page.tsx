@@ -78,6 +78,7 @@ export default async function NewsletterAdminPage({
             saveDraft: t.newsletterAdmin.saveDraft,
             unsubscribePrompt: t.newsletterAdmin.unsubscribePrompt,
             unsubscribeLinkText: t.newsletterAdmin.unsubscribeLinkText,
+            ctaLabel: t.newsletterAdmin.emailCtaLabel,
           }}
         />
         <form action={sendNow} className="mt-3">
