@@ -11,19 +11,23 @@ export type SendResult =
   | { reason: "error"; sent: number; error: string }
   | { reason: "ok"; sent: number; failed: number };
 
-// Prende la bozza più recente e la manda a tutti gli iscritti attivi. Usata
-// sia dal cron mensile che dal pulsante "Invia adesso" nella pagina admin.
-export async function sendDraftNewsletter(siteUrl: string): Promise<SendResult> {
+// Manda una bozza specifica (issueId, dalla pagina admin — ora si possono
+// tenere più bozze in parallelo) oppure, se non specificata, la più recente
+// (usato dal cron mensile, che non sa quale bozza scegliere tra più
+// disponibili).
+export async function sendDraftNewsletter(siteUrl: string, issueId?: string): Promise<SendResult> {
   const { t } = getDictionary();
   const supabase = createAdminClient();
 
-  const { data: issue } = await supabase
-    .from("newsletter_issues")
-    .select("*")
-    .eq("status", "draft")
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  const { data: issue } = await (issueId
+    ? supabase.from("newsletter_issues").select("*").eq("status", "draft").eq("id", issueId).maybeSingle()
+    : supabase
+        .from("newsletter_issues")
+        .select("*")
+        .eq("status", "draft")
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle());
 
   if (!issue || !issue.subject?.trim() || !issue.body_html?.trim()) {
     return { reason: "no_draft", sent: 0 };
