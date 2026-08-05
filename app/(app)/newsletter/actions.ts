@@ -42,20 +42,52 @@ export async function saveDraft(formData: FormData) {
     if (error || count === 0) {
       redirect("/newsletter?error=" + encodeURIComponent(t.newsletterAdmin.draftNotFoundError));
     }
-  } else {
-    await admin.from("newsletter_issues").insert({ subject, body_html: bodyHtml });
+
+    revalidatePath("/newsletter");
+    redirect(
+      `/newsletter?draft=${id}&success=` + encodeURIComponent(t.newsletterAdmin.draftSavedToast)
+    );
   }
 
+  const { data: created } = await admin
+    .from("newsletter_issues")
+    .insert({ subject, body_html: bodyHtml })
+    .select("id")
+    .single();
+
   revalidatePath("/newsletter");
-  redirect("/newsletter?success=" + encodeURIComponent(t.newsletterAdmin.draftSavedToast));
+  redirect(
+    `/newsletter?draft=${created?.id ?? ""}&success=` + encodeURIComponent(t.newsletterAdmin.draftSavedToast)
+  );
 }
 
-export async function sendNow() {
+export async function deleteDraft(formData: FormData) {
   await assertOwner();
   const { t } = getDictionary();
+  const id = String(formData.get("id") || "").trim();
+
+  const admin = createAdminClient();
+  const { error, count } = await admin
+    .from("newsletter_issues")
+    .delete({ count: "exact" })
+    .eq("id", id)
+    .eq("status", "draft");
+
+  revalidatePath("/newsletter");
+
+  if (error || count === 0) {
+    redirect("/newsletter?error=" + encodeURIComponent(t.newsletterAdmin.draftDeleteNotFoundError));
+  }
+  redirect("/newsletter?success=" + encodeURIComponent(t.newsletterAdmin.draftDeletedToast));
+}
+
+export async function sendNow(formData: FormData) {
+  await assertOwner();
+  const { t } = getDictionary();
+  const id = String(formData.get("id") || "").trim();
 
   const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://bilancino-app.vercel.app";
-  const result = await sendDraftNewsletter(origin);
+  const result = await sendDraftNewsletter(origin, id || undefined);
 
   revalidatePath("/newsletter");
 
