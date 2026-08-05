@@ -70,6 +70,7 @@ export function buildNewsletterEmailHtml({
             <tr>
               <td style="padding:32px 32px 8px;font-family:${FONT_STACK};font-size:15px;line-height:1.7;color:#14151a;">
                 ${bodyHtml}
+                <p style="margin:8px 0 0;">${novitaPrompt} <a href="${siteUrl}/novita" style="color:#4f46e5;text-decoration:underline;">${novitaLinkText}</a>.</p>
               </td>
             </tr>
             <tr>
@@ -80,7 +81,6 @@ export function buildNewsletterEmailHtml({
             <tr>
               <td style="padding:18px 32px 26px;border-top:1px solid rgba(20,21,26,0.08);font-family:${FONT_STACK};font-size:12px;line-height:1.6;color:#8b8c94;">
                 <p style="margin:0 0 6px;">Bilancino — <a href="${siteUrl}" style="color:#8b8c94;text-decoration:underline;">${siteUrl.replace(/^https?:\/\//, "")}</a></p>
-                <p style="margin:0 0 6px;">${novitaPrompt} <a href="${siteUrl}/novita" style="color:#4f46e5;text-decoration:underline;">${novitaLinkText}</a>.</p>
                 <p style="margin:0;">${unsubscribePrompt} <a href="${unsubscribeUrl}" style="color:#4f46e5;text-decoration:underline;">${unsubscribeLinkText}</a>.</p>
               </td>
             </tr>
