@@ -198,7 +198,7 @@ const en: Dictionary = {
     subscriberCountSuffix: "active subscribers. It goes out automatically on the 1st of each month; you can also send it right away below.",
     draftTitle: "Next issue draft",
     subjectLabel: "Subject",
-    bodyLabel: "Body (simple HTML — plain text works fine too)",
+    bodyLabel: "Body — plain text works fine too: **bold**, lines starting with \"- \" for a bulleted list, a blank line for a new paragraph. If you write real HTML, it's kept as-is.",
     previewTab: "Preview",
     editTab: "Write",
     previewSubjectPrefix: "Subject:",

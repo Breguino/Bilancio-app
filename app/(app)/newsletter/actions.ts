@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendDraftNewsletter } from "@/lib/newsletter/send";
+import { formatNewsletterBody } from "@/lib/newsletter/format-body";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 async function assertOwner() {
@@ -23,7 +24,7 @@ export async function saveDraft(formData: FormData) {
   const { t } = getDictionary();
 
   const subject = String(formData.get("subject") || "").trim();
-  const bodyHtml = String(formData.get("body_html") || "").trim();
+  const bodyHtml = formatNewsletterBody(String(formData.get("body_html") || ""));
   const id = String(formData.get("id") || "").trim();
 
   if (!subject || !bodyHtml) {
