@@ -32,28 +32,42 @@ function FlagGB({ className }: { className?: string }) {
   );
 }
 
+// Nomi nella lingua nativa (non tradotti): "Italiano" e "English" restano
+// riconoscibili indipendentemente dalla lingua corrente dell'interfaccia.
+const LOCALE_NAMES: Record<Locale, string> = {
+  it: "Italiano",
+  en: "English",
+};
+
 export function LanguageSwitcher({ locale, label }: { locale: Locale; label: string }) {
   const pathname = usePathname();
   const nextLocale = locale === "it" ? "en" : "it";
 
   return (
-    <form action={setLocale} className="shrink-0">
-      <input type="hidden" name="path" value={pathname} />
-      <button
-        type="submit"
-        name="locale"
-        value={nextLocale}
-        aria-label={label}
-        title={label}
-        className="relative w-9 h-9 rounded-full border border-border dark:border-neutral-700 bg-surface-alt dark:bg-neutral-800 overflow-hidden shrink-0 transition-colors hover:border-accent/50 active:scale-95"
+    <div className="relative group shrink-0">
+      <span
+        role="tooltip"
+        className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-ink dark:bg-neutral-700 text-white text-xs font-medium px-2.5 py-1.5 shadow-md opacity-0 scale-95 translate-y-[-2px] pointer-events-none transition-all duration-150 ease-out group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:scale-100 group-focus-within:translate-y-0 z-30"
       >
-        <FlagIT
-          className={`absolute inset-0 w-full h-full transition-opacity duration-200 ease-out ${locale === "it" ? "opacity-100" : "opacity-0"}`}
-        />
-        <FlagGB
-          className={`absolute inset-0 w-full h-full transition-opacity duration-200 ease-out ${locale === "en" ? "opacity-100" : "opacity-0"}`}
-        />
-      </button>
-    </form>
+        {LOCALE_NAMES[nextLocale]}
+      </span>
+      <form action={setLocale}>
+        <input type="hidden" name="path" value={pathname} />
+        <button
+          type="submit"
+          name="locale"
+          value={nextLocale}
+          aria-label={label}
+          className="relative w-9 h-9 rounded-full border border-border dark:border-neutral-700 bg-surface-alt dark:bg-neutral-800 overflow-hidden shrink-0 transition-colors hover:border-accent/50 active:scale-95"
+        >
+          <FlagIT
+            className={`absolute inset-0 w-full h-full transition-opacity duration-200 ease-out ${locale === "it" ? "opacity-100" : "opacity-0"}`}
+          />
+          <FlagGB
+            className={`absolute inset-0 w-full h-full transition-opacity duration-200 ease-out ${locale === "en" ? "opacity-100" : "opacity-0"}`}
+          />
+        </button>
+      </form>
+    </div>
   );
 }
