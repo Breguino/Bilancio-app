@@ -6,6 +6,7 @@ import { AppMockup } from "@/components/app-mockup";
 import { ContactsMockup } from "@/components/contacts-mockup";
 import { StatisticsMockup } from "@/components/statistics-mockup";
 import { AuthGate } from "@/components/auth-gate";
+import { Reveal } from "@/components/reveal";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import {
@@ -81,9 +82,10 @@ export default function CosaOffriamoPage() {
           const mockup = gi === 1 ? <ContactsMockup /> : gi === 2 ? <StatisticsMockup /> : null;
           const cardGrid = (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {group.items.map((item) => (
-                <div
+              {group.items.map((item, ii) => (
+                <Reveal
                   key={item.title}
+                  delay={ii * 80}
                   className="border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900"
                 >
                   <div className="w-10 h-10 rounded-xl bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-4">
@@ -91,14 +93,14 @@ export default function CosaOffriamoPage() {
                   </div>
                   <h3 className="font-bold mb-2">{item.title}</h3>
                   <p className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed">{item.body}</p>
-                </div>
+                </Reveal>
               ))}
             </div>
           );
 
           return (
             <section key={group.title} className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-              <div className="max-w-[60ch] mb-8">
+              <Reveal className="max-w-[60ch] mb-8">
                 <span className="text-xs font-bold uppercase tracking-wide text-accent">{group.tag}</span>
                 <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
                   {group.title}
@@ -106,11 +108,11 @@ export default function CosaOffriamoPage() {
                 {"intro" in group ? (
                   <p className="text-ink-muted dark:text-neutral-500 text-sm leading-relaxed mt-3">{group.intro}</p>
                 ) : null}
-              </div>
+              </Reveal>
               {mockup ? (
                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 items-start">
                   {cardGrid}
-                  <div className="lg:sticky lg:top-24">{mockup}</div>
+                  <Reveal className="lg:sticky lg:top-24">{mockup}</Reveal>
                 </div>
               ) : (
                 cardGrid
@@ -119,36 +121,38 @@ export default function CosaOffriamoPage() {
           );
         })}
 
-        <section className="py-14 sm:py-20 flex flex-col items-center text-center gap-5 border-t border-border dark:border-neutral-800">
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[24ch]">
-            {t.cosaOffriamo.ctaTitle}
-          </h2>
-          <div className="flex items-center gap-3 flex-wrap justify-center">
-            <Link
-              href="/il-servizio"
-              className="border border-border dark:border-neutral-800 font-bold text-sm rounded-full px-6 py-3.5 hover:border-accent hover:text-accent transition-colors"
-            >
-              {t.cosaOffriamo.ctaSeeService}
-            </Link>
-            <AuthGate
-              loggedIn={
-                <Link
-                  href="/dashboard"
-                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
-                >
-                  {t.home.ctaDashboard}
-                </Link>
-              }
-              loggedOut={
-                <Link
-                  href="/signup"
-                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
-                >
-                  {t.home.ctaSignupFree}
-                </Link>
-              }
-            />
-          </div>
+        <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
+          <Reveal className="flex flex-col items-center text-center gap-5">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[24ch]">
+              {t.cosaOffriamo.ctaTitle}
+            </h2>
+            <div className="flex items-center gap-3 flex-wrap justify-center">
+              <Link
+                href="/il-servizio"
+                className="border border-border dark:border-neutral-800 font-bold text-sm rounded-full px-6 py-3.5 hover:border-accent hover:text-accent transition-colors"
+              >
+                {t.cosaOffriamo.ctaSeeService}
+              </Link>
+              <AuthGate
+                loggedIn={
+                  <Link
+                    href="/dashboard"
+                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                  >
+                    {t.home.ctaDashboard}
+                  </Link>
+                }
+                loggedOut={
+                  <Link
+                    href="/signup"
+                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                  >
+                    {t.home.ctaSignupFree}
+                  </Link>
+                }
+              />
+            </div>
+          </Reveal>
         </section>
       </main>
 

@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { AuthGate } from "@/components/auth-gate";
+import { Reveal } from "@/components/reveal";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 
@@ -60,7 +61,7 @@ export default function ChiSiamoPage() {
         </header>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-4 [text-wrap:balance] max-w-[20ch]">
                 {t.chiSiamo.gapTitle}
@@ -71,11 +72,11 @@ export default function ChiSiamoPage() {
                 <p key={p}>{p}</p>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-4 [text-wrap:balance] max-w-[20ch]">
                 {t.chiSiamo.forWhomTitle}
@@ -86,11 +87,11 @@ export default function ChiSiamoPage() {
                 <p key={p}>{p}</p>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-4 [text-wrap:balance] max-w-[20ch]">
                 {t.chiSiamo.smallByDesignTitle}
@@ -101,39 +102,41 @@ export default function ChiSiamoPage() {
                 <p key={p}>{p}</p>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
-        <section className="py-14 sm:py-20 flex flex-col items-center text-center gap-5 border-t border-border dark:border-neutral-800">
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
-            {t.chiSiamo.ctaTitle}
-          </h2>
-          <div className="flex items-center gap-3 flex-wrap justify-center">
-            <Link
-              href="/cosa-offriamo"
-              className="border border-border dark:border-neutral-800 font-bold text-sm rounded-full px-6 py-3.5 hover:border-accent hover:text-accent transition-colors"
-            >
-              {t.chiSiamo.ctaSeeOffer}
-            </Link>
-            <AuthGate
-              loggedIn={
-                <Link
-                  href="/dashboard"
-                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
-                >
-                  {t.home.ctaDashboard}
-                </Link>
-              }
-              loggedOut={
-                <Link
-                  href="/signup"
-                  className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
-                >
-                  {t.home.ctaSignupFree}
-                </Link>
-              }
-            />
-          </div>
+        <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
+          <Reveal className="flex flex-col items-center text-center gap-5">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
+              {t.chiSiamo.ctaTitle}
+            </h2>
+            <div className="flex items-center gap-3 flex-wrap justify-center">
+              <Link
+                href="/cosa-offriamo"
+                className="border border-border dark:border-neutral-800 font-bold text-sm rounded-full px-6 py-3.5 hover:border-accent hover:text-accent transition-colors"
+              >
+                {t.chiSiamo.ctaSeeOffer}
+              </Link>
+              <AuthGate
+                loggedIn={
+                  <Link
+                    href="/dashboard"
+                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                  >
+                    {t.home.ctaDashboard}
+                  </Link>
+                }
+                loggedOut={
+                  <Link
+                    href="/signup"
+                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                  >
+                    {t.home.ctaSignupFree}
+                  </Link>
+                }
+              />
+            </div>
+          </Reveal>
         </section>
       </main>
 
