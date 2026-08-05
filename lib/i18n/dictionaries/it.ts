@@ -88,6 +88,7 @@ const it = {
   siteFooter: {
     tagline: "Bilancino — budget personale, non un gestionale.",
     novita: "✨ Novità",
+    guide: "Guida",
     privacy: "Privacy",
     termini: "Termini",
     newsletterBlurb: "Aggiornamenti su Bilancino via email, una volta al mese, niente spam.",

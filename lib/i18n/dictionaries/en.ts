@@ -90,6 +90,7 @@ const en: Dictionary = {
   siteFooter: {
     tagline: "Bilancino — personal budgeting, not accounting software.",
     novita: "✨ What's new",
+    guide: "Guide",
     privacy: "Privacy",
     termini: "Terms",
     newsletterBlurb: "Updates about Bilancino by email, once a month, no spam.",
