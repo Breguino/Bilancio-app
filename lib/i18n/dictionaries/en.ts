@@ -723,9 +723,18 @@ const en: Dictionary = {
     heroTitle: "What's changed, update after update.",
     heroBody:
       "I build Bilancino solo, so here you'll find exactly what I did and when — no inflated version numbers, just the things that actually changed.",
-    lastUpdated: "August 4, 2026",
+    lastUpdated: "August 5, 2026",
     lastUpdatedPrefix: "Last updated:",
     entries: [
+      {
+        date: "August 5, 2026",
+        items: [
+          "Added Google sign-in for login and signup, alongside email and password.",
+          "Fixed an issue where, in some cases, signing in with Google would land you on the homepage instead of the Overview.",
+          "The language switcher in the header now shows flags instead of the IT/EN letters, and switches language with a single tap.",
+          "The scroll-in animations, previously only on the homepage, are now also on About us, What we offer, The service, What's new, Terms, and Privacy.",
+        ],
+      },
       {
         date: "August 4, 2026",
         items: [
@@ -807,7 +816,8 @@ const en: Dictionary = {
       "Bilancino is an independent project built and run by one person, not a company with a legal department. What follows is written in plain language, not by a lawyer: if you have specific questions, get in touch.",
     dataCollectedTitle: "What data I collect",
     dataCollectedParagraphs: [
-      "The email and password for your account, managed by Supabase Auth: your password is never visible in plain text, not even to me.",
+      "The email and password for your account (or just the email, if you choose to sign in with Google), managed by Supabase Auth: your password is never visible in plain text, not even to me.",
+      "If you use \"Continue with Google\", I receive only the name and email address from your Google account needed to create it — I don't access the rest of your Google data.",
       "The financial data you enter yourself: transactions, categories, budgets, savings goals, contacts and notes, recurring transactions. Nothing else — I don't ask for an address, phone number, or payment details, because I don't need them to make the app work.",
     ],
     hostingTitle: "Where it's hosted",
@@ -843,6 +853,7 @@ const en: Dictionary = {
     whatItIsParagraphs: [
       "Bilancino is a personal budgeting and lightweight CRM app, built and run by one person. It isn't a company: there's no customer service in the traditional sense, nor a guaranteed SLA on response times or uptime.",
       "Today it's free and requires no credit card. As an independent project, I can't guarantee that forever, but whatever changes, you'll always be able to export your history to CSV.",
+      "You can sign in with email and password, or with your Google account: if you choose Google, that authentication step is also subject to their own terms of service, which are outside my control.",
     ],
     whatItIsNotTitle: "What it isn't",
     whatItIsNotParagraphs: [
