@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { track } from "@vercel/analytics/server";
 import { createClient } from "@/lib/supabase/server";
 import { parseImportCsv } from "@/lib/csv-import";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -30,6 +31,10 @@ export async function addTransaction(formData: FormData) {
 
   const amount = type === "income" ? rawAmount : -rawAmount;
 
+  const { count: existingCount } = await supabase
+    .from("transactions")
+    .select("id", { count: "exact", head: true });
+
   await supabase.from("transactions").insert({
     user_id: user.id,
     description,
@@ -38,6 +43,10 @@ export async function addTransaction(formData: FormData) {
     amount,
     contact_id: contactId,
   });
+
+  if ((existingCount ?? 0) === 0) {
+    await track("first_transaction_created");
+  }
 
   revalidateAll();
   revalidatePath("/contacts");
@@ -70,6 +79,10 @@ export async function importTransactions(formData: FormData) {
     redirect(withParam(returnPath, "error", t.dashboard.noValidRowsError));
   }
 
+  const { count: existingCount } = await supabase
+    .from("transactions")
+    .select("id", { count: "exact", head: true });
+
   const CHUNK_SIZE = 500;
   let insertedCount = 0;
   for (let i = 0; i < rows.length; i += CHUNK_SIZE) {
@@ -84,6 +97,10 @@ export async function importTransactions(formData: FormData) {
 
   if (insertedCount === 0) {
     redirect(withParam(returnPath, "error", t.common.actionFailedError));
+  }
+
+  if ((existingCount ?? 0) === 0 && insertedCount > 0) {
+    await track("first_transaction_created");
   }
 
   const parts = [t.dashboard.importedCount.replace("{n}", String(insertedCount))];
