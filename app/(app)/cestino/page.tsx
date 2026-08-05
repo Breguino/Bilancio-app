@@ -49,9 +49,9 @@ export default async function CestinoPage({
           </p>
         ) : (
           <div className="divide-y divide-border dark:divide-neutral-800">
+            {/* Stessa struttura responsive della lista movimenti in Panoramica: su mobile la
+                descrizione sta in cima e data + etichette vanno sulla riga di dettaglio sotto. */}
             {rows.map((tx: any) => (
-              {/* Stessa struttura responsive della lista movimenti in Panoramica: su mobile la
-                  descrizione sta in cima e data + etichette vanno sulla riga di dettaglio sotto. */}
               <div key={tx.id} className="flex items-start sm:items-center justify-between px-5 py-3 text-sm gap-3">
                 <div className="min-w-0 flex-1 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                   <span className="truncate order-1 sm:order-2">{tx.description}</span>

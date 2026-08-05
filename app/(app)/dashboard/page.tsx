@@ -546,12 +546,12 @@ export default async function DashboardPage({
           </p>
         ) : (
           <div className="divide-y divide-border dark:divide-neutral-800 mt-3">
+            {/* Su mobile la descrizione va da sola in cima e data + etichette scendono su una
+                riga di dettaglio sotto: prima stavano tutte su una riga sola, così la descrizione
+                veniva troncata quasi subito e l'importo finiva a capo sotto la data, staccato dal
+                movimento a cui appartiene. Da sm in su il wrapper interno diventa display:contents
+                e si torna alla riga unica compatta. */}
             {displayRows.map((tx: any) => (
-              {/* Su mobile la descrizione va da sola in cima e data + etichette scendono su
-                  una riga di dettaglio sotto: prima stavano tutte su una riga sola, così la
-                  descrizione veniva troncata quasi subito e l'importo finiva a capo sotto la
-                  data, staccato dal movimento a cui appartiene. Da sm in su il wrapper diventa
-                  display:contents e si torna alla riga unica compatta. */}
               <div key={tx.id} className="flex items-start sm:items-center justify-between px-5 py-3 text-sm gap-3">
                 <div className="min-w-0 flex-1 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                   <span className="truncate order-1 sm:order-2">{tx.description}</span>
