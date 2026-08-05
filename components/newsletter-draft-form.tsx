@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { SubmitButton } from "@/components/submit-button";
 import { buildNewsletterEmailHtml } from "@/lib/newsletter/email-template";
+import { formatNewsletterBody } from "@/lib/newsletter/format-body";
 
 // Prima il campo per il testo era solo una textarea HTML grezza, senza modo
 // di vedere come sarebbe apparsa l'email finale (header colorato, immagine
@@ -41,7 +42,7 @@ export function NewsletterDraftForm({
   const previewHtml = body.trim()
     ? buildNewsletterEmailHtml({
         siteUrl,
-        bodyHtml: body,
+        bodyHtml: formatNewsletterBody(body),
         unsubscribeUrl: "#",
         unsubscribePrompt: labels.unsubscribePrompt,
         unsubscribeLinkText: labels.unsubscribeLinkText,

@@ -196,7 +196,7 @@ const it = {
     subscriberCountSuffix: "iscritti attivi. Parte automaticamente il 1° di ogni mese; puoi anche inviarla subito qui sotto.",
     draftTitle: "Bozza del prossimo numero",
     subjectLabel: "Oggetto",
-    bodyLabel: "Testo (HTML semplice — va bene anche solo testo normale)",
+    bodyLabel: "Testo — anche solo testo normale va bene: **grassetto**, righe che iniziano con \"- \" per un elenco puntato, riga vuota per andare a capo. Se scrivi HTML vero, lo rispetto così com'è.",
     previewTab: "Anteprima",
     editTab: "Scrivi",
     previewSubjectPrefix: "Oggetto:",
