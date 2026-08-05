@@ -2,6 +2,7 @@ import Link from "next/link";
 import { login } from "./actions";
 import { Logo } from "@/components/logo";
 import { PasswordInput } from "@/components/password-input";
+import { GoogleSignInButton } from "@/components/google-signin-button";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export default function LoginPage({
@@ -41,6 +42,14 @@ export default function LoginPage({
             {searchParams.error}
           </p>
         ) : null}
+
+        <GoogleSignInButton label={t.auth.continueWithGoogle} />
+
+        <div className="flex items-center gap-3 my-6">
+          <div className="h-px flex-1 bg-border dark:bg-neutral-800" />
+          <span className="text-xs text-ink-muted dark:text-neutral-500">{t.auth.orDivider}</span>
+          <div className="h-px flex-1 bg-border dark:bg-neutral-800" />
+        </div>
 
         <form action={login} className="flex flex-col gap-4">
           <input type="hidden" name="next" value={searchParams.next || "/dashboard"} />

@@ -870,6 +870,8 @@ const it = {
     backToHome: "Torna alla home",
     backToLogin: "Torna al login",
     emailLabel: "Email",
+    continueWithGoogle: "Continua con Google",
+    orDivider: "oppure",
     passwordInput: {
       show: "Mostra password",
       hide: "Nascondi password",
