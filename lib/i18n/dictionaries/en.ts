@@ -511,6 +511,7 @@ const en: Dictionary = {
     navAnnuale: "Yearly",
     navStatistiche: "Statistics",
     navContatti: "Contacts",
+    navNewsletter: "Newsletter",
     backToSiteAriaLabel: "Back to the public site",
     backToSiteTitle: "Back to the site",
     logout: "Log out",

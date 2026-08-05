@@ -509,6 +509,7 @@ const it = {
     navAnnuale: "Annuale",
     navStatistiche: "Statistiche",
     navContatti: "Contatti",
+    navNewsletter: "Newsletter",
     backToSiteAriaLabel: "Torna al sito pubblico",
     backToSiteTitle: "Torna al sito",
     logout: "Esci",
