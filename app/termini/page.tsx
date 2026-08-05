@@ -95,6 +95,21 @@ export default function TerminiPage() {
           </Reveal>
         </section>
 
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
+                {t.termini.continuityTitle}
+              </h2>
+            </div>
+            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
+              {t.termini.continuityParagraphs.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
+            </div>
+          </Reveal>
+        </section>
+
         <section className="py-14 sm:py-16 border-t border-border dark:border-neutral-800">
           <Reveal>
             <p className="text-sm text-ink-muted dark:text-neutral-500 max-w-[62ch]">

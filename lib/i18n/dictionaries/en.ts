@@ -172,6 +172,14 @@ const en: Dictionary = {
         a: "Yes, no credit card required: create an account and use it freely. As an independent project I can't guarantee it forever, but you'll always be able to export your data to CSV.",
       },
       {
+        q: "Does it connect to my bank?",
+        a: "No, and that's deliberate. You enter transactions yourself, by hand or by importing a CSV: Bilancino never asks for your bank credentials and doesn't connect to any intermediary that reads your statements. In exchange for a few extra seconds per transaction, your banking data goes nowhere and you decide what makes it into your budget. If you want automatic syncing, tools like YNAB or Monarch do it well — and they charge for it.",
+      },
+      {
+        q: "What happens to my data if the project shuts down?",
+        a: "Fair question to ask about an independent project. I can't promise Bilancino will last forever, but I can promise two concrete things: the full CSV export is always available without asking anyone, and if I ever had to stop I'd say so here and on the What's new page with reasonable notice, not switch everything off overnight. Your data lives on Supabase in Europe and stays exportable in a standard format you can open in Excel or Google Sheets.",
+      },
+      {
         q: "How do recurring transactions work?",
         a: "Set a description, amount, frequency (weekly, monthly, or yearly), and a start date: Bilancino generates the transaction on its own each time it's due, catching up on any missed occurrences if you don't open the app for a while.",
       },
@@ -739,6 +747,13 @@ const en: Dictionary = {
     pricePara2Link: "continuous development",
     pricePara2Post:
       ", so I can't promise it'll stay free forever — but whatever changes, you'll never find your data held hostage: you can export your entire transaction history to CSV at any time, without asking anyone for permission.",
+    manualEyebrow: "Entering your data",
+    manualTitle: "No bank connection, on purpose",
+    manualParagraphs: [
+      "Bilancino doesn't connect to your bank. This isn't a missing feature waiting to be added: it's a decision. Connecting an account means handing your banking credentials to an intermediary that reads your statements continuously, and for a project run by one person that's a responsibility I've chosen not to take on.",
+      "In practice: you enter transactions yourself, one at a time or by importing a CSV from your bank — it takes a few seconds longer, but no banking data passes through third-party servers, and you decide what goes into your budget instead of getting a list you have to clean up.",
+      "If automatic syncing is what you actually need, it's only fair to say so: tools like YNAB or Monarch do it well, they charge for it, and for that specific need they're the better choice.",
+    ],
     securityEyebrow: "Security and privacy",
     securityTitle: "A real account, data isolated row by row",
     securityParagraphs: [
@@ -778,6 +793,7 @@ const en: Dictionary = {
           "New look for the newsletter email, with a live preview as you write it and the ability to keep several drafts in parallel.",
           "Added an email reminder for contact deadlines: if a reminder is due today, you now also get an email, not just the in-app notice.",
           "New Settings page, where you can delete your account and all linked data yourself, without having to send an email and wait.",
+          "Explained openly why Bilancino doesn't connect to your bank (it's a choice, not a missing feature) and what would happen to your data if the project ever stopped: two new sections on The service and Terms, plus two new FAQs on the homepage.",
         ],
       },
       {
@@ -912,6 +928,12 @@ const en: Dictionary = {
     ifSomethingGoesWrongParagraphs: [
       "Bilancino is provided as-is, with no warranties. I do my best to make it work correctly — Row Level Security on your data, confirmation before every deletion, automated tests on the most sensitive paths — but to the maximum extent permitted by law, I'm not liable for any loss or damage resulting from using the app.",
       "You can stop using the service whenever you want. I may suspend an account in case of abuse, such as unauthorized access attempts or unlawful use of the service.",
+    ],
+    continuityTitle: "If the project ever stops",
+    continuityParagraphs: [
+      "It's the right question to ask before trusting your finances to a project run by one person, and it deserves an explicit answer rather than silence.",
+      "I can't promise Bilancino will last forever: that would be a promise I'm not able to keep. What I can commit to is two concrete things. First: the full CSV export stays available inside the app at all times, without having to ask me for anything — your data is never held hostage. Second: if I ever decided to stop, I'd say so on this page and on What's new with reasonable notice, so you have time to export everything calmly, rather than switching the service off overnight.",
+      "In the meantime your data is hosted on Supabase (a Postgres database in Europe, in Frankfurt) and the export format is a standard CSV, which opens in Excel or Google Sheets and imports into most other budgeting tools.",
     ],
     footerNotePre: "If these terms change, I'll update this page — the real changelog for the project is on",
     footerNoteLink: "What's new",
