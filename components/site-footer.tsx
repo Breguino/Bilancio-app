@@ -13,7 +13,7 @@ export function SiteFooter() {
     { href: "/il-servizio", label: t.nav.ilServizio },
     // Le guide esistono solo in italiano: il link compare solo in quella lingua,
     // invece di portare chi naviga in inglese su una pagina che non può leggere.
-    ...(locale === "it" ? [{ href: "/guide/conti-personali-e-lavoro", label: t.siteFooter.guide }] : []),
+    ...(locale === "it" ? [{ href: "/guide", label: t.siteFooter.guide }] : []),
     { href: "/privacy", label: t.siteFooter.privacy },
     { href: "/termini", label: t.siteFooter.termini },
   ];
