@@ -1,9 +1,20 @@
 import type { MetadataRoute } from "next";
+import { guides } from "@/lib/guides";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
+  // Le singole guide arrivano dallo stesso elenco che alimenta la pagina indice,
+  // così una guida nuova entra in sitemap senza doversi ricordare di aggiungerla.
+  const guidePages: MetadataRoute.Sitemap = guides.map((g) => ({
+    url: `${base}${g.href}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   return [
+    ...guidePages,
     {
       url: base,
       lastModified: new Date(),
@@ -35,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      url: `${base}/guide/conti-personali-e-lavoro`,
+      url: `${base}/guide`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,

@@ -14,7 +14,10 @@ const PUBLIC_EXACT = [
   "/termini",
   "/newsletter/disiscritto",
 ];
-const PUBLIC_PREFIXES = ["/login", "/signup", "/auth", "/logout", "/api/cron", "/api/newsletter"];
+// "/guide" è un prefisso e non un elenco di indirizzi esatti: le guide servono a
+// farsi trovare da chi non ha ancora un account, quindi ogni nuova guida deve
+// essere pubblica da subito senza doversi ricordare di aggiungerla qui.
+const PUBLIC_PREFIXES = ["/login", "/signup", "/auth", "/logout", "/guide", "/api/cron", "/api/newsletter"];
 
 function isPublicPath(path: string) {
   if (PUBLIC_EXACT.includes(path)) return true;
