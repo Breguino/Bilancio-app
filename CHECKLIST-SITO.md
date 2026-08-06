@@ -43,6 +43,13 @@ Non avendo credenziali d'accesso e per non creare dati finti nel database di pro
 
 Durante una revisione mirata sulla conformità privacy della pagina `/privacy`, è emerso che veniva indicata solo un'email di contatto (`a2n0g004@gmail.com`) senza il nome del titolare del trattamento — l'art. 13 GDPR richiede di dichiarare identità e contatti del titolare, non solo un recapito. **Risolto:** aggiunto il nome (Angelo Bregu) nel testo introduttivo della pagina privacy, in italiano e inglese.
 
+Altri punti minori individuati nella stessa revisione, tutti **risolti**:
+- **Base giuridica dei trattamenti** non dichiarata esplicitamente → aggiunta in `/privacy` (contratto per i dati account, consenso per Google Analytics).
+- **Trasferimento dati extra-UE** (Vercel/Google verso gli USA) dichiarato ma senza base legale → aggiunta menzione delle Clausole Contrattuali Standard.
+- **Diritti dell'interessato** (accesso, rettifica, limitazione, opposizione, revoca del consenso, reclamo al Garante) non elencati esplicitamente → aggiunto un paragrafo dedicato in `/privacy`.
+- **Periodo di conservazione dei dati dell'account attivo** non dichiarato → chiarito che i dati restano finché l'account è attivo, senza scadenza automatica.
+- **Età minima** non dichiarata → aggiunta in `/termini` (18 anni, su indicazione del titolare del progetto).
+
 ## Come è stata fatta questa verifica
 
 - `npm install`, `npm run build`, `npm test` in locale.

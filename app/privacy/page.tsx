@@ -111,6 +111,7 @@ export default function PrivacyPage() {
                 </a>{" "}
                 {t.privacy.yourDataPara2Post}
               </p>
+              <p>{t.privacy.yourDataPara3}</p>
             </div>
           </Reveal>
         </section>

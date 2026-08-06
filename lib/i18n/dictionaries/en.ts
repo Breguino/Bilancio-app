@@ -880,11 +880,13 @@ const en: Dictionary = {
       "The email and password for your account (or just the email, if you choose to sign in with Google), managed by Supabase Auth: your password is never visible in plain text, not even to me.",
       "If you use \"Continue with Google\", I receive only the name and email address from your Google account needed to create it — I don't access the rest of your Google data.",
       "The financial data you enter yourself: transactions, categories, budgets, savings goals, contacts and notes, recurring transactions. Nothing else — I don't ask for an address, phone number, or payment details, because I don't need them to make the app work.",
+      "I process this data on the basis of the contract you accept when you create an account — I need it to run the app you chose to use — or, for Google Analytics, on the basis of your explicit consent (see the Cookies section below).",
     ],
     hostingTitle: "Where it's hosted",
     hostingParagraphs: [
       "The database (Supabase, Postgres) is hosted in Europe, in Frankfurt. The app runs on Vercel, which may process requests from servers in the United States too — that's how a modern web app works, and I'd rather tell you than let you find out.",
       "Supabase and Vercel are technical providers: they handle your data only to make the app work, not for their own purposes.",
+      "When data passes through a provider outside the European Union (for example to the United States, via Vercel or Google Analytics), this happens under the Standard Contractual Clauses required by European law, included in the contracts these providers offer.",
     ],
     isolationTitle: "Isolation and security",
     isolationParagraphs: [
@@ -900,6 +902,8 @@ const en: Dictionary = {
     yourDataPara1: "From the Overview you can export your entire transaction history to CSV at any time, without asking anyone for permission.",
     yourDataPara2Pre: "You can delete your account, and with it all the data linked to it, straight from Settings inside the app: the deletion is immediate and permanent, no need to ask anyone. For corrections or any other request about your data, email me at",
     yourDataPara2Post: "any time.",
+    yourDataPara3:
+      "As long as your account is active, your data stays in the database exactly as you enter it: there's no automatic expiry that deletes it on its own. Beyond exporting and deleting it yourself, you always have the right to ask me for access, rectification, restriction, or objection to the processing of your data, and you can withdraw your consent to Google Analytics at any time from \"Manage cookie preferences\" at the bottom of the site. If you believe your data hasn't been handled correctly, you can also file a complaint with the Italian data protection authority (Garante per la protezione dei dati personali, garanteprivacy.it).",
     footerNotePre: "If anything changes in how I handle data, I'll update this page. There's no newsletter or automatic notification: the real changelog for the project is on",
     footerNoteLink: "What's new",
   },
@@ -924,6 +928,7 @@ const en: Dictionary = {
     yourResponsibilityTitle: "What you're responsible for",
     yourResponsibilityParagraphs: [
       "You're responsible for the accuracy of the data you enter and for your account credentials. Before deleting anything you're always asked for an explicit confirmation: deleted transactions still stay in the trash for 30 days before being removed for good, and you can restore them at any point before then.",
+      "Bilancino is meant for adult use: by creating an account you confirm you are at least 18 years old.",
     ],
     ifSomethingGoesWrongTitle: "If something goes wrong",
     ifSomethingGoesWrongParagraphs: [

@@ -878,11 +878,13 @@ const it = {
       "Email e password per il tuo account (o solo l'email, se scegli di accedere con Google), gestite da Supabase Auth: la password non è mai visibile in chiaro, nemmeno a me.",
       "Se usi \"Continua con Google\", ricevo dal tuo account Google solo il nome e l'indirizzo email necessari per creare l'account — non accedo al resto dei tuoi dati Google.",
       "I dati finanziari che inserisci tu: movimenti, categorie, budget, obiettivi di risparmio, contatti e note, movimenti ricorrenti. Nient'altro — non chiedo indirizzo, telefono, né dati di pagamento, perché non mi servono per far funzionare l'app.",
+      "Tratto questi dati sulla base del contratto che accetti creando un account — mi servono per far funzionare l'app che hai scelto di usare — oppure, per Google Analytics, sulla base del tuo consenso esplicito (vedi la sezione Cookie qui sotto).",
     ],
     hostingTitle: "Dove sono ospitati",
     hostingParagraphs: [
       "Il database (Supabase, Postgres) è ospitato in Europa, a Francoforte. L'applicazione gira su Vercel, che può elaborare le richieste anche da server negli Stati Uniti — è così che funziona un'app web moderna, e te lo dico invece di lasciartelo scoprire.",
       "Supabase e Vercel sono fornitori tecnici: trattano i tuoi dati solo per far funzionare l'app, non li usano per scopi propri.",
+      "Quando i dati passano da un fornitore fuori dall'Unione Europea (ad esempio verso gli Stati Uniti, per Vercel o Google Analytics), questo avviene nell'ambito delle Clausole Contrattuali Standard previste dalla normativa europea, incluse nei contratti che questi fornitori mettono a disposizione.",
     ],
     isolationTitle: "Isolamento e sicurezza",
     isolationParagraphs: [
@@ -898,6 +900,8 @@ const it = {
     yourDataPara1: "Dalla Panoramica puoi esportare in qualsiasi momento l'intero storico dei movimenti in CSV, senza chiedere permesso a nessuno.",
     yourDataPara2Pre: "Puoi eliminare il tuo account, e con esso tutti i dati collegati, direttamente dalle Impostazioni dentro l'app: la cancellazione è immediata e definitiva, non serve chiedere il permesso a nessuno. Per correzioni o altre richieste sui tuoi dati, scrivimi a",
     yourDataPara2Post: "quando vuoi.",
+    yourDataPara3:
+      "Finché il tuo account è attivo, i dati restano nel database così come li inserisci: non c'è una scadenza automatica che li cancella da sola. Oltre a esportarli e cancellarli da solo, hai sempre diritto di chiedermi accesso, rettifica, limitazione o opposizione al trattamento dei tuoi dati, e puoi revocare in qualsiasi momento il consenso a Google Analytics da \"Gestisci preferenze cookie\" in fondo al sito. Se ritieni che il trattamento dei tuoi dati non sia corretto, puoi anche presentare reclamo al Garante per la protezione dei dati personali (garanteprivacy.it).",
     footerNotePre: "Se cambia qualcosa nel modo in cui tratto i dati, aggiorno questa pagina. Non c'è una newsletter né una notifica automatica: la cronologia reale delle modifiche al progetto è su",
     footerNoteLink: "Novità",
   },
@@ -922,6 +926,7 @@ const it = {
     yourResponsibilityTitle: "Di cosa sei responsabile tu",
     yourResponsibilityParagraphs: [
       "Sei tu responsabile dell'accuratezza dei dati che inserisci e delle credenziali del tuo account. Prima di eliminare qualsiasi cosa ti viene sempre chiesta una conferma esplicita: i movimenti eliminati restano comunque nel cestino per 30 giorni prima di essere rimossi per sempre, e puoi ripristinarli in qualsiasi momento prima di allora.",
+      "Bilancino è pensato per un uso da maggiorenni: creando un account dichiari di avere almeno 18 anni.",
     ],
     ifSomethingGoesWrongTitle: "Se qualcosa va storto",
     ifSomethingGoesWrongParagraphs: [
