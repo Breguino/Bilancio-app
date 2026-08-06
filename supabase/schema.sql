@@ -324,3 +324,70 @@ select cron.schedule(
   '0 4 * * *', -- ogni notte alle 04:00 UTC
   $$select public.purge_old_deleted_transactions();$$
 );
+
+-- ---------- Dati anagrafici dell'utente ----------
+-- Richiesti in fase di registrazione (nome, cognome, data di nascita).
+-- Stanno in una tabella separata invece che nei metadati di
+-- auth.users perché così sono soggetti alle stesse policy RLS di tutto il
+-- resto: nessun utente può leggere l'anagrafica di un altro.
+create table if not exists public.profiles (
+  user_id uuid primary key references auth.users (id) on delete cascade,
+  first_name text,
+  last_name text,
+  birth_date date,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.profiles enable row level security;
+
+create policy "profiles_select_own" on public.profiles
+  for select using ((select auth.uid()) = user_id);
+create policy "profiles_insert_own" on public.profiles
+  for insert with check ((select auth.uid()) = user_id);
+create policy "profiles_update_own" on public.profiles
+  for update using ((select auth.uid()) = user_id);
+create policy "profiles_delete_own" on public.profiles
+  for delete using ((select auth.uid()) = user_id);
+
+-- La riga del profilo nasce insieme all'utente. Chi si registra col form
+-- passa i dati in raw_user_meta_data e la riga nasce già completa; chi entra
+-- con Google non li ha, quindi nasce vuota e l'app chiede di completarla al
+-- primo accesso (vedi app/completa-profilo).
+-- security definer: gira nel contesto della insert su auth.users, dove
+-- auth.uid() non è ancora quello del nuovo utente e le policy RLS
+-- bloccherebbero l'inserimento.
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  insert into public.profiles (user_id, first_name, last_name, birth_date)
+  values (
+    new.id,
+    nullif(new.raw_user_meta_data ->> 'first_name', ''),
+    nullif(new.raw_user_meta_data ->> 'last_name', ''),
+    (nullif(new.raw_user_meta_data ->> 'birth_date', ''))::date
+  )
+  on conflict (user_id) do nothing;
+  return new;
+end;
+$$;
+
+-- Serve solo al trigger qui sotto: come le altre funzioni security definer di
+-- questo schema, non deve essere richiamabile dalla REST API pubblica.
+revoke execute on function public.handle_new_user() from anon, authenticated, public;
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_user();
+
+-- Gli utenti già esistenti quando questo blocco viene applicato la prima volta
+-- non hanno una riga: la creiamo vuota, così l'app li tratta come "profilo da
+-- completare" invece di dover distinguere fra riga mancante e riga incompleta.
+insert into public.profiles (user_id)
+select id from auth.users
+on conflict (user_id) do nothing;

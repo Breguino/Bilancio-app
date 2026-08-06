@@ -879,8 +879,9 @@ const en: Dictionary = {
     dataCollectedParagraphs: [
       "The email and password for your account (or just the email, if you choose to sign in with Google), managed by Supabase Auth: your password is never visible in plain text, not even to me.",
       "If you use \"Continue with Google\", I receive only the name and email address from your Google account needed to create it — I don't access the rest of your Google data.",
+      "The personal details required at registration: first name, last name and date of birth. The date of birth also serves to check the 18-year requirement set out in the terms; if you sign in with Google, I ask you to fill in these same details on your first visit.",
       "The financial data you enter yourself: transactions, categories, budgets, savings goals, contacts and notes, recurring transactions. Nothing else — I don't ask for an address, phone number, or payment details, because I don't need them to make the app work.",
-      "I process this data on the basis of the contract you accept when you create an account — I need it to run the app you chose to use — or, for Google Analytics, on the basis of your explicit consent (see the Cookies section below).",
+      "I process this data on the basis of the contract you accept when you create an account — I need it to run the app you chose to use and to check that you're allowed to use it — or, for Google Analytics, on the basis of your explicit consent (see the Cookies section below).",
     ],
     hostingTitle: "Where it's hosted",
     hostingParagraphs: [
@@ -928,7 +929,7 @@ const en: Dictionary = {
     yourResponsibilityTitle: "What you're responsible for",
     yourResponsibilityParagraphs: [
       "You're responsible for the accuracy of the data you enter and for your account credentials. Before deleting anything you're always asked for an explicit confirmation: deleted transactions still stay in the trash for 30 days before being removed for good, and you can restore them at any point before then.",
-      "Bilancino is meant for adult use: by creating an account you confirm you are at least 18 years old.",
+      "Bilancino is meant for adult use: at registration I ask for your first name, last name and date of birth, and the date of birth is used to check that you are at least 18. You are responsible for the accuracy of these details; if you sign in with Google, I ask for them on your first visit.",
     ],
     ifSomethingGoesWrongTitle: "If something goes wrong",
     ifSomethingGoesWrongParagraphs: [
@@ -961,6 +962,22 @@ const en: Dictionary = {
       show: "Show password",
       hide: "Hide password",
     },
+    profileFields: {
+      firstNameLabel: "First name",
+      lastNameLabel: "Last name",
+      birthDateLabel: "Date of birth",
+      birthDateHint: "You must be at least 18 to use Bilancino.",
+    },
+    completeProfile: {
+      title: "Complete your profile",
+      subtitle:
+        "You signed in with Google, so a few details required at registration are still missing. You only need to do this once.",
+      submit: "Save and continue",
+      missingFieldsError: "Please fill in every field: first name, last name and date of birth.",
+      invalidBirthDateError: "That date of birth isn't valid.",
+      tooYoungError: "You must be at least 18 to use Bilancino.",
+      saveFailedError: "Your details couldn't be saved. Please try again.",
+    },
     login: {
       title: "Log in",
       subtitle: "Sign in with your account to see your data.",
@@ -981,6 +998,9 @@ const en: Dictionary = {
       checkEmailTitle: "Check your email",
       checkEmailBodyPre: "We've sent you a confirmation link. Open it to activate your account, then come back to",
       checkEmailLoginWord: "log in",
+      missingFieldsError: "Please fill in every field: first name, last name and date of birth.",
+      invalidBirthDateError: "That date of birth isn't valid.",
+      tooYoungError: "You must be at least 18 to sign up for Bilancino.",
     },
     resetPassword: {
       title: "Forgot your password",
