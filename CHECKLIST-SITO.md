@@ -36,8 +36,8 @@ Non avendo credenziali d'accesso e per non creare dati finti nel database di pro
    Causa: in `lib/supabase/middleware.ts` ogni indirizzo non esplicitamente elencato come pubblico veniva trattato come "riservato" e chi non era loggato veniva mandato al login — anche se quella pagina non esisteva affatto.
    Correzione: aggiunto un elenco esplicito delle pagine effettivamente riservate (`PROTECTED_EXACT`/`PROTECTED_PREFIXES`, ricavato da tutte le rotte sotto `app/(app)` più `/imposta-password` e `/api/export`). Il redirect al login scatta solo per queste; qualunque altro indirizzo non pubblico e non riservato prosegue verso il vero `not-found.tsx`. Verificato in locale: le pagine pubbliche restano 200, le pagine riservate reali continuano a rimandare al login, gli indirizzi inesistenti danno 404.
 
-2. **Il README indica un dominio diverso da quello canonico usato dal sito**
-   Il `README.md` riporta come "Sito live" `https://bilancino-app.vercel.app`, ma `sitemap.xml`, `robots.txt` e i meta tag SEO generati dall'app usano `https://bilancino.it.com` come dominio canonico. Non blocca nulla (entrambi gli indirizzi funzionano), ma è un'inconsistenza da sistemare nella documentazione.
+2. ~~**Il README indica un dominio diverso da quello canonico usato dal sito**~~ — **Risolto.**
+   Il `README.md` riportava come "Sito live" `https://bilancino-app.vercel.app`, mentre `sitemap.xml`, `robots.txt` e i meta tag SEO generati dall'app usano `https://bilancino.it.com` come dominio canonico. Aggiornato il README con quest'ultimo.
 
 ## Come è stata fatta questa verifica
 
