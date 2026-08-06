@@ -22,6 +22,14 @@ export function generateMetadata(): Metadata {
       index: true,
       follow: true,
     },
+    // Codice di verifica di Google Search Console: se scegli il metodo "Tag
+    // HTML" invece di quello DNS, Google ti dà solo il valore del content, non
+    // il meta tag intero — è quello che va qui. Senza la variabile d'ambiente
+    // impostata, Next.js non stampa il tag: nessun rischio di lasciarlo vuoto
+    // in produzione per errore.
+    verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+      ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+      : undefined,
     openGraph: {
       title,
       description,
