@@ -43,6 +43,7 @@ const PROTECTED_EXACT = [
   "/statistics",
   "/yearly",
   "/imposta-password",
+  "/completa-profilo",
   "/api/export",
 ];
 const PROTECTED_PREFIXES = ["/contacts/", "/receipt/"];

@@ -877,8 +877,9 @@ const it = {
     dataCollectedParagraphs: [
       "Email e password per il tuo account (o solo l'email, se scegli di accedere con Google), gestite da Supabase Auth: la password non è mai visibile in chiaro, nemmeno a me.",
       "Se usi \"Continua con Google\", ricevo dal tuo account Google solo il nome e l'indirizzo email necessari per creare l'account — non accedo al resto dei tuoi dati Google.",
-      "I dati finanziari che inserisci tu: movimenti, categorie, budget, obiettivi di risparmio, contatti e note, movimenti ricorrenti. Nient'altro — non chiedo indirizzo, telefono, né dati di pagamento, perché non mi servono per far funzionare l'app.",
-      "Tratto questi dati sulla base del contratto che accetti creando un account — mi servono per far funzionare l'app che hai scelto di usare — oppure, per Google Analytics, sulla base del tuo consenso esplicito (vedi la sezione Cookie qui sotto).",
+      "I dati anagrafici richiesti alla registrazione: nome, cognome, data di nascita e residenza. La data di nascita serve anche a verificare il requisito dei 18 anni previsto dai termini; se accedi con Google ti chiedo di completare questi stessi dati al primo accesso.",
+      "I dati finanziari che inserisci tu: movimenti, categorie, budget, obiettivi di risparmio, contatti e note, movimenti ricorrenti. Nient'altro — non chiedo telefono né dati di pagamento, perché non mi servono per far funzionare l'app.",
+      "Tratto questi dati sulla base del contratto che accetti creando un account — mi servono per far funzionare l'app che hai scelto di usare e per verificare che tu possa usarla — oppure, per Google Analytics, sulla base del tuo consenso esplicito (vedi la sezione Cookie qui sotto).",
     ],
     hostingTitle: "Dove sono ospitati",
     hostingParagraphs: [
@@ -926,7 +927,7 @@ const it = {
     yourResponsibilityTitle: "Di cosa sei responsabile tu",
     yourResponsibilityParagraphs: [
       "Sei tu responsabile dell'accuratezza dei dati che inserisci e delle credenziali del tuo account. Prima di eliminare qualsiasi cosa ti viene sempre chiesta una conferma esplicita: i movimenti eliminati restano comunque nel cestino per 30 giorni prima di essere rimossi per sempre, e puoi ripristinarli in qualsiasi momento prima di allora.",
-      "Bilancino è pensato per un uso da maggiorenni: creando un account dichiari di avere almeno 18 anni.",
+      "Bilancino è pensato per un uso da maggiorenni: alla registrazione ti chiedo nome, cognome, data di nascita e residenza, e la data di nascita viene usata per verificare che tu abbia almeno 18 anni. Sei tu responsabile della veridicità di questi dati; se accedi con Google te li chiedo al primo accesso.",
     ],
     ifSomethingGoesWrongTitle: "Se qualcosa va storto",
     ifSomethingGoesWrongParagraphs: [
@@ -959,6 +960,24 @@ const it = {
       show: "Mostra password",
       hide: "Nascondi password",
     },
+    profileFields: {
+      firstNameLabel: "Nome",
+      lastNameLabel: "Cognome",
+      birthDateLabel: "Data di nascita",
+      birthDateHint: "Devi avere almeno 18 anni per usare Bilancino.",
+      residenceLabel: "Residenza",
+      residencePlaceholder: "Via, numero, città",
+    },
+    completeProfile: {
+      title: "Completa il tuo profilo",
+      subtitle:
+        "Sei entrato con Google, quindi mancano ancora alcuni dati richiesti per la registrazione. Bastano una volta sola.",
+      submit: "Salva e continua",
+      missingFieldsError: "Compila tutti i campi: nome, cognome, data di nascita e residenza.",
+      invalidBirthDateError: "La data di nascita non è valida.",
+      tooYoungError: "Devi avere almeno 18 anni per usare Bilancino.",
+      saveFailedError: "Non è stato possibile salvare i dati. Riprova.",
+    },
     login: {
       title: "Accedi",
       subtitle: "Entra con il tuo account per vedere i tuoi dati.",
@@ -979,6 +998,9 @@ const it = {
       checkEmailTitle: "Controlla la tua email",
       checkEmailBodyPre: "Ti abbiamo inviato un link di conferma. Aprilo per attivare il tuo account, poi torna ad",
       checkEmailLoginWord: "accedere",
+      missingFieldsError: "Compila tutti i campi: nome, cognome, data di nascita e residenza.",
+      invalidBirthDateError: "La data di nascita non è valida.",
+      tooYoungError: "Devi avere almeno 18 anni per registrarti a Bilancino.",
     },
     resetPassword: {
       title: "Password dimenticata",

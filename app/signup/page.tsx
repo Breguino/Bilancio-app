@@ -72,6 +72,62 @@ export default function SignupPage({
         </div>
 
         <form action={signup} className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="first_name" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
+                {t.auth.profileFields.firstNameLabel}
+              </label>
+              <input
+                id="first_name"
+                name="first_name"
+                type="text"
+                required
+                autoComplete="given-name"
+                className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="last_name" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
+                {t.auth.profileFields.lastNameLabel}
+              </label>
+              <input
+                id="last_name"
+                name="last_name"
+                type="text"
+                required
+                autoComplete="family-name"
+                className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="birth_date" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
+              {t.auth.profileFields.birthDateLabel}
+            </label>
+            <input
+              id="birth_date"
+              name="birth_date"
+              type="date"
+              required
+              autoComplete="bday"
+              className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent bg-transparent"
+            />
+            <span className="text-xs text-ink-muted dark:text-neutral-500">{t.auth.profileFields.birthDateHint}</span>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="residence" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
+              {t.auth.profileFields.residenceLabel}
+            </label>
+            <input
+              id="residence"
+              name="residence"
+              type="text"
+              required
+              autoComplete="street-address"
+              placeholder={t.auth.profileFields.residencePlaceholder}
+              className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+            />
+          </div>
           <div className="flex flex-col gap-1.5">
             <label htmlFor="email" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
               {t.auth.emailLabel}

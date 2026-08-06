@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Home, Settings } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import { isProfileComplete, type Profile } from "@/lib/profile";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "@/components/logo";
 import { AppNav } from "@/components/app-nav";
@@ -17,6 +19,23 @@ export default async function AppLayout({
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  // Chi entra con Google non passa dal form di registrazione, quindi arriva
+  // qui senza i dati anagrafici richiesti: lo mandiamo a completarli prima di
+  // poter usare l'app. La pagina sta fuori da questo gruppo di rotte, altrimenti
+  // il controllo si riattiverebbe su se stesso.
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("first_name, last_name, birth_date, residence")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (!isProfileComplete(profile as Profile | null)) {
+      redirect("/completa-profilo");
+    }
+  }
+
   const { locale, t } = getDictionary();
 
   const navLinks = [
