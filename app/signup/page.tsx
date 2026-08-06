@@ -115,20 +115,6 @@ export default function SignupPage({
             <span className="text-xs text-ink-muted dark:text-neutral-500">{t.auth.profileFields.birthDateHint}</span>
           </div>
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="residence" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
-              {t.auth.profileFields.residenceLabel}
-            </label>
-            <input
-              id="residence"
-              name="residence"
-              type="text"
-              required
-              autoComplete="street-address"
-              placeholder={t.auth.profileFields.residencePlaceholder}
-              className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
-          <div className="flex flex-col gap-1.5">
             <label htmlFor="email" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
               {t.auth.emailLabel}
             </label>

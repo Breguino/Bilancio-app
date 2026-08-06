@@ -20,9 +20,8 @@ export async function completeProfile(formData: FormData) {
   const firstName = String(formData.get("first_name") || "").trim();
   const lastName = String(formData.get("last_name") || "").trim();
   const birthDate = String(formData.get("birth_date") || "").trim();
-  const residence = String(formData.get("residence") || "").trim();
 
-  if (!firstName || !lastName || !birthDate || !residence) {
+  if (!firstName || !lastName || !birthDate) {
     redirect(`/completa-profilo?error=${encodeURIComponent(t.auth.completeProfile.missingFieldsError)}`);
   }
 
@@ -43,7 +42,6 @@ export async function completeProfile(formData: FormData) {
       first_name: firstName,
       last_name: lastName,
       birth_date: birthDate,
-      residence,
       updated_at: new Date().toISOString(),
     },
     { onConflict: "user_id" }

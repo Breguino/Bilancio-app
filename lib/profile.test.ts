@@ -50,14 +50,13 @@ describe("isProfileComplete", () => {
     first_name: "Angelo",
     last_name: "Bregu",
     birth_date: "1990-05-12",
-    residence: "Via Roma 1, Milano",
   };
 
-  it("è completo solo con tutti e quattro i campi", () => {
+  it("è completo solo con tutti e tre i campi", () => {
     expect(isProfileComplete(full)).toBe(true);
     expect(isProfileComplete(null)).toBe(false);
-    expect(isProfileComplete({ ...full, residence: null })).toBe(false);
     expect(isProfileComplete({ ...full, birth_date: null })).toBe(false);
+    expect(isProfileComplete({ ...full, first_name: null })).toBe(false);
   });
 
   it("non considera validi i campi fatti di soli spazi", () => {

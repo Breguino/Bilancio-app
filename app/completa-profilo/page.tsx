@@ -24,7 +24,7 @@ export default async function CompletaProfiloPage({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("first_name, last_name, birth_date, residence")
+    .select("first_name, last_name, birth_date")
     .eq("user_id", user.id)
     .maybeSingle();
 
@@ -97,21 +97,6 @@ export default async function CompletaProfiloPage({
               className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent bg-transparent"
             />
             <span className="text-xs text-ink-muted dark:text-neutral-500">{t.auth.profileFields.birthDateHint}</span>
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <label htmlFor="residence" className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">
-              {t.auth.profileFields.residenceLabel}
-            </label>
-            <input
-              id="residence"
-              name="residence"
-              type="text"
-              required
-              autoComplete="street-address"
-              placeholder={t.auth.profileFields.residencePlaceholder}
-              defaultValue={profile?.residence ?? ""}
-              className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-            />
           </div>
           <button
             type="submit"

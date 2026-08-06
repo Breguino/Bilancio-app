@@ -4,7 +4,6 @@ export type Profile = {
   first_name: string | null;
   last_name: string | null;
   birth_date: string | null;
-  residence: string | null;
 };
 
 export const MIN_SIGNUP_AGE = 18;
@@ -39,15 +38,12 @@ export function isAdult(birthDate: string, today: Date = new Date()): boolean {
   return ageOn(birthDate, today) >= MIN_SIGNUP_AGE;
 }
 
-// Il profilo è completo solo se tutti e quattro i campi sono valorizzati:
+// Il profilo è completo solo se tutti e tre i campi sono valorizzati:
 // chi si registra col form li fornisce subito, chi entra con Google no, e
 // finché mancano l'app lo manda su /completa-profilo.
 export function isProfileComplete(profile: Profile | null): boolean {
   if (!profile) return false;
   return Boolean(
-    profile.first_name?.trim() &&
-      profile.last_name?.trim() &&
-      profile.birth_date &&
-      profile.residence?.trim()
+    profile.first_name?.trim() && profile.last_name?.trim() && profile.birth_date
   );
 }

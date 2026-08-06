@@ -326,8 +326,8 @@ select cron.schedule(
 );
 
 -- ---------- Dati anagrafici dell'utente ----------
--- Richiesti in fase di registrazione (nome, cognome, data di nascita,
--- residenza). Stanno in una tabella separata invece che nei metadati di
+-- Richiesti in fase di registrazione (nome, cognome, data di nascita).
+-- Stanno in una tabella separata invece che nei metadati di
 -- auth.users perché così sono soggetti alle stesse policy RLS di tutto il
 -- resto: nessun utente può leggere l'anagrafica di un altro.
 create table if not exists public.profiles (
@@ -335,7 +335,6 @@ create table if not exists public.profiles (
   first_name text,
   last_name text,
   birth_date date,
-  residence text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -365,13 +364,12 @@ security definer
 set search_path = public
 as $$
 begin
-  insert into public.profiles (user_id, first_name, last_name, birth_date, residence)
+  insert into public.profiles (user_id, first_name, last_name, birth_date)
   values (
     new.id,
     nullif(new.raw_user_meta_data ->> 'first_name', ''),
     nullif(new.raw_user_meta_data ->> 'last_name', ''),
-    (nullif(new.raw_user_meta_data ->> 'birth_date', ''))::date,
-    nullif(new.raw_user_meta_data ->> 'residence', '')
+    (nullif(new.raw_user_meta_data ->> 'birth_date', ''))::date
   )
   on conflict (user_id) do nothing;
   return new;
