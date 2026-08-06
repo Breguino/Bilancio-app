@@ -31,10 +31,10 @@ Non avendo credenziali d'accesso e per non creare dati finti nel database di pro
 
 ## ❌ Problemi trovati
 
-1. **Un indirizzo inesistente rimanda al login invece di mostrare "pagina non trovata"**
-   Esempio: `https://bilancino-app.vercel.app/pagina-che-non-esiste-xyz` risponde con un redirect (307) a `/login?next=/pagina-che-non-esiste-xyz`, invece di un 404.
-   Causa: in `lib/supabase/middleware.ts` ogni indirizzo non esplicitamente elencato come pubblico viene trattato come "riservato" e chi non è loggato viene mandato al login — anche se quella pagina non esiste affatto. La cosa funziona bene solo per gli indirizzi sotto `/guide/...`, che essendo in whitelist come prefisso pubblico arrivano correttamente alla pagina 404 vera e propria (`not-found.tsx`).
-   Effetto pratico: un link rotto, un refuso digitato nell'URL o un vecchio indirizzo mostrano la schermata di login invece di un messaggio "pagina non trovata" — confusionario per chi arriva sul sito da un link sbagliato o da un motore di ricerca.
+1. ~~**Un indirizzo inesistente rimanda al login invece di mostrare "pagina non trovata"**~~ — **Risolto.**
+   Esempio: `https://bilancino-app.vercel.app/pagina-che-non-esiste-xyz` rispondeva con un redirect (307) a `/login?next=/pagina-che-non-esiste-xyz`, invece di un 404.
+   Causa: in `lib/supabase/middleware.ts` ogni indirizzo non esplicitamente elencato come pubblico veniva trattato come "riservato" e chi non era loggato veniva mandato al login — anche se quella pagina non esisteva affatto.
+   Correzione: aggiunto un elenco esplicito delle pagine effettivamente riservate (`PROTECTED_EXACT`/`PROTECTED_PREFIXES`, ricavato da tutte le rotte sotto `app/(app)` più `/imposta-password` e `/api/export`). Il redirect al login scatta solo per queste; qualunque altro indirizzo non pubblico e non riservato prosegue verso il vero `not-found.tsx`. Verificato in locale: le pagine pubbliche restano 200, le pagine riservate reali continuano a rimandare al login, gli indirizzi inesistenti danno 404.
 
 2. **Il README indica un dominio diverso da quello canonico usato dal sito**
    Il `README.md` riporta come "Sito live" `https://bilancino-app.vercel.app`, ma `sitemap.xml`, `robots.txt` e i meta tag SEO generati dall'app usano `https://bilancino.it.com` come dominio canonico. Non blocca nulla (entrambi gli indirizzi funzionano), ma è un'inconsistenza da sistemare nella documentazione.
