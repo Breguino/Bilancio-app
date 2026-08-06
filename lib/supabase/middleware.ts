@@ -24,6 +24,34 @@ function isPublicPath(path: string) {
   return PUBLIC_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`));
 }
 
+// Elenco esplicito delle pagine riservate: a differenza delle rotte pubbliche,
+// qui non possiamo permetterci un "tutto ciò che non è elencato sopra è
+// protetto" perché un indirizzo scritto male o un link rotto finirebbe
+// rimandato al login invece che a un vero 404. Quando si aggiunge una pagina
+// sotto app/(app) (o un'altra pagina riservata fuori da quel gruppo) va
+// aggiunta anche qui.
+const PROTECTED_EXACT = [
+  "/dashboard",
+  "/budget",
+  "/cestino",
+  "/compare",
+  "/contacts",
+  "/goals",
+  "/impostazioni",
+  "/newsletter",
+  "/recurring",
+  "/statistics",
+  "/yearly",
+  "/imposta-password",
+  "/api/export",
+];
+const PROTECTED_PREFIXES = ["/contacts/", "/receipt/"];
+
+function isProtectedPath(path: string) {
+  if (PROTECTED_EXACT.includes(path)) return true;
+  return PROTECTED_PREFIXES.some((p) => path.startsWith(p));
+}
+
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
@@ -54,7 +82,7 @@ export async function updateSession(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
 
-  if (!isPublicPath(path) && !user) {
+  if (!isPublicPath(path) && isProtectedPath(path) && !user) {
     // Un redirect su una richiesta non-GET rompe le Server Action: Next.js prova a
     // inoltrare la risposta dell'action attraverso il redirect e falla con
     // "failed to forward action response", quindi il form non fa niente e l'utente
