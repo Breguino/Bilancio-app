@@ -39,6 +39,10 @@ Non avendo credenziali d'accesso e per non creare dati finti nel database di pro
 2. ~~**Il README indica un dominio diverso da quello canonico usato dal sito**~~ — **Risolto.**
    Il `README.md` riportava come "Sito live" `https://bilancino-app.vercel.app`, mentre `sitemap.xml`, `robots.txt` e i meta tag SEO generati dall'app usano `https://bilancino.it.com` come dominio canonico. Aggiornato il README con quest'ultimo.
 
+## Nota privacy/GDPR (aggiunta successiva)
+
+Durante una revisione mirata sulla conformità privacy della pagina `/privacy`, è emerso che veniva indicata solo un'email di contatto (`a2n0g004@gmail.com`) senza il nome del titolare del trattamento — l'art. 13 GDPR richiede di dichiarare identità e contatti del titolare, non solo un recapito. **Risolto:** aggiunto il nome (Angelo Bregu) nel testo introduttivo della pagina privacy, in italiano e inglese.
+
 ## Come è stata fatta questa verifica
 
 - `npm install`, `npm run build`, `npm test` in locale.

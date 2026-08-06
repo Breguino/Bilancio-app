@@ -874,7 +874,7 @@ const en: Dictionary = {
     eyebrow: "Privacy",
     heroTitle: "How I handle your data.",
     heroBody:
-      "Bilancino is an independent project built and run by one person, not a company with a legal department. What follows is written in plain language, not by a lawyer: if you have specific questions, get in touch.",
+      "Bilancino is an independent project built and run by Angelo Bregu, one person, not a company with a legal department — he is the data controller for the data collected by this site. What follows is written in plain language, not by a lawyer: if you have specific questions, get in touch.",
     dataCollectedTitle: "What data I collect",
     dataCollectedParagraphs: [
       "The email and password for your account (or just the email, if you choose to sign in with Google), managed by Supabase Auth: your password is never visible in plain text, not even to me.",

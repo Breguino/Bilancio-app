@@ -872,7 +872,7 @@ const it = {
     eyebrow: "Privacy",
     heroTitle: "Come tratto i tuoi dati.",
     heroBody:
-      "Bilancino è un progetto indipendente sviluppato e gestito da una persona sola, non da un'azienda con un ufficio legale. Quello che segue è scritto in italiano semplice, non da un avvocato: se hai dubbi specifici, scrivimi.",
+      "Bilancino è un progetto indipendente sviluppato e gestito da Angelo Bregu, una persona sola, non un'azienda con un ufficio legale — è lui il titolare del trattamento dei dati raccolti da questo sito. Quello che segue è scritto in italiano semplice, non da un avvocato: se hai dubbi specifici, scrivimi.",
     dataCollectedTitle: "Che dati raccolgo",
     dataCollectedParagraphs: [
       "Email e password per il tuo account (o solo l'email, se scegli di accedere con Google), gestite da Supabase Auth: la password non è mai visibile in chiaro, nemmeno a me.",
