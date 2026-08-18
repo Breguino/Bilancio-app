@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { completeProfile } from "./actions";
 import { Logo } from "@/components/logo";
 import { ErrorBanner } from "@/components/error-banner";
+import { SubmitButton } from "@/components/submit-button";
+import { AuthConsentNote, AuthLegalFooter } from "@/components/auth-legal";
 import { createClient } from "@/lib/supabase/server";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { isProfileComplete, type Profile } from "@/lib/profile";
@@ -98,13 +100,29 @@ export default async function CompletaProfiloPage({
             />
             <span className="text-xs text-ink-muted dark:text-neutral-500">{t.auth.profileFields.birthDateHint}</span>
           </div>
-          <button
-            type="submit"
+          <SubmitButton
+            pendingText={t.auth.completeProfile.submitPending}
             className="mt-2 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full py-2.5 transition-colors"
           >
             {t.auth.completeProfile.submit}
+          </SubmitButton>
+
+          <AuthConsentNote variant="continue" />
+        </form>
+
+        {/* Chi entra con Google finisce qui senza averlo chiesto: senza una via
+            di uscita resterebbe bloccato sul form, con la sessione aperta e
+            nessun modo di chiuderla. La rotta /logout accetta solo POST. */}
+        <form action="/logout" method="post" className="mt-6 text-center">
+          <span className="text-sm text-ink-secondary dark:text-neutral-400">
+            {t.auth.completeProfile.notYouPre}{" "}
+          </span>
+          <button type="submit" className="text-sm font-medium text-accent hover:underline">
+            {t.auth.completeProfile.signOut}
           </button>
         </form>
+
+        <AuthLegalFooter />
       </div>
     </main>
   );

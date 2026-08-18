@@ -1,11 +1,16 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { cookies, headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
-import { headers } from "next/headers";
 import { track } from "@vercel/analytics/server";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { isValidBirthDate, isAdult } from "@/lib/profile";
+
+// L'indirizzo appena registrato serve solo alla schermata "controlla la tua
+// email", per poter rimandare il link. Sta in un cookie httpOnly e non nella
+// query string: nell'URL finirebbe nella cronologia del browser e nei referer.
+const PENDING_EMAIL_COOKIE = "pending_confirmation_email";
 
 export async function signup(formData: FormData) {
   const { t } = getDictionary();
@@ -55,6 +60,28 @@ export async function signup(formData: FormData) {
     redirect(`/signup?error=${encodeURIComponent(error.message)}`);
   }
 
+  cookies().set(PENDING_EMAIL_COOKIE, email, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    path: "/signup",
+    maxAge: 60 * 30,
+  });
+
   await track("signup_completed");
   redirect("/signup?check_email=1");
+}
+
+export async function resendConfirmation() {
+  const email = cookies().get(PENDING_EMAIL_COOKIE)?.value;
+
+  if (email) {
+    const supabase = createClient();
+    // Come per il reset password, l'esito non viene distinto: rispondere in
+    // modo diverso a seconda che l'indirizzo esista o sia già confermato
+    // direbbe a chiunque quali email hanno un account.
+    await supabase.auth.resend({ type: "signup", email });
+  }
+
+  redirect("/signup?check_email=1&resent=1");
 }
