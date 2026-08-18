@@ -3,12 +3,16 @@ import { signup } from "./actions";
 import { Logo } from "@/components/logo";
 import { PasswordInput } from "@/components/password-input";
 import { GoogleSignInButton } from "@/components/google-signin-button";
+import { ErrorBanner } from "@/components/error-banner";
+import { SubmitButton } from "@/components/submit-button";
+import { ResendConfirmation } from "@/components/resend-confirmation";
+import { AuthConsentNote, AuthLegalFooter } from "@/components/auth-legal";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export default function SignupPage({
   searchParams,
 }: {
-  searchParams: { error?: string; check_email?: string };
+  searchParams: { error?: string; check_email?: string; resent?: string };
 }) {
   const { t } = getDictionary();
 
@@ -26,10 +30,23 @@ export default function SignupPage({
             {t.auth.backToHome}
           </Link>
           <h1 className="text-2xl font-extrabold tracking-tight mb-2">{t.auth.signup.checkEmailTitle}</h1>
-          <p className="text-ink-secondary dark:text-neutral-400 text-sm">
+          <p className="text-ink-secondary dark:text-neutral-400 text-sm mb-6">
             {t.auth.signup.checkEmailBodyPre}{" "}
             <Link href="/login" className="text-accent font-medium">{t.auth.signup.checkEmailLoginWord}</Link>.
           </p>
+
+          <ResendConfirmation
+            resent={Boolean(searchParams.resent)}
+            labels={{
+              resend: t.auth.signup.resend,
+              pending: t.auth.signup.resendPending,
+              cooldown: t.auth.signup.resendCooldown,
+              spam: t.auth.signup.resendSpam,
+              done: t.auth.signup.resendDone,
+            }}
+          />
+
+          <AuthLegalFooter align="center" />
         </div>
       </main>
     );
@@ -58,9 +75,9 @@ export default function SignupPage({
         </p>
 
         {searchParams.error ? (
-          <p className="mb-4 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 text-red-700 dark:text-red-400 text-sm px-3 py-2">
-            {searchParams.error}
-          </p>
+          <div className="mb-4">
+            <ErrorBanner message={searchParams.error} />
+          </div>
         ) : null}
 
         <GoogleSignInButton label={t.auth.continueWithGoogle} />
@@ -139,15 +156,17 @@ export default function SignupPage({
               minLength={8}
               showLabel={t.auth.passwordInput.show}
               hideLabel={t.auth.passwordInput.hide}
+              strengthLabels={t.auth.passwordStrength}
             />
-            <span className="text-xs text-ink-muted dark:text-neutral-500">{t.auth.signup.minChars}</span>
           </div>
-          <button
-            type="submit"
+          <SubmitButton
+            pendingText={t.auth.signup.submitPending}
             className="mt-2 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full py-2.5 transition-colors"
           >
             {t.auth.signup.submit}
-          </button>
+          </SubmitButton>
+
+          <AuthConsentNote variant="signup" />
         </form>
 
         <p className="text-sm text-ink-secondary dark:text-neutral-400 mt-6">
@@ -156,6 +175,8 @@ export default function SignupPage({
             {t.auth.signup.loginLink}
           </Link>
         </p>
+
+        <AuthLegalFooter />
       </div>
     </main>
   );

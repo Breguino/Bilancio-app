@@ -3,6 +3,8 @@ import { updatePassword } from "./actions";
 import { Logo } from "@/components/logo";
 import { PasswordInput } from "@/components/password-input";
 import { ErrorBanner } from "@/components/error-banner";
+import { SubmitButton } from "@/components/submit-button";
+import { AuthLegalFooter } from "@/components/auth-legal";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export default function ImpostaPasswordPage({
@@ -39,6 +41,7 @@ export default function ImpostaPasswordPage({
               minLength={6}
               showLabel={t.auth.passwordInput.show}
               hideLabel={t.auth.passwordInput.hide}
+              strengthLabels={t.auth.passwordStrength}
             />
           </div>
           <div className="flex flex-col gap-1.5">
@@ -55,13 +58,15 @@ export default function ImpostaPasswordPage({
               hideLabel={t.auth.passwordInput.hide}
             />
           </div>
-          <button
-            type="submit"
+          <SubmitButton
+            pendingText={t.auth.setPassword.submitPending}
             className="mt-2 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full py-2.5 transition-colors"
           >
             {t.auth.setPassword.submit}
-          </button>
+          </SubmitButton>
         </form>
+
+        <AuthLegalFooter />
       </div>
     </main>
   );
