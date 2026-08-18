@@ -98,14 +98,16 @@ const en: Dictionary = {
   home: {
     metaTitle: "Free budgeting app with client tracking — Bilancino",
     metaDescription:
-      "Bilancino brings together personal budgeting and client context, without the complexity of accounting software for freelancers. A real account, data isolated per user.",
+      "For people with a few clients and no VAT number: personal budgeting and client records in one place. Load your bank statement as CSV, without handing your bank credentials to anyone.",
     jsonLdDescription:
       "Personal budgeting and client context in one place, with a real account and per-user isolated data.",
-    heroEyebrow: "Personal budget + CRM, with a real account",
-    heroTitlePre: "Your finances, finally",
-    heroTitleAccent: "in order",
+    heroEyebrow: "For people with a few clients and no VAT number",
+    heroTitlePre: "What you saved, and",
+    heroTitleAccent: "who still owes you",
     heroBody:
-      "Budgeting apps don't know who your clients are. Freelance accounting software doesn't know how much you've saved. Bilancino does both, without the complexity of accounting software.",
+      "Budgeting apps don't know who your clients are. Accounting software doesn't know how much you've saved. Bilancino holds both together, without the invoices and filings you don't need.",
+    heroImportNote:
+      "No bank credentials to hand over: load your statement as CSV and the transactions come in on their own.",
     ctaDashboard: "Go to Dashboard →",
     ctaSignupFree: "Create a free account →",
     ctaHowItWorks: "See how it works",
