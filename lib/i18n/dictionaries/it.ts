@@ -96,14 +96,16 @@ const it = {
   home: {
     metaTitle: "App per budget personale e clienti, gratis — Bilancino",
     metaDescription:
-      "Bilancino tiene insieme budget personale e contesto clienti, senza la complessità di un gestionale per la partita IVA. Account reale, dati isolati per utente.",
+      "Per chi ha qualche cliente e non la partita IVA: budget personale e scheda cliente in un unico posto. Carichi l'estratto conto in CSV, senza dare le credenziali della banca a nessuno.",
     jsonLdDescription:
       "Budget personale e contesto clienti in un unico posto, con account reale e dati isolati per utente.",
-    heroEyebrow: "Budget personale + CRM, con un vero account",
-    heroTitlePre: "Le tue finanze, finalmente",
-    heroTitleAccent: "in ordine",
+    heroEyebrow: "Per chi ha qualche cliente e non la partita IVA",
+    heroTitlePre: "Quanto hai risparmiato, e",
+    heroTitleAccent: "chi te lo deve",
     heroBody:
-      "Le app di budget non sanno chi sono i tuoi clienti. I gestionali per freelance non sanno quanto hai risparmiato. Bilancino fa entrambe le cose, senza la complessità di un gestionale.",
+      "Le app di budget non sanno chi sono i tuoi clienti. I gestionali per la partita IVA non sanno quanto hai risparmiato. Bilancino tiene insieme le due cose, senza fatture e senza adempimenti che non ti servono.",
+    heroImportNote:
+      "Nessuna credenziale della banca da consegnare: carichi il CSV dell'estratto conto e i movimenti entrano da soli.",
     ctaDashboard: "Vai alla Dashboard →",
     ctaSignupFree: "Crea un account gratis →",
     ctaHowItWorks: "Scopri come funziona",

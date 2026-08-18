@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { AuthGate } from "@/components/auth-gate";
 import { Reveal } from "@/components/reveal";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
-import { LineChart, BarChart3, RefreshCw, Users, Target, Receipt } from "lucide-react";
+import { LineChart, BarChart3, RefreshCw, Users, Target, Receipt, Upload } from "lucide-react";
 
 function buildHeroChart() {
   const income = [2400, 2550, 2500, 2800, 3100, 3250];
@@ -141,6 +141,13 @@ export default function HomePage() {
               {t.home.ctaHowItWorks}
             </a>
           </div>
+
+          {/* L'obiezione all'inserimento manuale si forma qui, davanti al
+              bottone: la risposta va data qui, non in fondo a "cosa offriamo". */}
+          <p className="flex items-start gap-2 mt-6 text-sm text-ink-secondary dark:text-neutral-400 max-w-[46ch]">
+            <Upload size={16} strokeWidth={1.75} className="shrink-0 mt-0.5 text-accent" aria-hidden="true" />
+            <span>{t.home.heroImportNote}</span>
+          </p>
         </div>
 
         <div className="flex flex-col gap-5">
