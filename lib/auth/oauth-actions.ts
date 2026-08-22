@@ -17,7 +17,7 @@ export async function signInWithGoogle() {
   });
 
   if (error || !data.url) {
-    redirect(`/login?error=${encodeURIComponent(error?.message || "Accesso con Google non disponibile")}`);
+    redirect("/login?error=google_unavailable");
   }
 
   await track("google_auth_started");

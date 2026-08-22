@@ -4,8 +4,8 @@ import { redirect } from "next/navigation";
 import { cookies, headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { track } from "@vercel/analytics/server";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { isValidBirthDate, isAdult } from "@/lib/profile";
+import { authErrorCode } from "@/lib/auth/auth-error";
 
 // L'indirizzo appena registrato serve solo alla schermata "controlla la tua
 // email", per poter rimandare il link. Sta in un cookie httpOnly e non nella
@@ -13,7 +13,6 @@ import { isValidBirthDate, isAdult } from "@/lib/profile";
 const PENDING_EMAIL_COOKIE = "pending_confirmation_email";
 
 export async function signup(formData: FormData) {
-  const { t } = getDictionary();
   const email = String(formData.get("email") || "");
   const password = String(formData.get("password") || "");
   const firstName = String(formData.get("first_name") || "").trim();
@@ -25,15 +24,15 @@ export async function signup(formData: FormData) {
   // la stessa richiesta può arrivare senza passare dall'HTML, quindi validiamo
   // di nuovo qui prima di creare l'account.
   if (!firstName || !lastName || !birthDate) {
-    redirect(`/signup?error=${encodeURIComponent(t.auth.signup.missingFieldsError)}`);
+    redirect("/signup?error=missing_fields");
   }
 
   if (!isValidBirthDate(birthDate)) {
-    redirect(`/signup?error=${encodeURIComponent(t.auth.signup.invalidBirthDateError)}`);
+    redirect("/signup?error=invalid_birth_date");
   }
 
   if (!isAdult(birthDate)) {
-    redirect(`/signup?error=${encodeURIComponent(t.auth.signup.tooYoungError)}`);
+    redirect("/signup?error=too_young");
   }
 
   await track("signup_started");
@@ -57,7 +56,7 @@ export async function signup(formData: FormData) {
   });
 
   if (error) {
-    redirect(`/signup?error=${encodeURIComponent(error.message)}`);
+    redirect(`/signup?error=${authErrorCode(error)}`);
   }
 
   cookies().set(PENDING_EMAIL_COOKIE, email, {

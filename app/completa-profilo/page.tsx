@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { completeProfile } from "./actions";
 import { Logo } from "@/components/logo";
 import { ErrorBanner } from "@/components/error-banner";
+import { authErrorText } from "@/lib/auth/auth-error";
 import { SubmitButton } from "@/components/submit-button";
 import { AuthConsentNote, AuthLegalFooter } from "@/components/auth-legal";
 import { createClient } from "@/lib/supabase/server";
@@ -50,7 +51,7 @@ export default async function CompletaProfiloPage({
 
         {searchParams.error ? (
           <div className="mb-4">
-            <ErrorBanner message={searchParams.error} />
+            <ErrorBanner message={authErrorText(searchParams.error, t.auth.errors)} />
           </div>
         ) : null}
 
