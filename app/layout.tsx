@@ -5,6 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AnalyticsConsent } from "@/components/analytics-consent";
 import { getLocale } from "@/lib/i18n/get-locale";
+import { gaMeasurementId } from "@/lib/analytics";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 
 // Il sito non sceglieva un carattere: si affidava allo stack di sistema, che
@@ -66,6 +67,7 @@ export default function RootLayout({
         </ThemeProvider>
         <Analytics />
         <AnalyticsConsent
+          gaId={gaMeasurementId()}
           message={t.cookieConsent.message}
           accept={t.cookieConsent.accept}
           reject={t.cookieConsent.reject}

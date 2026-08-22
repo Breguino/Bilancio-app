@@ -3,6 +3,7 @@ import { AuthGate } from "@/components/auth-gate";
 import { NewsletterSubscribeForm } from "@/components/newsletter-subscribe-form";
 import { ManageCookiePreferencesLink } from "@/components/manage-cookie-preferences-link";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { gaMeasurementId } from "@/lib/analytics";
 
 export function SiteFooter() {
   const { locale, t } = getDictionary();
@@ -18,7 +19,7 @@ export function SiteFooter() {
     { href: "/termini", label: t.siteFooter.termini },
   ];
 
-  const hasAnalyticsConsent = Boolean(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID);
+  const hasAnalyticsConsent = Boolean(gaMeasurementId());
 
   return (
     <footer className="max-w-6xl mx-auto px-6 py-10 text-sm text-ink-muted dark:text-neutral-500 flex flex-col gap-6">
