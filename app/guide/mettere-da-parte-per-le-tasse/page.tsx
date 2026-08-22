@@ -57,8 +57,7 @@ export default function TassePage() {
             Mettere da parte per le tasse senza impazzire
           </h1>
           <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
-            Il problema di chi lavora in proprio non è calcolare le tasse — per quello c&apos;è il
-            commercialista. È che i soldi per pagarle arrivano mesi prima della scadenza, e nel
+            Il problema di chi lavora in proprio non è calcolare le tasse: per quello c&apos;è il commercialista. È che i soldi per pagarle arrivano mesi prima della scadenza, e nel
             frattempo sono lì sul conto a sembrare tuoi.
           </p>
         </header>
@@ -85,14 +84,12 @@ export default function TassePage() {
             <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
               <p>
                 Un dipendente vede lo stipendio già al netto: quello che arriva sul conto è
-                davvero suo. Chi lavora in proprio incassa al lordo, e una parte di quei soldi è
-                già impegnata — semplicemente non è ancora stata chiesta indietro.
+                davvero suo. Chi lavora in proprio incassa al lordo, e una parte di quei soldi è già impegnata, semplicemente non è ancora stata chiesta indietro.
               </p>
               <p>
                 Il risultato è un errore di valutazione che si ripete ogni mese: guardi il saldo,
                 lo leggi come disponibilità, e prendi decisioni su un numero che è più grande del
-                vero. Poi arriva la scadenza e la cifra sembra enorme — non perché sia cambiata
-                qualcosa, ma perché fino a quel momento non l&apos;avevi mai sottratta.
+                vero. Poi arriva la scadenza e la cifra sembra enorme, non perché sia cambiata qualcosa, ma perché fino a quel momento non l&apos;avevi mai sottratta.
               </p>
               <p>
                 Non è un problema di quanto guadagni. Chi fattura bene e non accantona si trova
@@ -107,7 +104,7 @@ export default function TassePage() {
           <Reveal className="max-w-[62ch] mb-8">
             <span className="text-xs font-bold uppercase tracking-wide text-accent">Il metodo</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
-              Accantonare a ogni incasso, non a fine anno
+              Accantonare a ogni incasso
             </h2>
           </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -120,7 +117,7 @@ export default function TassePage() {
               {
                 n: "02",
                 title: "Sposta i soldi quando incassi",
-                body: "Nel momento in cui un cliente paga, non dopo. Se aspetti la fine del mese, quei soldi hanno già cambiato forma. È la stessa logica del risparmio automatico: funziona perché toglie la decisione dal momento in cui è più difficile prenderla.",
+                body: "Nel momento esatto in cui un cliente paga. Se aspetti la fine del mese, quei soldi hanno già cambiato forma. È la stessa logica del risparmio automatico: funziona perché toglie la decisione dal momento in cui è più difficile prenderla.",
               },
               {
                 n: "03",
@@ -182,8 +179,7 @@ export default function TassePage() {
             <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">
               In Bilancino puoi creare un obiettivo &quot;accantonamento tasse&quot; e aggiungere un
               contributo ogni volta che incassi, così vedi sempre a che punto sei. Bilancino non
-              calcola le tasse e non è un gestionale fiscale — quello resta lavoro del tuo
-              commercialista.
+              calcola le tasse e non è un gestionale fiscale: quello resta lavoro del tuo commercialista.
             </p>
             <div className="flex items-center gap-3 flex-wrap justify-center">
               <Link
