@@ -378,7 +378,13 @@ export default async function DashboardPage({
           <ErrorBanner message={searchParams.error} />
         </div>
         <form action={addTransaction} className="grid grid-cols-1 sm:grid-cols-6 gap-3 items-end">
-          <DescriptionCategoryFields key={rows.length} history={categoryHistory || []} />
+          <DescriptionCategoryFields
+            key={rows.length}
+            history={categoryHistory || []}
+            descriptionLabel={t.dashboard.formDescriptionLabel}
+            categoryLabel={t.dashboard.formCategoryLabel}
+            categoryPlaceholder={t.dashboard.formCategoryPlaceholder}
+          />
           <div className="flex flex-col gap-1 order-2">
             <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.typeLabel}</label>
             <select
