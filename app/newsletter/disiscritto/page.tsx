@@ -17,17 +17,17 @@ export default function NewsletterUnsubscribedPage() {
   const t = dictionaryFor(getLocale());
 
   return (
-    <div className="sito min-h-screen">
+    <div className="min-h-screen">
       <SiteHeader />
       <main className="max-w-6xl mx-auto px-6">
-        <div className="pt-20 pb-20 max-w-[52ch] text-center mx-auto">
-          <h1 className="display text-3xl mb-4">{t.newsletterUnsub.title}</h1>
-          <p className="text-inchiostro-soft mb-8">
+        <div className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[56ch] text-center mx-auto">
+          <h1 className="text-3xl font-extrabold tracking-tight mb-3">{t.newsletterUnsub.title}</h1>
+          <p className="text-ink-secondary dark:text-neutral-400 mb-8">
             {t.newsletterUnsub.body}
           </p>
           <Link
             href="/"
-            className="bottone"
+            className="inline-flex bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-6 py-2.5 transition-colors"
           >
             {t.newsletterUnsub.backToHome}
           </Link>

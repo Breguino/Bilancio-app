@@ -28,17 +28,17 @@ export function AuthActions({
       {!loggedIn ? (
         <Link
           href="/login"
-          className="hidden sm:inline-flex items-center h-9 text-sm font-medium text-inchiostro-soft border border-riga rounded-sm px-4 hover:border-verde hover:text-verde transition-colors whitespace-nowrap"
+          className="hidden sm:inline-flex items-center h-9 text-sm font-semibold text-ink-secondary dark:text-neutral-400 border border-border dark:border-neutral-700 rounded-full px-4 hover:border-accent hover:text-accent transition-colors whitespace-nowrap"
         >
           {nav.accedi}
         </Link>
       ) : null}
       <div className="sm:hidden">
-        <MobileMenu items={mobileItems} variant="sito" />
+        <MobileMenu items={mobileItems} />
       </div>
       <Link
         href={loggedIn ? "/dashboard" : "/signup"}
-        className="inline-flex items-center h-9 bg-verde hover:bg-verde-hover text-carta font-semibold text-sm rounded-sm px-4 transition-colors whitespace-nowrap"
+        className="inline-flex items-center h-9 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-4 transition-colors whitespace-nowrap"
       >
         <span className="sm:hidden">{loggedIn ? nav.vaiDashboardShort : nav.creaAccountShort}</span>
         <span className="hidden sm:inline">{loggedIn ? nav.vaiDashboard : nav.creaAccount}</span>

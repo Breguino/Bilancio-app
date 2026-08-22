@@ -42,31 +42,31 @@ export default function ExcelOAppPage() {
   const t = dictionaryFor(getLocale());
 
   return (
-    <div className="sito min-h-screen">
+    <div className="min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
-        <header className="pt-16 pb-10 sm:pt-20 sm:pb-12 max-w-[62ch]">
-          <span className="tacca">Guida</span>
-          <h1 className="display text-[2.5rem] sm:text-[3.5rem] mt-5 mb-7">
+        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
+          <span className="text-xs font-bold uppercase tracking-wide text-accent">Guida</span>
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
             Excel o un&apos;app per il budget? Quando conviene passare
           </h1>
-          <p className="text-inchiostro-soft text-lg leading-relaxed">
+          <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
             Il foglio di calcolo è lo strumento più sottovalutato che esista: gratuito, flessibile,
             tuo. Per molti è la scelta giusta e lo resta per anni. Il problema non è Excel in sé —
             è capire quando ha smesso di aiutarti.
           </p>
         </header>
 
-        <section className="py-10 sm:py-12 border-t border-riga">
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <h2 className="display text-2xl sm:text-3xl max-w-[20ch]">
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
                 Quando il foglio di calcolo è la scelta migliore
               </h2>
             </div>
-            <div className="flex flex-col gap-4 text-inchiostro-soft leading-relaxed">
+            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
               <p>
                 Vale la pena dirlo prima, visto da dove arriva questa pagina: se il tuo foglio
                 funziona, non c&apos;è nessun motivo di cambiarlo.
@@ -86,10 +86,10 @@ export default function ExcelOAppPage() {
           </Reveal>
         </section>
 
-        <section className="py-10 sm:py-12 border-t border-riga">
-          <Reveal className="max-w-[60ch] mb-8">
-            <span className="tacca">I segnali</span>
-            <h2 className="display text-2xl sm:text-3xl mt-4">
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+          <Reveal className="max-w-[62ch] mb-8">
+            <span className="text-xs font-bold uppercase tracking-wide text-accent">I segnali</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
               Quattro segnali che il foglio ti sta rallentando
             </h2>
           </Reveal>
@@ -119,24 +119,24 @@ export default function ExcelOAppPage() {
               <Reveal
                 key={s.n}
                 delay={i * 80}
-                className="foglio p-6"
+                className="border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900"
               >
-                <span className="cifra text-xs text-ottone">{s.n}</span>
-                <h3 className="font-semibold mt-2 mb-1.5">{s.title}</h3>
-                <p className="text-sm text-inchiostro-soft leading-relaxed">{s.body}</p>
+                <span className="num text-xs font-bold text-accent">{s.n}</span>
+                <h3 className="font-bold mt-2 mb-1.5">{s.title}</h3>
+                <p className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed">{s.body}</p>
               </Reveal>
             ))}
           </div>
         </section>
 
-        <section className="py-10 sm:py-12 border-t border-riga">
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <h2 className="display text-2xl sm:text-3xl max-w-[20ch]">
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
                 La domanda giusta da farsi prima di cambiare
               </h2>
             </div>
-            <div className="flex flex-col gap-4 text-inchiostro-soft leading-relaxed">
+            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
               <p>
                 Non è &quot;quale app ha più funzioni&quot;, ma <strong>cosa mi impedisce oggi di
                 tenere i conti aggiornati</strong>. Se la risposta è &quot;lo apro poco&quot;, serve
@@ -159,12 +159,12 @@ export default function ExcelOAppPage() {
           </Reveal>
         </section>
 
-        <section className="py-14 sm:py-20 border-t border-riga">
+        <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
           <Reveal className="flex flex-col items-center text-center gap-5">
-            <h2 className="display text-3xl sm:text-[2.5rem] max-w-[26ch]">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
               Se vuoi provare, il tuo foglio non va buttato
             </h2>
-            <p className="text-inchiostro-soft max-w-[54ch]">
+            <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">
               Bilancino importa i movimenti da un CSV — quello che esporti da Excel o Fogli Google —
               e li riesporta quando vuoi, nello stesso formato. Le spese che si ripetono si
               registrano da sole, e i dati restano tuoi in un formato che apri anche altrove.
@@ -172,7 +172,7 @@ export default function ExcelOAppPage() {
             <div className="flex items-center gap-3 flex-wrap justify-center">
               <Link
                 href="/cosa-offriamo"
-                className="bottone-quieto"
+                className="border border-border dark:border-neutral-800 font-bold text-sm rounded-full px-6 py-3.5 hover:border-accent hover:text-accent transition-colors"
               >
                 Guarda cosa fa
               </Link>
@@ -180,7 +180,7 @@ export default function ExcelOAppPage() {
                 loggedIn={
                   <Link
                     href="/dashboard"
-                    className="bottone"
+                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
                   >
                     {t.home.ctaDashboard}
                   </Link>
@@ -188,7 +188,7 @@ export default function ExcelOAppPage() {
                 loggedOut={
                   <Link
                     href="/signup"
-                    className="bottone"
+                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
                   >
                     {t.home.ctaSignupFree}
                   </Link>

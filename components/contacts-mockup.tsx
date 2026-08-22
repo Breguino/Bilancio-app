@@ -11,45 +11,55 @@ export function ContactsMockup() {
     style: "currency",
     currency: "EUR",
     maximumFractionDigits: 0,
-    useGrouping: true,
   });
 
   return (
-    <div className="foglio overflow-hidden">
-      <div className="px-4 py-2.5 border-b border-riga bg-carta">
-        <span className="tacca">{t.shared.contactsMockup.path}</span>
+    <div className="rounded-2xl overflow-hidden border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-[0_24px_60px_-20px_rgba(20,21,26,0.18)] dark:shadow-none">
+      <div className="flex items-center gap-1.5 px-4 py-3 border-b border-border dark:border-neutral-800 bg-surface-alt dark:bg-neutral-800/60">
+        <span className="w-2.5 h-2.5 rounded-full bg-rose-400/70" />
+        <span className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
+        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" />
+        <span className="ml-3 text-[11px] font-medium text-ink-muted dark:text-neutral-500">
+          {t.shared.contactsMockup.path}
+        </span>
       </div>
 
       <div className="p-5">
-        <p className="tacca mb-4">{t.shared.contactsMockup.exampleLabel}</p>
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-3">
+          {t.shared.contactsMockup.exampleLabel}
+        </p>
 
-        <div className="flex items-start justify-between gap-4 mb-5">
+        <div className="flex items-center justify-between mb-5">
           <div>
-            <p className="font-semibold text-sm">{t.shared.contactsMockup.contactName}</p>
-            <p className="text-xs text-inchiostro-muted mt-0.5">
-              {t.shared.contactsMockup.contactRole}
-            </p>
+            <p className="font-bold text-sm">{t.shared.contactsMockup.contactName}</p>
+            <p className="text-xs text-ink-muted dark:text-neutral-500">{t.shared.contactsMockup.contactRole}</p>
           </div>
           <div className="text-right">
-            <p className="tacca text-[10px]">{t.shared.contactsMockup.totalRevenueLabel}</p>
-            <p className="cifra text-verde text-sm mt-1">{eur.format(1240)}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
+              {t.shared.contactsMockup.totalRevenueLabel}
+            </p>
+            <p className="num font-bold text-emerald-600 dark:text-emerald-400 text-sm mt-0.5">
+              {eur.format(1240)}
+            </p>
           </div>
         </div>
 
-        <div className="border-t border-riga pt-4">
-          <p className="tacca mb-3">{t.shared.contactsMockup.notesTitle}</p>
-          <div className="flex flex-col gap-3">
-            <div className="flex items-baseline justify-between gap-3 text-xs">
-              <span className="min-w-0 truncate">{t.shared.contactsMockup.note1}</span>
-              <span className="cifra text-[10px] text-ottone bg-ottone-soft rounded-sm px-1.5 py-0.5 shrink-0">
+        <div className="border-t border-border dark:border-neutral-800 pt-3">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-2.5">
+            {t.shared.contactsMockup.notesTitle}
+          </p>
+          <div className="flex flex-col gap-2.5">
+            <div className="flex items-center justify-between gap-3 text-xs">
+              <span className="min-w-0 truncate font-medium">{t.shared.contactsMockup.note1}</span>
+              <span className="text-[10px] text-accent bg-accent-soft dark:bg-accent/20 rounded-full px-2 py-0.5 shrink-0">
                 {t.shared.contactsMockup.note1Reminder}
               </span>
             </div>
-            <div className="flex items-baseline justify-between gap-3 text-xs">
-              <span className="min-w-0 truncate text-inchiostro-muted line-through">
+            <div className="flex items-center justify-between gap-3 text-xs">
+              <span className="min-w-0 truncate text-ink-muted dark:text-neutral-500 line-through">
                 {t.shared.contactsMockup.note2}
               </span>
-              <span className="cifra text-[10px] text-inchiostro-muted bg-carta rounded-sm px-1.5 py-0.5 shrink-0">
+              <span className="text-[10px] text-ink-muted dark:text-neutral-500 bg-surface-alt dark:bg-neutral-800 rounded-full px-2 py-0.5 shrink-0">
                 {t.shared.contactsMockup.note2Done}
               </span>
             </div>

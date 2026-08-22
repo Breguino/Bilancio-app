@@ -12,50 +12,55 @@ export function StatisticsMockup() {
     style: "currency",
     currency: "EUR",
     maximumFractionDigits: 0,
-    useGrouping: true,
   });
 
   return (
-    <div className="foglio overflow-hidden">
-      <div className="px-4 py-2.5 border-b border-riga bg-carta">
-        <span className="tacca">{t.shared.statisticsMockup.path}</span>
+    <div className="rounded-2xl overflow-hidden border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-[0_24px_60px_-20px_rgba(20,21,26,0.18)] dark:shadow-none">
+      <div className="flex items-center gap-1.5 px-4 py-3 border-b border-border dark:border-neutral-800 bg-surface-alt dark:bg-neutral-800/60">
+        <span className="w-2.5 h-2.5 rounded-full bg-rose-400/70" />
+        <span className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
+        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" />
+        <span className="ml-3 text-[11px] font-medium text-ink-muted dark:text-neutral-500">
+          {t.shared.statisticsMockup.path}
+        </span>
       </div>
 
       <div className="p-5">
-        <p className="tacca mb-4">{t.shared.statisticsMockup.exampleLabel}</p>
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-3">
+          {t.shared.statisticsMockup.exampleLabel}
+        </p>
 
         <div className="grid grid-cols-3 gap-3 mb-5">
           <div>
-            <p className="tacca text-[10px]">{t.shared.statisticsMockup.average}</p>
-            <p className="cifra text-sm mt-1">{eur.format(410)}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
+              {t.shared.statisticsMockup.average}
+            </p>
+            <p className="num font-bold text-sm mt-0.5">{eur.format(410)}</p>
           </div>
           <div>
-            <p className="tacca text-[10px]">{t.shared.statisticsMockup.stdDev}</p>
-            <p className="cifra text-sm mt-1">{eur.format(85)}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
+              {t.shared.statisticsMockup.stdDev}
+            </p>
+            <p className="num font-bold text-sm mt-0.5">{eur.format(85)}</p>
           </div>
           <div>
-            <p className="tacca text-[10px]">{t.shared.statisticsMockup.ci95}</p>
-            <p className="cifra text-sm mt-1">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
+              {t.shared.statisticsMockup.ci95}
+            </p>
+            <p className="num font-bold text-sm mt-0.5">
               {eur.format(340)}–{eur.format(480)}
             </p>
           </div>
         </div>
 
-        {/* L'avviso di spesa anomala usa il minio, non l'ambra da notifica di
-            sistema: è il colore con cui questo sito segna le uscite. */}
-        <div className="border-t border-riga pt-4">
-          <div className="flex items-start gap-2.5 rounded-sm bg-minio-soft border border-minio/25 px-3 py-2.5">
-            <TriangleAlert
-              size={15}
-              strokeWidth={1.75}
-              className="text-minio shrink-0 mt-0.5"
-              aria-hidden="true"
-            />
+        <div className="border-t border-border dark:border-neutral-800 pt-3">
+          <div className="flex items-start gap-2.5 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 px-3 py-2.5">
+            <TriangleAlert size={15} strokeWidth={1.75} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
             <div className="min-w-0">
-              <p className="text-xs font-semibold text-minio">
+              <p className="text-xs font-semibold text-amber-800 dark:text-amber-300">
                 {t.shared.statisticsMockup.anomalyTitle}
               </p>
-              <p className="text-xs text-inchiostro-soft mt-1 leading-relaxed">
+              <p className="text-xs text-amber-700/80 dark:text-amber-400/80 mt-0.5">
                 {t.shared.statisticsMockup.anomalyDescription} · {eur.format(180)} ·{" "}
                 {t.shared.statisticsMockup.anomalyDetail}
               </p>

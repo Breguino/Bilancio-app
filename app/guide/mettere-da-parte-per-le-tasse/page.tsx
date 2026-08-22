@@ -42,26 +42,26 @@ export default function TassePage() {
   const t = dictionaryFor(getLocale());
 
   return (
-    <div className="sito min-h-screen">
+    <div className="min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
-        <header className="pt-16 pb-10 sm:pt-20 sm:pb-12 max-w-[62ch]">
-          <span className="tacca">Guida</span>
-          <h1 className="display text-[2.5rem] sm:text-[3.5rem] mt-5 mb-7">
+        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
+          <span className="text-xs font-bold uppercase tracking-wide text-accent">Guida</span>
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
             Mettere da parte per le tasse senza impazzire
           </h1>
-          <p className="text-inchiostro-soft text-lg leading-relaxed">
+          <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
             Il problema di chi lavora in proprio non è calcolare le tasse — per quello c&apos;è il
             commercialista. È che i soldi per pagarle arrivano mesi prima della scadenza, e nel
             frattempo sono lì sul conto a sembrare tuoi.
           </p>
         </header>
 
-        <section className="py-8 border-t border-riga">
+        <section className="py-8 border-t border-border dark:border-neutral-800">
           <Reveal>
-            <p className="text-sm text-inchiostro-muted leading-relaxed max-w-[62ch] border-l-2 border-riga pl-4">
+            <p className="text-sm text-ink-muted dark:text-neutral-500 leading-relaxed max-w-[62ch] border-l-2 border-border dark:border-neutral-700 pl-4">
               Una premessa onesta: qui non trovi né aliquote né percentuali da applicare. Quanto
               devi accantonare dipende dal tuo regime fiscale, dai contributi e dalla tua
               situazione, e chi te lo può dire con certezza è il tuo commercialista. Questa guida
@@ -71,14 +71,14 @@ export default function TassePage() {
           </Reveal>
         </section>
 
-        <section className="py-10 sm:py-12 border-t border-riga">
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <h2 className="display text-2xl sm:text-3xl max-w-[20ch]">
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
                 Perché il saldo del conto ti inganna
               </h2>
             </div>
-            <div className="flex flex-col gap-4 text-inchiostro-soft leading-relaxed">
+            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
               <p>
                 Un dipendente vede lo stipendio già al netto: quello che arriva sul conto è
                 davvero suo. Chi lavora in proprio incassa al lordo, e una parte di quei soldi è
@@ -99,10 +99,10 @@ export default function TassePage() {
           </Reveal>
         </section>
 
-        <section className="py-10 sm:py-12 border-t border-riga">
-          <Reveal className="max-w-[60ch] mb-8">
-            <span className="tacca">Il metodo</span>
-            <h2 className="display text-2xl sm:text-3xl mt-4">
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+          <Reveal className="max-w-[62ch] mb-8">
+            <span className="text-xs font-bold uppercase tracking-wide text-accent">Il metodo</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
               Accantonare a ogni incasso, non a fine anno
             </h2>
           </Reveal>
@@ -132,24 +132,24 @@ export default function TassePage() {
               <Reveal
                 key={s.n}
                 delay={i * 80}
-                className="foglio p-6"
+                className="border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900"
               >
-                <span className="cifra text-xs text-ottone">{s.n}</span>
-                <h3 className="font-semibold mt-2 mb-1.5">{s.title}</h3>
-                <p className="text-sm text-inchiostro-soft leading-relaxed">{s.body}</p>
+                <span className="num text-xs font-bold text-accent">{s.n}</span>
+                <h3 className="font-bold mt-2 mb-1.5">{s.title}</h3>
+                <p className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed">{s.body}</p>
               </Reveal>
             ))}
           </div>
         </section>
 
-        <section className="py-10 sm:py-12 border-t border-riga">
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <h2 className="display text-2xl sm:text-3xl max-w-[20ch]">
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
                 L&apos;errore più comune: accantonare quello che avanza
               </h2>
             </div>
-            <div className="flex flex-col gap-4 text-inchiostro-soft leading-relaxed">
+            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
               <p>
                 &quot;A fine mese metto via quello che resta&quot; è la strategia che fallisce più
                 spesso, per un motivo semplice: quello che resta dipende da come è andato il mese,
@@ -170,12 +170,12 @@ export default function TassePage() {
           </Reveal>
         </section>
 
-        <section className="py-14 sm:py-20 border-t border-riga">
+        <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
           <Reveal className="flex flex-col items-center text-center gap-5">
-            <h2 className="display text-3xl sm:text-[2.5rem] max-w-[24ch]">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
               Un obiettivo di risparmio, per non perderlo di vista
             </h2>
-            <p className="text-inchiostro-soft max-w-[54ch]">
+            <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">
               In Bilancino puoi creare un obiettivo &quot;accantonamento tasse&quot; e aggiungere un
               contributo ogni volta che incassi, così vedi sempre a che punto sei. Bilancino non
               calcola le tasse e non è un gestionale fiscale — quello resta lavoro del tuo
@@ -184,7 +184,7 @@ export default function TassePage() {
             <div className="flex items-center gap-3 flex-wrap justify-center">
               <Link
                 href="/guide/conti-personali-e-lavoro"
-                className="bottone-quieto"
+                className="border border-border dark:border-neutral-800 font-bold text-sm rounded-full px-6 py-3.5 hover:border-accent hover:text-accent transition-colors"
               >
                 Leggi anche: separare i conti
               </Link>
@@ -192,7 +192,7 @@ export default function TassePage() {
                 loggedIn={
                   <Link
                     href="/goals"
-                    className="bottone"
+                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
                   >
                     Vai ai tuoi obiettivi →
                   </Link>
@@ -200,7 +200,7 @@ export default function TassePage() {
                 loggedOut={
                   <Link
                     href="/signup"
-                    className="bottone"
+                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
                   >
                     {t.home.ctaSignupFree}
                   </Link>

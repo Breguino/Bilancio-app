@@ -11,7 +11,6 @@ export function AppMockup() {
     style: "currency",
     currency: "EUR",
     maximumFractionDigits: 0,
-    useGrouping: true,
   });
   const rows = [
     { date: "23/07", description: t.shared.appMockup.demoSalary, category: "Ardian Bregu", amount: 1000, positive: true },
@@ -19,52 +18,67 @@ export function AppMockup() {
   ];
 
   return (
-    <div className="foglio overflow-hidden">
-      {/* Niente più tre pallini da finestra macOS: non è un Mac, è un indirizzo
-          web, e scriverlo e basta è più onesto e meno rumoroso. */}
-      <div className="px-4 py-2.5 border-b border-riga bg-carta">
-        <span className="tacca">bilancino.app/dashboard</span>
+    <div className="rounded-2xl overflow-hidden border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-[0_24px_60px_-20px_rgba(20,21,26,0.18)] dark:shadow-none">
+      <div className="flex items-center gap-1.5 px-4 py-3 border-b border-border dark:border-neutral-800 bg-surface-alt dark:bg-neutral-800/60">
+        <span className="w-2.5 h-2.5 rounded-full bg-rose-400/70" />
+        <span className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
+        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" />
+        <span className="ml-3 text-[11px] font-medium text-ink-muted dark:text-neutral-500">
+          bilancino.app/dashboard
+        </span>
       </div>
 
       <div className="p-5">
-        <p className="tacca mb-4">{t.shared.appMockup.exampleOverview}</p>
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-3">
+          {t.shared.appMockup.exampleOverview}
+        </p>
 
         <div className="grid grid-cols-3 gap-3 mb-5">
           <div>
-            <p className="tacca text-[10px]">{t.shared.appMockup.entrate}</p>
-            <p className="cifra text-verde text-sm mt-1">{eur.format(1000)}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
+              {t.shared.appMockup.entrate}
+            </p>
+            <p className="num font-bold text-emerald-600 dark:text-emerald-400 text-sm mt-0.5">{eur.format(1000)}</p>
           </div>
           <div>
-            <p className="tacca text-[10px]">{t.shared.appMockup.uscite}</p>
-            <p className="cifra text-minio text-sm mt-1">{eur.format(30)}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
+              {t.shared.appMockup.uscite}
+            </p>
+            <p className="num font-bold text-rose-500 dark:text-rose-400 text-sm mt-0.5">{eur.format(30)}</p>
           </div>
           <div>
-            <p className="tacca text-[10px]">{t.shared.appMockup.netto}</p>
-            <p className="cifra text-sm mt-1">{eur.format(970)}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
+              {t.shared.appMockup.netto}
+            </p>
+            <p className="num font-bold text-sm mt-0.5">{eur.format(970)}</p>
           </div>
         </div>
 
         <div className="mb-5">
-          <div className="flex items-baseline justify-between text-xs mb-1.5">
-            <span>{t.shared.appMockup.demoCategory}</span>
-            <span className="cifra text-inchiostro-muted">30 € / 250 €</span>
+          <div className="flex items-center justify-between text-xs mb-1.5">
+            <span className="font-medium">{t.shared.appMockup.demoCategory}</span>
+            <span className="num text-ink-muted dark:text-neutral-500">30 € / 250 €</span>
           </div>
-          <div className="h-1.5 bg-riga overflow-hidden">
-            <div className="h-full bg-ottone" style={{ width: "12%" }} />
+          <div className="h-2 rounded bg-surface-alt dark:bg-neutral-800 overflow-hidden">
+            <div className="h-full rounded bg-accent" style={{ width: "12%" }} />
           </div>
         </div>
 
-        <div className="border-t border-riga pt-4 flex flex-col gap-3">
+        <div className="border-t border-border dark:border-neutral-800 pt-3 flex flex-col gap-2.5">
           {rows.map((r) => (
-            <div key={r.description} className="flex items-baseline justify-between gap-3 text-xs">
-              <div className="flex items-baseline gap-2 min-w-0">
-                <span className="cifra text-inchiostro-muted shrink-0">{r.date}</span>
-                <span className="truncate">{r.description}</span>
-                <span className="text-[10px] text-verde bg-verde-soft rounded-sm px-1.5 py-0.5 shrink-0">
+            <div key={r.description} className="flex items-center justify-between text-xs">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="text-ink-muted dark:text-neutral-500 num shrink-0">{r.date}</span>
+                <span className="truncate font-medium">{r.description}</span>
+                <span className="text-[10px] text-accent bg-accent-soft dark:bg-accent/20 rounded-full px-2 py-0.5 shrink-0">
                   {r.category}
                 </span>
               </div>
-              <span className={`cifra shrink-0 ${r.positive ? "text-verde" : "text-minio"}`}>
+              <span
+                className={`num font-semibold shrink-0 ${
+                  r.positive ? "text-emerald-600 dark:text-emerald-400" : ""
+                }`}
+              >
                 {r.positive ? "+" : "−"}
                 {eur.format(Math.abs(r.amount))}
               </span>

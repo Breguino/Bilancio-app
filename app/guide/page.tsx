@@ -21,34 +21,34 @@ export const metadata: Metadata = {
 
 export default function GuideIndexPage() {
   return (
-    <div className="sito min-h-screen">
+    <div className="min-h-screen">
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
-        <header className="pt-16 pb-12 sm:pt-20 sm:pb-14 max-w-[62ch]">
-          <span className="tacca">Guide</span>
-          <h1 className="display text-[2.5rem] sm:text-[3.5rem] mt-5 mb-7">
+        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
+          <span className="text-xs font-bold uppercase tracking-wide text-accent">Guide</span>
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
             Tenere i conti quando lavori in proprio
           </h1>
-          <p className="text-inchiostro-soft text-lg leading-relaxed">
+          <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
             Guide pratiche sui problemi che incontra chi ha entrate irregolari e clienti da seguire.
             Si leggono anche senza usare Bilancino.
           </p>
         </header>
 
-        <section className="pb-14 sm:pb-20 border-t border-riga pt-10">
+        <section className="pb-14 sm:pb-20 border-t border-border dark:border-neutral-800 pt-10">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {guides.map((g, i) => (
               <Reveal key={g.href} delay={i * 80}>
                 <Link
                   href={g.href}
-                  className="group flex flex-col h-full foglio p-6 hover:border-verde transition-colors"
+                  className="group flex flex-col h-full border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900 hover:-translate-y-0.5 hover:shadow-lg transition-all"
                 >
-                  <h2 className="font-semibold mb-2 [text-wrap:balance] group-hover:text-verde transition-colors">
+                  <h2 className="font-bold mb-2 [text-wrap:balance] group-hover:text-accent transition-colors">
                     {g.title}
                   </h2>
-                  <p className="text-sm text-inchiostro-soft leading-relaxed">{g.body}</p>
-                  <span className="tacca text-verde mt-5">Leggi →</span>
+                  <p className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed">{g.body}</p>
+                  <span className="text-sm font-semibold text-accent mt-4">Leggi →</span>
                 </Link>
               </Reveal>
             ))}

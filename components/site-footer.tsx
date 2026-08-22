@@ -21,56 +21,49 @@ export function SiteFooter() {
   const hasAnalyticsConsent = Boolean(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID);
 
   return (
-    <footer className="border-t border-riga mt-4">
-      <div className="max-w-6xl mx-auto px-6 py-12 flex flex-col gap-10">
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-8 items-start">
-          <div>
-            <p className="display text-xl text-inchiostro max-w-[24ch]">{t.siteFooter.tagline}</p>
-            <Link
-              href="/novita"
-              className="tacca inline-flex items-center gap-2 mt-4 text-ottone hover:text-inchiostro transition-colors"
-            >
-              <span aria-hidden="true">→</span>
-              {t.siteFooter.novita}
+    <footer className="max-w-6xl mx-auto px-6 py-10 text-sm text-ink-muted dark:text-neutral-500 flex flex-col gap-6">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="flex items-center gap-3 flex-wrap justify-center">
+          <p>{t.siteFooter.tagline}</p>
+          <Link
+            href="/novita"
+            className="inline-flex items-center gap-1 text-xs font-semibold text-accent bg-accent-soft dark:bg-accent/20 rounded-full px-3 py-1 hover:bg-accent hover:text-white dark:hover:text-white transition-colors shrink-0"
+          >
+            {t.siteFooter.novita}
+          </Link>
+        </div>
+        <nav className="flex items-center gap-5 flex-wrap justify-center">
+          {marketingFooterLinks.map((link) => (
+            <Link key={link.href} href={link.href} className="hover:text-accent">
+              {link.label}
             </Link>
-          </div>
-          <nav className="flex flex-col gap-2.5 text-sm text-inchiostro-soft sm:text-right">
-            {marketingFooterLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="hover:text-verde transition-colors">
-                {link.label}
+          ))}
+          <AuthGate
+            loggedIn={
+              <Link href="/dashboard" className="hover:text-accent">
+                {t.nav.dashboard}
               </Link>
-            ))}
-            <AuthGate
-              loggedIn={
-                <Link href="/dashboard" className="hover:text-verde transition-colors">
-                  {t.nav.dashboard}
-                </Link>
-              }
-              loggedOut={
-                <Link href="/login" className="hover:text-verde transition-colors">
-                  {t.nav.accedi}
-                </Link>
-              }
-            />
-          </nav>
-        </div>
-
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 border-t border-riga pt-8">
-          <p className="text-sm text-inchiostro-muted max-w-[44ch] leading-relaxed">
-            {t.siteFooter.newsletterBlurb}
-          </p>
-          <NewsletterSubscribeForm
-            emailPlaceholder={t.shared.newsletterForm.emailPlaceholder}
-            subscribeLabel={t.shared.newsletterForm.subscribe}
+            }
+            loggedOut={
+              <Link href="/login" className="hover:text-accent">
+                {t.nav.accedi}
+              </Link>
+            }
           />
-        </div>
-
-        {hasAnalyticsConsent ? (
-          <div className="tacca">
-            <ManageCookiePreferencesLink label={t.cookieConsent.managePreferences} />
-          </div>
-        ) : null}
+        </nav>
       </div>
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-border dark:border-neutral-800 pt-6 text-center sm:text-left">
+        <p className="text-xs">{t.siteFooter.newsletterBlurb}</p>
+        <NewsletterSubscribeForm
+          emailPlaceholder={t.shared.newsletterForm.emailPlaceholder}
+          subscribeLabel={t.shared.newsletterForm.subscribe}
+        />
+      </div>
+      {hasAnalyticsConsent ? (
+        <div className="text-center sm:text-left text-xs">
+          <ManageCookiePreferencesLink label={t.cookieConsent.managePreferences} />
+        </div>
+      ) : null}
     </footer>
   );
 }

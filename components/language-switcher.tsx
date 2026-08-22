@@ -44,24 +44,7 @@ const FLAGS: Record<Locale, typeof FlagIT> = {
   en: FlagGB,
 };
 
-// Come ThemeToggle: lo stesso controllo serve due identità diverse, e quella
-// dell'app riservata resta il default.
-type Variant = "app" | "sito";
-
-const guscio: Record<Variant, string> = {
-  app: "rounded-full border-border dark:border-neutral-700 bg-surface-alt dark:bg-neutral-800 hover:border-accent/50",
-  sito: "rounded-sm border-riga bg-foglio hover:border-verde",
-};
-
-export function LanguageSwitcher({
-  locale,
-  label,
-  variant = "app",
-}: {
-  locale: Locale;
-  label: string;
-  variant?: Variant;
-}) {
+export function LanguageSwitcher({ locale, label }: { locale: Locale; label: string }) {
   const pathname = usePathname();
   const nextLocale = locale === "it" ? "en" : "it";
   const NextFlag = FLAGS[nextLocale];
@@ -70,7 +53,7 @@ export function LanguageSwitcher({
     <div className="relative group shrink-0">
       <span
         role="tooltip"
-        className="absolute left-1/2 top-full mt-2 -translate-x-1/2 flex items-center gap-1.5 whitespace-nowrap rounded-sm bg-ink dark:bg-neutral-700 text-white text-xs font-medium px-2.5 py-1.5 shadow-md opacity-0 scale-95 translate-y-[-2px] pointer-events-none transition-all duration-150 ease-out group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:scale-100 group-focus-within:translate-y-0 z-30"
+        className="absolute left-1/2 top-full mt-2 -translate-x-1/2 flex items-center gap-1.5 whitespace-nowrap rounded-md bg-ink dark:bg-neutral-700 text-white text-xs font-medium px-2.5 py-1.5 shadow-md opacity-0 scale-95 translate-y-[-2px] pointer-events-none transition-all duration-150 ease-out group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:scale-100 group-focus-within:translate-y-0 z-30"
       >
         <NextFlag className="w-4 h-3 rounded-[1px] shrink-0" />
         {LOCALE_NAMES[nextLocale]}
@@ -82,7 +65,7 @@ export function LanguageSwitcher({
           name="locale"
           value={nextLocale}
           aria-label={label}
-          className={`relative w-9 h-9 border overflow-hidden shrink-0 transition-colors active:scale-95 ${guscio[variant]}`}
+          className="relative w-9 h-9 rounded-full border border-border dark:border-neutral-700 bg-surface-alt dark:bg-neutral-800 overflow-hidden shrink-0 transition-colors hover:border-accent/50 active:scale-95"
         >
           <FlagIT
             className={`absolute inset-0 w-full h-full transition-opacity duration-200 ease-out ${locale === "it" ? "opacity-100" : "opacity-0"}`}

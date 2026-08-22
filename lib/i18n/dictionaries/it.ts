@@ -110,10 +110,8 @@ const it = {
     ctaSignupFree: "Crea un account gratis →",
     ctaHowItWorks: "Scopri come funziona",
     heroImageAlt: "Persona che controlla le proprie finanze da laptop",
-    chartExample: "Esempio · il mese sulla bilancia",
-    bilanciaScegliMese: "Scegli il mese",
-    bilanciaDescrizione: "Entrate e uscite di",
-    bilanciaNota: "Il braccio pende dalla parte del mese. Cambia mese: la bilancia si riassesta.",
+    chartExample: "Andamento · esempio",
+    chartLast6Months: "Ultimi 6 mesi",
     entrate: "Entrate",
     uscite: "Uscite",
     netto: "Netto",
@@ -589,9 +587,6 @@ const it = {
     heroBody:
       "Bilancino non è una startup con un team, degli investitori o un ufficio marketing. È un'applicazione sviluppata in autonomia, con un obiettivo circoscritto: mettere insieme il budget personale e i contatti con cui hai un rapporto economico, senza costringerti a scegliere tra un'app troppo semplice e un gestionale troppo complesso.",
     heroImageAlt: "Scrivania minimale con laptop, quaderno di appunti e caffè",
-    gapLabel: "Il vuoto",
-    forWhomLabel: "Per chi",
-    smallByDesignLabel: "Su misura",
     gapTitle: "Il vuoto che Bilancino prova a colmare",
     gapParagraphs: [
       "Le app di budget personale sono ottime per tracciare entrate e uscite, ma non sanno chi sono i tuoi clienti: se qualcuno ti paga per un lavoro, per loro è solo una voce \"entrata\", senza contesto, senza storico, senza promemoria.",
