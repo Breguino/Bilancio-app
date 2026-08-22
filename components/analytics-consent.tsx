@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Script from "next/script";
 
 const CONSENT_KEY = "cookie-consent";
-const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 type Consent = "accepted" | "rejected";
 
 // Il banner riappare solo se non c'è ancora una scelta salvata, o se l'utente
@@ -15,18 +14,21 @@ export function resetCookieConsent() {
 }
 
 export function AnalyticsConsent({
+  gaId,
   message,
   accept,
   reject,
   privacyLinkText,
   privacyHref,
 }: {
+  gaId?: string;
   message: string;
   accept: string;
   reject: string;
   privacyLinkText: string;
   privacyHref: string;
 }) {
+  const GA_ID = gaId;
   const [consent, setConsent] = useState<Consent | null>(null);
   const [ready, setReady] = useState(false);
 
