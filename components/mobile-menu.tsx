@@ -6,9 +6,30 @@ import { useState } from "react";
 
 type MenuItem = { href: string; label: string };
 
-export function MobileMenu({ items }: { items: MenuItem[] }) {
+// Come ThemeToggle e LanguageSwitcher: stesso componente, due identità. La
+// variante "app" è quella di prima e resta il default.
+type Variant = "app" | "sito";
+
+const stile: Record<Variant, { bottone: string; pannello: string; voce: string; attiva: string }> = {
+  app: {
+    bottone: "rounded-full border-border dark:border-neutral-800",
+    pannello:
+      "rounded-2xl bg-white/90 dark:bg-neutral-950/90 border-border dark:border-neutral-800 shadow-xl",
+    voce: "rounded-xl hover:bg-black/5 dark:hover:bg-white/5",
+    attiva: "rounded-xl bg-accent-soft dark:bg-accent/20 text-accent",
+  },
+  sito: {
+    bottone: "rounded-sm border-riga text-inchiostro-soft",
+    pannello: "rounded-sm bg-carta/95 border-riga shadow-lg",
+    voce: "rounded-sm text-inchiostro-soft hover:text-inchiostro hover:bg-verde-soft",
+    attiva: "rounded-sm bg-verde-soft text-verde",
+  },
+};
+
+export function MobileMenu({ items, variant = "app" }: { items: MenuItem[]; variant?: Variant }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const s = stile[variant];
 
   return (
     <>
@@ -17,7 +38,7 @@ export function MobileMenu({ items }: { items: MenuItem[] }) {
         onClick={() => setOpen((o) => !o)}
         aria-label="Menu"
         aria-expanded={open}
-        className="w-9 h-9 rounded-full border border-border dark:border-neutral-800 flex items-center justify-center shrink-0"
+        className={`w-9 h-9 border flex items-center justify-center shrink-0 ${s.bottone}`}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
           {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
@@ -32,7 +53,7 @@ export function MobileMenu({ items }: { items: MenuItem[] }) {
           proprietà che non toccano il layout e quindi non possono collassare
           il contenuto a zero. */}
       <div
-        className={`absolute inset-x-3 top-full mt-2 z-30 origin-top rounded-2xl bg-white/90 dark:bg-neutral-950/90 backdrop-blur-md border border-border dark:border-neutral-800 shadow-xl transition duration-200 ease-out ${
+        className={`absolute inset-x-3 top-full mt-2 z-30 origin-top backdrop-blur-md border transition duration-200 ease-out ${s.pannello} ${
           open
             ? "opacity-100 scale-y-100"
             : "opacity-0 scale-y-95 invisible pointer-events-none"
@@ -48,11 +69,7 @@ export function MobileMenu({ items }: { items: MenuItem[] }) {
                 href={item.href}
                 onClick={() => setOpen(false)}
                 aria-current={active ? "page" : undefined}
-                className={`px-4 py-3.5 rounded-xl transition-colors ${
-                  active
-                    ? "bg-accent-soft dark:bg-accent/20 text-accent"
-                    : "hover:bg-black/5 dark:hover:bg-white/5"
-                }`}
+                className={`px-4 py-3.5 transition-colors ${active ? s.attiva : s.voce}`}
               >
                 {item.label}
               </Link>

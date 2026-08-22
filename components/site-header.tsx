@@ -16,29 +16,34 @@ export function SiteHeader() {
   ];
 
   return (
-    <nav className="sticky top-0 z-20 relative border-b border-transparent backdrop-blur bg-white/90 dark:bg-neutral-950/90">
+    <nav className="sticky top-0 z-20 relative border-b border-riga bg-carta/90 backdrop-blur">
       <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 -ml-2 px-2 py-2 rounded-full hover:bg-surface-alt dark:hover:bg-neutral-800 transition-colors"
+          className="inline-flex items-center gap-2.5 -ml-1 px-1 py-1.5 group"
           aria-label="Bilancino"
         >
-          <Logo size={30} />
+          <Logo size={28} />
+          <span className="display text-lg text-inchiostro hidden sm:inline">Bilancino</span>
         </Link>
-        <div className="hidden sm:flex items-center gap-1 text-sm font-medium text-ink-secondary dark:text-neutral-400">
+        <div className="hidden sm:flex items-center gap-0.5 text-sm text-inchiostro-soft">
           {marketingNavLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-full px-3.5 py-2 hover:bg-surface-alt dark:hover:bg-neutral-800 hover:text-ink dark:hover:text-neutral-100 transition-colors"
+              className="px-3 py-2 hover:text-verde transition-colors"
             >
               {link.label}
             </Link>
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <LanguageSwitcher locale={locale} label={t.common.langSwitchLabel} />
-          <ThemeToggle ariaLabel={t.shared.themeToggle.ariaLabel} title={t.shared.themeToggle.title} />
+          <LanguageSwitcher locale={locale} label={t.common.langSwitchLabel} variant="sito" />
+          <ThemeToggle
+            ariaLabel={t.shared.themeToggle.ariaLabel}
+            title={t.shared.themeToggle.title}
+            variant="sito"
+          />
           <AuthActions nav={t.nav} marketingNavLinks={marketingNavLinks} />
         </div>
       </div>

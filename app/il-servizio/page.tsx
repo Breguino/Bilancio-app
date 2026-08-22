@@ -2,8 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { AuthGate } from "@/components/auth-gate";
+import { Chiusura } from "@/components/chiusura";
 import { Reveal } from "@/components/reveal";
+import { Sezione, Discorso } from "@/components/sezione";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 
@@ -29,152 +30,101 @@ export default function IlServizioPage() {
   const t = dictionaryFor(getLocale());
 
   return (
-    <div className="min-h-screen">
+    <div className="sito min-h-screen">
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
-        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
-          <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.eyebrow}</span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
-            {t.ilServizio.heroTitle}
-          </h1>
-          <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
-            {t.ilServizio.heroBody}
-          </p>
+        <header className="pt-16 pb-16 sm:pt-24 sm:pb-20 grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-y-6 gap-x-10">
+          <p className="tacca lg:pt-3">{t.ilServizio.eyebrow}</p>
+          <div>
+            <h1 className="display text-[2.5rem] sm:text-[3.5rem] max-w-[20ch] mb-7">
+              {t.ilServizio.heroTitle}
+            </h1>
+            <p className="text-inchiostro-soft text-lg leading-relaxed max-w-[58ch]">
+              {t.ilServizio.heroBody}
+            </p>
+          </div>
         </header>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <Reveal className="max-w-[60ch] mb-10">
-            <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.howItWorksEyebrow}</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
-              {t.ilServizio.howItWorksTitle}
-            </h2>
-          </Reveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        {/* Qui i numeri ci vogliono davvero: creare l'account, aggiungere i
+            dati, la settimana tipo, la fine del mese sono passaggi in ordine, e
+            l'ordine è l'informazione. Sono impaginati come le righe di un
+            registro, non come quattro schede uguali. */}
+        <Sezione etichetta={t.ilServizio.howItWorksEyebrow}>
+          <h2 className="display text-2xl sm:text-3xl max-w-[22ch] mb-10">
+            {t.ilServizio.howItWorksTitle}
+          </h2>
+          <ol className="border-t border-riga">
             {t.ilServizio.steps.map((step, i) => (
-              <Reveal
-                key={step.n}
-                delay={i * 80}
-                className="border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900"
-              >
-                <span className="num text-xs font-bold text-accent">{step.n}</span>
-                <h3 className="font-bold mt-2 mb-1.5">{step.title}</h3>
-                <p className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed">{step.body}</p>
-              </Reveal>
+              <li key={step.n} className="border-b border-riga">
+                <Reveal delay={i * 70}>
+                  <div className="grid grid-cols-[2.5rem_1fr] sm:grid-cols-[2.5rem_1fr_1.4fr] gap-x-5 gap-y-2 py-7 items-baseline">
+                    <span className="cifra text-xs text-ottone">{step.n}</span>
+                    <h3 className="font-semibold text-lg">{step.title}</h3>
+                    <p className="text-sm text-inchiostro-soft leading-relaxed col-start-2 sm:col-start-3 max-w-[50ch]">
+                      {step.body}
+                    </p>
+                  </div>
+                </Reveal>
+              </li>
             ))}
-          </div>
-        </section>
+          </ol>
+        </Sezione>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.priceEyebrow}</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[18ch]">
-                {t.ilServizio.priceTitle}
-              </h2>
-            </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
+        <Sezione etichetta={t.ilServizio.priceEyebrow}>
+          <Reveal>
+            <Discorso titolo={t.ilServizio.priceTitle}>
               <p>{t.ilServizio.pricePara1}</p>
               <p>
                 {t.ilServizio.pricePara2Pre}{" "}
-                <Link href="/novita" className="text-accent font-medium hover:underline">
+                <Link href="/novita" className="text-verde font-medium underline underline-offset-4">
                   {t.ilServizio.pricePara2Link}
                 </Link>
                 {t.ilServizio.pricePara2Post}
               </p>
-            </div>
+            </Discorso>
           </Reveal>
-        </section>
+        </Sezione>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.manualEyebrow}</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[20ch]">
-                {t.ilServizio.manualTitle}
-              </h2>
-            </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
-              {t.ilServizio.manualParagraphs.map((p) => (
-                <p key={p}>{p}</p>
-              ))}
-            </div>
+        {/* La scelta di non collegarsi alla banca è il punto in cui questo
+            prodotto si distingue davvero dagli altri: è l'unica sezione con il
+            fondo pieno, così non si legge come una nota a piè di pagina. */}
+        <Sezione etichetta={t.ilServizio.manualEyebrow}>
+          <Reveal className="foglio p-7 sm:p-10">
+            <Discorso
+              titolo={t.ilServizio.manualTitle}
+              paragrafi={t.ilServizio.manualParagraphs}
+            />
           </Reveal>
-        </section>
+        </Sezione>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.securityEyebrow}</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[20ch]">
-                {t.ilServizio.securityTitle}
-              </h2>
-            </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
-              {t.ilServizio.securityParagraphs.map((p) => (
-                <p key={p}>{p}</p>
-              ))}
-            </div>
+        <Sezione etichetta={t.ilServizio.securityEyebrow}>
+          <Reveal>
+            <Discorso
+              titolo={t.ilServizio.securityTitle}
+              paragrafi={t.ilServizio.securityParagraphs}
+            />
           </Reveal>
-        </section>
+        </Sezione>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.dataEyebrow}</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[20ch]">
-                {t.ilServizio.dataTitle}
-              </h2>
-            </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
-              {t.ilServizio.dataParagraphs.map((p) => (
-                <p key={p}>{p}</p>
-              ))}
+        <Sezione etichetta={t.ilServizio.dataEyebrow}>
+          <Reveal>
+            <Discorso titolo={t.ilServizio.dataTitle} paragrafi={t.ilServizio.dataParagraphs}>
               <p>
                 {t.ilServizio.dataLeavePre}{" "}
-                <a href={`mailto:${t.ilServizio.dataLeaveEmail}`} className="text-accent font-medium hover:underline">
+                <a
+                  href={`mailto:${t.ilServizio.dataLeaveEmail}`}
+                  className="text-verde font-medium underline underline-offset-4"
+                >
                   {t.ilServizio.dataLeaveEmail}
                 </a>{" "}
                 {t.ilServizio.dataLeavePost}
               </p>
-            </div>
+            </Discorso>
           </Reveal>
-        </section>
+        </Sezione>
 
-        <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
-          <Reveal className="flex flex-col items-center text-center gap-5">
-            <AuthGate
-              loggedIn={
-                <>
-                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
-                    {t.home.ctaTitleReturning}
-                  </h2>
-                  <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">{t.home.ctaBodyReturning}</p>
-                  <Link
-                    href="/dashboard"
-                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
-                  >
-                    {t.home.ctaDashboard}
-                  </Link>
-                </>
-              }
-              loggedOut={
-                <>
-                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
-                    {t.home.ctaTitleNew}
-                  </h2>
-                  <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">{t.home.ctaBodyNew}</p>
-                  <Link
-                    href="/signup"
-                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
-                  >
-                    {t.home.ctaSignupFree}
-                  </Link>
-                </>
-              }
-            />
-          </Reveal>
-        </section>
+        <Chiusura />
       </main>
 
       <SiteFooter />

@@ -1,12 +1,12 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { Chiusura } from "@/components/chiusura";
+import { Reveal } from "@/components/reveal";
+import { Sezione } from "@/components/sezione";
 import { AppMockup } from "@/components/app-mockup";
 import { ContactsMockup } from "@/components/contacts-mockup";
 import { StatisticsMockup } from "@/components/statistics-mockup";
-import { AuthGate } from "@/components/auth-gate";
-import { Reveal } from "@/components/reveal";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import {
@@ -19,12 +19,12 @@ import {
   Users,
   StickyNote,
   Receipt,
+  Upload,
   TrendingUp,
   Sigma,
   TriangleAlert,
   Calculator,
   Download,
-  Upload,
 } from "lucide-react";
 
 export function generateMetadata(): Metadata {
@@ -61,99 +61,83 @@ export default function CosaOffriamoPage() {
   }));
 
   return (
-    <div className="min-h-screen">
+    <div className="sito min-h-screen">
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
-        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <header className="pt-16 pb-16 sm:pt-24 sm:pb-20 grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,22rem)] gap-y-10 gap-x-16 items-center">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.cosaOffriamo.eyebrow}</span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
+            <p className="tacca">{t.cosaOffriamo.eyebrow}</p>
+            <h1 className="display text-[2.5rem] sm:text-[3.5rem] max-w-[16ch] mt-5 mb-7">
               {t.cosaOffriamo.heroTitle}
             </h1>
-            <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
+            <p className="text-inchiostro-soft text-lg leading-relaxed max-w-[54ch]">
               {t.cosaOffriamo.heroBody}
             </p>
           </div>
           <AppMockup />
         </header>
 
+        {/* Ogni gruppo è un conto del registro, e le sue voci sono le righe.
+            Prima erano schede: dodici rettangoli con l'ombra, tutti uguali, in
+            cui nessuna voce contava più di un'altra. */}
         {groups.map((group, gi) => {
           const mockup = gi === 1 ? <ContactsMockup /> : gi === 2 ? <StatisticsMockup /> : null;
-          const cardGrid = (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+          const voci = (
+            <ul className="border-t border-riga">
               {group.items.map((item, ii) => (
-                <Reveal
-                  key={item.title}
-                  delay={ii * 80}
-                  className="border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-accent-soft dark:bg-accent/20 text-accent flex items-center justify-center mb-4">
-                    <item.icon size={20} strokeWidth={1.75} />
-                  </div>
-                  <h3 className="font-bold mb-2">{item.title}</h3>
-                  <p className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed">{item.body}</p>
-                </Reveal>
+                <li key={item.title} className="border-b border-riga">
+                  <Reveal delay={ii * 50}>
+                    <div className="grid grid-cols-[2.5rem_1fr] sm:grid-cols-[2.5rem_1fr_1.3fr] gap-x-5 gap-y-2 py-6 items-baseline">
+                      <span className="cifra text-xs text-inchiostro-muted" aria-hidden="true">
+                        {String(ii + 1).padStart(2, "0")}
+                      </span>
+                      <h3 className="font-semibold flex items-center gap-2.5">
+                        <item.icon
+                          size={16}
+                          strokeWidth={1.75}
+                          className="text-ottone shrink-0"
+                          aria-hidden="true"
+                        />
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-inchiostro-soft leading-relaxed col-start-2 sm:col-start-3 max-w-[48ch]">
+                        {item.body}
+                      </p>
+                    </div>
+                  </Reveal>
+                </li>
               ))}
-            </div>
+            </ul>
           );
 
           return (
-            <section key={group.title} className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-              <Reveal className="max-w-[60ch] mb-8">
-                <span className="text-xs font-bold uppercase tracking-wide text-accent">{group.tag}</span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
-                  {group.title}
-                </h2>
+            <Sezione key={group.title} etichetta={group.tag}>
+              <Reveal className="mb-9">
+                <h2 className="display text-2xl sm:text-3xl max-w-[24ch]">{group.title}</h2>
                 {"intro" in group ? (
-                  <p className="text-ink-muted dark:text-neutral-500 text-sm leading-relaxed mt-3">{group.intro}</p>
+                  <p className="text-inchiostro-muted text-sm leading-relaxed mt-4 max-w-[60ch]">
+                    {group.intro}
+                  </p>
                 ) : null}
               </Reveal>
               {mockup ? (
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 items-start">
-                  {cardGrid}
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 items-start">
+                  {voci}
                   <Reveal className="lg:sticky lg:top-24">{mockup}</Reveal>
                 </div>
               ) : (
-                cardGrid
+                voci
               )}
-            </section>
+            </Sezione>
           );
         })}
 
-        <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
-          <Reveal className="flex flex-col items-center text-center gap-5">
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[24ch]">
-              {t.cosaOffriamo.ctaTitle}
-            </h2>
-            <div className="flex items-center gap-3 flex-wrap justify-center">
-              <Link
-                href="/il-servizio"
-                className="border border-border dark:border-neutral-800 font-bold text-sm rounded-full px-6 py-3.5 hover:border-accent hover:text-accent transition-colors"
-              >
-                {t.cosaOffriamo.ctaSeeService}
-              </Link>
-              <AuthGate
-                loggedIn={
-                  <Link
-                    href="/dashboard"
-                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
-                  >
-                    {t.home.ctaDashboard}
-                  </Link>
-                }
-                loggedOut={
-                  <Link
-                    href="/signup"
-                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
-                  >
-                    {t.home.ctaSignupFree}
-                  </Link>
-                }
-              />
-            </div>
-          </Reveal>
-        </section>
+        <Chiusura
+          titolo={t.cosaOffriamo.ctaTitle}
+          secondario={{ href: "/il-servizio", label: t.cosaOffriamo.ctaSeeService }}
+        />
       </main>
 
       <SiteFooter />

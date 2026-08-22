@@ -44,31 +44,31 @@ export default function ContiPersonaliELavoroPage() {
   const t = dictionaryFor(getLocale());
 
   return (
-    <div className="min-h-screen">
+    <div className="sito min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
         <header className="pt-16 pb-10 sm:pt-20 sm:pb-12 max-w-[62ch]">
-          <span className="text-xs font-bold uppercase tracking-wide text-accent">Guida</span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
+          <span className="tacca">Guida</span>
+          <h1 className="display text-[2.5rem] sm:text-[3.5rem] mt-5 mb-7">
             Separare conti personali e di lavoro quando sei freelance
           </h1>
-          <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
+          <p className="text-inchiostro-soft text-lg leading-relaxed">
             Se incassi da clienti sullo stesso conto con cui fai la spesa, prima o poi arrivi a
             fine mese senza sapere se è stato un buon mese. Non è un problema di disciplina: è che
             i numeri, mescolati, non dicono niente.
           </p>
         </header>
 
-        <section className="py-10 sm:py-12 border-t border-border dark:border-neutral-800">
+        <section className="py-10 sm:py-12 border-t border-riga">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
+              <h2 className="display text-2xl sm:text-3xl max-w-[20ch]">
                 Il problema non è l&apos;ordine, è la domanda a cui non sai rispondere
               </h2>
             </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
+            <div className="flex flex-col gap-4 text-inchiostro-soft leading-relaxed">
               <p>
                 Chi lavora in proprio ha due contabilità che si sovrappongono: quella personale
                 (affitto, spesa, abbonamenti) e quella professionale (incassi dai clienti, spese
@@ -93,10 +93,10 @@ export default function ContiPersonaliELavoroPage() {
           </Reveal>
         </section>
 
-        <section className="py-10 sm:py-12 border-t border-border dark:border-neutral-800">
+        <section className="py-10 sm:py-12 border-t border-riga">
           <Reveal className="max-w-[60ch] mb-8">
-            <span className="text-xs font-bold uppercase tracking-wide text-accent">Le tre strade</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
+            <span className="tacca">Le tre strade</span>
+            <h2 className="display text-2xl sm:text-3xl mt-4">
               Separare non significa per forza aprire un altro conto
             </h2>
           </Reveal>
@@ -121,24 +121,24 @@ export default function ContiPersonaliELavoroPage() {
               <Reveal
                 key={s.n}
                 delay={i * 80}
-                className="border border-border dark:border-neutral-800 rounded-2xl p-6 bg-white dark:bg-neutral-900"
+                className="foglio p-6"
               >
-                <span className="num text-xs font-bold text-accent">{s.n}</span>
-                <h3 className="font-bold mt-2 mb-1.5">{s.title}</h3>
-                <p className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed">{s.body}</p>
+                <span className="cifra text-xs text-ottone">{s.n}</span>
+                <h3 className="font-semibold mt-2 mb-1.5">{s.title}</h3>
+                <p className="text-sm text-inchiostro-soft leading-relaxed">{s.body}</p>
               </Reveal>
             ))}
           </div>
         </section>
 
-        <section className="py-10 sm:py-12 border-t border-border dark:border-neutral-800">
+        <section className="py-10 sm:py-12 border-t border-riga">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
+              <h2 className="display text-2xl sm:text-3xl max-w-[20ch]">
                 Il pezzo che quasi tutti si dimenticano: chi ti ha pagato
               </h2>
             </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
+            <div className="flex flex-col gap-4 text-inchiostro-soft leading-relaxed">
               <p>
                 Le app di budget ti fanno etichettare le spese per categoria. Ma su un&apos;entrata
                 mettono &quot;stipendio&quot; o &quot;lavoro&quot; e finisce lì. Per un dipendente va
@@ -160,14 +160,14 @@ export default function ContiPersonaliELavoroPage() {
           </Reveal>
         </section>
 
-        <section className="py-10 sm:py-12 border-t border-border dark:border-neutral-800">
+        <section className="py-10 sm:py-12 border-t border-riga">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
+              <h2 className="display text-2xl sm:text-3xl max-w-[20ch]">
                 Da dove partire, concretamente
               </h2>
             </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
+            <div className="flex flex-col gap-4 text-inchiostro-soft leading-relaxed">
               <p>
                 <strong>Inizia da un mese solo.</strong> Non recuperare l&apos;anno passato: serve solo
                 a farti mollare dopo tre giorni. Registra i movimenti del mese corrente man mano che
@@ -191,12 +191,12 @@ export default function ContiPersonaliELavoroPage() {
           </Reveal>
         </section>
 
-        <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
+        <section className="py-14 sm:py-20 border-t border-riga">
           <Reveal className="flex flex-col items-center text-center gap-5">
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[24ch]">
+            <h2 className="display text-3xl sm:text-[2.5rem] max-w-[24ch]">
               Bilancino fa esattamente questo
             </h2>
-            <p className="text-ink-secondary dark:text-neutral-400 max-w-[52ch]">
+            <p className="text-inchiostro-soft max-w-[52ch]">
               Budget personale e clienti nello stesso posto, movimenti ricorrenti in automatico,
               gratis e senza carta di credito. I dati li inserisci tu — nessun collegamento al conto
               bancario — e puoi esportarli in CSV quando vuoi.
@@ -204,7 +204,7 @@ export default function ContiPersonaliELavoroPage() {
             <div className="flex items-center gap-3 flex-wrap justify-center">
               <Link
                 href="/cosa-offriamo"
-                className="border border-border dark:border-neutral-800 font-bold text-sm rounded-full px-6 py-3.5 hover:border-accent hover:text-accent transition-colors"
+                className="bottone-quieto"
               >
                 Guarda cosa fa
               </Link>
@@ -212,7 +212,7 @@ export default function ContiPersonaliELavoroPage() {
                 loggedIn={
                   <Link
                     href="/dashboard"
-                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                    className="bottone"
                   >
                     {t.home.ctaDashboard}
                   </Link>
@@ -220,7 +220,7 @@ export default function ContiPersonaliELavoroPage() {
                 loggedOut={
                   <Link
                     href="/signup"
-                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
+                    className="bottone"
                   >
                     {t.home.ctaSignupFree}
                   </Link>

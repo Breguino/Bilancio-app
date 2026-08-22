@@ -1,10 +1,9 @@
-import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { AuthGate } from "@/components/auth-gate";
+import { Chiusura } from "@/components/chiusura";
 import { Reveal } from "@/components/reveal";
+import { Sezione, Discorso } from "@/components/sezione";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 
@@ -35,109 +34,50 @@ export default function ChiSiamoPage() {
   const t = dictionaryFor(getLocale());
 
   return (
-    <div className="min-h-screen">
+    <div className="sito min-h-screen">
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
-        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        {/* Via la foto d'archivio della scrivania con il caffè: questa pagina
+            dice "non c'è un ufficio marketing", e apriva con l'immagine che
+            mette un ufficio marketing. Restano le parole, che sono buone. */}
+        <header className="pt-16 pb-16 sm:pt-24 sm:pb-20 grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-y-6 gap-x-10">
+          <p className="tacca lg:pt-3">{t.chiSiamo.eyebrow}</p>
           <div>
-            <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.chiSiamo.eyebrow}</span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
+            <h1 className="display text-[2.5rem] sm:text-[3.5rem] max-w-[18ch] mb-7">
               {t.chiSiamo.heroTitle}
             </h1>
-            <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
+            <p className="text-inchiostro-soft text-lg leading-relaxed max-w-[58ch]">
               {t.chiSiamo.heroBody}
             </p>
           </div>
-          <div className="relative rounded-2xl overflow-hidden border border-border dark:border-neutral-800 aspect-[4/3]">
-            <Image
-              src="/chi-siamo-photo.jpg"
-              alt={t.chiSiamo.heroImageAlt}
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
         </header>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-4 [text-wrap:balance] max-w-[20ch]">
-                {t.chiSiamo.gapTitle}
-              </h2>
-            </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
-              {t.chiSiamo.gapParagraphs.map((p) => (
-                <p key={p}>{p}</p>
-              ))}
-            </div>
+        <Sezione etichetta={t.chiSiamo.gapLabel}>
+          <Reveal>
+            <Discorso titolo={t.chiSiamo.gapTitle} paragrafi={t.chiSiamo.gapParagraphs} />
           </Reveal>
-        </section>
+        </Sezione>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-4 [text-wrap:balance] max-w-[20ch]">
-                {t.chiSiamo.forWhomTitle}
-              </h2>
-            </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
-              {t.chiSiamo.forWhomParagraphs.map((p) => (
-                <p key={p}>{p}</p>
-              ))}
-            </div>
+        <Sezione etichetta={t.chiSiamo.forWhomLabel}>
+          <Reveal>
+            <Discorso titolo={t.chiSiamo.forWhomTitle} paragrafi={t.chiSiamo.forWhomParagraphs} />
           </Reveal>
-        </section>
+        </Sezione>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-4 [text-wrap:balance] max-w-[20ch]">
-                {t.chiSiamo.smallByDesignTitle}
-              </h2>
-            </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
-              {t.chiSiamo.smallByDesignParagraphs.map((p) => (
-                <p key={p}>{p}</p>
-              ))}
-            </div>
+        <Sezione etichetta={t.chiSiamo.smallByDesignLabel}>
+          <Reveal>
+            <Discorso
+              titolo={t.chiSiamo.smallByDesignTitle}
+              paragrafi={t.chiSiamo.smallByDesignParagraphs}
+            />
           </Reveal>
-        </section>
+        </Sezione>
 
-        <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
-          <Reveal className="flex flex-col items-center text-center gap-5">
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
-              {t.chiSiamo.ctaTitle}
-            </h2>
-            <div className="flex items-center gap-3 flex-wrap justify-center">
-              <Link
-                href="/cosa-offriamo"
-                className="border border-border dark:border-neutral-800 font-bold text-sm rounded-full px-6 py-3.5 hover:border-accent hover:text-accent transition-colors"
-              >
-                {t.chiSiamo.ctaSeeOffer}
-              </Link>
-              <AuthGate
-                loggedIn={
-                  <Link
-                    href="/dashboard"
-                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
-                  >
-                    {t.home.ctaDashboard}
-                  </Link>
-                }
-                loggedOut={
-                  <Link
-                    href="/signup"
-                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-6 py-3.5 transition-colors"
-                  >
-                    {t.home.ctaSignupFree}
-                  </Link>
-                }
-              />
-            </div>
-          </Reveal>
-        </section>
+        <Chiusura
+          titolo={t.chiSiamo.ctaTitle}
+          secondario={{ href: "/cosa-offriamo", label: t.chiSiamo.ctaSeeOffer }}
+        />
       </main>
 
       <SiteFooter />
