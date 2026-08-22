@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { StatsDemo } from "@/components/stats-demo";
-import { AppMockup } from "@/components/app-mockup";
+import { AppScreenshot } from "@/components/app-screenshot";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { AuthGate } from "@/components/auth-gate";
@@ -151,7 +151,14 @@ export default function HomePage() {
         </div>
 
         <div className="flex flex-col gap-5">
-        <AppMockup />
+        <AppScreenshot
+          src="/schermata-panoramica.png"
+          width={1600}
+          height={820}
+          alt={t.shared.screenshots.panoramicaAlt}
+          caption={t.shared.screenshots.caption}
+          priority
+        />
         <div className="border border-border dark:border-neutral-800 rounded-2xl bg-white dark:bg-neutral-900 p-6 shadow-[0_24px_60px_-20px_rgba(20,21,26,0.18)] dark:shadow-none">
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">

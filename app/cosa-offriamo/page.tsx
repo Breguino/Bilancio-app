@@ -2,9 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { AppMockup } from "@/components/app-mockup";
-import { ContactsMockup } from "@/components/contacts-mockup";
-import { StatisticsMockup } from "@/components/statistics-mockup";
+import { AppScreenshot } from "@/components/app-screenshot";
 import { AuthGate } from "@/components/auth-gate";
 import { Reveal } from "@/components/reveal";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
@@ -75,11 +73,35 @@ export default function CosaOffriamoPage() {
               {t.cosaOffriamo.heroBody}
             </p>
           </div>
-          <AppMockup />
+          <AppScreenshot
+            src="/schermata-panoramica.png"
+            width={1600}
+            height={820}
+            alt={t.shared.screenshots.panoramicaAlt}
+            caption={t.shared.screenshots.caption}
+            priority
+          />
         </header>
 
         {groups.map((group, gi) => {
-          const mockup = gi === 1 ? <ContactsMockup /> : gi === 2 ? <StatisticsMockup /> : null;
+          const mockup =
+            gi === 1 ? (
+              <AppScreenshot
+                src="/schermata-cliente.png"
+                width={1600}
+                height={700}
+                alt={t.shared.screenshots.clienteAlt}
+                caption={t.shared.screenshots.caption}
+              />
+            ) : gi === 2 ? (
+              <AppScreenshot
+                src="/schermata-statistiche.png"
+                width={1600}
+                height={820}
+                alt={t.shared.screenshots.statisticheAlt}
+                caption={t.shared.screenshots.caption}
+              />
+            ) : null;
           const cardGrid = (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {group.items.map((item, ii) => (

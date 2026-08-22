@@ -41,36 +41,14 @@ const it = {
       forecastMonth6: "Previsione mese 6",
       ci95: "IC 95%",
     },
-    appMockup: {
-      exampleOverview: "Esempio · Panoramica",
-      entrate: "Entrate",
-      uscite: "Uscite",
-      netto: "Netto",
-      demoCategory: "Benzina",
-      demoSalary: "Stipendio",
-      demoUtility: "Enel",
-    },
-    contactsMockup: {
-      path: "bilancino.it.com/contacts/3",
-      exampleLabel: "Esempio · Scheda cliente",
-      contactName: "Marco Rossi",
-      contactRole: "Cliente",
-      totalRevenueLabel: "Entrate totali collegate",
-      notesTitle: "Note e promemoria",
-      note1: "Rinnovo contratto a settembre",
-      note1Reminder: "Promemoria: 15 set",
-      note2: "Confermato preventivo",
-      note2Done: "Fatto",
-    },
-    statisticsMockup: {
-      path: "bilancino.it.com/statistics",
-      exampleLabel: "Esempio · Statistiche",
-      average: "Media mensile",
-      stdDev: "Dev. standard",
-      ci95: "IC 95%",
-      anomalyTitle: "Spesa anomala rilevata",
-      anomalyDescription: "Ristorante",
-      anomalyDetail: "+2,3 dev. std dalla media di categoria",
+    screenshots: {
+      caption: "Schermata dell'app · dati di esempio",
+      panoramicaAlt:
+        "La Panoramica di Bilancino: entrate, uscite e netto del mese, budget per categoria e promemoria in scadenza.",
+      clienteAlt:
+        "La scheda di un cliente in Bilancino, con le entrate totali collegate, le note e un promemoria con scadenza.",
+      statisticheAlt:
+        "La pagina Statistiche di Bilancino: previsione del risparmio, media mensile, deviazione standard e intervallo di confidenza.",
     },
   },
   nav: {

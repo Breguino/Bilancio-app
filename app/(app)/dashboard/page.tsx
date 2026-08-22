@@ -98,6 +98,7 @@ export default async function DashboardPage({
     { data: upcomingReminders },
     { data: categoryHistory },
     { count: allTimeTransactionCount },
+    { data: profile },
   ] = await Promise.all([
     supabase
       .from("transactions")
@@ -135,7 +136,14 @@ export default async function DashboardPage({
       .order("date", { ascending: false })
       .limit(300),
     supabase.from("transactions").select("id", { count: "exact", head: true }).is("deleted_at", null),
+    supabase.from("profiles").select("first_name").maybeSingle(),
   ]);
+
+  // Il nome viene chiesto in fase di registrazione e sta in "profiles": il
+  // saluto usava la parte prima della @ dell'email, che per la maggior parte
+  // degli indirizzi non e' un nome. Se manca (chi entra con Google prima di
+  // completare il profilo) si torna a quella.
+  const greetingName = profile?.first_name?.trim() || user?.email?.split("@")[0];
 
   const isNewAccount = (allTimeTransactionCount || 0) === 0;
 
@@ -240,7 +248,7 @@ export default async function DashboardPage({
         <div className="border border-border dark:border-neutral-800 rounded-xl p-6 bg-white dark:bg-neutral-900">
           <p className="text-2xl mb-2">👋</p>
           <h1 className="text-2xl font-extrabold tracking-tight mb-1">
-            {t.dashboard.welcomeTitle}, {user?.email?.split("@")[0]}
+            {t.dashboard.welcomeTitle}, {greetingName}
           </h1>
           <p className="text-sm text-ink-secondary dark:text-neutral-400 max-w-md">
             {t.dashboard.welcomeBody}
@@ -253,7 +261,7 @@ export default async function DashboardPage({
               {t.dashboard.thisMonth}
             </p>
             <h1 className="text-2xl font-extrabold tracking-tight">
-              {t.dashboard.greeting}, {user?.email?.split("@")[0]}
+              {t.dashboard.greeting}, {greetingName}
             </h1>
           </div>
 

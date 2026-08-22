@@ -43,36 +43,14 @@ const en: Dictionary = {
       forecastMonth6: "Month 6 forecast",
       ci95: "95% CI",
     },
-    appMockup: {
-      exampleOverview: "Example · Overview",
-      entrate: "Income",
-      uscite: "Expenses",
-      netto: "Net",
-      demoCategory: "Gas",
-      demoSalary: "Salary",
-      demoUtility: "Electric bill",
-    },
-    contactsMockup: {
-      path: "bilancino.it.com/contacts/3",
-      exampleLabel: "Example · Client card",
-      contactName: "Marco Rossi",
-      contactRole: "Client",
-      totalRevenueLabel: "Total revenue linked",
-      notesTitle: "Notes & reminders",
-      note1: "Contract renewal in September",
-      note1Reminder: "Reminder: Sep 15",
-      note2: "Quote confirmed",
-      note2Done: "Done",
-    },
-    statisticsMockup: {
-      path: "bilancino.it.com/statistics",
-      exampleLabel: "Example · Statistics",
-      average: "Monthly average",
-      stdDev: "Std. deviation",
-      ci95: "95% CI",
-      anomalyTitle: "Anomalous expense detected",
-      anomalyDescription: "Restaurant",
-      anomalyDetail: "+2.3 std dev from category average",
+    screenshots: {
+      caption: "A screen from the app · example data",
+      panoramicaAlt:
+        "Bilancino's Overview: income, expenses and net for the month, budgets by category, and upcoming reminders.",
+      clienteAlt:
+        "A client page in Bilancino, showing total linked income, notes, and a reminder with a due date.",
+      statisticheAlt:
+        "Bilancino's Statistics page: savings forecast, monthly average, standard deviation, and confidence interval.",
     },
   },
   nav: {
