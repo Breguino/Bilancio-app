@@ -47,7 +47,7 @@ export default function TassePage() {
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
-        <header className="pt-16 pb-10 sm:pt-20 sm:pb-12 max-w-[62ch]">
+        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
           <span className="text-xs font-bold uppercase tracking-wide text-accent">Guida</span>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
             Mettere da parte per le tasse senza impazzire
@@ -71,7 +71,7 @@ export default function TassePage() {
           </Reveal>
         </section>
 
-        <section className="py-10 sm:py-12 border-t border-border dark:border-neutral-800">
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
@@ -99,8 +99,8 @@ export default function TassePage() {
           </Reveal>
         </section>
 
-        <section className="py-10 sm:py-12 border-t border-border dark:border-neutral-800">
-          <Reveal className="max-w-[60ch] mb-8">
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+          <Reveal className="max-w-[62ch] mb-8">
             <span className="text-xs font-bold uppercase tracking-wide text-accent">Il metodo</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
               Accantonare a ogni incasso, non a fine anno
@@ -142,7 +142,7 @@ export default function TassePage() {
           </div>
         </section>
 
-        <section className="py-10 sm:py-12 border-t border-border dark:border-neutral-800">
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
@@ -172,10 +172,10 @@ export default function TassePage() {
 
         <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
           <Reveal className="flex flex-col items-center text-center gap-5">
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[24ch]">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
               Un obiettivo di risparmio, per non perderlo di vista
             </h2>
-            <p className="text-ink-secondary dark:text-neutral-400 max-w-[54ch]">
+            <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">
               In Bilancino puoi creare un obiettivo &quot;accantonamento tasse&quot; e aggiungere un
               contributo ogni volta che incassi, così vedi sempre a che punto sei. Bilancino non
               calcola le tasse e non è un gestionale fiscale — quello resta lavoro del tuo

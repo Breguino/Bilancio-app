@@ -100,7 +100,7 @@ export default function CosaOffriamoPage() {
 
           return (
             <section key={group.title} className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-              <Reveal className="max-w-[60ch] mb-8">
+              <Reveal className="max-w-[62ch] mb-8">
                 <span className="text-xs font-bold uppercase tracking-wide text-accent">{group.tag}</span>
                 <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
                   {group.title}
@@ -123,7 +123,7 @@ export default function CosaOffriamoPage() {
 
         <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
           <Reveal className="flex flex-col items-center text-center gap-5">
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[24ch]">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
               {t.cosaOffriamo.ctaTitle}
             </h2>
             <div className="flex items-center gap-3 flex-wrap justify-center">

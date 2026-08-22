@@ -110,7 +110,7 @@ export default function TerminiPage() {
           </Reveal>
         </section>
 
-        <section className="py-14 sm:py-16 border-t border-border dark:border-neutral-800">
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <Reveal>
             <p className="text-sm text-ink-muted dark:text-neutral-500 max-w-[62ch]">
               {t.termini.footerNotePre}{" "}

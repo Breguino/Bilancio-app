@@ -4,9 +4,11 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { AuthActions } from "@/components/auth-actions";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { isLoggedIn } from "@/lib/auth/session";
 
 export function SiteHeader() {
   const { locale, t } = getDictionary();
+  const loggedIn = isLoggedIn();
 
   const marketingNavLinks = [
     { href: "/chi-siamo", label: t.nav.chiSiamo },
@@ -39,7 +41,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <LanguageSwitcher locale={locale} label={t.common.langSwitchLabel} />
           <ThemeToggle ariaLabel={t.shared.themeToggle.ariaLabel} title={t.shared.themeToggle.title} />
-          <AuthActions nav={t.nav} marketingNavLinks={marketingNavLinks} />
+          <AuthActions loggedIn={loggedIn} nav={t.nav} marketingNavLinks={marketingNavLinks} />
         </div>
       </div>
     </nav>

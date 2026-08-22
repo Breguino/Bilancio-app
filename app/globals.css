@@ -1,3 +1,38 @@
+/* ============================================================
+   La scala del sito pubblico
+   ============================================================
+   Queste misure non stanno qui dentro come classi: restano
+   utility Tailwind sulle pagine. Stanno scritte qui perche'
+   prima non erano scritte da nessuna parte, e infatti erano
+   andate alla deriva — sei misure di riga, cinque di titolo,
+   quattro respiri di testata, e un h2 che cambiava taglia a
+   seconda della pagina invece che del ruolo.
+
+   Il ruolo decide la taglia, non la pagina.
+
+   RESPIRO
+     testata di pagina   pt-16 pb-14 sm:pt-20 sm:pb-16
+     sezione             py-12 sm:py-14
+     sezione di chiusura py-14 sm:py-20
+     striscia di servizio py-8   (l'indice di una guida: e'
+                                  navigazione, non contenuto, e sta
+                                  attaccata alla testata)
+
+   TITOLI
+     titolo di pagina (h1)    text-4xl sm:text-5xl   max-w-[20ch]
+     titolo di sezione (h2)   text-2xl sm:text-3xl   max-w-[20ch]
+     titolo di chiusura (h2)  text-3xl sm:text-4xl   max-w-[22ch]
+
+   RIGA (quanto e' lunga una riga di testo)
+     46ch  colonna stretta: corpo dell'eroe, corpo della chiusura
+     56ch  dentro una cella di griglia a due colonne
+     62ch  a tutta larghezza: occhiello e testo introduttivo
+
+   Se aggiungi una pagina pubblica, pescala da qui. Se ti serve
+   un valore che qui non c'e', o il ruolo e' nuovo davvero e va
+   aggiunto sopra, oppure non e' nuovo e uno di questi basta.
+   ============================================================ */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

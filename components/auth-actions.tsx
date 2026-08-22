@@ -1,34 +1,31 @@
-"use client";
-
 import Link from "next/link";
 import { MobileMenu } from "@/components/mobile-menu";
-import { useAuthUser } from "@/components/auth-provider";
 import type { dictionaryFor } from "@/lib/i18n/dictionaries";
 
 type NavDict = ReturnType<typeof dictionaryFor>["nav"];
 
-// Componente client separato dal resto dell'header: legge la sessione dal
-// contesto condiviso (AuthProvider) invece che nel Server Component, così
-// SiteHeader non deve più chiamare supabase.auth.getUser() ad ogni
-// richiesta. Finché la sessione non è nota si assume utente anonimo (il
-// caso comune per chi visita le pagine di marketing), evitando un mismatch
-// di idratazione. I testi restano tradotti lato server e arrivano via prop.
+// Le CTA dell'header che cambiano a seconda della sessione. È un Server
+// Component che riceve `loggedIn` già risolto da SiteHeader: l'unica parte
+// interattiva è MobileMenu, che resta un Client Component a sé. Così l'header
+// non spedisce al browser né il client Supabase né un contesto di auth, e la
+// CTA arriva già giusta nell'HTML — niente sfarfallio da "Accedi" a
+// "Dashboard" dopo l'idratazione.
 export function AuthActions({
+  loggedIn,
   nav,
   marketingNavLinks,
 }: {
+  loggedIn: boolean;
   nav: NavDict;
   marketingNavLinks: { href: string; label: string }[];
 }) {
-  const user = useAuthUser();
-
-  const mobileItems = user
+  const mobileItems = loggedIn
     ? [...marketingNavLinks, { href: "/dashboard", label: nav.dashboard }]
     : [...marketingNavLinks, { href: "/login", label: nav.accedi }];
 
   return (
     <>
-      {!user ? (
+      {!loggedIn ? (
         <Link
           href="/login"
           className="hidden sm:inline-flex items-center h-9 text-sm font-semibold text-ink-secondary dark:text-neutral-400 border border-border dark:border-neutral-700 rounded-full px-4 hover:border-accent hover:text-accent transition-colors whitespace-nowrap"
@@ -40,11 +37,11 @@ export function AuthActions({
         <MobileMenu items={mobileItems} />
       </div>
       <Link
-        href={user ? "/dashboard" : "/signup"}
+        href={loggedIn ? "/dashboard" : "/signup"}
         className="inline-flex items-center h-9 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-4 transition-colors whitespace-nowrap"
       >
-        <span className="sm:hidden">{user ? nav.vaiDashboardShort : nav.creaAccountShort}</span>
-        <span className="hidden sm:inline">{user ? nav.vaiDashboard : nav.creaAccount}</span>
+        <span className="sm:hidden">{loggedIn ? nav.vaiDashboardShort : nav.creaAccountShort}</span>
+        <span className="hidden sm:inline">{loggedIn ? nav.vaiDashboard : nav.creaAccount}</span>
       </Link>
     </>
   );

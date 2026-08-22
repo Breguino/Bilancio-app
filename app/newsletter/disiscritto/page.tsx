@@ -20,7 +20,7 @@ export default function NewsletterUnsubscribedPage() {
     <div className="min-h-screen">
       <SiteHeader />
       <main className="max-w-6xl mx-auto px-6">
-        <div className="pt-20 pb-20 max-w-[52ch] text-center mx-auto">
+        <div className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[56ch] text-center mx-auto">
           <h1 className="text-3xl font-extrabold tracking-tight mb-3">{t.newsletterUnsub.title}</h1>
           <p className="text-ink-secondary dark:text-neutral-400 mb-8">
             {t.newsletterUnsub.body}
