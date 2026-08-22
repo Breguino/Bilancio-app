@@ -1,10 +1,40 @@
 import type { Metadata } from "next";
+import { Fraunces, Archivo, IBM_Plex_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AnalyticsConsent } from "@/components/analytics-consent";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
+
+// I tre caratteri del sito pubblico. Fino a ieri il sito girava sullo stack di
+// sistema: nessuna identità, e le cifre — che sono tutto il prodotto — erano
+// rese dallo stesso carattere del testo corrente.
+//
+// Fraunces per i titoli: gli assi SOFT e WONK la tengono calda e un po' storta,
+// da cosa tenuta a mano, invece della serif ad alto contrasto che finisce su
+// qualsiasi landing. Archivo per il testo: grottesca utilitaria, ottima sugli
+// accenti italiani. Plex Mono per ogni importo ed etichetta: le colonne di
+// numeri si allineano come su un registro.
+const display = Fraunces({
+  subsets: ["latin"],
+  axes: ["SOFT", "WONK", "opsz"],
+  display: "swap",
+  variable: "--font-display",
+});
+
+const body = Archivo({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-body",
+});
+
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-mono",
+});
 
 export function generateMetadata(): Metadata {
   const locale = getLocale();
@@ -53,7 +83,11 @@ export default function RootLayout({
   const locale = getLocale();
   const t = dictionaryFor(locale);
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html
+      lang={locale}
+      suppressHydrationWarning
+      className={`${display.variable} ${body.variable} ${mono.variable}`}
+    >
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}

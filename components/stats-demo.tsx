@@ -36,7 +36,13 @@ export function StatsDemo({
 } = {}) {
   const [values, setValues] = useState<number[]>(DEFAULT_VALUES);
   const eur = useMemo(
-    () => new Intl.NumberFormat(numberLocale, { style: "currency", currency: "EUR", maximumFractionDigits: 0 }),
+    () =>
+      new Intl.NumberFormat(numberLocale, {
+        style: "currency",
+        currency: "EUR",
+        maximumFractionDigits: 0,
+        useGrouping: true,
+      }),
     [numberLocale]
   );
 
@@ -51,48 +57,54 @@ export function StatsDemo({
   const stdDev = useMemo(() => sampleStdDev(values), [values]);
   const avg = useMemo(() => mean(values), [values]);
 
-  return (
-    <div className="border border-border dark:border-neutral-800 rounded-2xl p-6 sm:p-8 bg-white dark:bg-neutral-900">
-      <p className="text-xs font-bold uppercase tracking-wide text-accent mb-2">{labels.eyebrow}</p>
-      <h3 className="text-xl font-extrabold tracking-tight mb-1">{labels.title}</h3>
-      <p className="text-ink-secondary dark:text-neutral-400 text-sm mb-6">
-        {labels.body}
-      </p>
+  const risultati = [
+    { etichetta: labels.average, valore: eur.format(avg), forte: false },
+    { etichetta: labels.stdDev, valore: eur.format(stdDev), forte: false },
+    {
+      etichetta: labels.forecastMonth6,
+      valore: forecast !== null ? eur.format(forecast) : "—",
+      forte: true,
+    },
+    {
+      etichetta: labels.ci95,
+      valore: ci ? `${eur.format(ci.lower)} — ${eur.format(ci.upper)}` : "—",
+      forte: false,
+    },
+  ];
 
-      <div className="grid grid-cols-5 gap-2 mb-6">
+  return (
+    <div className="foglio p-6 sm:p-8">
+      <p className="tacca mb-3">{labels.eyebrow}</p>
+      <h3 className="display text-xl mb-2">{labels.title}</h3>
+      <p className="text-inchiostro-soft text-sm leading-relaxed mb-7">{labels.body}</p>
+
+      <div className="grid grid-cols-5 gap-2 mb-7">
         {values.map((v, i) => (
-          <div key={i} className="flex flex-col gap-1">
-            <label className="text-[10px] font-semibold uppercase text-ink-muted dark:text-neutral-500 text-center">
+          <div key={i} className="flex flex-col gap-1.5">
+            <label className="tacca text-[10px] text-center" htmlFor={`stats-demo-${i}`}>
               {labels.monthLabel} {i + 1}
             </label>
             <input
+              id={`stats-demo-${i}`}
               type="number"
               value={v}
               onChange={(e) => updateValue(i, e.target.value)}
-              className="w-full border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-1 py-2 text-sm text-center num focus:outline-none focus:ring-2 focus:ring-accent"
+              className="cifra w-full border border-riga bg-carta rounded-sm px-1 py-2 text-sm text-center text-inchiostro focus:outline-none focus:border-verde"
             />
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-border dark:border-neutral-800 pt-5">
-        <div>
-          <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{labels.average}</p>
-          <p className="num font-bold">{eur.format(avg)}</p>
-        </div>
-        <div>
-          <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{labels.stdDev}</p>
-          <p className="num font-bold">{eur.format(stdDev)}</p>
-        </div>
-        <div>
-          <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{labels.forecastMonth6}</p>
-          <p className="num font-bold text-accent">{forecast !== null ? eur.format(forecast) : "—"}</p>
-        </div>
-        <div>
-          <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{labels.ci95}</p>
-          <p className="num font-bold text-sm">{ci ? `${eur.format(ci.lower)} — ${eur.format(ci.upper)}` : "—"}</p>
-        </div>
-      </div>
+      <dl className="grid grid-cols-2 gap-x-5 gap-y-5 border-t border-riga pt-6">
+        {risultati.map((r) => (
+          <div key={r.etichetta}>
+            <dt className="tacca mb-1.5">{r.etichetta}</dt>
+            <dd className={`cifra ${r.forte ? "text-verde text-lg" : "text-inchiostro text-sm"}`}>
+              {r.valore}
+            </dd>
+          </div>
+        ))}
+      </dl>
     </div>
   );
 }

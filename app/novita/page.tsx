@@ -29,22 +29,22 @@ export default function NovitaPage() {
   const t = dictionaryFor(getLocale());
 
   return (
-    <div className="min-h-screen">
+    <div className="sito min-h-screen">
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
         <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
-          <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.novita.eyebrow}</span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
+          <span className="tacca">{t.novita.eyebrow}</span>
+          <h1 className="display text-[2.5rem] sm:text-[3.5rem] mt-5 mb-7">
             {t.novita.heroTitle}
           </h1>
-          <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
+          <p className="text-inchiostro-soft text-lg leading-relaxed">
             {t.novita.heroBody}
           </p>
-          <p className="text-ink-muted dark:text-neutral-500 text-sm mt-4">{t.novita.lastUpdatedPrefix} {t.novita.lastUpdated}</p>
+          <p className="text-inchiostro-muted text-sm mt-4">{t.novita.lastUpdatedPrefix} {t.novita.lastUpdated}</p>
         </header>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+        <section className="py-12 sm:py-14 border-t border-riga">
           <div className="flex flex-col gap-10">
             {t.novita.entries.map((entry, i) => (
               <Reveal
@@ -52,12 +52,12 @@ export default function NovitaPage() {
                 delay={i * 80}
                 className="grid grid-cols-1 sm:grid-cols-[10rem_1fr] gap-4 sm:gap-8"
               >
-                <p className="num text-sm font-bold text-accent sm:pt-0.5">{entry.date}</p>
+                <p className="cifra text-sm text-ottone sm:pt-0.5">{entry.date}</p>
                 <ul className="flex flex-col gap-3">
                   {entry.items.map((item) => (
                     <li
                       key={item}
-                      className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed pl-4 relative before:content-['—'] before:absolute before:left-0 before:text-ink-muted dark:before:text-neutral-600"
+                      className="text-sm text-inchiostro-soft leading-relaxed pl-4 relative before:content-['—'] before:absolute before:left-0 before:text-inchiostro-muted"
                     >
                       {item}
                     </li>
@@ -68,14 +68,14 @@ export default function NovitaPage() {
           </div>
         </section>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+        <section className="py-12 sm:py-14 border-t border-riga">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.novita.ideasEyebrow}</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[20ch]">
+              <span className="tacca">{t.novita.ideasEyebrow}</span>
+              <h2 className="display text-2xl sm:text-3xl mt-4 mb-5 max-w-[20ch]">
                 {t.novita.ideasTitle}
               </h2>
-              <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed">
+              <p className="text-inchiostro-soft leading-relaxed">
                 {t.novita.ideasBody}
               </p>
             </div>
@@ -83,7 +83,7 @@ export default function NovitaPage() {
               {t.novita.ideas.map((idea) => (
                 <li
                   key={idea}
-                  className="border border-border dark:border-neutral-800 rounded-xl p-4 text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed"
+                  className="foglio p-4 text-sm text-inchiostro-soft leading-relaxed"
                 >
                   {idea}
                 </li>
@@ -92,18 +92,18 @@ export default function NovitaPage() {
           </Reveal>
         </section>
 
-        <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
+        <section className="py-14 sm:py-20 border-t border-riga">
           <Reveal className="flex flex-col items-center text-center gap-5">
             <AuthGate
               loggedIn={
                 <>
-                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
+                  <h2 className="display text-3xl sm:text-[2.5rem] max-w-[22ch]">
                     {t.home.ctaTitleReturning}
                   </h2>
-                  <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">{t.home.ctaBodyReturning}</p>
+                  <p className="text-inchiostro-soft max-w-[46ch]">{t.home.ctaBodyReturning}</p>
                   <Link
                     href="/dashboard"
-                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
+                    className="bottone mt-2"
                   >
                     {t.home.ctaDashboard}
                   </Link>
@@ -111,13 +111,13 @@ export default function NovitaPage() {
               }
               loggedOut={
                 <>
-                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
+                  <h2 className="display text-3xl sm:text-[2.5rem] max-w-[22ch]">
                     {t.home.ctaTitleNew}
                   </h2>
-                  <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">{t.home.ctaBodyNew}</p>
+                  <p className="text-inchiostro-soft max-w-[46ch]">{t.home.ctaBodyNew}</p>
                   <Link
                     href="/signup"
-                    className="bg-accent hover:bg-accent-hover text-white font-bold text-sm rounded-full px-7 py-3.5 transition-colors mt-2"
+                    className="bottone mt-2"
                   >
                     {t.home.ctaSignupFree}
                   </Link>

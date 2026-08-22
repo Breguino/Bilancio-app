@@ -1,41 +1,83 @@
 /* ============================================================
-   La scala del sito pubblico
+   Dove sta la scala del sito pubblico
    ============================================================
-   Queste misure non stanno qui dentro come classi: restano
-   utility Tailwind sulle pagine. Stanno scritte qui perche'
-   prima non erano scritte da nessuna parte, e infatti erano
-   andate alla deriva — sei misure di riga, cinque di titolo,
-   quattro respiri di testata, e un h2 che cambiava taglia a
-   seconda della pagina invece che del ruolo.
+   Non qui: sta nei componenti. Sezione detta il respiro e la
+   griglia di ogni sezione, Chiusura quello del blocco finale,
+   Discorso l'accoppiata titolo/paragrafi.
 
-   Il ruolo decide la taglia, non la pagina.
+   Vale la pena dire perche' sono componenti e non una
+   convenzione scritta: prima ogni pagina si riscriveva a mano il
+   proprio blocco finale, e il risultato erano sei misure di riga,
+   cinque di titolo e quattro respiri di testata tutti leggermente
+   diversi. Una convenzione la si puo' disattendere per
+   distrazione, un componente no.
 
-   RESPIRO
-     testata di pagina   pt-16 pb-14 sm:pt-20 sm:pb-16
-     sezione             py-12 sm:py-14
-     sezione di chiusura py-14 sm:py-20
-     striscia di servizio py-8   (l'indice di una guida: e'
-                                  navigazione, non contenuto, e sta
-                                  attaccata alla testata)
-
-   TITOLI
-     titolo di pagina (h1)    text-4xl sm:text-5xl   max-w-[20ch]
-     titolo di sezione (h2)   text-2xl sm:text-3xl   max-w-[20ch]
-     titolo di chiusura (h2)  text-3xl sm:text-4xl   max-w-[22ch]
-
-   RIGA (quanto e' lunga una riga di testo)
-     46ch  colonna stretta: corpo dell'eroe, corpo della chiusura
-     56ch  dentro una cella di griglia a due colonne
-     62ch  a tutta larghezza: occhiello e testo introduttivo
-
-   Se aggiungi una pagina pubblica, pescala da qui. Se ti serve
-   un valore che qui non c'e', o il ruolo e' nuovo davvero e va
-   aggiunto sopra, oppure non e' nuovo e uno di questi basta.
+   Quindi: se aggiungi una pagina pubblica, componila con Sezione e
+   Chiusura invece di rimettere py-* e max-w-[..ch] nel markup. Se
+   ti serve un taglio che non c'e', aggiungilo li' dentro, cosi'
+   arriva a tutte le pagine insieme.
    ============================================================ */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Identità del sito pubblico
+   Un bilancino è una bilancia di precisione a due piatti. I colori vengono da
+   lì — ottone, la patina verderame che l'ottone prende, il minio con cui si
+   rigavano i registri — e dalla carta su cui quei registri si tenevano.
+   Tenerli come variabili CSS invece che come valori fissi in Tailwind serve a
+   una cosa sola: chiaro e scuro cambiano da soli, senza `dark:` ripetuto su
+   ogni classe di ogni pagina.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --inchiostro: 26 30 27;
+  --inchiostro-soft: 76 84 80;
+  --inchiostro-muted: 101 111 106;
+  --verde: 47 107 88;
+  --verde-hover: 36 82 67;
+  --verde-soft: 223 233 227;
+  --ottone: 142 98 38;
+  --ottone-soft: 246 237 222;
+  --minio: 180 68 46;
+  --minio-soft: 250 232 227;
+  --carta: 239 242 237;
+  --foglio: 250 251 248;
+  --riga: 207 215 209;
+
+  /* Il blocco pieno che chiude ogni pagina, e i colori che ci vanno sopra.
+     Non può essere "inchiostro": al buio l'inchiostro è il colore del testo,
+     cioè quasi bianco, e la chiusura diventerebbe una lastra accecante in
+     fondo a una pagina scura. Questo resta scuro in entrambi i temi. */
+  --pieno: 26 30 27;
+  --su-pieno: 239 242 237;
+  --su-ottone: 250 251 248;
+
+  /* Colore dell'alone al focus dei campi. Fuori dal sito pubblico resta
+     l'indaco dell'app riservata, che non stiamo ridisegnando. */
+  --alone: 79 70 229;
+}
+
+.dark {
+  --inchiostro: 232 237 232;
+  --inchiostro-soft: 165 176 169;
+  --inchiostro-muted: 124 136 129;
+  --verde: 95 191 158;
+  --verde-hover: 124 209 179;
+  --verde-soft: 27 48 41;
+  --ottone: 217 162 78;
+  --ottone-soft: 56 43 23;
+  --minio: 224 114 92;
+  --minio-soft: 61 32 26;
+  --carta: 16 19 17;
+  --foglio: 23 27 24;
+  --riga: 48 55 50;
+  --pieno: 40 50 45;
+  --su-pieno: 232 237 232;
+  --su-ottone: 16 19 17;
+}
 
 body {
   background: #fbfbf8;
@@ -47,9 +89,49 @@ body {
   color: #f3f3f6;
 }
 
+/* Il sito pubblico porta la propria carta e il proprio corpo di testo. L'app
+   riservata non ha questa classe e resta esattamente com'era. */
+.sito {
+  background: rgb(var(--carta));
+  color: rgb(var(--inchiostro));
+  font-family: var(--font-body), system-ui, sans-serif;
+  --alone: var(--verde);
+}
+
 .num {
   font-variant-numeric: tabular-nums;
 }
+
+/* Le cifre del sito pubblico: monospaziate, allineate in colonna come su un
+   registro. Il prodotto è fatto di importi — meritano un carattere proprio. */
+.sito .cifra {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Occhielli e etichette: mono minuscolo e spaziato, come l'incisione su una
+   scala graduata. Sostituisce il maiuscoletto indaco ripetuto ovunque. */
+.sito .tacca {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(var(--inchiostro-muted));
+}
+
+/* Il titolo display, impostato una volta sola. WONK e SOFT tengono la serif
+   calda e un po' storta: tenuta a mano, non da ufficio marketing. */
+.sito .display {
+  font-family: var(--font-display), Georgia, serif;
+  font-variation-settings: "SOFT" 40, "WONK" 1, "opsz" 40;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+/* ─── Campi ─────────────────────────────────────────────────────────────── */
 
 input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]),
 select,
@@ -66,11 +148,19 @@ textarea:focus {
 
 @keyframes field-focus-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.35);
+    box-shadow: 0 0 0 0 rgb(var(--alone) / 0.35);
   }
   100% {
-    box-shadow: 0 0 0 8px rgba(79, 70, 229, 0);
+    box-shadow: 0 0 0 8px rgb(var(--alone) / 0);
   }
+}
+
+/* Il sito pubblico non fa saltare i campi: è uno strumento di precisione, non
+   una landing. Resta solo l'alone verderame. */
+.sito input:focus,
+.sito select:focus,
+.sito textarea:focus {
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -163,27 +253,12 @@ main > * {
   }
 }
 
-.hero-chart-line {
-  animation: hero-draw-in 1.2s ease forwards;
-}
-
-@keyframes hero-draw-in {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-chart-line {
-    animation: none !important;
-    stroke-dashoffset: 0 !important;
-  }
-}
+/* ─── Comparsa allo scroll ───────────────────────────────────────────────── */
 
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.6s cubic-bezier(0.2, 0, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0, 0.2, 1);
+  transform: translateY(14px);
+  transition: opacity 0.55s cubic-bezier(0.2, 0, 0.2, 1), transform 0.55s cubic-bezier(0.2, 0, 0.2, 1);
 }
 
 .reveal-visible {
@@ -196,5 +271,70 @@ main > * {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+/* ─── Focus visibile ─────────────────────────────────────────────────────── */
+
+.sito :focus-visible {
+  outline: 2px solid rgb(var(--verde));
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
+/* ─── Bottoni ────────────────────────────────────────────────────────────────
+   Squadrati, non a pillola: uno strumento di misura non ha angoli tondi. Stanno
+   in @layer components così le utility di Tailwind possono ancora scavalcarli
+   caso per caso senza guerre di specificità. */
+
+@layer components {
+  .bottone {
+    @apply inline-flex items-center gap-2 rounded-sm bg-verde px-6 py-3.5 text-sm font-semibold text-carta transition-colors;
+  }
+
+  .bottone:hover {
+    @apply bg-verde-hover;
+  }
+
+  .bottone-quieto {
+    @apply inline-flex items-center gap-2 rounded-sm border border-riga px-6 py-3.5 text-sm font-semibold text-inchiostro transition-colors;
+  }
+
+  .bottone-quieto:hover {
+    @apply border-verde text-verde;
+  }
+
+  /* Il pannello di carta su cui poggiano strumenti ed esempi. Un filo di bordo,
+     nessuna ombra: l'ombra finta è la cosa che fa sembrare finta una pagina. */
+  .foglio {
+    @apply rounded-sm border border-riga bg-foglio;
+  }
+}
+
+/* ─── Le monete cadono nel piatto ────────────────────────────────────────────
+   Il momento animato della pagina. Il giogo è già inclinato quando la pagina
+   arriva — quello è un dato, non un effetto, e non deve aspettare il JavaScript
+   per dire la verità. Ad animarsi sono le monete che si impilano, e il giogo
+   che oscilla quando si cambia mese: due cose che rispondono a chi guarda,
+   invece di esibirsi da sole al caricamento. */
+
+.moneta {
+  animation: moneta-cade 0.42s cubic-bezier(0.2, 0.9, 0.3, 1) backwards;
+}
+
+@keyframes moneta-cade {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moneta {
+    animation: none;
   }
 }

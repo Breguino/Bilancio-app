@@ -21,28 +21,28 @@ export default function PrivacyPage() {
   const t = dictionaryFor(getLocale());
 
   return (
-    <div className="min-h-screen">
+    <div className="sito min-h-screen">
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
         <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
-          <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.privacy.eyebrow}</span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
+          <span className="tacca">{t.privacy.eyebrow}</span>
+          <h1 className="display text-[2.5rem] sm:text-[3.5rem] mt-5 mb-7">
             {t.privacy.heroTitle}
           </h1>
-          <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
+          <p className="text-inchiostro-soft text-lg leading-relaxed">
             {t.privacy.heroBody}
           </p>
         </header>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+        <section className="py-12 sm:py-14 border-t border-riga">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
+              <h2 className="display text-2xl sm:text-3xl max-w-[20ch]">
                 {t.privacy.dataCollectedTitle}
               </h2>
             </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
+            <div className="flex flex-col gap-4 text-inchiostro-soft leading-relaxed">
               {t.privacy.dataCollectedParagraphs.map((p) => (
                 <p key={p}>{p}</p>
               ))}
@@ -50,14 +50,14 @@ export default function PrivacyPage() {
           </Reveal>
         </section>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+        <section className="py-12 sm:py-14 border-t border-riga">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
+              <h2 className="display text-2xl sm:text-3xl max-w-[20ch]">
                 {t.privacy.hostingTitle}
               </h2>
             </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
+            <div className="flex flex-col gap-4 text-inchiostro-soft leading-relaxed">
               {t.privacy.hostingParagraphs.map((p) => (
                 <p key={p}>{p}</p>
               ))}
@@ -65,14 +65,14 @@ export default function PrivacyPage() {
           </Reveal>
         </section>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+        <section className="py-12 sm:py-14 border-t border-riga">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
+              <h2 className="display text-2xl sm:text-3xl max-w-[20ch]">
                 {t.privacy.isolationTitle}
               </h2>
             </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
+            <div className="flex flex-col gap-4 text-inchiostro-soft leading-relaxed">
               {t.privacy.isolationParagraphs.map((p) => (
                 <p key={p}>{p}</p>
               ))}
@@ -80,14 +80,14 @@ export default function PrivacyPage() {
           </Reveal>
         </section>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+        <section className="py-12 sm:py-14 border-t border-riga">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
+              <h2 className="display text-2xl sm:text-3xl max-w-[20ch]">
                 {t.privacy.cookiesTitle}
               </h2>
             </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
+            <div className="flex flex-col gap-4 text-inchiostro-soft leading-relaxed">
               {t.privacy.cookiesParagraphs.map((p) => (
                 <p key={p}>{p}</p>
               ))}
@@ -95,18 +95,18 @@ export default function PrivacyPage() {
           </Reveal>
         </section>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+        <section className="py-12 sm:py-14 border-t border-riga">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
+              <h2 className="display text-2xl sm:text-3xl max-w-[20ch]">
                 {t.privacy.yourDataTitle}
               </h2>
             </div>
-            <div className="flex flex-col gap-4 text-ink-secondary dark:text-neutral-400 leading-relaxed">
+            <div className="flex flex-col gap-4 text-inchiostro-soft leading-relaxed">
               <p>{t.privacy.yourDataPara1}</p>
               <p>
                 {t.privacy.yourDataPara2Pre}{" "}
-                <a href="mailto:a2n0g004@gmail.com" className="text-accent font-medium">
+                <a href="mailto:a2n0g004@gmail.com" className="text-verde font-medium">
                   a2n0g004@gmail.com
                 </a>{" "}
                 {t.privacy.yourDataPara2Post}
@@ -116,11 +116,11 @@ export default function PrivacyPage() {
           </Reveal>
         </section>
 
-        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+        <section className="py-14 sm:py-16 border-t border-riga">
           <Reveal>
-            <p className="text-sm text-ink-muted dark:text-neutral-500 max-w-[62ch]">
+            <p className="text-sm text-inchiostro-muted max-w-[62ch]">
               {t.privacy.footerNotePre}{" "}
-              <Link href="/novita" className="text-accent hover:underline">{t.privacy.footerNoteLink}</Link>.
+              <Link href="/novita" className="text-verde underline underline-offset-4">{t.privacy.footerNoteLink}</Link>.
             </p>
           </Reveal>
         </section>

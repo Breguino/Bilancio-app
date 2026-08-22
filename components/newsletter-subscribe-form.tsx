@@ -11,7 +11,7 @@ function SubmitButton({ label }: { label: string }) {
     <button
       type="submit"
       disabled={pending}
-      className={`text-xs font-semibold rounded-full px-4 py-2 bg-accent hover:bg-accent-hover text-white transition-colors shrink-0 ${
+      className={`text-sm font-semibold rounded-sm px-4 py-2.5 bg-verde hover:bg-verde-hover text-carta transition-colors shrink-0 ${
         pending ? "opacity-60 cursor-not-allowed" : ""
       }`}
     >
@@ -30,23 +30,23 @@ export function NewsletterSubscribeForm({
   const [state, formAction] = useFormState(subscribeToNewsletter, initialState);
 
   if (state.status === "success") {
-    return <p className="text-xs text-accent font-semibold">{state.message}</p>;
+    return <p className="text-sm text-verde font-semibold">{state.message}</p>;
   }
 
   return (
-    <form action={formAction} className="flex flex-col sm:flex-row items-center gap-2">
-      <div className="flex items-center gap-2">
+    <form action={formAction} className="flex flex-col gap-2">
+      <div className="flex items-stretch gap-2">
         <input
           type="email"
           name="email"
           required
           placeholder={emailPlaceholder}
-          className="text-xs border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent w-40"
+          className="text-sm bg-foglio border border-riga rounded-sm px-3 py-2.5 w-48 text-inchiostro placeholder:text-inchiostro-muted focus:outline-none focus:border-verde"
         />
         <SubmitButton label={subscribeLabel} />
       </div>
       {state.status === "error" ? (
-        <span className="text-xs text-red-600 dark:text-red-400">{state.message}</span>
+        <span className="text-sm text-minio">{state.message}</span>
       ) : null}
     </form>
   );
