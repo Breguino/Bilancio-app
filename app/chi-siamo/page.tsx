@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -18,7 +17,7 @@ export function generateMetadata(): Metadata {
     openGraph: {
       title,
       description,
-      images: ["/chi-siamo-photo.jpg"],
+      images: ["/og-image.jpg"],
       locale: getLocale() === "it" ? "it_IT" : "en_US",
       type: "website",
     },
@@ -26,7 +25,7 @@ export function generateMetadata(): Metadata {
       card: "summary_large_image",
       title,
       description,
-      images: ["/chi-siamo-photo.jpg"],
+      images: ["/og-image.jpg"],
     },
   };
 }
@@ -39,25 +38,14 @@ export default function ChiSiamoPage() {
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
-        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.chiSiamo.eyebrow}</span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
-              {t.chiSiamo.heroTitle}
-            </h1>
-            <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
-              {t.chiSiamo.heroBody}
-            </p>
-          </div>
-          <div className="relative rounded-2xl overflow-hidden border border-border dark:border-neutral-800 aspect-[4/3]">
-            <Image
-              src="/chi-siamo-photo.jpg"
-              alt={t.chiSiamo.heroImageAlt}
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
+        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
+          <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.chiSiamo.eyebrow}</span>
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
+            {t.chiSiamo.heroTitle}
+          </h1>
+          <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
+            {t.chiSiamo.heroBody}
+          </p>
         </header>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">

@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { StatsDemo } from "@/components/stats-demo";
+import { AppMockup } from "@/components/app-mockup";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { AuthGate } from "@/components/auth-gate";
@@ -151,15 +151,7 @@ export default function HomePage() {
         </div>
 
         <div className="flex flex-col gap-5">
-        <div className="relative rounded-2xl overflow-hidden border border-border dark:border-neutral-800 shadow-[0_24px_60px_-20px_rgba(20,21,26,0.18)] dark:shadow-none aspect-[16/10]">
-          <Image
-            src="/og-image.jpg"
-            alt={t.home.heroImageAlt}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
+        <AppMockup />
         <div className="border border-border dark:border-neutral-800 rounded-2xl bg-white dark:bg-neutral-900 p-6 shadow-[0_24px_60px_-20px_rgba(20,21,26,0.18)] dark:shadow-none">
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500">
@@ -304,8 +296,7 @@ export default function HomePage() {
 
         <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
           <Reveal className="relative rounded-2xl overflow-hidden">
-            <Image src="/cta-bg.jpg" alt="" fill className="object-cover" aria-hidden="true" />
-            <div className="absolute inset-0 bg-ink/75" />
+            <div className="absolute inset-0 cta-backdrop" />
             <div className="relative z-10 text-white px-8 py-14 sm:px-16 sm:py-16 flex flex-col items-center text-center gap-5">
               <AuthGate
                 loggedIn={

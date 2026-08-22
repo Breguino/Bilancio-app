@@ -198,3 +198,13 @@ main > * {
     transition: none;
   }
 }
+
+/* Sfondo della sezione di chiusura. Prima era una foto di bokeh generica
+   messa lì solo per riempire: due sfumature radiali sui colori del marchio
+   fanno lo stesso lavoro senza scaricare 24 KB di immagine. */
+.cta-backdrop {
+  background:
+    radial-gradient(70% 120% at 18% 0%, rgba(79, 70, 229, 0.55) 0%, transparent 60%),
+    radial-gradient(60% 110% at 92% 100%, rgba(5, 150, 105, 0.28) 0%, transparent 62%),
+    #14151a;
+}

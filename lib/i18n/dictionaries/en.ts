@@ -53,7 +53,7 @@ const en: Dictionary = {
       demoUtility: "Electric bill",
     },
     contactsMockup: {
-      path: "bilancino.app/contacts/3",
+      path: "bilancino.it.com/contacts/3",
       exampleLabel: "Example · Client card",
       contactName: "Marco Rossi",
       contactRole: "Client",
@@ -65,7 +65,7 @@ const en: Dictionary = {
       note2Done: "Done",
     },
     statisticsMockup: {
-      path: "bilancino.app/statistics",
+      path: "bilancino.it.com/statistics",
       exampleLabel: "Example · Statistics",
       average: "Monthly average",
       stdDev: "Std. deviation",
@@ -111,7 +111,6 @@ const en: Dictionary = {
     ctaDashboard: "Go to Dashboard →",
     ctaSignupFree: "Create a free account →",
     ctaHowItWorks: "See how it works",
-    heroImageAlt: "Person checking their finances on a laptop",
     chartExample: "Trend · example",
     chartLast6Months: "Last 6 months",
     entrate: "Income",
@@ -588,7 +587,6 @@ const en: Dictionary = {
     heroTitle: "An independent project, built for one specific problem.",
     heroBody:
       "Bilancino isn't a startup with a team, investors, or a marketing department. It's an app built solo, with a narrow goal: bring together personal budgeting and the contacts you have a financial relationship with, without forcing you to choose between an app that's too simple and software that's too complex.",
-    heroImageAlt: "Minimal desk with a laptop, a notebook, and coffee",
     gapTitle: "The gap Bilancino tries to fill",
     gapParagraphs: [
       "Personal budgeting apps are great for tracking income and expenses, but they don't know who your clients are: if someone pays you for work, to them it's just an \"income\" line, with no context, no history, no reminders.",

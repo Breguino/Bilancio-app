@@ -51,7 +51,7 @@ const it = {
       demoUtility: "Enel",
     },
     contactsMockup: {
-      path: "bilancino.app/contacts/3",
+      path: "bilancino.it.com/contacts/3",
       exampleLabel: "Esempio · Scheda cliente",
       contactName: "Marco Rossi",
       contactRole: "Cliente",
@@ -63,7 +63,7 @@ const it = {
       note2Done: "Fatto",
     },
     statisticsMockup: {
-      path: "bilancino.app/statistics",
+      path: "bilancino.it.com/statistics",
       exampleLabel: "Esempio · Statistiche",
       average: "Media mensile",
       stdDev: "Dev. standard",
@@ -109,7 +109,6 @@ const it = {
     ctaDashboard: "Vai alla Dashboard →",
     ctaSignupFree: "Crea un account gratis →",
     ctaHowItWorks: "Scopri come funziona",
-    heroImageAlt: "Persona che controlla le proprie finanze da laptop",
     chartExample: "Andamento · esempio",
     chartLast6Months: "Ultimi 6 mesi",
     entrate: "Entrate",
@@ -586,7 +585,6 @@ const it = {
     heroTitle: "Un progetto indipendente, pensato per un problema preciso.",
     heroBody:
       "Bilancino non è una startup con un team, degli investitori o un ufficio marketing. È un'applicazione sviluppata in autonomia, con un obiettivo circoscritto: mettere insieme il budget personale e i contatti con cui hai un rapporto economico, senza costringerti a scegliere tra un'app troppo semplice e un gestionale troppo complesso.",
-    heroImageAlt: "Scrivania minimale con laptop, quaderno di appunti e caffè",
     gapTitle: "Il vuoto che Bilancino prova a colmare",
     gapParagraphs: [
       "Le app di budget personale sono ottime per tracciare entrate e uscite, ma non sanno chi sono i tuoi clienti: se qualcuno ti paga per un lavoro, per loro è solo una voce \"entrata\", senza contesto, senza storico, senza promemoria.",

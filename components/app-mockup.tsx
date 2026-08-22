@@ -13,7 +13,7 @@ export function AppMockup() {
     maximumFractionDigits: 0,
   });
   const rows = [
-    { date: "23/07", description: t.shared.appMockup.demoSalary, category: "Ardian Bregu", amount: 1000, positive: true },
+    { date: "23/07", description: t.shared.appMockup.demoSalary, category: t.shared.contactsMockup.contactName, amount: 1000, positive: true },
     { date: "23/07", description: t.shared.appMockup.demoUtility, category: t.shared.appMockup.demoCategory, amount: -30, positive: false },
   ];
 
@@ -24,7 +24,7 @@ export function AppMockup() {
         <span className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
         <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" />
         <span className="ml-3 text-[11px] font-medium text-ink-muted dark:text-neutral-500">
-          bilancino.app/dashboard
+          bilancino.it.com/dashboard
         </span>
       </div>
 
