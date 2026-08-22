@@ -765,9 +765,21 @@ const it = {
     heroTitle: "Cosa è cambiato, aggiornamento dopo aggiornamento.",
     heroBody:
       "Sviluppo Bilancino da solo, quindi qui trovi esattamente cosa ho fatto e quando: niente numeri di versione gonfiati, solo le cose che sono cambiate davvero.",
-    lastUpdated: "5 agosto 2026",
+    lastUpdated: "22 agosto 2026",
     lastUpdatedPrefix: "Ultimo aggiornamento:",
     entries: [
+      {
+        date: "22 agosto 2026",
+        items: [
+          "Nuovo marchio, ridisegnato in formato vettoriale: resta nitido a qualunque dimensione, dall'icona nella scheda del browser all'intestazione.",
+          "Le immagini del sito erano generate al computer e si vedeva: lo schermo del portatile mostrava testo illeggibile e cifre inventate. Ora al loro posto ci sono schermate vere dell'app, catturate su un account dimostrativo con dati di esempio.",
+          "L'anteprima che compare quando condividi un link di Bilancino è stata rifatta con il grafico e i colori del prodotto, senza fotografie.",
+          "Il sito adesso dice chi c'è dietro: nome in fondo a ogni pagina, una sezione dedicata su Chi sono e la firma sulle guide, che prima risultavano scritte da un'organizzazione senza nome.",
+          "Riscritti i testi di tutto il sito. C'era una costruzione ripetuta quasi trenta volte, del tipo \"questo, non quello\", che a forza di tornare suonava come un tic. Il contenuto è lo stesso, dette in modo più piano.",
+          "Corretto il saluto nella Panoramica: mostrava la parte prima della @ della tua email invece del nome che avevi indicato registrandoti.",
+          "Sistemati due dettagli nelle schermate di esempio: la barra degli indirizzi mostrava un dominio che non esiste, e un movimento dimostrativo portava il nome di una persona reale.",
+        ],
+      },
       {
         date: "5 agosto 2026",
         items: [

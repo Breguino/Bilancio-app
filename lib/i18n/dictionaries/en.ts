@@ -767,9 +767,21 @@ const en: Dictionary = {
     heroTitle: "What's changed, update after update.",
     heroBody:
       "I build Bilancino solo, so here you'll find exactly what I did and when: no inflated version numbers, just the things that actually changed.",
-    lastUpdated: "August 5, 2026",
+    lastUpdated: "August 22, 2026",
     lastUpdatedPrefix: "Last updated:",
     entries: [
+      {
+        date: "August 22, 2026",
+        items: [
+          "New logo, redrawn as a vector: it stays sharp at any size, from the browser tab icon to the header.",
+          "The site's images were computer-generated and it showed: the laptop screen displayed unreadable text and made-up figures. They've been replaced with real screenshots of the app, captured on a demo account with example data.",
+          "The preview that appears when you share a Bilancino link has been rebuilt from the product's own chart and colours, with no photography.",
+          "The site now says who is behind it: a name at the foot of every page, a dedicated section on the About page, and a byline on the guides, which previously read as written by a nameless organisation.",
+          "Rewrote the copy across the site. One construction came up nearly thirty times, along the lines of \"this, not that\", and at that rate it read like a verbal tic. Same content, said more plainly.",
+          "Fixed the greeting on the Overview: it showed the part of your email before the @ instead of the name you gave when signing up.",
+          "Fixed two details in the example screens: the address bar showed a domain that doesn't exist, and a demo transaction carried a real person's name.",
+        ],
+      },
       {
         date: "August 5, 2026",
         items: [
