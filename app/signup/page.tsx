@@ -4,6 +4,7 @@ import { Logo } from "@/components/logo";
 import { PasswordInput } from "@/components/password-input";
 import { GoogleSignInButton } from "@/components/google-signin-button";
 import { ErrorBanner } from "@/components/error-banner";
+import { authErrorText } from "@/lib/auth/auth-error";
 import { SubmitButton } from "@/components/submit-button";
 import { ResendConfirmation } from "@/components/resend-confirmation";
 import { AuthConsentNote, AuthLegalFooter } from "@/components/auth-legal";
@@ -76,7 +77,7 @@ export default function SignupPage({
 
         {searchParams.error ? (
           <div className="mb-4">
-            <ErrorBanner message={searchParams.error} />
+            <ErrorBanner message={authErrorText(searchParams.error, t.auth.errors)} />
           </div>
         ) : null}
 

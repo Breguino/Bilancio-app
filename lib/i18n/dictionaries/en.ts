@@ -43,40 +43,18 @@ const en: Dictionary = {
       forecastMonth6: "Month 6 forecast",
       ci95: "95% CI",
     },
-    appMockup: {
-      exampleOverview: "Example · Overview",
-      entrate: "Income",
-      uscite: "Expenses",
-      netto: "Net",
-      demoCategory: "Gas",
-      demoSalary: "Salary",
-      demoUtility: "Electric bill",
-    },
-    contactsMockup: {
-      path: "bilancino.app/contacts/3",
-      exampleLabel: "Example · Client card",
-      contactName: "Marco Rossi",
-      contactRole: "Client",
-      totalRevenueLabel: "Total revenue linked",
-      notesTitle: "Notes & reminders",
-      note1: "Contract renewal in September",
-      note1Reminder: "Reminder: Sep 15",
-      note2: "Quote confirmed",
-      note2Done: "Done",
-    },
-    statisticsMockup: {
-      path: "bilancino.app/statistics",
-      exampleLabel: "Example · Statistics",
-      average: "Monthly average",
-      stdDev: "Std. deviation",
-      ci95: "95% CI",
-      anomalyTitle: "Anomalous expense detected",
-      anomalyDescription: "Restaurant",
-      anomalyDetail: "+2.3 std dev from category average",
+    screenshots: {
+      caption: "A screen from the app · example data",
+      panoramicaAlt:
+        "Bilancino's Overview: income, expenses and net for the month, budgets by category, and upcoming reminders.",
+      clienteAlt:
+        "A client page in Bilancino, showing total linked income, notes, and a reminder with a due date.",
+      statisticheAlt:
+        "Bilancino's Statistics page: savings forecast, monthly average, standard deviation, and confidence interval.",
     },
   },
   nav: {
-    chiSiamo: "About us",
+    chiSiamo: "About me",
     cosaOffriamo: "What we offer",
     ilServizio: "The service",
     faq: "FAQ",
@@ -88,12 +66,14 @@ const en: Dictionary = {
     vaiDashboardShort: "Dashboard",
   },
   siteFooter: {
-    tagline: "Bilancino — personal budgeting, not accounting software.",
+    tagline: "Bilancino: personal budgeting with your clients in it.",
     novita: "✨ What's new",
     guide: "Guides",
     privacy: "Privacy",
     termini: "Terms",
     newsletterBlurb: "Updates about Bilancino by email, once a month, no spam.",
+    author: "An independent project by Angelo Bregu",
+    contactLabel: "Email me",
   },
   home: {
     metaTitle: "Free budgeting app with client tracking — Bilancino",
@@ -111,7 +91,6 @@ const en: Dictionary = {
     ctaDashboard: "Go to Dashboard →",
     ctaSignupFree: "Create a free account →",
     ctaHowItWorks: "See how it works",
-    heroImageAlt: "Person checking their finances on a laptop",
     chartExample: "Trend · example",
     chartLast6Months: "Last 6 months",
     entrate: "Income",
@@ -122,7 +101,7 @@ const en: Dictionary = {
     heroFeature: {
       title: "Overview",
       tag: "A snapshot every month",
-      body: "Income, expenses, net savings, and the trend for the last 6 months — with at-risk budgets and upcoming reminders already in view as soon as you open the app.",
+      body: "Income, expenses, net savings, and the trend for the last 6 months, with at-risk budgets and upcoming reminders already in view as soon as you open the app.",
     },
     demoCategory: "Gas",
     demoDueSoon: "Reminder due soon",
@@ -140,7 +119,7 @@ const en: Dictionary = {
       {
         title: "Contacts and CRM",
         tag: "Your clients, with their history",
-        body: "Every contact shows their linked income, with notes and reminders — useful if you track clients alongside your personal accounts.",
+        body: "Every contact shows their linked income, with notes and reminders: useful if you track clients alongside your personal accounts.",
       },
       {
         title: "Savings goals",
@@ -156,9 +135,9 @@ const en: Dictionary = {
     statsEyebrow: "Statistics",
     statsTitle: "Do you already know how next month will go?",
     statsBody:
-      "Bilancino tells you if you're saving more or less than usual, with a realistic forecast for the coming month and an alert when a spend breaks your usual pattern. Behind the scenes there's real statistics (linear regression, standard deviation, 95% confidence interval) — but it reaches you already explained in euros, not formulas.",
+      "Bilancino tells you if you're saving more or less than usual, with a realistic forecast for the coming month and an alert when a spend breaks your usual pattern. Behind the scenes there's real statistics (linear regression, standard deviation, 95% confidence interval), but what you read on screen is already translated into euros.",
     statsNote:
-      "It's a separate section, not a required step: Bilancino works perfectly well with just transactions and budgets. But if you're curious, try the calculator alongside it — it's the same formula used inside the app.",
+      "It's a separate section, and you can skip it entirely: Bilancino works perfectly well with just transactions and budgets. But if you're curious, try the calculator alongside it: it runs the same formula the app uses.",
     faqEyebrow: "FAQ",
     faqTitle: "Frequently asked questions",
     faqItems: [
@@ -168,7 +147,7 @@ const en: Dictionary = {
       },
       {
         q: "Can I use it from multiple devices?",
-        a: "Yes: your data is tied to your account, not the browser you use, so it's synced and available wherever you log in.",
+        a: "Yes: your data lives on your account, so you find it exactly as you left it wherever you log in, from any browser or phone.",
       },
       {
         q: "Is it free?",
@@ -176,11 +155,11 @@ const en: Dictionary = {
       },
       {
         q: "Does it connect to my bank?",
-        a: "No, and that's deliberate. You enter transactions yourself, by hand or by importing a CSV: Bilancino never asks for your bank credentials and doesn't connect to any intermediary that reads your statements. In exchange for a few extra seconds per transaction, your banking data goes nowhere and you decide what makes it into your budget. If you want automatic syncing, tools like YNAB or Monarch do it well — and they charge for it.",
+        a: "No, and that's deliberate. You enter transactions yourself, by hand or by importing a CSV: Bilancino never asks for your bank credentials and doesn't connect to any intermediary that reads your statements. In exchange for a few extra seconds per transaction, your banking data goes nowhere and you decide what makes it into your budget. If you want automatic syncing, tools like YNAB or Monarch do it well, and they charge for it.",
       },
       {
         q: "What happens to my data if the project shuts down?",
-        a: "Fair question to ask about an independent project. I can't promise Bilancino will last forever, but I can promise two concrete things: the full CSV export is always available without asking anyone, and if I ever had to stop I'd say so here and on the What's new page with reasonable notice, not switch everything off overnight. Your data lives on Supabase in Europe and stays exportable in a standard format you can open in Excel or Google Sheets.",
+        a: "Fair question to ask about an independent project. I can't promise Bilancino will last forever, but I can promise two concrete things: the full CSV export is always available without asking anyone, and if I ever had to stop I'd say so here and on the What's new page with reasonable notice, so you have time to take everything with you. Your data lives on Supabase in Europe and stays exportable in a standard format you can open in Excel or Google Sheets.",
       },
       {
         q: "How do recurring transactions work?",
@@ -202,7 +181,7 @@ const en: Dictionary = {
     ctaTitleReturning: "Welcome back: pick up where you left off.",
     ctaTitleNew: "Ready to get your finances in order?",
     ctaBodyReturning: "Your transactions, budgets, and contacts are waiting in the Overview.",
-    ctaBodyNew: "Create an account in under a minute — just an email and a password.",
+    ctaBodyNew: "Create an account in under a minute: just an email and a password.",
   },
   newsletterAdmin: {
     title: "Newsletter",
@@ -217,7 +196,7 @@ const en: Dictionary = {
     draftDeletedToast: "Draft deleted",
     draftDeleteNotFoundError: "This draft no longer exists or has already been sent.",
     subjectLabel: "Subject",
-    bodyLabel: "Body — plain text works fine too: **bold**, lines starting with \"- \" for a bulleted list, a blank line for a new paragraph. If you write real HTML, it's kept as-is.",
+    bodyLabel: "Body, plain text works fine too: **bold**, lines starting with \"- \" for a bulleted list, a blank line for a new paragraph. If you write real HTML, it's kept as-is.",
     previewTab: "Preview",
     editTab: "Write",
     previewSubjectPrefix: "Subject:",
@@ -350,7 +329,7 @@ const en: Dictionary = {
     descriptiveSubtitle: "Calculated on monthly net savings across your entire history.",
     noDataAvailable: "No data available.",
     singleMonthNoticeTemplate:
-      "With only one month of history ({amount}), standard deviation and confidence interval can't be calculated — at least 2 months are needed.",
+      "With only one month of history ({amount}), standard deviation and confidence interval can't be calculated: at least 2 months are needed.",
     monthlyAverage: "Monthly average",
     stdDev: "Std. deviation",
     confidenceInterval95: "95% confidence interval",
@@ -435,7 +414,7 @@ const en: Dictionary = {
     targetLabel: "Target amount (€)",
     creatingPending: "Creating…",
     createSubmit: "Create goal",
-    emptyState: "No goals yet — create one above.",
+    emptyState: "No goals yet: create one above.",
     deleteConfirmTemplate: 'Delete the goal "{name}"? This can\'t be undone.',
     deleteAriaLabel: "Delete goal",
     reachedSuffix: "— goal reached",
@@ -463,7 +442,7 @@ const en: Dictionary = {
     savingPending: "Saving…",
     save: "Save",
     upsertHint: "If the category already exists, its limit is updated.",
-    emptyState: "No budget set yet — add one above.",
+    emptyState: "No budget set yet: add one above.",
     overBudgetSuffix: "over budget",
     ofBudgetSuffix: "of budget",
     removeConfirmTemplate: 'Remove the budget for "{category}"?',
@@ -475,7 +454,7 @@ const en: Dictionary = {
   dashboard: {
     welcomeTitle: "Welcome",
     welcomeBody:
-      "Your account is ready and the data is only yours. Add your first transaction below — income, expenses, and budgets will take shape from there.",
+      "Your account is ready and the data is only yours. Add your first transaction below: income, expenses, and budgets will take shape from there.",
     thisMonth: "This month",
     greeting: "Hi",
     trendNew: "new",
@@ -560,7 +539,7 @@ const en: Dictionary = {
     exportBody: "You can export your entire transaction history to CSV at any time from the Overview.",
     dangerZoneTitle: "Danger zone",
     deleteAccountBody:
-      "Delete your account and everything linked to it — transactions, budgets, goals, contacts, notes, and recurring transactions. This happens immediately and can't be undone: if you want to keep a copy of your data, export it above first.",
+      "Delete your account and everything linked to it: transactions, budgets, goals, contacts, notes, and recurring transactions. This happens immediately and can't be undone: if you want to keep a copy of your data, export it above first.",
     deleteAccountButton: "Delete my account",
     deleteConfirmMessage:
       "Permanently delete your account? All your data (transactions, budgets, goals, contacts, recurring transactions) will be erased for good. This can't be undone.",
@@ -584,27 +563,32 @@ const en: Dictionary = {
     metaTitle: "Who's behind Bilancino, and why it exists",
     metaDescription:
       "Bilancino is an independent project born to fill the gap between personal budgeting apps and full accounting software. Here's why it exists and who it's for.",
-    eyebrow: "About us",
+    eyebrow: "About me",
     heroTitle: "An independent project, built for one specific problem.",
     heroBody:
       "Bilancino isn't a startup with a team, investors, or a marketing department. It's an app built solo, with a narrow goal: bring together personal budgeting and the contacts you have a financial relationship with, without forcing you to choose between an app that's too simple and software that's too complex.",
-    heroImageAlt: "Minimal desk with a laptop, a notebook, and coffee",
     gapTitle: "The gap Bilancino tries to fill",
     gapParagraphs: [
       "Personal budgeting apps are great for tracking income and expenses, but they don't know who your clients are: if someone pays you for work, to them it's just an \"income\" line, with no context, no history, no reminders.",
-      "Accounting software for freelancers goes the opposite direction: e-invoicing, tax deadlines, quotes, inventory. It does its job well, but it's built for people who need all of that — not for someone who just wants to know how much they saved this month and what a client still owes them.",
-      "Bilancino sits in between: personal budgeting with categories and spending limits, plus a lightweight CRM for contacts — notes, reminders, linked income, receipts — without invoices, without a VAT number, without the complexity you don't need.",
+      "Accounting software for freelancers goes the opposite direction: e-invoicing, tax deadlines, quotes, inventory. It does its job well, but it's built for people who need all of that, while what you actually want to know is how much you saved this month and what a client still owes you.",
+      "Bilancino sits in between: personal budgeting with categories and spending limits, plus a lightweight CRM for contacts (notes, reminders, linked income, receipts), without invoices, without a VAT number, without the complexity you don't need.",
     ],
     forWhomTitle: "Who it's for",
     forWhomParagraphs: [
-      "For people who track their personal finances but also have a client or two, or a recurring financial relationship to keep an eye on — a side job, some consulting, occasional work — without wanting to register a business or manage a real company side.",
+      "For people who track their personal finances but also have a client or two, or a recurring financial relationship to keep an eye on (a side job, some consulting, occasional work), without wanting to register a business or manage a real company side.",
       "For people who today use one spreadsheet for their accounts and another (or none) for clients, and would rather have one place, with a real account and safe data instead of a file that can get lost or corrupted.",
     ],
     smallByDesignTitle: "Why it stays small on purpose",
     smallByDesignParagraphs: [
-      "I build it solo, without a team or a growth-at-all-costs plan. That means Bilancino isn't trying to become full accounting software: I'd rather do two things well — budgeting and contacts — than do ten things poorly.",
+      "I build it solo, without a team or a growth-at-all-costs plan. That means Bilancino isn't trying to become full accounting software: I'd rather do two things well, budgeting and contacts, than do ten things poorly.",
       "If a feature doesn't help answer \"how much did I save\" or \"what does this client still owe me,\" you probably won't find it here. That's a choice, not an oversight.",
     ],
+    signatureTitle: "Who builds it",
+    signatureName: "Angelo Bregu",
+    signatureRole: "I build and maintain Bilancino on my own.",
+    signatureBody:
+      "If you have a question, found a bug, or want to suggest a feature, email me: there's a person at the other end, and it's me.",
+    signatureContact: "Email me",
     ctaTitle: "Want to see how it works in detail?",
     ctaSeeOffer: "See what we offer",
   },
@@ -627,15 +611,15 @@ const en: Dictionary = {
           },
           {
             title: "Budgets by category",
-            body: "Set a monthly spending cap for each category. Bilancino shows a bar that goes from green to amber to red as you approach or exceed the threshold, so you notice before you overspend, not after.",
+            body: "Set a monthly spending cap for each category. Bilancino shows a bar that goes from green to amber to red as you approach or exceed the threshold, so you notice while you still have room to act.",
           },
           {
             title: "Recurring transactions",
-            body: "Rent, salary, subscriptions: set the description, amount, and frequency (weekly, monthly, or yearly) once. An automatic job runs every night and creates the transactions when due — even if you don't open the app for days, catching up on any missed occurrences the next time you log in.",
+            body: "Rent, salary, subscriptions: set the description, amount, and frequency (weekly, monthly, or yearly) once. An automatic job runs every night and creates the transactions when due, even if you don't open the app for days, catching up on any missed occurrences the next time you log in.",
           },
           {
             title: "Savings goals",
-            body: "Create a goal with a target amount — an emergency fund, a trip, a purchase — and add a contribution whenever you like, with no recurrence constraints. Always see how far you are from the target.",
+            body: "Create a goal with a target amount (an emergency fund, a trip, a purchase) and add a contribution whenever you like, with no recurrence constraints. Always see how far you are from the target.",
           },
           {
             title: "Month-over-month comparison",
@@ -643,7 +627,7 @@ const en: Dictionary = {
           },
           {
             title: "Yearly summary",
-            body: "An overview of the whole year: total income, expenses, and savings — useful for a year-end picture without having to add up every month by hand.",
+            body: "An overview of the whole year: total income, expenses, and savings: useful for a year-end picture without having to add up every month by hand.",
           },
         ],
       },
@@ -673,7 +657,7 @@ const en: Dictionary = {
         tag: "Statistics and analysis",
         title: "Not just numbers",
         intro:
-          "A separate section, not a required step: budgets and transactions work perfectly well even if the formulas below don't interest you.",
+          "A separate section you can ignore completely: budgets and transactions work perfectly well even if the formulas below mean nothing to you.",
         items: [
           {
             title: "Trends and forecasts",
@@ -681,11 +665,11 @@ const en: Dictionary = {
           },
           {
             title: "Mean, standard deviation, and confidence interval",
-            body: "Bilancino calculates the mean and standard deviation of your savings, with a 95% confidence interval: not just how much you save on average, but how reliable that average is.",
+            body: "Bilancino calculates the mean and standard deviation of your savings, with a 95% confidence interval: how much you save on average, and how much you can trust that average.",
           },
           {
             title: "Anomalous expense detection",
-            body: "A z-score compares each expense against your historical habits for that category and flags the ones that are statistically out of the norm — useful for noticing an unusual expense before it becomes a habit.",
+            body: "A z-score compares each expense against your historical habits for that category and flags the ones that are statistically out of the norm: useful for noticing an unusual expense before it becomes a habit.",
           },
           {
             title: "Interactive calculator",
@@ -694,12 +678,12 @@ const en: Dictionary = {
         ],
       },
       {
-        tag: "Your data, not ours",
+        tag: "Your data stays yours",
         title: "Always portable data, both ways",
         items: [
           {
             title: "CSV export",
-            body: "From the Overview, download your entire transaction history as a CSV in one click, openable in Excel or Google Sheets: your data always stays portable, not just viewable inside the app.",
+            body: "From the Overview, download your entire transaction history as a CSV in one click, openable in Excel or Google Sheets: you can take your data wherever you want, whenever you want.",
           },
           {
             title: "CSV import",
@@ -739,7 +723,7 @@ const en: Dictionary = {
       {
         n: "04",
         title: "At the end of the month",
-        body: "You take a look at the comparison with the previous month and the statistics — trends, averages, and anomalous expenses — to see if anything changed in your habits.",
+        body: "You take a look at the comparison with the previous month and the statistics (trends, averages, and anomalous expenses) to see if anything changed in your habits.",
       },
     ],
     priceEyebrow: "Price",
@@ -749,26 +733,26 @@ const en: Dictionary = {
     pricePara2Pre: "It's an independent project under",
     pricePara2Link: "continuous development",
     pricePara2Post:
-      ", so I can't promise it'll stay free forever — but whatever changes, you'll never find your data held hostage: you can export your entire transaction history to CSV at any time, without asking anyone for permission.",
+      ", so I can't promise it'll stay free forever. But whatever changes, you'll never find your data held hostage: you can export your entire transaction history to CSV at any time, without asking anyone for permission.",
     manualEyebrow: "Entering your data",
     manualTitle: "No bank connection, on purpose",
     manualParagraphs: [
       "Bilancino doesn't connect to your bank. This isn't a missing feature waiting to be added: it's a decision. Connecting an account means handing your banking credentials to an intermediary that reads your statements continuously, and for a project run by one person that's a responsibility I've chosen not to take on.",
-      "In practice: you enter transactions yourself, one at a time or by importing a CSV from your bank — it takes a few seconds longer, but no banking data passes through third-party servers, and you decide what goes into your budget instead of getting a list you have to clean up.",
+      "In practice: you enter transactions yourself, one at a time or by importing a CSV from your bank: it takes a few seconds longer, but no banking data passes through third-party servers, and you decide what goes into your budget instead of getting a list you have to clean up.",
       "If automatic syncing is what you actually need, it's only fair to say so: tools like YNAB or Monarch do it well, they charge for it, and for that specific need they're the better choice.",
     ],
     securityEyebrow: "Security and privacy",
     securityTitle: "A real account, data isolated row by row",
     securityParagraphs: [
-      "Login happens with a real email and password, not a simple local code: your data is tied to your account and synced across every device you log in from.",
-      "At the database level, Bilancino applies Postgres Row Level Security: every row of data is bound to its own user, and no other account can read or modify it — even in the event of a bug in the app's code, the protection stays at the database level, not just in the interface.",
+      "Login happens with a real email and password: your data lives on your account and follows you to every device you log in from.",
+      "At the database level, Bilancino applies Postgres Row Level Security: every row of data is bound to its own user, and no other account can read or modify it. Even if the app's code had a bug, the protection stays at the database level.",
       "Data from different users is never shared, aggregated, or shown to each other: every account sees only and exclusively its own transactions, contacts, and goals.",
     ],
     dataEyebrow: "Your data",
     dataTitle: "You can always take it with you",
     dataParagraphs: [
       "From the Overview you can export your entire transaction history as a CSV at any time, openable in Excel or Google Sheets. It's not an option hidden at the bottom of a menu: it's meant to be used whenever you want, without having to ask for anything.",
-      "Before deleting anything — a transaction, a contact, a goal — you're always asked for an explicit confirmation, to avoid accidental deletions.",
+      "Before deleting anything (a transaction, a contact, a goal) you're always asked for an explicit confirmation, to avoid accidental deletions.",
     ],
     dataLeavePre:
       "You can delete your account, and everything linked to it, straight from Settings inside the app: it's immediate and doesn't go through me. For anything else about your data, email me at",
@@ -782,10 +766,22 @@ const en: Dictionary = {
     eyebrow: "What's new",
     heroTitle: "What's changed, update after update.",
     heroBody:
-      "I build Bilancino solo, so here you'll find exactly what I did and when — no inflated version numbers, just the things that actually changed.",
-    lastUpdated: "August 5, 2026",
+      "I build Bilancino solo, so here you'll find exactly what I did and when: no inflated version numbers, just the things that actually changed.",
+    lastUpdated: "August 22, 2026",
     lastUpdatedPrefix: "Last updated:",
     entries: [
+      {
+        date: "August 22, 2026",
+        items: [
+          "New logo, redrawn as a vector: it stays sharp at any size, from the browser tab icon to the header.",
+          "The site's images were computer-generated and it showed: the laptop screen displayed unreadable text and made-up figures. They've been replaced with real screenshots of the app, captured on a demo account with example data.",
+          "The preview that appears when you share a Bilancino link has been rebuilt from the product's own chart and colours, with no photography.",
+          "The site now says who is behind it: a name at the foot of every page, a dedicated section on the About page, and a byline on the guides, which previously read as written by a nameless organisation.",
+          "Rewrote the copy across the site. One construction came up nearly thirty times, along the lines of \"this, not that\", and at that rate it read like a verbal tic. Same content, said more plainly.",
+          "Fixed the greeting on the Overview: it showed the part of your email before the @ instead of the name you gave when signing up.",
+          "Fixed two details in the example screens: the address bar showed a domain that doesn't exist, and a demo transaction carried a real person's name.",
+        ],
+      },
       {
         date: "August 5, 2026",
         items: [
@@ -794,18 +790,18 @@ const en: Dictionary = {
           "The language switcher in the header now shows flags instead of the IT/EN letters, and switches language with a single tap.",
           "The scroll-in animations, previously only on the homepage, are now also on About us, What we offer, The service, What's new, Terms, and Privacy.",
           "New look for the newsletter email, with a live preview as you write it and the ability to keep several drafts in parallel.",
-          "Added an email reminder for contact deadlines: if a reminder is due today, you now also get an email, not just the in-app notice.",
+          "Added an email reminder for contact deadlines: if a reminder is due today, you now get an email as well as the in-app notice.",
           "New Settings page, where you can delete your account and all linked data yourself, without having to send an email and wait.",
-          "Explained openly why Bilancino doesn't connect to your bank (it's a choice, not a missing feature) and what would happen to your data if the project ever stopped: two new sections on The service and Terms, plus two new FAQs on the homepage.",
+          "Explained openly why Bilancino doesn't connect to your bank (it's a deliberate choice) and what would happen to your data if the project ever stopped: two new sections on The service and Terms, plus two new FAQs on the homepage.",
         ],
       },
       {
         date: "August 4, 2026",
         items: [
-          "Fixed several spots in the app (goals, budget, contacts, recurring transactions, trash, newsletter) where an action could fail without showing anything, leaving you wondering if it worked — you'll now always see a clear message if something doesn't go through.",
+          "Fixed several spots in the app (goals, budget, contacts, recurring transactions, trash, newsletter) where an action could fail without showing anything, leaving you wondering if it worked. You'll now always see a clear message if something doesn't go through.",
           "Resuming an already-expired recurring transaction now warns you with an error instead of silently generating a transaction outside its intended date range.",
           "Updated a key dependency (Next.js) that had a security flaw in access control for protected pages: no data was ever exposed, but it's fixed regardless.",
-          "The public site's header and footer now read your sign-in state in the browser instead of on every server request — a small behind-the-scenes cleanup.",
+          "The public site's header and footer now read your sign-in state in the browser instead of on every server request: a small behind-the-scenes cleanup.",
         ],
       },
       {
@@ -836,17 +832,17 @@ const en: Dictionary = {
           "Importing a CSV is now a single step: pick the file and the import starts right away, no need to look for a second \"Import\" button.",
           "New accounts see a welcome message the first time they open the Overview, instead of empty €0.00 cards.",
           "The app now runs closer to the database (same European region as Supabase), so pages respond faster.",
-          "Fixed the public site's mobile menu, and updated the What we offer page and the FAQ to also mention CSV import, not just export.",
-          "You can now import contacts from CSV too, not just transactions: same file with Name, Email, Phone, and Notes, with duplicates recognized automatically.",
+          "Fixed the public site's mobile menu, and updated the What we offer page and the FAQ to cover CSV import as well as export.",
+          "You can now import contacts from CSV as well as transactions: same file with Name, Email, Phone, and Notes, with duplicates recognized automatically.",
         ],
       },
       {
         date: "July 25, 2026",
         items: [
-          "CSV import and export for transactions, compatible with Excel and Google Sheets — useful for bringing data over from another app or a spreadsheet, or just for making a backup.",
+          "CSV import and export for transactions, compatible with Excel and Google Sheets: useful for bringing data over from another app or a spreadsheet, or just for making a backup.",
           "The app now recognizes when you're already logged in: no more \"Create an account\" buttons when you're already in, neither in the header nor on the homepage.",
           "Added a way to get back to the public site from inside the app, and the option to reveal your password while typing it during login.",
-          "Fixed several number-formatting inconsistencies (consistent decimal formatting everywhere, not just on some pages).",
+          "Fixed several number-formatting inconsistencies (consistent decimal formatting on every page).",
           "Real icons instead of text symbols on the homepage and on \"What we offer\", plus a photo for \"About us\".",
         ],
       },
@@ -864,7 +860,7 @@ const en: Dictionary = {
     ideasEyebrow: "What I'm thinking about",
     ideasTitle: "Ideas, not promises",
     ideasBody:
-      "As with the rest of Bilancino, I'd rather not promise dates or features before actually building them. This is just the list of things I'm thinking about right now — they might change, get scaled down, or never arrive.",
+      "As with the rest of Bilancino, I'd rather not promise dates or features before actually building them. This is just the list of things I'm thinking about right now. They might change, get scaled down, or never arrive.",
     ideas: [
       "Evaluating an installable version (PWA) for more convenient mobile use.",
     ],
@@ -872,34 +868,34 @@ const en: Dictionary = {
   privacy: {
     metaTitle: "Privacy — Bilancino",
     metaDescription:
-      "What data Bilancino collects, where it's hosted, and how you can export it or ask for it to be deleted. Written in plain language, not by a legal department.",
+      "What data Bilancino collects, where it's hosted, and how you can export it or ask for it to be deleted. Written in plain language, with no legalese.",
     eyebrow: "Privacy",
     heroTitle: "How I handle your data.",
     heroBody:
-      "Bilancino is an independent project built and run by Angelo Bregu, one person, not a company with a legal department — he is the data controller for the data collected by this site. What follows is written in plain language, not by a lawyer: if you have specific questions, get in touch.",
+      "Bilancino is an independent project built and run by Angelo Bregu, who is also the data controller for the data collected by this site. What follows is written in plain language: if you have specific questions, get in touch.",
     dataCollectedTitle: "What data I collect",
     dataCollectedParagraphs: [
       "The email and password for your account (or just the email, if you choose to sign in with Google), managed by Supabase Auth: your password is never visible in plain text, not even to me.",
-      "If you use \"Continue with Google\", I receive only the name and email address from your Google account needed to create it — I don't access the rest of your Google data.",
+      "If you use \"Continue with Google\", I receive only the name and email address from your Google account needed to create it. I don't access the rest of your Google data.",
       "The personal details required at registration: first name, last name and date of birth. The date of birth also serves to check the 18-year requirement set out in the terms; if you sign in with Google, I ask you to fill in these same details on your first visit.",
-      "The financial data you enter yourself: transactions, categories, budgets, savings goals, contacts and notes, recurring transactions. Nothing else — I don't ask for an address, phone number, or payment details, because I don't need them to make the app work.",
-      "I process this data on the basis of the contract you accept when you create an account — I need it to run the app you chose to use and to check that you're allowed to use it — or, for Google Analytics, on the basis of your explicit consent (see the Cookies section below).",
+      "The financial data you enter yourself: transactions, categories, budgets, savings goals, contacts and notes, recurring transactions. Nothing else: I don't ask for an address, phone number, or payment details, because I don't need them to make the app work.",
+      "I process this data on the basis of the contract you accept when you create an account: I need it to run the app you chose to use and to check that you're allowed to use it. For Google Analytics, the basis is your explicit consent instead (see the Cookies section below).",
     ],
     hostingTitle: "Where it's hosted",
     hostingParagraphs: [
-      "The database (Supabase, Postgres) is hosted in Europe, in Frankfurt. The app runs on Vercel, which may process requests from servers in the United States too — that's how a modern web app works, and I'd rather tell you than let you find out.",
+      "The database (Supabase, Postgres) is hosted in Europe, in Frankfurt. The app runs on Vercel, which may process requests from servers in the United States too. That's how a modern web app works, and I'd rather tell you than let you find out.",
       "Supabase and Vercel are technical providers: they handle your data only to make the app work, not for their own purposes.",
       "When data passes through a provider outside the European Union (for example to the United States, via Vercel or Google Analytics), this happens under the Standard Contractual Clauses required by European law, included in the contracts these providers offer.",
     ],
     isolationTitle: "Isolation and security",
     isolationParagraphs: [
-      "Every row of data in the database is bound to your account via Postgres Row Level Security: no other user can read or modify it, even in the event of a bug in the app's code — it's a rule enforced by the database itself, not just the interface.",
+      "Every row of data in the database is bound to your account via Postgres Row Level Security: no other user can read or modify it, even in the event of a bug in the app's code: it's a rule enforced by the database itself.",
     ],
     cookiesTitle: "Cookies",
     cookiesParagraphs: [
       "The cookie strictly necessary to keep you logged in, managed by Supabase Auth: this doesn't need consent, since without it you couldn't stay logged in.",
       "To understand how many people use the app, I also use Vercel Analytics, which doesn't use cookies and doesn't track individual users: it only collects aggregate, anonymous data, like the most visited pages.",
-      "With your consent — I ask with a banner on your first visit — I also use Google Analytics for a more detailed picture of how the site is used: where visitors come from, which pages perform best. This involves Google cookies and sending some data to servers in the United States too. You can decline it without the app breaking, and you can change your mind at any time from \"Manage cookie preferences\" at the bottom of the site.",
+      "With your consent, which I ask for with a banner on your first visit, I also use Google Analytics for a more detailed picture of how the site is used: where visitors come from, which pages perform best. This involves Google cookies and sending some data to servers in the United States too. You can decline it without the app breaking, and you can change your mind at any time from \"Manage cookie preferences\" at the bottom of the site.",
     ],
     yourDataTitle: "Your data stays yours",
     yourDataPara1: "From the Overview you can export your entire transaction history to CSV at any time, without asking anyone for permission.",
@@ -913,10 +909,10 @@ const en: Dictionary = {
   termini: {
     metaTitle: "Terms — Bilancino",
     metaDescription:
-      "What Bilancino is, what it isn't, and what happens if something goes wrong. Terms written in plain language for an independent project, not by a legal department.",
+      "What Bilancino is, what it isn't, and what happens if something goes wrong. Terms written in plain language for an independent project.",
     eyebrow: "Terms",
     heroTitle: "What you can expect from Bilancino.",
-    heroBody: "This page is also written in plain language, not by a legal department: if you have specific questions, get in touch.",
+    heroBody: "This page is also written in plain language: if you have specific questions, get in touch.",
     whatItIsTitle: "What it is, and what's free",
     whatItIsParagraphs: [
       "Bilancino is a personal budgeting and lightweight CRM app, built and run by one person. It isn't a company: there's no customer service in the traditional sense, nor a guaranteed SLA on response times or uptime.",
@@ -935,16 +931,16 @@ const en: Dictionary = {
     ],
     ifSomethingGoesWrongTitle: "If something goes wrong",
     ifSomethingGoesWrongParagraphs: [
-      "Bilancino is provided as-is, with no warranties. I do my best to make it work correctly — Row Level Security on your data, confirmation before every deletion, automated tests on the most sensitive paths — but to the maximum extent permitted by law, I'm not liable for any loss or damage resulting from using the app.",
+      "Bilancino is provided as-is, with no warranties. I do my best to make it work correctly (Row Level Security on your data, confirmation before every deletion, automated tests on the most sensitive paths), but to the maximum extent permitted by law, I'm not liable for any loss or damage resulting from using the app.",
       "You can stop using the service whenever you want. I may suspend an account in case of abuse, such as unauthorized access attempts or unlawful use of the service.",
     ],
     continuityTitle: "If the project ever stops",
     continuityParagraphs: [
       "It's the right question to ask before trusting your finances to a project run by one person, and it deserves an explicit answer rather than silence.",
-      "I can't promise Bilancino will last forever: that would be a promise I'm not able to keep. What I can commit to is two concrete things. First: the full CSV export stays available inside the app at all times, without having to ask me for anything — your data is never held hostage. Second: if I ever decided to stop, I'd say so on this page and on What's new with reasonable notice, so you have time to export everything calmly, rather than switching the service off overnight.",
+      "I can't promise Bilancino will last forever: that would be a promise I'm not able to keep. What I can commit to is two concrete things. First: the full CSV export stays available inside the app at all times, without having to ask me for anything: your data is never held hostage. Second: if I ever decided to stop, I'd say so on this page and on What's new with reasonable notice, so you have time to export everything calmly, rather than switching the service off overnight.",
       "In the meantime your data is hosted on Supabase (a Postgres database in Europe, in Frankfurt) and the export format is a standard CSV, which opens in Excel or Google Sheets and imports into most other budgeting tools.",
     ],
-    footerNotePre: "If these terms change, I'll update this page — the real changelog for the project is on",
+    footerNotePre: "If these terms change, I'll update this page. The real changelog for the project is on",
     footerNoteLink: "What's new",
     footerNoteMid: ". For any question, email me at",
   },
@@ -960,6 +956,24 @@ const en: Dictionary = {
     emailLabel: "Email",
     continueWithGoogle: "Continue with Google",
     orDivider: "or",
+    errors: {
+      invalid_credentials: "Wrong email or password. Check them and try again.",
+      email_not_confirmed: "You need to confirm your email first: open the link I sent when you signed up.",
+      email_exists: "An account with this email already exists. Try logging in.",
+      weak_password: "That password is too weak: use at least 8 characters.",
+      invalid_email: "That email address doesn't look valid.",
+      rate_limited: "Too many attempts in a row. Wait a few minutes and try again.",
+      email_send_failed: "I couldn't send an email to that address. Check the spelling, or get in touch.",
+      google_unavailable: "Signing in with Google isn't available right now. You can use email and password instead.",
+      expired_link: "That link has expired or is no longer valid. Request a new one.",
+      missing_fields: "Fill in every field: first name, last name, and date of birth.",
+      invalid_birth_date: "That date of birth isn't valid.",
+      too_young: "You must be at least 18 to use Bilancino.",
+      save_failed: "Your details couldn't be saved. Please try again.",
+      password_too_short: "The password must be at least 6 characters.",
+      password_mismatch: "The two passwords don't match.",
+      generic: "Something went wrong. Try again in a moment; if it keeps happening, get in touch.",
+    },
     passwordInput: {
       show: "Show password",
       hide: "Hide password",
@@ -993,10 +1007,6 @@ const en: Dictionary = {
       submitPending: "Saving…",
       notYouPre: "Not you?",
       signOut: "Sign out",
-      missingFieldsError: "Please fill in every field: first name, last name and date of birth.",
-      invalidBirthDateError: "That date of birth isn't valid.",
-      tooYoungError: "You must be at least 18 to use Bilancino.",
-      saveFailedError: "Your details couldn't be saved. Please try again.",
     },
     login: {
       title: "Log in",
@@ -1024,9 +1034,6 @@ const en: Dictionary = {
       resendCooldown: "Resend in",
       resendSpam: "Can't find it? Check your spam folder.",
       resendDone: "If that address is waiting for confirmation, we've sent the link again.",
-      missingFieldsError: "Please fill in every field: first name, last name and date of birth.",
-      invalidBirthDateError: "That date of birth isn't valid.",
-      tooYoungError: "You must be at least 18 to sign up for Bilancino.",
     },
     resetPassword: {
       title: "Forgot your password",
@@ -1037,7 +1044,6 @@ const en: Dictionary = {
       sentBodyPre:
         "If an account with that address exists, we've sent you a link to reset your password. Open it to continue, then come back to",
       sentBodyLoginWord: "log in",
-      linkExpiredError: "The link has expired or is no longer valid. Request a new one.",
     },
     setPassword: {
       title: "Set a new password",
@@ -1046,8 +1052,6 @@ const en: Dictionary = {
       confirmPasswordLabel: "Repeat the password",
       submit: "Save password",
       submitPending: "Saving…",
-      tooShortError: "The password must be at least 6 characters long.",
-      mismatchError: "The two passwords don't match.",
       successToast: "Password updated",
     },
   },

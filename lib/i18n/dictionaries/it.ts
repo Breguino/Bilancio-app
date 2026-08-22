@@ -41,40 +41,18 @@ const it = {
       forecastMonth6: "Previsione mese 6",
       ci95: "IC 95%",
     },
-    appMockup: {
-      exampleOverview: "Esempio · Panoramica",
-      entrate: "Entrate",
-      uscite: "Uscite",
-      netto: "Netto",
-      demoCategory: "Benzina",
-      demoSalary: "Stipendio",
-      demoUtility: "Enel",
-    },
-    contactsMockup: {
-      path: "bilancino.app/contacts/3",
-      exampleLabel: "Esempio · Scheda cliente",
-      contactName: "Marco Rossi",
-      contactRole: "Cliente",
-      totalRevenueLabel: "Entrate totali collegate",
-      notesTitle: "Note e promemoria",
-      note1: "Rinnovo contratto a settembre",
-      note1Reminder: "Promemoria: 15 set",
-      note2: "Confermato preventivo",
-      note2Done: "Fatto",
-    },
-    statisticsMockup: {
-      path: "bilancino.app/statistics",
-      exampleLabel: "Esempio · Statistiche",
-      average: "Media mensile",
-      stdDev: "Dev. standard",
-      ci95: "IC 95%",
-      anomalyTitle: "Spesa anomala rilevata",
-      anomalyDescription: "Ristorante",
-      anomalyDetail: "+2,3 dev. std dalla media di categoria",
+    screenshots: {
+      caption: "Schermata dell'app · dati di esempio",
+      panoramicaAlt:
+        "La Panoramica di Bilancino: entrate, uscite e netto del mese, budget per categoria e promemoria in scadenza.",
+      clienteAlt:
+        "La scheda di un cliente in Bilancino, con le entrate totali collegate, le note e un promemoria con scadenza.",
+      statisticheAlt:
+        "La pagina Statistiche di Bilancino: previsione del risparmio, media mensile, deviazione standard e intervallo di confidenza.",
     },
   },
   nav: {
-    chiSiamo: "Chi siamo",
+    chiSiamo: "Chi sono",
     cosaOffriamo: "Cosa offriamo",
     ilServizio: "Il servizio",
     faq: "FAQ",
@@ -86,12 +64,14 @@ const it = {
     vaiDashboardShort: "Dashboard",
   },
   siteFooter: {
-    tagline: "Bilancino — budget personale, non un gestionale.",
+    tagline: "Bilancino: il budget personale con dentro i tuoi clienti.",
     novita: "✨ Novità",
     guide: "Guide",
     privacy: "Privacy",
     termini: "Termini",
     newsletterBlurb: "Aggiornamenti su Bilancino via email, una volta al mese, niente spam.",
+    author: "Progetto indipendente di Angelo Bregu",
+    contactLabel: "Scrivimi",
   },
   home: {
     metaTitle: "App per budget personale e clienti, gratis — Bilancino",
@@ -109,7 +89,6 @@ const it = {
     ctaDashboard: "Vai alla Dashboard →",
     ctaSignupFree: "Crea un account gratis →",
     ctaHowItWorks: "Scopri come funziona",
-    heroImageAlt: "Persona che controlla le proprie finanze da laptop",
     chartExample: "Andamento · esempio",
     chartLast6Months: "Ultimi 6 mesi",
     entrate: "Entrate",
@@ -120,7 +99,7 @@ const it = {
     heroFeature: {
       title: "Panoramica",
       tag: "Un colpo d'occhio ogni mese",
-      body: "Entrate, uscite, risparmio netto e andamento degli ultimi 6 mesi — con budget a rischio e promemoria in scadenza già in vista appena apri l'app.",
+      body: "Entrate, uscite, risparmio netto e andamento degli ultimi 6 mesi, con budget a rischio e promemoria in scadenza già in vista appena apri l'app.",
     },
     demoCategory: "Benzina",
     demoDueSoon: "Promemoria in scadenza",
@@ -138,7 +117,7 @@ const it = {
       {
         title: "Contatti e CRM",
         tag: "I tuoi clienti, con la loro storia",
-        body: "Ogni contatto mostra le entrate collegate, con note e promemoria — utile se oltre ai conti personali segui anche dei clienti.",
+        body: "Ogni contatto mostra le entrate collegate, con note e promemoria: utile se oltre ai conti personali segui anche dei clienti.",
       },
       {
         title: "Obiettivi di risparmio",
@@ -154,9 +133,9 @@ const it = {
     statsEyebrow: "Statistiche",
     statsTitle: "Sai già come andrà il mese prossimo?",
     statsBody:
-      "Bilancino ti dice se stai risparmiando più o meno del solito, con una previsione realistica per il mese che arriva e un avviso quando una spesa esce dai tuoi schemi abituali. Dietro le quinte c'è vera statistica (regressione lineare, deviazione standard, intervallo di confidenza al 95%) — ma a te arriva già spiegata in euro, non in formule.",
+      "Bilancino ti dice se stai risparmiando più o meno del solito, con una previsione realistica per il mese che arriva e un avviso quando una spesa esce dai tuoi schemi abituali. Dietro le quinte c'è vera statistica (regressione lineare, deviazione standard, intervallo di confidenza al 95%), ma quello che leggi a schermo è già tradotto in euro.",
     statsNote:
-      "È una sezione a parte, non un passaggio obbligato: Bilancino funziona benissimo anche solo con movimenti e budget. Se invece ti incuriosisce, prova il calcolatore qui a fianco — è la stessa formula usata dentro l'app.",
+      "È una sezione a parte, che puoi tranquillamente saltare: Bilancino funziona benissimo anche solo con movimenti e budget. Se invece ti incuriosisce, prova il calcolatore qui a fianco: usa la stessa formula che gira dentro l'app.",
     faqEyebrow: "FAQ",
     faqTitle: "Domande frequenti",
     faqItems: [
@@ -166,7 +145,7 @@ const it = {
       },
       {
         q: "Posso usarlo da più dispositivi?",
-        a: "Sì: i dati sono legati al tuo account, non al browser che usi, quindi sono sincronizzati e disponibili ovunque fai login.",
+        a: "Sì: i dati stanno sul tuo account, quindi li ritrovi identici ovunque fai login, da qualsiasi browser o telefono.",
       },
       {
         q: "È gratuito?",
@@ -174,11 +153,11 @@ const it = {
       },
       {
         q: "Si collega alla mia banca?",
-        a: "No, ed è una scelta voluta. I movimenti li inserisci tu, a mano o importando un CSV: Bilancino non chiede mai le credenziali del tuo conto e non si collega a nessun intermediario che legga i tuoi estratti. In cambio di qualche secondo in più a movimento, i tuoi dati bancari non passano da nessuna parte e sei tu a decidere cosa entra nel bilancio. Se cerchi la sincronizzazione automatica, strumenti come YNAB o Monarch la fanno bene — e sono a pagamento.",
+        a: "No, ed è una scelta voluta. I movimenti li inserisci tu, a mano o importando un CSV: Bilancino non chiede mai le credenziali del tuo conto e non si collega a nessun intermediario che legga i tuoi estratti. In cambio di qualche secondo in più a movimento, i tuoi dati bancari non passano da nessuna parte e sei tu a decidere cosa entra nel bilancio. Se cerchi la sincronizzazione automatica, strumenti come YNAB o Monarch la fanno bene, e sono a pagamento.",
       },
       {
         q: "Cosa succede ai miei dati se il progetto chiude?",
-        a: "Domanda giusta da farsi con un progetto indipendente. Non posso promettere che Bilancino durerà per sempre, ma posso promettere due cose concrete: l'export CSV completo è sempre disponibile senza chiedere niente a nessuno, e se dovessi mai fermarmi lo scriverei qui e nella pagina Novità con un preavviso ragionevole, non spegnendo tutto da un giorno all'altro. I tuoi dati sono su Supabase in Europa e restano esportabili in un formato standard che apri con Excel o Fogli Google.",
+        a: "Domanda giusta da farsi con un progetto indipendente. Non posso promettere che Bilancino durerà per sempre, ma posso promettere due cose concrete: l'export CSV completo è sempre disponibile senza chiedere niente a nessuno, e se dovessi mai fermarmi lo scriverei qui e nella pagina Novità con un preavviso ragionevole, così hai il tempo di portarti via tutto. I tuoi dati sono su Supabase in Europa e restano esportabili in un formato standard che apri con Excel o Fogli Google.",
       },
       {
         q: "Come funzionano i movimenti ricorrenti?",
@@ -200,7 +179,7 @@ const it = {
     ctaTitleReturning: "Bentornato: riprendi da dove hai lasciato.",
     ctaTitleNew: "Pronto a mettere ordine nei tuoi conti?",
     ctaBodyReturning: "I tuoi movimenti, budget e contatti ti aspettano in Panoramica.",
-    ctaBodyNew: "Crea un account in meno di un minuto — bastano un'email e una password.",
+    ctaBodyNew: "Crea un account in meno di un minuto: bastano un'email e una password.",
   },
   newsletterAdmin: {
     title: "Newsletter",
@@ -215,7 +194,7 @@ const it = {
     draftDeletedToast: "Bozza eliminata",
     draftDeleteNotFoundError: "La bozza non esiste più o è già stata inviata.",
     subjectLabel: "Oggetto",
-    bodyLabel: "Testo — anche solo testo normale va bene: **grassetto**, righe che iniziano con \"- \" per un elenco puntato, riga vuota per andare a capo. Se scrivi HTML vero, lo rispetto così com'è.",
+    bodyLabel: "Testo, anche solo normale: **grassetto**, righe che iniziano con \"- \" per un elenco puntato, riga vuota per andare a capo. Se scrivi HTML vero, lo rispetto così com'è.",
     previewTab: "Anteprima",
     editTab: "Scrivi",
     previewSubjectPrefix: "Oggetto:",
@@ -348,7 +327,7 @@ const it = {
     descriptiveSubtitle: "Calcolate sul risparmio netto mensile di tutto lo storico.",
     noDataAvailable: "Nessun dato disponibile.",
     singleMonthNoticeTemplate:
-      "Con un solo mese di storico ({amount}) non è possibile calcolare deviazione standard o intervallo di confidenza — servono almeno 2 mesi.",
+      "Con un solo mese di storico ({amount}) non è possibile calcolare deviazione standard o intervallo di confidenza: servono almeno 2 mesi.",
     monthlyAverage: "Media mensile",
     stdDev: "Deviazione std.",
     confidenceInterval95: "Intervallo di confidenza 95%",
@@ -433,7 +412,7 @@ const it = {
     targetLabel: "Importo target (€)",
     creatingPending: "Creo…",
     createSubmit: "Crea obiettivo",
-    emptyState: "Nessun obiettivo ancora — creane uno sopra.",
+    emptyState: "Nessun obiettivo ancora: creane uno sopra.",
     deleteConfirmTemplate: 'Eliminare l\'obiettivo "{name}"? Non si può annullare.',
     deleteAriaLabel: "Elimina obiettivo",
     reachedSuffix: "— obiettivo raggiunto",
@@ -461,7 +440,7 @@ const it = {
     savingPending: "Salvo…",
     save: "Salva",
     upsertHint: "Se la categoria esiste già, il limite viene aggiornato.",
-    emptyState: "Nessun budget impostato ancora — aggiungine uno sopra.",
+    emptyState: "Nessun budget impostato ancora: aggiungine uno sopra.",
     overBudgetSuffix: "oltre budget",
     ofBudgetSuffix: "del budget",
     removeConfirmTemplate: 'Rimuovere il budget per "{category}"?',
@@ -473,7 +452,7 @@ const it = {
   dashboard: {
     welcomeTitle: "Benvenuto",
     welcomeBody:
-      "Il tuo account è pronto e i dati sono solo tuoi. Aggiungi il primo movimento qui sotto — entrate, uscite e budget prenderanno forma da lì.",
+      "Il tuo account è pronto e i dati sono solo tuoi. Aggiungi il primo movimento qui sotto: entrate, uscite e budget prenderanno forma da lì.",
     thisMonth: "Questo mese",
     greeting: "Ciao",
     trendNew: "nuovo",
@@ -558,7 +537,7 @@ const it = {
     exportBody: "Puoi esportare in qualsiasi momento l'intero storico dei movimenti in CSV dalla Panoramica.",
     dangerZoneTitle: "Zona pericolosa",
     deleteAccountBody:
-      "Elimina il tuo account e tutti i dati collegati — movimenti, budget, obiettivi, contatti, note e ricorrenze. L'azione è immediata e non si può annullare: se vuoi tenere una copia dei tuoi dati, esportali prima da qui sopra.",
+      "Elimina il tuo account e tutti i dati collegati: movimenti, budget, obiettivi, contatti, note e ricorrenze. L'azione è immediata e non si può annullare: se vuoi tenere una copia dei tuoi dati, esportali prima da qui sopra.",
     deleteAccountButton: "Elimina il mio account",
     deleteConfirmMessage:
       "Eliminare definitivamente il tuo account? Tutti i tuoi dati (movimenti, budget, obiettivi, contatti, ricorrenze) verranno cancellati per sempre. Non si può annullare.",
@@ -582,27 +561,32 @@ const it = {
     metaTitle: "Chi c'è dietro Bilancino, e perché esiste",
     metaDescription:
       "Bilancino è un progetto indipendente nato per colmare il vuoto tra le app di budget personale e i gestionali per la partita IVA. Ecco perché esiste e per chi è pensato.",
-    eyebrow: "Chi siamo",
+    eyebrow: "Chi sono",
     heroTitle: "Un progetto indipendente, pensato per un problema preciso.",
     heroBody:
       "Bilancino non è una startup con un team, degli investitori o un ufficio marketing. È un'applicazione sviluppata in autonomia, con un obiettivo circoscritto: mettere insieme il budget personale e i contatti con cui hai un rapporto economico, senza costringerti a scegliere tra un'app troppo semplice e un gestionale troppo complesso.",
-    heroImageAlt: "Scrivania minimale con laptop, quaderno di appunti e caffè",
     gapTitle: "Il vuoto che Bilancino prova a colmare",
     gapParagraphs: [
       "Le app di budget personale sono ottime per tracciare entrate e uscite, ma non sanno chi sono i tuoi clienti: se qualcuno ti paga per un lavoro, per loro è solo una voce \"entrata\", senza contesto, senza storico, senza promemoria.",
-      "I gestionali per la partita IVA vanno nella direzione opposta: fatturazione elettronica, scadenze fiscali, preventivi, magazzino. Fanno bene il loro lavoro, ma sono pensati per chi ha bisogno di tutto questo — non per chi vuole solo capire quanto ha risparmiato questo mese e cosa deve ancora incassare da un cliente.",
-      "Bilancino sta nel mezzo: budget personale con categorie e limiti di spesa, più un CRM leggero per i contatti — note, promemoria, entrate collegate, ricevute — senza fatture, senza partita IVA, senza la complessità che non ti serve.",
+      "I gestionali per la partita IVA vanno nella direzione opposta: fatturazione elettronica, scadenze fiscali, preventivi, magazzino. Fanno bene il loro lavoro, ma sono pensati per chi ha bisogno di tutto questo, mentre a te serve sapere quanto hai risparmiato questo mese e cosa devi ancora incassare da un cliente.",
+      "Bilancino sta nel mezzo: budget personale con categorie e limiti di spesa, più un CRM leggero per i contatti (note, promemoria, entrate collegate, ricevute), senza fatture, senza partita IVA, senza la complessità che non ti serve.",
     ],
     forWhomTitle: "Per chi è pensato",
     forWhomParagraphs: [
-      "Per chi segue le proprie finanze personali ma ha anche qualche cliente o rapporto economico ricorrente da tenere d'occhio — un secondo lavoro, qualche consulenza, lavori saltuari — senza volersi aprire la partita IVA né gestire un vero e proprio lato aziendale.",
+      "Per chi segue le proprie finanze personali ma ha anche qualche cliente o rapporto economico ricorrente da tenere d'occhio (un secondo lavoro, qualche consulenza, lavori saltuari), senza volersi aprire la partita IVA né gestire un vero e proprio lato aziendale.",
       "Per chi oggi usa un foglio di calcolo per i conti e un altro (o niente) per i clienti, e vorrebbe un solo posto, con un vero account e i dati al sicuro invece di un file che si può perdere o corrompere.",
     ],
     smallByDesignTitle: "Perché rimane piccolo di proposito",
     smallByDesignParagraphs: [
-      "Lo sviluppo da solo, senza un team né un piano di crescita a tutti i costi. Questo significa che Bilancino non cerca di diventare un gestionale completo: preferisco fare bene due cose — budget e contatti — piuttosto che fare male dieci.",
+      "Lo sviluppo da solo, senza un team né un piano di crescita a tutti i costi. Questo significa che Bilancino non cerca di diventare un gestionale completo: preferisco fare bene due cose, budget e contatti, piuttosto che farne male dieci.",
       "Se una funzione non aiuta a rispondere a \"quanto ho risparmiato\" o \"cosa mi deve questo cliente\", probabilmente non la troverai qui. È una scelta, non una mancanza.",
     ],
+    signatureTitle: "Chi lo sviluppa",
+    signatureName: "Angelo Bregu",
+    signatureRole: "Sviluppo e mantengo Bilancino da solo.",
+    signatureBody:
+      "Se hai una domanda, hai trovato un errore o vuoi propormi una funzione, scrivimi: all'altro capo dell'email ci sono io.",
+    signatureContact: "Scrivimi",
     ctaTitle: "Vuoi vedere come funziona nel dettaglio?",
     ctaSeeOffer: "Scopri cosa offriamo",
   },
@@ -625,15 +609,15 @@ const it = {
           },
           {
             title: "Budget per categoria",
-            body: "Imposta un tetto di spesa mensile per ogni categoria. Bilancino mostra una barra che passa da verde ad ambra a rosso man mano che ti avvicini o superi la soglia, così te ne accorgi prima di sforare, non dopo.",
+            body: "Imposta un tetto di spesa mensile per ogni categoria. Bilancino mostra una barra che passa da verde ad ambra a rosso man mano che ti avvicini o superi la soglia, così te ne accorgi mentre sei ancora in tempo.",
           },
           {
             title: "Movimenti ricorrenti",
-            body: "Affitto, stipendio, abbonamenti: imposta descrizione, importo e frequenza (settimanale, mensile o annuale) una sola volta. Un job automatico gira ogni notte e genera i movimenti alla scadenza — anche se non apri l'app per giorni, recuperando le occorrenze mancate al tuo prossimo accesso.",
+            body: "Affitto, stipendio, abbonamenti: imposta descrizione, importo e frequenza (settimanale, mensile o annuale) una sola volta. Un job automatico gira ogni notte e genera i movimenti alla scadenza, anche se non apri l'app per giorni, recuperando le occorrenze mancate al tuo prossimo accesso.",
           },
           {
             title: "Obiettivi di risparmio",
-            body: "Crea un obiettivo con un importo target — un fondo emergenza, un viaggio, un acquisto — e aggiungi un contributo quando vuoi, senza vincoli di ricorrenza. Vedi sempre quanto manca al traguardo.",
+            body: "Crea un obiettivo con un importo target (un fondo emergenza, un viaggio, un acquisto) e aggiungi un contributo quando vuoi, senza vincoli di ricorrenza. Vedi sempre quanto manca al traguardo.",
           },
           {
             title: "Confronto mese su mese",
@@ -671,7 +655,7 @@ const it = {
         tag: "Statistica e analisi",
         title: "Non solo numeri",
         intro:
-          "Una sezione a parte, non un passaggio obbligato: budget e movimenti funzionano perfettamente anche se non ti interessano le formule qui sotto.",
+          "Una sezione a parte, che puoi ignorare del tutto: budget e movimenti funzionano perfettamente anche se le formule qui sotto non ti dicono niente.",
         items: [
           {
             title: "Trend e previsioni",
@@ -679,11 +663,11 @@ const it = {
           },
           {
             title: "Media, deviazione standard e intervallo di confidenza",
-            body: "Bilancino calcola media e deviazione standard del tuo risparmio, con un intervallo di confidenza al 95%: non solo quanto risparmi in media, ma quanto è affidabile quella media.",
+            body: "Bilancino calcola media e deviazione standard del tuo risparmio, con un intervallo di confidenza al 95%: quanto risparmi in media, e quanto puoi fidarti di quella media.",
           },
           {
             title: "Rilevamento spese anomale",
-            body: "Uno z-score confronta ogni spesa con le tue abitudini storiche per quella categoria e segnala quelle statisticamente fuori norma — utile per accorgersi di una spesa insolita prima che diventi un'abitudine.",
+            body: "Uno z-score confronta ogni spesa con le tue abitudini storiche per quella categoria e segnala quelle statisticamente fuori norma: utile per accorgersi di una spesa insolita prima che diventi un'abitudine.",
           },
           {
             title: "Calcolatore interattivo",
@@ -692,12 +676,12 @@ const it = {
         ],
       },
       {
-        tag: "I tuoi dati, non i nostri",
+        tag: "I tuoi dati restano tuoi",
         title: "Dati sempre portabili, in entrata e in uscita",
         items: [
           {
             title: "Export CSV",
-            body: "Dalla Panoramica scarichi in un clic l'intero storico dei movimenti in formato CSV, apribile in Excel o Fogli Google: i tuoi dati restano sempre portabili, non solo consultabili dentro l'app.",
+            body: "Dalla Panoramica scarichi in un clic l'intero storico dei movimenti in formato CSV, apribile in Excel o Fogli Google: i tuoi dati puoi portarteli dove vuoi, in qualsiasi momento.",
           },
           {
             title: "Import CSV",
@@ -727,7 +711,7 @@ const it = {
       {
         n: "02",
         title: "Aggiungi i tuoi dati man mano",
-        body: "Non c'è un'importazione obbligatoria all'inizio: registri un movimento quando succede, aggiungi un contatto quando serve, imposti un budget o un obiettivo quando ha senso per te. Bilancino cresce insieme ai tuoi dati, non li richiede tutti subito.",
+        body: "Non c'è un'importazione obbligatoria all'inizio: registri un movimento quando succede, aggiungi un contatto quando serve, imposti un budget o un obiettivo quando ha senso per te. Bilancino cresce insieme ai tuoi dati, al ritmo che decidi tu.",
       },
       {
         n: "03",
@@ -737,7 +721,7 @@ const it = {
       {
         n: "04",
         title: "A fine mese",
-        body: "Dai un'occhiata al confronto con il mese precedente e alle statistiche — trend, media e spese anomale — per capire se qualcosa è cambiato nelle tue abitudini.",
+        body: "Dai un'occhiata al confronto con il mese precedente e alle statistiche (trend, media e spese anomale) per capire se qualcosa è cambiato nelle tue abitudini.",
       },
     ],
     priceEyebrow: "Prezzo",
@@ -747,26 +731,26 @@ const it = {
     pricePara2Pre: "È un progetto indipendente in",
     pricePara2Link: "sviluppo continuo",
     pricePara2Post:
-      ", quindi non posso prometterti che resterà gratuito per sempre — ma qualunque cosa cambi, non troverai mai i tuoi dati in ostaggio: puoi esportare in qualsiasi momento l'intero storico dei movimenti in CSV, senza dover chiedere permesso a nessuno.",
+      ", quindi non posso prometterti che resterà gratuito per sempre. Ma qualunque cosa cambi, non troverai mai i tuoi dati in ostaggio: puoi esportare in qualsiasi momento l'intero storico dei movimenti in CSV, senza dover chiedere permesso a nessuno.",
     manualEyebrow: "Inserimento dei dati",
     manualTitle: "Niente collegamento al conto, per scelta",
     manualParagraphs: [
       "Bilancino non si collega alla tua banca. Non è una funzione mancante in attesa di essere aggiunta: è una decisione. Collegare un conto significa affidare le credenziali bancarie a un intermediario che legge i tuoi estratti in continuo, e per un progetto gestito da una persona sola è una responsabilità che ho scelto di non prendermi.",
-      "In pratica: i movimenti li inserisci tu, uno alla volta o importando un CSV dalla tua banca — ci mettono qualche secondo in più, ma nessun dato bancario passa da server terzi, e sei tu a decidere cosa finisce nel bilancio invece di ritrovarti una lista da ripulire.",
+      "In pratica: i movimenti li inserisci tu, uno alla volta o importando un CSV dalla tua banca: ci mettono qualche secondo in più, ma nessun dato bancario passa da server terzi, e sei tu a decidere cosa finisce nel bilancio invece di ritrovarti una lista da ripulire.",
       "Se invece la sincronizzazione automatica è la cosa che ti serve davvero, è giusto dirlo: strumenti come YNAB o Monarch la fanno bene, sono a pagamento, e per quell'esigenza specifica sono la scelta migliore.",
     ],
     securityEyebrow: "Sicurezza e privacy",
     securityTitle: "Un vero account, dati isolati per riga",
     securityParagraphs: [
-      "L'accesso avviene con email e password reali, non con un semplice codice locale: i tuoi dati sono legati al tuo account e sincronizzati su ogni dispositivo da cui fai login.",
-      "A livello di database, Bilancino applica Row Level Security di Postgres: ogni riga di dati è vincolata al proprio utente, e nessun altro account può leggerla o modificarla — anche in caso di un errore nel codice dell'applicazione, la protezione resta a livello di database, non solo nell'interfaccia.",
+      "L'accesso avviene con email e password vere: i tuoi dati stanno sul tuo account e ti seguono su ogni dispositivo da cui fai login.",
+      "A livello di database, Bilancino applica Row Level Security di Postgres: ogni riga di dati è vincolata al proprio utente, e nessun altro account può leggerla o modificarla. Anche se il codice dell'applicazione avesse un errore, la protezione resta a livello di database.",
       "I dati di utenti diversi non vengono mai condivisi, aggregati o mostrati tra loro: ogni account vede solo ed esclusivamente i propri movimenti, contatti e obiettivi.",
     ],
     dataEyebrow: "I tuoi dati",
     dataTitle: "Puoi sempre portarli via",
     dataParagraphs: [
       "Dalla Panoramica puoi esportare in qualunque momento l'intero storico dei movimenti in formato CSV, apribile in Excel o Fogli Google. Non è un'opzione nascosta in fondo a un menu: è pensata per essere usata quando vuoi, senza dover chiedere niente.",
-      "Prima di eliminare qualcosa — un movimento, un contatto, un obiettivo — ti viene sempre chiesta una conferma esplicita, per evitare cancellazioni per errore.",
+      "Prima di eliminare qualcosa (un movimento, un contatto, un obiettivo) ti viene sempre chiesta una conferma esplicita, per evitare cancellazioni per errore.",
     ],
     dataLeavePre:
       "Puoi eliminare il tuo account, con tutti i dati collegati, direttamente dalle Impostazioni dentro l'app: è immediato e non passa da me. Per qualsiasi altra richiesta sui tuoi dati puoi scrivermi a",
@@ -780,10 +764,22 @@ const it = {
     eyebrow: "Novità",
     heroTitle: "Cosa è cambiato, aggiornamento dopo aggiornamento.",
     heroBody:
-      "Sviluppo Bilancino da solo, quindi qui trovi esattamente cosa ho fatto e quando — niente numeri di versione gonfiati, solo le cose che sono cambiate davvero.",
-    lastUpdated: "5 agosto 2026",
+      "Sviluppo Bilancino da solo, quindi qui trovi esattamente cosa ho fatto e quando: niente numeri di versione gonfiati, solo le cose che sono cambiate davvero.",
+    lastUpdated: "22 agosto 2026",
     lastUpdatedPrefix: "Ultimo aggiornamento:",
     entries: [
+      {
+        date: "22 agosto 2026",
+        items: [
+          "Nuovo marchio, ridisegnato in formato vettoriale: resta nitido a qualunque dimensione, dall'icona nella scheda del browser all'intestazione.",
+          "Le immagini del sito erano generate al computer e si vedeva: lo schermo del portatile mostrava testo illeggibile e cifre inventate. Ora al loro posto ci sono schermate vere dell'app, catturate su un account dimostrativo con dati di esempio.",
+          "L'anteprima che compare quando condividi un link di Bilancino è stata rifatta con il grafico e i colori del prodotto, senza fotografie.",
+          "Il sito adesso dice chi c'è dietro: nome in fondo a ogni pagina, una sezione dedicata su Chi sono e la firma sulle guide, che prima risultavano scritte da un'organizzazione senza nome.",
+          "Riscritti i testi di tutto il sito. C'era una costruzione ripetuta quasi trenta volte, del tipo \"questo, non quello\", che a forza di tornare suonava come un tic. Il contenuto è lo stesso, dette in modo più piano.",
+          "Corretto il saluto nella Panoramica: mostrava la parte prima della @ della tua email invece del nome che avevi indicato registrandoti.",
+          "Sistemati due dettagli nelle schermate di esempio: la barra degli indirizzi mostrava un dominio che non esiste, e un movimento dimostrativo portava il nome di una persona reale.",
+        ],
+      },
       {
         date: "5 agosto 2026",
         items: [
@@ -792,15 +788,15 @@ const it = {
           "Il selettore della lingua nell'header ora mostra le bandiere invece delle sigle IT/EN, e cambia lingua con un solo tocco.",
           "Le animazioni di comparsa allo scroll, finora solo in home, sono arrivate anche su Chi siamo, Cosa offriamo, Il servizio, Novità, Termini e Privacy.",
           "Nuova grafica per l'email della newsletter, con anteprima live mentre la scrivi e possibilità di tenere più bozze in parallelo.",
-          "Aggiunto un promemoria via email per le scadenze dei contatti: se un promemoria scade oggi, arriva anche un'email, non solo la notifica dentro l'app.",
+          "Aggiunto un promemoria via email per le scadenze dei contatti: se un promemoria scade oggi, arriva anche un'email, oltre alla notifica dentro l'app.",
           "Nuova pagina Impostazioni, con la possibilità di eliminare il proprio account e tutti i dati collegati da soli, senza dover scrivere una email e aspettare.",
-          "Spiegato apertamente perché Bilancino non si collega alla banca (è una scelta, non una funzione mancante) e cosa succederebbe ai tuoi dati se un giorno il progetto si fermasse: due nuove sezioni su Il servizio e Termini, più due FAQ in home.",
+          "Spiegato apertamente perché Bilancino non si collega alla banca (è una scelta voluta) e cosa succederebbe ai tuoi dati se un giorno il progetto si fermasse: due nuove sezioni su Il servizio e Termini, più due FAQ in home.",
         ],
       },
       {
         date: "4 agosto 2026",
         items: [
-          "Sistemati diversi punti dell'app (obiettivi, budget, contatti, movimenti ricorrenti, cestino, newsletter) dove un'azione poteva fallire senza mostrare nulla, lasciandoti a chiederti se avesse funzionato — ora vedi sempre un messaggio chiaro se qualcosa non va a buon fine.",
+          "Sistemati diversi punti dell'app (obiettivi, budget, contatti, movimenti ricorrenti, cestino, newsletter) dove un'azione poteva fallire senza mostrare nulla, lasciandoti a chiederti se avesse funzionato. Ora vedi sempre un messaggio chiaro se qualcosa non va a buon fine.",
           "Riattivare una ricorrenza già scaduta ora avvisa con un errore invece di generare in silenzio un movimento fuori dalla data prevista.",
           "Aggiornata una dipendenza chiave (Next.js) che conteneva una falla di sicurezza nel controllo di accesso alle pagine riservate: nessun dato è mai stato esposto, chiusa comunque per sicurezza.",
           "Header e footer del sito pubblico ora leggono lo stato di accesso nel browser invece che ad ogni richiesta al server, un piccolo lavoro di pulizia dietro le quinte.",
@@ -834,17 +830,17 @@ const it = {
           "Importare un CSV ora è un solo passaggio: scegli il file e l'importazione parte subito, senza dover cercare un secondo pulsante \"Importa\".",
           "I nuovi account vedono un messaggio di benvenuto la prima volta che aprono la Panoramica, invece delle card vuote a 0,00 €.",
           "L'app gira più vicino al database (stessa regione europea di Supabase), quindi le pagine rispondono più in fretta.",
-          "Sistemato il menu mobile del sito pubblico, e aggiornate le pagine Cosa offriamo e le FAQ per parlare anche dell'importazione CSV, non solo dell'esportazione.",
-          "Ora si possono importare anche i contatti da CSV, non solo i movimenti: stesso file con Nome, Email, Telefono e Note, con i doppioni riconosciuti in automatico.",
+          "Sistemato il menu mobile del sito pubblico, e aggiornate le pagine Cosa offriamo e le FAQ per parlare anche dell'importazione CSV, oltre all'esportazione.",
+          "Ora si possono importare da CSV anche i contatti, oltre ai movimenti: stesso file con Nome, Email, Telefono e Note, con i doppioni riconosciuti in automatico.",
         ],
       },
       {
         date: "25 luglio 2026",
         items: [
-          "Importazione ed esportazione dei movimenti in CSV, compatibile con Excel e Fogli Google — utile per portare dati da un'altra app o da un foglio di calcolo, o semplicemente per farsi un backup.",
+          "Importazione ed esportazione dei movimenti in CSV, compatibile con Excel e Fogli Google: utile per portare dati da un'altra app o da un foglio di calcolo, o semplicemente per farsi un backup.",
           "L'app ora riconosce se sei già loggato: niente più pulsanti \"Crea un account\" quando sei già dentro, né nell'header né nella home.",
           "Aggiunto un modo per tornare al sito pubblico dall'interno dell'app, e la possibilità di vedere la password mentre la digiti in fase di accesso.",
-          "Sistemate diverse incongruenze nei numeri (virgola decimale italiana ovunque, non solo in alcune pagine).",
+          "Sistemate diverse incongruenze nei numeri (virgola decimale italiana in tutte le pagine).",
           "Icone vere al posto dei simboli testuali sulla home e su \"Cosa offriamo\", più una foto per \"Chi siamo\".",
         ],
       },
@@ -862,7 +858,7 @@ const it = {
     ideasEyebrow: "A cosa sto pensando",
     ideasTitle: "Idee, non promesse",
     ideasBody:
-      "Come per il resto di Bilancino, preferisco non prometterti date o funzioni prima di averle davvero costruite. Questa è solo la lista di cose a cui sto pensando in questo momento — potrebbero cambiare, essere ridimensionate o non arrivare mai.",
+      "Come per il resto di Bilancino, preferisco non prometterti date o funzioni prima di averle davvero costruite. Questa è solo la lista di cose a cui sto pensando in questo momento. Potrebbero cambiare, essere ridimensionate o non arrivare mai.",
     ideas: [
       "Valutare una versione installabile (PWA) per un uso più comodo da mobile.",
     ],
@@ -870,38 +866,38 @@ const it = {
   privacy: {
     metaTitle: "Privacy — Bilancino",
     metaDescription:
-      "Che dati raccoglie Bilancino, dove sono ospitati e come puoi esportarli o chiederne la cancellazione. Scritto in italiano semplice, non da un ufficio legale.",
+      "Che dati raccoglie Bilancino, dove sono ospitati e come puoi esportarli o chiederne la cancellazione. Scritto in italiano semplice, senza formule da ufficio legale.",
     eyebrow: "Privacy",
     heroTitle: "Come tratto i tuoi dati.",
     heroBody:
-      "Bilancino è un progetto indipendente sviluppato e gestito da Angelo Bregu, una persona sola, non un'azienda con un ufficio legale — è lui il titolare del trattamento dei dati raccolti da questo sito. Quello che segue è scritto in italiano semplice, non da un avvocato: se hai dubbi specifici, scrivimi.",
+      "Bilancino è un progetto indipendente sviluppato e gestito da Angelo Bregu, che è anche il titolare del trattamento dei dati raccolti da questo sito. Quello che segue è scritto in italiano semplice: se hai dubbi specifici, scrivimi.",
     dataCollectedTitle: "Che dati raccolgo",
     dataCollectedParagraphs: [
       "Email e password per il tuo account (o solo l'email, se scegli di accedere con Google), gestite da Supabase Auth: la password non è mai visibile in chiaro, nemmeno a me.",
-      "Se usi \"Continua con Google\", ricevo dal tuo account Google solo il nome e l'indirizzo email necessari per creare l'account — non accedo al resto dei tuoi dati Google.",
+      "Se usi \"Continua con Google\", ricevo dal tuo account Google solo il nome e l'indirizzo email necessari per creare l'account. Non accedo al resto dei tuoi dati Google.",
       "I dati anagrafici richiesti alla registrazione: nome, cognome e data di nascita. La data di nascita serve anche a verificare il requisito dei 18 anni previsto dai termini; se accedi con Google ti chiedo di completare questi stessi dati al primo accesso.",
-      "I dati finanziari che inserisci tu: movimenti, categorie, budget, obiettivi di risparmio, contatti e note, movimenti ricorrenti. Nient'altro — non chiedo indirizzo, telefono, né dati di pagamento, perché non mi servono per far funzionare l'app.",
-      "Tratto questi dati sulla base del contratto che accetti creando un account — mi servono per far funzionare l'app che hai scelto di usare e per verificare che tu possa usarla — oppure, per Google Analytics, sulla base del tuo consenso esplicito (vedi la sezione Cookie qui sotto).",
+      "I dati finanziari che inserisci tu: movimenti, categorie, budget, obiettivi di risparmio, contatti e note, movimenti ricorrenti. Nient'altro: non chiedo indirizzo, telefono, né dati di pagamento, perché non mi servono per far funzionare l'app.",
+      "Tratto questi dati sulla base del contratto che accetti creando un account: mi servono per far funzionare l'app che hai scelto di usare e per verificare che tu possa usarla. Per Google Analytics, invece, la base è il tuo consenso esplicito (vedi la sezione Cookie qui sotto).",
     ],
     hostingTitle: "Dove sono ospitati",
     hostingParagraphs: [
-      "Il database (Supabase, Postgres) è ospitato in Europa, a Francoforte. L'applicazione gira su Vercel, che può elaborare le richieste anche da server negli Stati Uniti — è così che funziona un'app web moderna, e te lo dico invece di lasciartelo scoprire.",
+      "Il database (Supabase, Postgres) è ospitato in Europa, a Francoforte. L'applicazione gira su Vercel, che può elaborare le richieste anche da server negli Stati Uniti. È così che funziona un'app web moderna, e te lo dico invece di lasciartelo scoprire.",
       "Supabase e Vercel sono fornitori tecnici: trattano i tuoi dati solo per far funzionare l'app, non li usano per scopi propri.",
       "Quando i dati passano da un fornitore fuori dall'Unione Europea (ad esempio verso gli Stati Uniti, per Vercel o Google Analytics), questo avviene nell'ambito delle Clausole Contrattuali Standard previste dalla normativa europea, incluse nei contratti che questi fornitori mettono a disposizione.",
     ],
     isolationTitle: "Isolamento e sicurezza",
     isolationParagraphs: [
-      "Ogni riga di dati nel database è vincolata al tuo account tramite Row Level Security di Postgres: nessun altro utente può leggerla o modificarla, anche in caso di bug nel codice dell'app — è una regola imposta dal database stesso, non solo dall'interfaccia.",
+      "Ogni riga di dati nel database è vincolata al tuo account tramite Row Level Security di Postgres: nessun altro utente può leggerla o modificarla, anche in caso di bug nel codice dell'app: è una regola imposta dal database stesso.",
     ],
     cookiesTitle: "Cookie",
     cookiesParagraphs: [
       "Il cookie strettamente necessario per mantenere la sessione di accesso, gestito da Supabase Auth: questo non richiede consenso, perché senza non potresti restare loggato.",
       "Per capire quante persone usano l'app uso anche Vercel Analytics, che non usa cookie e non traccia i singoli utenti: raccoglie solo dati aggregati e anonimi, come le pagine più visitate.",
-      "Con il tuo consenso — te lo chiedo con un banner al primo accesso — uso anche Google Analytics per capire come viene usato il sito nel dettaglio: da dove arrivano i visitatori, quali pagine funzionano meglio. Questo comporta cookie di Google e l'invio di alcuni dati anche a server negli Stati Uniti. Puoi rifiutarlo senza che l'app smetta di funzionare, e puoi cambiare idea in qualsiasi momento da \"Gestisci preferenze cookie\" in fondo al sito.",
+      "Con il tuo consenso, che ti chiedo con un banner al primo accesso, uso anche Google Analytics per capire come viene usato il sito nel dettaglio: da dove arrivano i visitatori, quali pagine funzionano meglio. Questo comporta cookie di Google e l'invio di alcuni dati anche a server negli Stati Uniti. Puoi rifiutarlo senza che l'app smetta di funzionare, e puoi cambiare idea in qualsiasi momento da \"Gestisci preferenze cookie\" in fondo al sito.",
     ],
     yourDataTitle: "I tuoi dati restano tuoi",
     yourDataPara1: "Dalla Panoramica puoi esportare in qualsiasi momento l'intero storico dei movimenti in CSV, senza chiedere permesso a nessuno.",
-    yourDataPara2Pre: "Puoi eliminare il tuo account, e con esso tutti i dati collegati, direttamente dalle Impostazioni dentro l'app: la cancellazione è immediata e definitiva, non serve chiedere il permesso a nessuno. Per correzioni o altre richieste sui tuoi dati, scrivimi a",
+    yourDataPara2Pre: "Puoi eliminare il tuo account, e con esso tutti i dati collegati, direttamente dalle Impostazioni dentro l'app: la cancellazione è immediata e definitiva, senza dover chiedere niente a nessuno. Per correzioni o altre richieste sui tuoi dati, scrivimi a",
     yourDataPara2Post: "quando vuoi.",
     yourDataPara3:
       "Finché il tuo account è attivo, i dati restano nel database così come li inserisci: non c'è una scadenza automatica che li cancella da sola. Oltre a esportarli e cancellarli da solo, hai sempre diritto di chiedermi accesso, rettifica, limitazione o opposizione al trattamento dei tuoi dati, e puoi revocare in qualsiasi momento il consenso a Google Analytics da \"Gestisci preferenze cookie\" in fondo al sito. Se ritieni che il trattamento dei tuoi dati non sia corretto, puoi anche presentare reclamo al Garante per la protezione dei dati personali (garanteprivacy.it).",
@@ -911,10 +907,10 @@ const it = {
   termini: {
     metaTitle: "Termini — Bilancino",
     metaDescription:
-      "Cos'è Bilancino, cosa non è, e cosa succede se qualcosa va storto. Termini scritti in italiano semplice per un progetto indipendente, non da un ufficio legale.",
+      "Cos'è Bilancino, cosa non è, e cosa succede se qualcosa va storto. Termini scritti in italiano semplice per un progetto indipendente.",
     eyebrow: "Termini",
     heroTitle: "Cosa puoi aspettarti da Bilancino.",
-    heroBody: "Anche questa pagina è scritta in italiano semplice, non da un ufficio legale: se hai dubbi specifici, scrivimi.",
+    heroBody: "Anche questa pagina è scritta in italiano semplice: se hai dubbi specifici, scrivimi.",
     whatItIsTitle: "Cos'è, e cos'è gratis",
     whatItIsParagraphs: [
       "Bilancino è un'applicazione di budget personale e CRM leggero, sviluppata e gestita da una persona sola. Non è una società: non ci sono un servizio clienti in senso tradizionale né uno SLA garantito su tempi di risposta o uptime.",
@@ -933,16 +929,16 @@ const it = {
     ],
     ifSomethingGoesWrongTitle: "Se qualcosa va storto",
     ifSomethingGoesWrongParagraphs: [
-      "Bilancino è fornito così com'è, senza garanzie. Faccio il possibile perché funzioni correttamente — Row Level Security sui dati, conferma prima di ogni eliminazione, test automatici sui percorsi più delicati — ma nella misura massima consentita dalla legge non rispondo di eventuali perdite o danni derivanti dall'uso dell'app.",
+      "Bilancino è fornito così com'è, senza garanzie. Faccio il possibile perché funzioni correttamente (Row Level Security sui dati, conferma prima di ogni eliminazione, test automatici sui percorsi più delicati), ma nella misura massima consentita dalla legge non rispondo di eventuali perdite o danni derivanti dall'uso dell'app.",
       "Puoi smettere di usare il servizio quando vuoi. Posso sospendere un account in caso di abuso, ad esempio tentativi di accesso non autorizzato o uso illecito del servizio.",
     ],
     continuityTitle: "Se un giorno il progetto si ferma",
     continuityParagraphs: [
       "È la domanda che è giusto farsi prima di affidare i propri conti a un progetto gestito da una persona sola, e merita una risposta esplicita invece del silenzio.",
-      "Non posso promettere che Bilancino durerà per sempre: sarebbe una promessa che non sono in grado di mantenere. Posso però impegnarmi su due cose concrete. La prima: l'export completo in CSV resta sempre disponibile dentro l'app, senza dovermi chiedere niente — i tuoi dati non sono mai in ostaggio. La seconda: se dovessi mai decidere di fermarmi, lo scriverei su questa pagina e su Novità con un preavviso ragionevole per permetterti di esportare tutto con calma, invece di spegnere il servizio da un giorno all'altro.",
+      "Non posso promettere che Bilancino durerà per sempre: sarebbe una promessa che non sono in grado di mantenere. Posso però impegnarmi su due cose concrete. La prima: l'export completo in CSV resta sempre disponibile dentro l'app, senza dovermi chiedere niente: i tuoi dati non sono mai in ostaggio. La seconda: se dovessi mai decidere di fermarmi, lo scriverei su questa pagina e su Novità con un preavviso ragionevole per permetterti di esportare tutto con calma, invece di spegnere il servizio da un giorno all'altro.",
       "Nel frattempo i dati sono ospitati su Supabase (database Postgres in Europa, a Francoforte) e il formato di export è un CSV standard, apribile in Excel o Fogli Google e importabile nella maggior parte degli altri strumenti di budget.",
     ],
-    footerNotePre: "Se questi termini cambiano, aggiorno questa pagina — la cronologia reale delle modifiche al progetto è su",
+    footerNotePre: "Se questi termini cambiano, aggiorno questa pagina. La cronologia reale delle modifiche al progetto è su",
     footerNoteLink: "Novità",
     footerNoteMid: ". Per qualsiasi domanda, scrivimi a",
   },
@@ -958,6 +954,24 @@ const it = {
     emailLabel: "Email",
     continueWithGoogle: "Continua con Google",
     orDivider: "oppure",
+    errors: {
+      invalid_credentials: "Email o password non corretti. Controlla e riprova.",
+      email_not_confirmed: "Devi prima confermare l'email: apri il link che ti ho inviato quando ti sei registrato.",
+      email_exists: "Esiste già un account con questa email. Prova ad accedere.",
+      weak_password: "La password è troppo debole: usa almeno 8 caratteri.",
+      invalid_email: "L'indirizzo email non sembra valido.",
+      rate_limited: "Troppi tentativi ravvicinati. Aspetta qualche minuto e riprova.",
+      email_send_failed: "Non sono riuscito a inviare l'email a questo indirizzo. Controlla che sia scritto giusto, oppure scrivimi.",
+      google_unavailable: "L'accesso con Google non è disponibile in questo momento. Puoi entrare con email e password.",
+      expired_link: "Il link è scaduto o non è più valido. Richiedine uno nuovo.",
+      missing_fields: "Compila tutti i campi: nome, cognome e data di nascita.",
+      invalid_birth_date: "La data di nascita non è valida.",
+      too_young: "Devi avere almeno 18 anni per usare Bilancino.",
+      save_failed: "Non è stato possibile salvare i dati. Riprova.",
+      password_too_short: "La password deve avere almeno 6 caratteri.",
+      password_mismatch: "Le due password non coincidono.",
+      generic: "Qualcosa non ha funzionato. Riprova fra un momento; se continua, scrivimi.",
+    },
     passwordInput: {
       show: "Mostra password",
       hide: "Nascondi password",
@@ -991,10 +1005,6 @@ const it = {
       submitPending: "Salvataggio…",
       notYouPre: "Non sei tu?",
       signOut: "Esci",
-      missingFieldsError: "Compila tutti i campi: nome, cognome e data di nascita.",
-      invalidBirthDateError: "La data di nascita non è valida.",
-      tooYoungError: "Devi avere almeno 18 anni per usare Bilancino.",
-      saveFailedError: "Non è stato possibile salvare i dati. Riprova.",
     },
     login: {
       title: "Accedi",
@@ -1022,9 +1032,6 @@ const it = {
       resendCooldown: "Rinvia fra",
       resendSpam: "Non lo trovi? Controlla la cartella spam.",
       resendDone: "Se l'indirizzo è in attesa di conferma, ti abbiamo rimandato il link.",
-      missingFieldsError: "Compila tutti i campi: nome, cognome e data di nascita.",
-      invalidBirthDateError: "La data di nascita non è valida.",
-      tooYoungError: "Devi avere almeno 18 anni per registrarti a Bilancino.",
     },
     resetPassword: {
       title: "Password dimenticata",
@@ -1035,7 +1042,6 @@ const it = {
       sentBodyPre:
         "Se esiste un account con quell'indirizzo, ti abbiamo inviato un link per reimpostare la password. Aprilo per continuare, poi torna ad",
       sentBodyLoginWord: "accedere",
-      linkExpiredError: "Il link è scaduto o non è più valido. Richiedine uno nuovo.",
     },
     setPassword: {
       title: "Imposta una nuova password",
@@ -1044,8 +1050,6 @@ const it = {
       confirmPasswordLabel: "Ripeti la password",
       submit: "Salva password",
       submitPending: "Salvataggio…",
-      tooShortError: "La password deve avere almeno 6 caratteri.",
-      mismatchError: "Le due password non coincidono.",
       successToast: "Password aggiornata",
     },
   },

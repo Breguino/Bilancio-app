@@ -3,11 +3,9 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { isValidBirthDate, isAdult } from "@/lib/profile";
 
 export async function completeProfile(formData: FormData) {
-  const { t } = getDictionary();
   const supabase = createClient();
   const {
     data: { user },
@@ -22,15 +20,15 @@ export async function completeProfile(formData: FormData) {
   const birthDate = String(formData.get("birth_date") || "").trim();
 
   if (!firstName || !lastName || !birthDate) {
-    redirect(`/completa-profilo?error=${encodeURIComponent(t.auth.completeProfile.missingFieldsError)}`);
+    redirect("/completa-profilo?error=missing_fields");
   }
 
   if (!isValidBirthDate(birthDate)) {
-    redirect(`/completa-profilo?error=${encodeURIComponent(t.auth.completeProfile.invalidBirthDateError)}`);
+    redirect("/completa-profilo?error=invalid_birth_date");
   }
 
   if (!isAdult(birthDate)) {
-    redirect(`/completa-profilo?error=${encodeURIComponent(t.auth.completeProfile.tooYoungError)}`);
+    redirect("/completa-profilo?error=too_young");
   }
 
   // La riga esiste già (la crea il trigger alla nascita dell'utente), ma usiamo
@@ -48,7 +46,7 @@ export async function completeProfile(formData: FormData) {
   );
 
   if (error) {
-    redirect(`/completa-profilo?error=${encodeURIComponent(t.auth.completeProfile.saveFailedError)}`);
+    redirect("/completa-profilo?error=save_failed");
   }
 
   revalidatePath("/", "layout");

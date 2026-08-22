@@ -40,6 +40,7 @@
 body {
   background: #fbfbf8;
   color: #14151a;
+  font-family: var(--font-inter), system-ui, sans-serif;
 }
 
 .dark body {
@@ -66,10 +67,10 @@ textarea:focus {
 
 @keyframes field-focus-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.35);
+    box-shadow: 0 0 0 0 rgba(14, 110, 128, 0.35);
   }
   100% {
-    box-shadow: 0 0 0 8px rgba(79, 70, 229, 0);
+    box-shadow: 0 0 0 8px rgba(14, 110, 128, 0);
   }
 }
 
@@ -197,4 +198,22 @@ main > * {
     transform: none;
     transition: none;
   }
+}
+
+/* Sfondo della sezione di chiusura. Prima era una foto di bokeh generica
+   messa lì solo per riempire: due sfumature radiali sui colori del marchio
+   fanno lo stesso lavoro senza scaricare 24 KB di immagine. */
+.cta-backdrop {
+  background:
+    radial-gradient(70% 120% at 18% 0%, rgba(14, 110, 128, 0.6) 0%, transparent 60%),
+    radial-gradient(60% 110% at 92% 100%, rgba(5, 150, 105, 0.28) 0%, transparent 62%),
+    #14151a;
+}
+
+/* I titoli hanno un carattere proprio: prima il sito non ne sceglieva
+   nessuno e si affidava allo stack di sistema, che cambia da computer a
+   computer e non dice niente di chi lo usa. */
+h1, h2 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-optical-sizing: auto;
 }

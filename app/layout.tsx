@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
+import { Inter, Fraunces } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AnalyticsConsent } from "@/components/analytics-consent";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
+
+// Il sito non sceglieva un carattere: si affidava allo stack di sistema, che
+// rende diverso su ogni computer. Inter per il testo, Fraunces per i titoli.
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
 
 export function generateMetadata(): Metadata {
   const locale = getLocale();
@@ -53,7 +59,7 @@ export default function RootLayout({
   const locale = getLocale();
   const t = dictionaryFor(locale);
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} className={`${inter.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}

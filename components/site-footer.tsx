@@ -59,11 +59,18 @@ export function SiteFooter() {
           subscribeLabel={t.shared.newsletterForm.subscribe}
         />
       </div>
-      {hasAnalyticsConsent ? (
-        <div className="text-center sm:text-left text-xs">
-          <ManageCookiePreferencesLink label={t.cookieConsent.managePreferences} />
-        </div>
-      ) : null}
+      {/* Chi firma il sito. Il nome stava solo dentro la privacy, dove lo
+          obbliga il GDPR: qui sta perche' un progetto di una persona sola
+          dovrebbe dire di chi e'. */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-border dark:border-neutral-800 pt-6 text-center sm:text-left text-xs">
+        <p>
+          © {new Date().getFullYear()} Bilancino · {t.siteFooter.author} ·{" "}
+          <a href="mailto:a2n0g004@gmail.com" className="hover:text-accent underline underline-offset-2">
+            {t.siteFooter.contactLabel}
+          </a>
+        </p>
+        {hasAnalyticsConsent ? <ManageCookiePreferencesLink label={t.cookieConsent.managePreferences} /> : null}
+      </div>
     </footer>
   );
 }

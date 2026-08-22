@@ -3,12 +3,14 @@ import { requestPasswordReset } from "./actions";
 import { Logo } from "@/components/logo";
 import { SubmitButton } from "@/components/submit-button";
 import { AuthLegalFooter } from "@/components/auth-legal";
+import { ErrorBanner } from "@/components/error-banner";
+import { authErrorText } from "@/lib/auth/auth-error";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export default function ResetPasswordPage({
   searchParams,
 }: {
-  searchParams: { sent?: string };
+  searchParams: { sent?: string; error?: string };
 }) {
   const { t } = getDictionary();
 
@@ -52,6 +54,15 @@ export default function ResetPasswordPage({
         <p className="text-ink-secondary dark:text-neutral-400 text-sm mb-6">
           {t.auth.resetPassword.subtitle}
         </p>
+
+        {/* Chi arriva qui da un link di reimpostazione ormai scaduto veniva
+            rimandato con ?error=, ma la pagina non lo leggeva: la spiegazione
+            si perdeva e restava solo un modulo comparso dal nulla. */}
+        {searchParams.error ? (
+          <div className="mb-4">
+            <ErrorBanner message={authErrorText(searchParams.error, t.auth.errors)} />
+          </div>
+        ) : null}
 
         <form action={requestPasswordReset} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">

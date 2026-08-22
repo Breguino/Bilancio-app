@@ -36,7 +36,8 @@ const jsonLd = {
   description,
   inLanguage: "it-IT",
   datePublished: "2026-08-05",
-  author: { "@type": "Organization", name: "Bilancino" },
+  dateModified: "2026-08-22",
+  author: { "@type": "Person", name: "Angelo Bregu" },
   publisher: { "@type": "Organization", name: "Bilancino" },
 };
 
@@ -51,7 +52,10 @@ export default function ContiPersonaliELavoroPage() {
       <main className="max-w-6xl mx-auto px-6">
         <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
           <span className="text-xs font-bold uppercase tracking-wide text-accent">Guida</span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
+          <p className="text-sm text-ink-muted dark:text-neutral-500 mt-3">
+            di <span className="font-semibold text-ink-secondary dark:text-neutral-400">Angelo Bregu</span> · <time dateTime="2026-08-05">5 agosto 2026</time>
+          </p>
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-4 mb-6">
             Separare conti personali e di lavoro quando sei freelance
           </h1>
           <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
@@ -110,7 +114,7 @@ export default function ContiPersonaliELavoroPage() {
               {
                 n: "02",
                 title: "Un conto solo, due etichette",
-                body: "Tieni un conto, ma ogni movimento viene marcato come personale o di lavoro nel momento in cui lo registri. Zero costi, zero burocrazia. Richiede che l'etichettatura diventi un'abitudine di dieci secondi, non un lavoro di fine mese.",
+                body: "Tieni un conto, ma ogni movimento viene marcato come personale o di lavoro nel momento in cui lo registri. Zero costi, zero burocrazia. Richiede che l'etichettatura diventi un'abitudine da dieci secondi invece di un lavoro di fine mese.",
               },
               {
                 n: "03",
@@ -153,8 +157,7 @@ export default function ContiPersonaliELavoroPage() {
               </p>
               <p>
                 È il motivo per cui in Bilancino le entrate si possono collegare a un contatto, e per
-                ogni cliente resta una scheda con lo storico e le note. Non è un CRM aziendale — è
-                giusto il minimo per non perdere il legame tra i soldi e chi li ha portati.
+                ogni cliente resta una scheda con lo storico e le note. Non è un CRM aziendale: è giusto il minimo per non perdere il legame tra i soldi e chi li ha portati.
               </p>
             </div>
           </Reveal>
@@ -174,7 +177,7 @@ export default function ContiPersonaliELavoroPage() {
                 succedono.
               </p>
               <p>
-                <strong>Etichetta al momento, non a fine mese.</strong> Dieci secondi quando la spesa
+                <strong>Etichetta mentre registri.</strong> Dieci secondi quando la spesa
                 è fresca valgono più di un&apos;ora a ricostruire a fine mese, quando di metà
                 movimenti non ricordi più il contesto.
               </p>
@@ -184,7 +187,7 @@ export default function ContiPersonaliELavoroPage() {
                 volta. Quello che resta da inserire a mano diventa poco, e l&apos;abitudine regge.
               </p>
               <p>
-                <strong>Guarda i numeri una volta al mese, non ogni giorno.</strong> L&apos;obiettivo
+                <strong>Guarda i numeri una volta al mese.</strong> L&apos;obiettivo
                 non è controllare: è accorgersi per tempo se qualcosa sta cambiando.
               </p>
             </div>
@@ -198,8 +201,7 @@ export default function ContiPersonaliELavoroPage() {
             </h2>
             <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">
               Budget personale e clienti nello stesso posto, movimenti ricorrenti in automatico,
-              gratis e senza carta di credito. I dati li inserisci tu — nessun collegamento al conto
-              bancario — e puoi esportarli in CSV quando vuoi.
+              gratis e senza carta di credito. I dati li inserisci tu, senza collegare il conto bancario, e puoi esportarli in CSV quando vuoi.
             </p>
             <div className="flex items-center gap-3 flex-wrap justify-center">
               <Link

@@ -3,6 +3,7 @@ import { updatePassword } from "./actions";
 import { Logo } from "@/components/logo";
 import { PasswordInput } from "@/components/password-input";
 import { ErrorBanner } from "@/components/error-banner";
+import { authErrorText } from "@/lib/auth/auth-error";
 import { SubmitButton } from "@/components/submit-button";
 import { AuthLegalFooter } from "@/components/auth-legal";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -26,7 +27,7 @@ export default function ImpostaPasswordPage({
           {t.auth.setPassword.subtitle}
         </p>
 
-        {searchParams.error ? <div className="mb-4"><ErrorBanner message={searchParams.error} /></div> : null}
+        {searchParams.error ? <div className="mb-4"><ErrorBanner message={authErrorText(searchParams.error, t.auth.errors)} /></div> : null}
 
         <form action={updatePassword} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">

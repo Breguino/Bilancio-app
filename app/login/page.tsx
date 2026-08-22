@@ -4,6 +4,7 @@ import { Logo } from "@/components/logo";
 import { PasswordInput } from "@/components/password-input";
 import { GoogleSignInButton } from "@/components/google-signin-button";
 import { ErrorBanner } from "@/components/error-banner";
+import { authErrorText } from "@/lib/auth/auth-error";
 import { SubmitButton } from "@/components/submit-button";
 import { AuthLegalFooter } from "@/components/auth-legal";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -42,7 +43,7 @@ export default function LoginPage({
 
         {searchParams.error ? (
           <div className="mb-4">
-            <ErrorBanner message={searchParams.error} />
+            <ErrorBanner message={authErrorText(searchParams.error, t.auth.errors)} />
           </div>
         ) : null}
 

@@ -34,7 +34,8 @@ const jsonLd = {
   description,
   inLanguage: "it-IT",
   datePublished: "2026-08-05",
-  author: { "@type": "Organization", name: "Bilancino" },
+  dateModified: "2026-08-22",
+  author: { "@type": "Person", name: "Angelo Bregu" },
   publisher: { "@type": "Organization", name: "Bilancino" },
 };
 
@@ -49,13 +50,15 @@ export default function ExcelOAppPage() {
       <main className="max-w-6xl mx-auto px-6">
         <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
           <span className="text-xs font-bold uppercase tracking-wide text-accent">Guida</span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
+          <p className="text-sm text-ink-muted dark:text-neutral-500 mt-3">
+            di <span className="font-semibold text-ink-secondary dark:text-neutral-400">Angelo Bregu</span> · <time dateTime="2026-08-05">5 agosto 2026</time>
+          </p>
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-4 mb-6">
             Excel o un&apos;app per il budget? Quando conviene passare
           </h1>
           <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
             Il foglio di calcolo è lo strumento più sottovalutato che esista: gratuito, flessibile,
-            tuo. Per molti è la scelta giusta e lo resta per anni. Il problema non è Excel in sé —
-            è capire quando ha smesso di aiutarti.
+            tuo. Per molti è la scelta giusta e lo resta per anni. Il problema non è Excel in sé: è capire quando ha smesso di aiutarti.
           </p>
         </header>
 
@@ -97,7 +100,7 @@ export default function ExcelOAppPage() {
             {[
               {
                 n: "01",
-                title: "Lo aggiorni a blocchi, non man mano",
+                title: "Lo aggiorni a blocchi, in ritardo",
                 body: "Se ti ritrovi a ricostruire due settimane di spese guardando l'estratto conto, il foglio ha già smesso di darti una fotografia aggiornata. E ricostruire a posteriori è il momento in cui si sbaglia di più, perché di metà movimenti non ricordi il contesto.",
               },
               {
@@ -151,8 +154,7 @@ export default function ExcelOAppPage() {
                 controlla che esista un export in un formato leggibile altrove.
               </p>
               <p>
-                Se poi decidi di provare, non serve migrare tutto. Un mese in parallelo — foglio e
-                app insieme — basta per capire se lo strumento nuovo regge l&apos;uso reale, e non
+                Se poi decidi di provare, non serve migrare tutto. Un mese in parallelo, foglio e app insieme, basta per capire se lo strumento nuovo regge l&apos;uso reale, e non
                 rischi niente.
               </p>
             </div>
@@ -165,8 +167,7 @@ export default function ExcelOAppPage() {
               Se vuoi provare, il tuo foglio non va buttato
             </h2>
             <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">
-              Bilancino importa i movimenti da un CSV — quello che esporti da Excel o Fogli Google —
-              e li riesporta quando vuoi, nello stesso formato. Le spese che si ripetono si
+              Bilancino importa i movimenti da un CSV, lo stesso che esporti da Excel o Fogli Google, e li riesporta quando vuoi, nello stesso formato. Le spese che si ripetono si
               registrano da sole, e i dati restano tuoi in un formato che apri anche altrove.
             </p>
             <div className="flex items-center gap-3 flex-wrap justify-center">
