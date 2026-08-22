@@ -76,7 +76,7 @@ const en: Dictionary = {
     },
   },
   nav: {
-    chiSiamo: "About us",
+    chiSiamo: "About me",
     cosaOffriamo: "What we offer",
     ilServizio: "The service",
     faq: "FAQ",
@@ -94,6 +94,8 @@ const en: Dictionary = {
     privacy: "Privacy",
     termini: "Terms",
     newsletterBlurb: "Updates about Bilancino by email, once a month, no spam.",
+    author: "An independent project by Angelo Bregu",
+    contactLabel: "Email me",
   },
   home: {
     metaTitle: "Free budgeting app with client tracking — Bilancino",
@@ -583,7 +585,7 @@ const en: Dictionary = {
     metaTitle: "Who's behind Bilancino, and why it exists",
     metaDescription:
       "Bilancino is an independent project born to fill the gap between personal budgeting apps and full accounting software. Here's why it exists and who it's for.",
-    eyebrow: "About us",
+    eyebrow: "About me",
     heroTitle: "An independent project, built for one specific problem.",
     heroBody:
       "Bilancino isn't a startup with a team, investors, or a marketing department. It's an app built solo, with a narrow goal: bring together personal budgeting and the contacts you have a financial relationship with, without forcing you to choose between an app that's too simple and software that's too complex.",
@@ -603,6 +605,12 @@ const en: Dictionary = {
       "I build it solo, without a team or a growth-at-all-costs plan. That means Bilancino isn't trying to become full accounting software: I'd rather do two things well — budgeting and contacts — than do ten things poorly.",
       "If a feature doesn't help answer \"how much did I save\" or \"what does this client still owe me,\" you probably won't find it here. That's a choice, not an oversight.",
     ],
+    signatureTitle: "Who builds it",
+    signatureName: "Angelo Bregu",
+    signatureRole: "I build and maintain Bilancino on my own.",
+    signatureBody:
+      "If you have a question, found a bug, or want to suggest a feature, email me: you get me, not an automated support desk.",
+    signatureContact: "Email me",
     ctaTitle: "Want to see how it works in detail?",
     ctaSeeOffer: "See what we offer",
   },

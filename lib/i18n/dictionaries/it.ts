@@ -74,7 +74,7 @@ const it = {
     },
   },
   nav: {
-    chiSiamo: "Chi siamo",
+    chiSiamo: "Chi sono",
     cosaOffriamo: "Cosa offriamo",
     ilServizio: "Il servizio",
     faq: "FAQ",
@@ -92,6 +92,8 @@ const it = {
     privacy: "Privacy",
     termini: "Termini",
     newsletterBlurb: "Aggiornamenti su Bilancino via email, una volta al mese, niente spam.",
+    author: "Progetto indipendente di Angelo Bregu",
+    contactLabel: "Scrivimi",
   },
   home: {
     metaTitle: "App per budget personale e clienti, gratis — Bilancino",
@@ -581,7 +583,7 @@ const it = {
     metaTitle: "Chi c'è dietro Bilancino, e perché esiste",
     metaDescription:
       "Bilancino è un progetto indipendente nato per colmare il vuoto tra le app di budget personale e i gestionali per la partita IVA. Ecco perché esiste e per chi è pensato.",
-    eyebrow: "Chi siamo",
+    eyebrow: "Chi sono",
     heroTitle: "Un progetto indipendente, pensato per un problema preciso.",
     heroBody:
       "Bilancino non è una startup con un team, degli investitori o un ufficio marketing. È un'applicazione sviluppata in autonomia, con un obiettivo circoscritto: mettere insieme il budget personale e i contatti con cui hai un rapporto economico, senza costringerti a scegliere tra un'app troppo semplice e un gestionale troppo complesso.",
@@ -601,6 +603,12 @@ const it = {
       "Lo sviluppo da solo, senza un team né un piano di crescita a tutti i costi. Questo significa che Bilancino non cerca di diventare un gestionale completo: preferisco fare bene due cose — budget e contatti — piuttosto che fare male dieci.",
       "Se una funzione non aiuta a rispondere a \"quanto ho risparmiato\" o \"cosa mi deve questo cliente\", probabilmente non la troverai qui. È una scelta, non una mancanza.",
     ],
+    signatureTitle: "Chi lo sviluppa",
+    signatureName: "Angelo Bregu",
+    signatureRole: "Sviluppo e mantengo Bilancino da solo.",
+    signatureBody:
+      "Se hai una domanda, hai trovato un errore o vuoi propormi una funzione, scrivimi: rispondo io, non un supporto automatico.",
+    signatureContact: "Scrivimi",
     ctaTitle: "Vuoi vedere come funziona nel dettaglio?",
     ctaSeeOffer: "Scopri cosa offriamo",
   },
