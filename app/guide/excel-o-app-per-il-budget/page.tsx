@@ -47,7 +47,7 @@ export default function ExcelOAppPage() {
       <SiteHeader />
 
       <main className="max-w-6xl mx-auto px-6">
-        <header className="pt-16 pb-10 sm:pt-20 sm:pb-12 max-w-[62ch]">
+        <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
           <span className="text-xs font-bold uppercase tracking-wide text-accent">Guida</span>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">
             Excel o un&apos;app per il budget? Quando conviene passare
@@ -59,7 +59,7 @@ export default function ExcelOAppPage() {
           </p>
         </header>
 
-        <section className="py-10 sm:py-12 border-t border-border dark:border-neutral-800">
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
@@ -86,8 +86,8 @@ export default function ExcelOAppPage() {
           </Reveal>
         </section>
 
-        <section className="py-10 sm:py-12 border-t border-border dark:border-neutral-800">
-          <Reveal className="max-w-[60ch] mb-8">
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
+          <Reveal className="max-w-[62ch] mb-8">
             <span className="text-xs font-bold uppercase tracking-wide text-accent">I segnali</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
               Quattro segnali che il foglio ti sta rallentando
@@ -129,7 +129,7 @@ export default function ExcelOAppPage() {
           </div>
         </section>
 
-        <section className="py-10 sm:py-12 border-t border-border dark:border-neutral-800">
+        <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] max-w-[20ch]">
@@ -161,10 +161,10 @@ export default function ExcelOAppPage() {
 
         <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
           <Reveal className="flex flex-col items-center text-center gap-5">
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[26ch]">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight [text-wrap:balance] max-w-[22ch]">
               Se vuoi provare, il tuo foglio non va buttato
             </h2>
-            <p className="text-ink-secondary dark:text-neutral-400 max-w-[54ch]">
+            <p className="text-ink-secondary dark:text-neutral-400 max-w-[46ch]">
               Bilancino importa i movimenti da un CSV — quello che esporti da Excel o Fogli Google —
               e li riesporta quando vuoi, nello stesso formato. Le spese che si ripetono si
               registrano da sole, e i dati restano tuoi in un formato che apri anche altrove.

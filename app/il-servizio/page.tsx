@@ -44,7 +44,7 @@ export default function IlServizioPage() {
         </header>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
-          <Reveal className="max-w-[60ch] mb-10">
+          <Reveal className="max-w-[62ch] mb-8">
             <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.howItWorksEyebrow}</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
               {t.ilServizio.howItWorksTitle}
@@ -69,7 +69,7 @@ export default function IlServizioPage() {
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.ilServizio.priceEyebrow}</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[18ch]">
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-4 [text-wrap:balance] max-w-[20ch]">
                 {t.ilServizio.priceTitle}
               </h2>
             </div>

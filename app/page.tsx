@@ -104,7 +104,7 @@ export default function HomePage() {
       />
       <SiteHeader />
 
-      <header className="max-w-6xl mx-auto px-6 pt-16 pb-16 sm:pt-20 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+      <header className="max-w-6xl mx-auto px-6 pt-16 pb-14 sm:pt-20 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
         <div>
           <span className="text-xs font-bold uppercase tracking-wide text-accent">
             {t.home.heroEyebrow}
@@ -215,9 +215,9 @@ export default function HomePage() {
 
       <main className="max-w-6xl mx-auto px-6">
         <section id="funzionalita" className="py-12 sm:py-14 scroll-mt-20 border-t border-border dark:border-neutral-800">
-          <div className="max-w-[60ch] mb-10">
+          <div className="max-w-[62ch] mb-8">
             <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.home.featuresEyebrow}</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
               {t.home.featuresTitle}
             </h2>
           </div>
@@ -276,7 +276,7 @@ export default function HomePage() {
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div>
               <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.home.statsEyebrow}</span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 mb-6 [text-wrap:balance] max-w-[22ch]">
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-6 [text-wrap:balance] max-w-[20ch]">
                 {t.home.statsTitle}
               </h2>
               <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed max-w-[56ch] mb-4">
@@ -292,9 +292,9 @@ export default function HomePage() {
 
         <section id="faq" className="py-12 sm:py-14 scroll-mt-20 border-t border-border dark:border-neutral-800">
           <Reveal>
-            <div className="max-w-[60ch] mb-8">
+            <div className="max-w-[62ch] mb-8">
               <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.home.faqEyebrow}</span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 [text-wrap:balance]">
                 {t.home.faqTitle}
               </h2>
             </div>
@@ -302,7 +302,7 @@ export default function HomePage() {
           </Reveal>
         </section>
 
-        <section className="pt-12 sm:pt-14 pb-20 sm:pb-28 border-t border-border dark:border-neutral-800">
+        <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
           <Reveal className="relative rounded-2xl overflow-hidden">
             <Image src="/cta-bg.jpg" alt="" fill className="object-cover" aria-hidden="true" />
             <div className="absolute inset-0 bg-ink/75" />
