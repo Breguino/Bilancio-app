@@ -134,12 +134,12 @@ export default function HomePage() {
                 </Link>
               }
             />
-            <a
-              href="#funzionalita"
+            <Link
+              href="/demo"
               className="border border-border dark:border-neutral-800 font-bold text-sm rounded-full px-6 py-3.5 hover:border-accent hover:text-accent transition-colors"
             >
-              {t.home.ctaHowItWorks}
-            </a>
+              {t.home.ctaSeeDemo}
+            </Link>
           </div>
 
           {/* L'obiezione all'inserimento manuale si forma qui, davanti al

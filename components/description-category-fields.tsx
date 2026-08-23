@@ -5,7 +5,20 @@ import { useMemo, useState } from "react";
 const fieldClass =
   "border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent";
 
-export function DescriptionCategoryFields({ history }: { history: { description: string; category: string }[] }) {
+// Le etichette arrivano dal server già tradotte: prima erano scritte fisse in
+// italiano qui dentro e restavano in italiano anche con l'app in inglese, in
+// mezzo a "Type", "Client" e "Amount".
+export function DescriptionCategoryFields({
+  history,
+  descriptionLabel,
+  categoryLabel,
+  categoryPlaceholder,
+}: {
+  history: { description: string; category: string }[];
+  descriptionLabel: string;
+  categoryLabel: string;
+  categoryPlaceholder: string;
+}) {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [categoryTouched, setCategoryTouched] = useState(false);
@@ -49,7 +62,7 @@ export function DescriptionCategoryFields({ history }: { history: { description:
   return (
     <>
       <div className="sm:col-span-2 flex flex-col gap-1 order-1">
-        <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Descrizione</label>
+        <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{descriptionLabel}</label>
         <input
           name="description"
           required
@@ -65,10 +78,10 @@ export function DescriptionCategoryFields({ history }: { history: { description:
         </datalist>
       </div>
       <div className="flex flex-col gap-1 order-3">
-        <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">Categoria</label>
+        <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{categoryLabel}</label>
         <input
           name="category"
-          placeholder="Es. Casa"
+          placeholder={categoryPlaceholder}
           value={category}
           onChange={(e) => {
             setCategoryTouched(true);
