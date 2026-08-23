@@ -590,6 +590,7 @@ const en: Dictionary = {
     ],
     signatureTitle: "Who builds it",
     signatureName: "Angelo Bregu",
+    signaturePhotoAlt: "Angelo Bregu, who builds Bilancino",
     signatureRole: "I build and maintain Bilancino on my own.",
     signatureBody:
       "If you have a question, found a bug, or want to suggest a feature, email me: there's a person at the other end, and it's me.",

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -44,6 +45,7 @@ export default function ChiSiamoPage() {
             mainEntity: {
               "@type": "Person",
               name: "Angelo Bregu",
+              image: "https://bilancino.it.com/angelo-bregu.png",
               email: "a2n0g004@gmail.com",
               jobTitle: "Sviluppatore",
               worksFor: { "@type": "Organization", name: "Bilancino" },
@@ -119,8 +121,22 @@ export default function ChiSiamoPage() {
               </h2>
             </div>
             <div className="flex flex-col gap-3 text-ink-secondary dark:text-neutral-400 leading-relaxed">
-              <p className="text-ink dark:text-neutral-100 text-lg font-bold">{t.chiSiamo.signatureName}</p>
-              <p>{t.chiSiamo.signatureRole}</p>
+              <div className="flex items-center gap-4">
+                {/* La fotografia è larga 250px alla fonte: mostrata a 112 resta
+                    nitida anche sugli schermi a densità doppia. */}
+                <Image
+                  src="/angelo-bregu.png"
+                  alt={t.chiSiamo.signaturePhotoAlt}
+                  width={250}
+                  height={250}
+                  className="w-28 h-28 rounded-full shrink-0 bg-surface-alt dark:bg-neutral-800"
+                  sizes="112px"
+                />
+                <div>
+                  <p className="text-ink dark:text-neutral-100 text-lg font-bold">{t.chiSiamo.signatureName}</p>
+                  <p className="mt-1">{t.chiSiamo.signatureRole}</p>
+                </div>
+              </div>
               <p>{t.chiSiamo.signatureBody}</p>
               <a
                 href="mailto:a2n0g004@gmail.com"
