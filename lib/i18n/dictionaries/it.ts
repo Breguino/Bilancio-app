@@ -588,6 +588,7 @@ const it = {
     ],
     signatureTitle: "Chi lo sviluppa",
     signatureName: "Angelo Bregu",
+    signaturePhotoAlt: "Angelo Bregu, che sviluppa Bilancino",
     signatureRole: "Sviluppo e mantengo Bilancino da solo.",
     signatureBody:
       "Se hai una domanda, hai trovato un errore o vuoi propormi una funzione, scrivimi: all'altro capo dell'email ci sono io.",
