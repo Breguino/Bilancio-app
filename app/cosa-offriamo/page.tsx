@@ -75,11 +75,11 @@ export default function CosaOffriamoPage() {
           </div>
           <AppScreenshot
             src="/schermata-panoramica.png"
+            srcDark="/schermata-panoramica-dark.png"
             width={1600}
             height={820}
             alt={t.shared.screenshots.panoramicaAlt}
             caption={t.shared.screenshots.caption}
-            priority
           />
         </header>
 
@@ -88,6 +88,7 @@ export default function CosaOffriamoPage() {
             gi === 1 ? (
               <AppScreenshot
                 src="/schermata-cliente.png"
+            srcDark="/schermata-cliente-dark.png"
                 width={1600}
                 height={700}
                 alt={t.shared.screenshots.clienteAlt}
@@ -96,6 +97,7 @@ export default function CosaOffriamoPage() {
             ) : gi === 2 ? (
               <AppScreenshot
                 src="/schermata-statistiche.png"
+            srcDark="/schermata-statistiche-dark.png"
                 width={1600}
                 height={820}
                 alt={t.shared.screenshots.statisticheAlt}
