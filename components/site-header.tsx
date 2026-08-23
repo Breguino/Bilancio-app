@@ -13,6 +13,7 @@ export function SiteHeader() {
   const marketingNavLinks = [
     { href: "/chi-siamo", label: t.nav.chiSiamo },
     { href: "/cosa-offriamo", label: t.nav.cosaOffriamo },
+    { href: "/demo", label: t.nav.demo },
     { href: "/il-servizio", label: t.nav.ilServizio },
     { href: "/#faq", label: t.nav.faq },
   ];
