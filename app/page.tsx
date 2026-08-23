@@ -153,11 +153,11 @@ export default function HomePage() {
         <div className="flex flex-col gap-5">
         <AppScreenshot
           src="/schermata-panoramica.png"
+            srcDark="/schermata-panoramica-dark.png"
           width={1600}
           height={820}
           alt={t.shared.screenshots.panoramicaAlt}
           caption={t.shared.screenshots.caption}
-          priority
         />
         <div className="border border-border dark:border-neutral-800 rounded-2xl bg-white dark:bg-neutral-900 p-6 shadow-[0_24px_60px_-20px_rgba(20,21,26,0.18)] dark:shadow-none">
           <div className="flex items-center justify-between mb-4">

@@ -64,15 +64,24 @@ export function DemoTour({
               a una dimensione in cui i numeri si leggono. Da tablet in su ci
               sta tutta e lo scorrimento non serve. */}
           <div className="overflow-x-auto lg:overflow-visible">
-          <Image
-            src={`/demo/${current.key}-${locale}.png`}
-            alt={current.alt}
-            width={1500}
-            height={860}
-            className="w-full h-auto min-w-[680px] lg:min-w-0"
-            sizes="(max-width: 1024px) 760px, 760px"
-            priority
-          />
+            {/* Due immagini, una per tema, scambiate dal CSS: così segue anche
+                l'interruttore chiaro/scuro, che il server non può conoscere.
+                Restano entrambe pigre e quella nascosta non ha dimensioni,
+                quindi il browser scarica solo quella che si vede davvero. */}
+            {[
+              { suffisso: "", visibilita: "dark:hidden" },
+              { suffisso: "-dark", visibilita: "hidden dark:block" },
+            ].map(({ suffisso, visibilita }) => (
+              <Image
+                key={suffisso}
+                src={`/demo/${current.key}-${locale}${suffisso}.png`}
+                alt={current.alt}
+                width={1500}
+                height={860}
+                className={`w-full h-auto min-w-[680px] lg:min-w-0 ${visibilita}`}
+                sizes="(max-width: 1024px) 760px, 760px"
+              />
+            ))}
           </div>
           <figcaption className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 px-4 py-2.5 border-t border-border dark:border-neutral-800">
             {caption}
