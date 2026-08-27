@@ -7,11 +7,13 @@ import { Toast } from "@/components/toast";
 import { FileInputButton } from "@/components/file-input-button";
 import { addContact, deleteContact, importContacts } from "./actions";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { PageHeader } from "@/components/page-header";
+import { Search, X } from "lucide-react";
 
 export default async function ContactsPage({
   searchParams,
 }: {
-  searchParams: { error?: string; success?: string };
+  searchParams: { q?: string; error?: string; success?: string };
 }) {
   const { locale, t } = getDictionary();
   const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
@@ -32,7 +34,21 @@ export default async function ContactsPage({
     supabase.from("contact_notes").select("contact_id").eq("done", false).lte("remind_at", today),
   ]);
 
-  const rows = contacts || [];
+  const query = searchParams.q?.trim() || "";
+  const tutti = contacts || [];
+  // Con una rubrica lunga scorrere e' l'unico modo per trovare qualcuno:
+  // qui il nome si cerca, e la ricerca resta nell'indirizzo.
+  const rows = query ? tutti.filter((c) => c.name.toLowerCase().includes(query.toLowerCase())) : tutti;
+
+  // Le iniziali al posto del pallino vuoto: in un elenco di nomi si riconosce
+  // la riga giusta prima di leggerla.
+  const iniziali = (nome: string) =>
+    nome
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((p) => p.charAt(0))
+      .join("")
+      .toUpperCase();
   const revenueByContact = new Map<string, number>();
   (transactions || []).forEach((t) => {
     if (t.amount > 0 && t.contact_id) {
@@ -45,81 +61,96 @@ export default async function ContactsPage({
   });
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6">
       <Toast message={searchParams.success} />
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-1">{t.contacts.crmEyebrow}</p>
-        <h1 className="text-2xl font-extrabold tracking-tight">{t.contacts.title}</h1>
-        <p className="text-ink-secondary dark:text-neutral-400 text-sm mt-1">
-          {t.contacts.visibleOnlyToYouPre} {rows.length} {rows.length === 1 ? t.contacts.contactSingular : t.contacts.contactPlural}.
+      <PageHeader
+        eyebrow={t.contacts.crmEyebrow}
+        title={t.contacts.title}
+        subtitle={`${t.contacts.visibleOnlyToYouPre} ${tutti.length} ${
+          tutti.length === 1 ? t.contacts.contactSingular : t.contacts.contactPlural
+        }.`}
+        actionLabel={t.contacts.newAction}
+        panelTitle={t.contacts.newContactTitle}
+        closeLabel={t.common.closeAction}
+        panel={
+          <>
+            <div className="mb-4">
+              <ErrorBanner message={searchParams.error} />
+            </div>
+      <form action={addContact} className="grid grid-cols-1 sm:grid-cols-4 gap-3 items-end">
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.contacts.nameLabel}</label>
+          <input
+            name="name"
+            required
+            className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.contacts.emailLabel}</label>
+          <input
+            name="email"
+            type="email"
+            className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.contacts.phoneLabel}</label>
+          <input
+            name="phone"
+            className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.contacts.notesLabel}</label>
+          <input
+            name="notes"
+            className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+          />
+        </div>
+        <SubmitButton
+          pendingText={t.contacts.addingPending}
+          className="sm:col-span-4 sm:w-fit bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-6 py-2.5 transition-colors"
+        >
+          {t.contacts.addSubmit}
+        </SubmitButton>
+      </form>
+
+      <div className="mt-5 pt-5 border-t border-border dark:border-neutral-800">
+        <form action={importContacts}>
+          <FileInputButton
+            name="file"
+            accept=".csv,text/csv"
+            required
+            title={t.contacts.importTitle}
+            importingLabel={t.shared.fileInput.importingLabel}
+            importLabel={t.shared.fileInput.importLabel}
+          />
+        </form>
+        <p className="text-xs text-ink-muted dark:text-neutral-500 mt-2">
+          {t.contacts.importHint}
         </p>
       </div>
-
-      <div className="border border-border dark:border-neutral-800 rounded-xl p-5 bg-white dark:bg-neutral-900">
-        <h2 className="font-bold mb-4">{t.contacts.newContactTitle}</h2>
-        <div className="mb-4">
-          <ErrorBanner message={searchParams.error} />
-        </div>
-        <form action={addContact} className="grid grid-cols-1 sm:grid-cols-4 gap-3 items-end">
-          <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.contacts.nameLabel}</label>
-            <input
-              name="name"
-              required
-              className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.contacts.emailLabel}</label>
-            <input
-              name="email"
-              type="email"
-              className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.contacts.phoneLabel}</label>
-            <input
-              name="phone"
-              className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.contacts.notesLabel}</label>
-            <input
-              name="notes"
-              className="border border-border dark:border-neutral-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
-          <SubmitButton
-            pendingText={t.contacts.addingPending}
-            className="sm:col-span-4 sm:w-fit bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-6 py-2.5 transition-colors"
-          >
-            {t.contacts.addSubmit}
-          </SubmitButton>
-        </form>
-
-        <div className="mt-5 pt-5 border-t border-border dark:border-neutral-800">
-          <form action={importContacts}>
-            <FileInputButton
-              name="file"
-              accept=".csv,text/csv"
-              required
-              title={t.contacts.importTitle}
-              importingLabel={t.shared.fileInput.importingLabel}
-              importLabel={t.shared.fileInput.importLabel}
-              noFileLabel={t.shared.fileInput.noFileLabel}
-            />
-          </form>
-          <p className="text-xs text-ink-muted dark:text-neutral-500 mt-2">
-            {t.contacts.importHint}
-          </p>
-        </div>
-      </div>
+          </>
+        }
+        defaultOpen={Boolean(searchParams.error)}
+      />
 
       <div className="border border-border dark:border-neutral-800 rounded-xl bg-white dark:bg-neutral-900 overflow-hidden">
+        <form method="get" className="flex items-center gap-2.5 px-4 py-3.5 border-b border-border dark:border-neutral-800 text-ink-muted dark:text-neutral-500">
+          <Search size={16} strokeWidth={1.9} aria-hidden="true" />
+          <input
+            name="q"
+            defaultValue={query}
+            placeholder={t.contacts.searchPlaceholder}
+            aria-label={t.contacts.searchPlaceholder}
+            className="w-full bg-transparent text-sm text-ink dark:text-neutral-100 focus:outline-none"
+          />
+        </form>
         {rows.length === 0 ? (
-          <p className="text-sm text-ink-muted dark:text-neutral-500 px-5 py-6">{t.contacts.emptyState}</p>
+          <p className="text-sm text-ink-muted dark:text-neutral-500 px-5 py-6">
+            {query ? t.contacts.noSearchResults : t.contacts.emptyState}
+          </p>
         ) : (
           <div className="divide-y divide-border dark:divide-neutral-800">
             {rows.map((c) => {
@@ -127,7 +158,14 @@ export default async function ContactsPage({
               const dueCount = dueCountByContact.get(c.id) || 0;
               return (
                 <div key={c.id} className="flex flex-wrap items-center justify-between px-5 py-3 text-sm gap-4">
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex items-center gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="w-9 h-9 rounded-full bg-surface-alt dark:bg-neutral-800 text-ink-secondary dark:text-neutral-400 flex items-center justify-center text-[13px] font-bold shrink-0"
+                    >
+                      {iniziali(c.name)}
+                    </span>
+                    <div className="min-w-0">
                     <Link href={`/contacts/${c.id}`} className="font-semibold truncate hover:text-accent block">
                       {c.name}
                     </Link>
@@ -137,6 +175,7 @@ export default async function ContactsPage({
                     {c.notes ? (
                       <p className="text-ink-secondary dark:text-neutral-400 text-xs mt-0.5 truncate">{c.notes}</p>
                     ) : null}
+                    </div>
                   </div>
                   <div className="flex flex-wrap items-center gap-3 shrink-0">
                     {dueCount > 0 ? (
@@ -162,9 +201,9 @@ export default async function ContactsPage({
                         confirmLabel={t.common.deleteAction}
                         cancelLabel={t.common.cancelAction}
                         ariaLabel={t.contacts.deleteAriaLabel}
-                        className="text-ink-muted dark:text-neutral-500 hover:text-red-600 w-6 h-6 rounded"
+                        className="text-ink-muted dark:text-neutral-500 hover:text-red-600 w-8 h-8 rounded-full flex items-center justify-center"
                       >
-                        ✕
+                        <X size={14} strokeWidth={2.2} />
                       </ConfirmButton>
                     </form>
                   </div>

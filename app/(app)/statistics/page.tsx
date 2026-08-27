@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { linearRegression, confidenceInterval95, sampleStdDev, zScoreOutliers } from "@/lib/statistics";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { TrendChart } from "@/components/trend-chart";
 
 function monthKey(dateStr: string) {
   return dateStr.slice(0, 7);
@@ -63,7 +64,7 @@ export default async function StatisticsPage() {
     .sort((a, b) => b.tx.date.localeCompare(a.tx.date));
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6">
       <div>
         <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted dark:text-neutral-500 mb-1">
           {t.statistics.eyebrow}
@@ -91,23 +92,32 @@ export default async function StatisticsPage() {
               <strong className="num">{eur.format(Math.abs(regression.slope))}</strong>{" "}
               {t.statistics.trendPost} {num2(regression.r2)}).
             </p>
-            <div className="flex flex-col gap-2">
-              {months.map((k, i) => (
-                <div key={k} className="flex items-center justify-between text-sm">
-                  <span className="text-ink-secondary dark:text-neutral-400">{monthLabel(k)}</span>
-                  <span className="num">{eur.format(netSeries[i])}</span>
-                </div>
-              ))}
-              {forecasts.map((v, i) => (
-                <div
-                  key={`f${i}`}
-                  className="flex items-center justify-between text-sm border-t border-dashed border-border dark:border-neutral-700 pt-2 mt-1"
-                >
-                  <span className="text-accent">{t.statistics.forecastLabel.replace("{n}", String(i + 1))}</span>
-                  <span className="num text-accent font-semibold">{eur.format(v)}</span>
-                </div>
-              ))}
+            <div className="flex items-center gap-4 text-xs text-ink-secondary dark:text-neutral-400 mb-3">
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-3.5 h-[3px] rounded-full bg-accent" /> {t.statistics.recordedLabel}
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-3.5 h-[3px] rounded-full bg-accent/40" /> {t.statistics.projectionLabel}
+              </span>
             </div>
+            <TrendChart
+              labels={months.map(monthLabel)}
+              values={netSeries}
+              forecast={forecasts}
+              forecastLabels={forecasts.map((_, i) => `+${i + 1}`)}
+              format={(n) => eur.format(n)}
+              ariaLabel={t.statistics.trendTitle}
+            />
+            {forecasts.length > 0 ? (
+              <div className="flex flex-wrap gap-x-6 gap-y-1 mt-4 text-sm">
+                {forecasts.map((v, i) => (
+                  <span key={`f${i}`} className="text-ink-secondary dark:text-neutral-400">
+                    {t.statistics.forecastLabel.replace("{n}", String(i + 1))}:{" "}
+                    <b className="num font-semibold text-ink dark:text-neutral-100">{eur.format(v)}</b>
+                  </span>
+                ))}
+              </div>
+            ) : null}
           </>
         )}
       </div>
