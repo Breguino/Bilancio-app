@@ -54,6 +54,10 @@ export default async function AppLayout({
     navLinks.push({ href: "/newsletter", label: t.appShell.navNewsletter });
   }
 
+  // Sotto i 1280px l'icona "torna al sito" sparisce dalla barra, che a quella
+  // larghezza era già troppo piena: la voce entra qui, in fondo al menu.
+  const menuCompattoLinks = [...navLinks, { href: "/", label: t.appShell.backToSiteTitle }];
+
   return (
     <div className="min-h-screen">
       <header className="print:hidden sticky top-0 z-20 relative border-b border-border dark:border-neutral-800 backdrop-blur bg-white/90 dark:bg-neutral-950/90">
@@ -73,7 +77,7 @@ export default async function AppLayout({
               href="/"
               aria-label={t.appShell.backToSiteAriaLabel}
               title={t.appShell.backToSiteTitle}
-              className="w-9 h-9 rounded-full border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 flex items-center justify-center hover:border-accent hover:text-accent transition-colors shrink-0"
+              className="w-9 h-9 rounded-full border border-border dark:border-neutral-800 bg-white dark:bg-neutral-900 hidden xl:flex items-center justify-center hover:border-accent hover:text-accent transition-colors shrink-0"
             >
               <Home size={16} strokeWidth={1.75} />
             </Link>
@@ -88,7 +92,7 @@ export default async function AppLayout({
             <LanguageSwitcher locale={locale} label={t.common.langSwitchLabel} />
             <ThemeToggle ariaLabel={t.shared.themeToggle.ariaLabel} title={t.shared.themeToggle.title} />
             <div className="xl:hidden">
-              <MobileMenu items={navLinks} />
+              <MobileMenu items={menuCompattoLinks} />
             </div>
             <form action="/logout" method="post">
               <button
