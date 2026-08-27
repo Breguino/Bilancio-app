@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { Upload } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 // Scegliere il file avvia subito l'import (niente pulsante "Importa" separato
@@ -11,8 +12,7 @@ export function FileInputButton({
   required,
   title,
   importingLabel = "Importo…",
-  importLabel = "⬆ Importa CSV",
-  noFileLabel = "Nessun file",
+  importLabel = "Importa CSV",
 }: {
   name: string;
   accept?: string;
@@ -20,7 +20,6 @@ export function FileInputButton({
   title?: string;
   importingLabel?: string;
   importLabel?: string;
-  noFileLabel?: string;
 }) {
   const id = useId();
   const [fileName, setFileName] = useState<string | null>(null);
@@ -31,12 +30,13 @@ export function FileInputButton({
       <label
         htmlFor={id}
         title={title}
-        className={`text-xs font-semibold rounded-full px-2.5 py-1.5 border border-border dark:border-neutral-700 transition-colors shrink-0 ${
+        className={`inline-flex items-center gap-1.5 text-xs font-semibold rounded-full px-3 py-1.5 border border-border dark:border-neutral-700 transition-colors shrink-0 ${
           pending
             ? "opacity-60 cursor-not-allowed pointer-events-none"
             : "cursor-pointer hover:border-accent hover:text-accent"
         }`}
       >
+        <Upload size={13} strokeWidth={2} aria-hidden="true" />
         {pending ? importingLabel : importLabel}
       </label>
       <input
@@ -53,9 +53,11 @@ export function FileInputButton({
         }}
         className="sr-only"
       />
-      <span className="text-xs text-ink-muted dark:text-neutral-500 truncate max-w-[7rem] sm:max-w-[10rem]">
-        {fileName || noFileLabel}
-      </span>
+      {fileName ? (
+        <span className="text-xs text-ink-muted dark:text-neutral-500 truncate max-w-[7rem] sm:max-w-[10rem]">
+          {fileName}
+        </span>
+      ) : null}
     </div>
   );
 }
