@@ -4,7 +4,7 @@ import { Home, Settings } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { isProfileComplete, type Profile } from "@/lib/profile";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Logo } from "@/components/logo";
+import { Brand } from "@/components/brand";
 import { AppNav } from "@/components/app-nav";
 import { MobileMenu } from "@/components/mobile-menu";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -60,16 +60,15 @@ export default async function AppLayout({
         <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
           <Link
             href="/dashboard"
-            className="inline-flex items-center gap-2 font-extrabold -ml-2 px-2 py-2 rounded-full hover:bg-surface-alt dark:hover:bg-neutral-800 transition-colors"
-            aria-label="Bilancino"
+            className="inline-flex items-center gap-2 sm:gap-2.5 -ml-2 px-2 py-2 rounded-full hover:bg-surface-alt dark:hover:bg-neutral-800 transition-colors"
           >
-            <Logo />
+            {/* Su telefono questa barra porta già simbolo, quattro comandi
+                tondi, il menu compatto e l'uscita: il nome non ci starebbe.
+                Compare da 640px in su, dove lo spazio c'è. */}
+            <Brand size={28} nameClassName="hidden sm:inline text-lg" />
           </Link>
           <AppNav links={navLinks} />
           <div className="flex items-center gap-2">
-            <span className="text-ink-muted dark:text-neutral-500 text-sm hidden xl:inline mr-1">
-              {user?.email}
-            </span>
             <Link
               href="/"
               aria-label={t.appShell.backToSiteAriaLabel}
@@ -88,7 +87,7 @@ export default async function AppLayout({
             </Link>
             <LanguageSwitcher locale={locale} label={t.common.langSwitchLabel} />
             <ThemeToggle ariaLabel={t.shared.themeToggle.ariaLabel} title={t.shared.themeToggle.title} />
-            <div className="lg:hidden">
+            <div className="xl:hidden">
               <MobileMenu items={navLinks} />
             </div>
             <form action="/logout" method="post">
