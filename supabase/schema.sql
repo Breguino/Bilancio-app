@@ -264,11 +264,20 @@ create table if not exists public.newsletter_subscribers (
 
 alter table public.newsletter_subscribers enable row level security;
 
--- Chiunque (anche anonimo) puo' iscriversi dal form pubblico. Nessuna policy
--- di select/update/delete: la lista si legge/modifica solo lato server con
--- la service role key (invio mensile, disiscrizione), mai dal client.
-create policy "newsletter_subscribers_insert_public" on public.newsletter_subscribers
-  for insert to anon, authenticated with check (true);
+-- Nessuna policy, e nessun permesso ai ruoli pubblici: la lista si tocca solo
+-- lato server con la service role key (iscrizione dal modulo, invio mensile,
+-- disiscrizione). All'inizio l'iscrizione partiva dal browser con la chiave
+-- pubblica e serviva una policy di insert aperta a tutti; da quando passa da
+-- una server action quella porta era solo un modo per infilare indirizzi
+-- nella lista scavalcando il modulo, visto che la chiave pubblica sta nel
+-- codice della pagina.
+revoke all on table public.newsletter_subscribers from anon, authenticated;
+
+-- Il divieto scritto per esteso. Senza permessi SQL la porta e' gia' chiusa,
+-- ma una tabella con la RLS accesa e nessuna policy sembra una dimenticanza:
+-- cosi' invece si legge che e' voluto.
+create policy "newsletter_subscribers_solo_service_role" on public.newsletter_subscribers
+  for all to anon, authenticated using (false) with check (false);
 
 create index if not exists newsletter_subscribers_unsub_token_idx
   on public.newsletter_subscribers (unsubscribe_token);
@@ -285,7 +294,13 @@ create table if not exists public.newsletter_issues (
 
 alter table public.newsletter_issues enable row level security;
 -- Nessuna policy pubblica: solo la service role key la legge/scrive, dalla
--- pagina admin e dal cron di invio (entrambi lato server).
+-- pagina admin e dal cron di invio (entrambi lato server). Togliamo anche i
+-- permessi SQL ai ruoli pubblici, cosi' la tabella non e' raggiungibile
+-- dall'API nemmeno se un giorno qualcuno aggiungesse una policy per sbaglio.
+revoke all on table public.newsletter_issues from anon, authenticated;
+
+create policy "newsletter_issues_solo_service_role" on public.newsletter_issues
+  for all to anon, authenticated using (false) with check (false);
 
 -- ---------- Cestino per i movimenti eliminati ----------
 alter table public.transactions add column if not exists deleted_at timestamptz;
