@@ -12,7 +12,7 @@ export function Brand({ size = 30, nameClassName = "text-base sm:text-xl" }: { s
   return (
     <>
       <Logo size={size} />
-      <span className={`font-display font-bold tracking-tight leading-none max-[359px]:hidden ${nameClassName}`}>Bilancino</span>
+      <span className={`font-display font-bold tracking-tight leading-none ${nameClassName}`}>Bilancino</span>
     </>
   );
 }
