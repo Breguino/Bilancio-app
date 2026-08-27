@@ -47,7 +47,7 @@ export default function ExcelOAppPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <SiteHeader />
 
-      <main className="max-w-6xl mx-auto px-6">
+      <main id="contenuto" className="max-w-6xl mx-auto px-6">
         <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
           <span className="text-xs font-bold uppercase tracking-wide text-accent">Guida</span>
           <p className="text-sm text-ink-muted dark:text-neutral-500 mt-3">

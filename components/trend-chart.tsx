@@ -47,6 +47,10 @@ export function TrendChart({
 
   const griglia = [0, 1, 2, 3].map((i) => PAD + ((H - PAD * 2) / 3) * i);
   const tutte = labels.concat(forecastLabels);
+  // Un'etichetta come "Mar 2026" occupa una cinquantina di pixel: quattro
+  // stanno in una scheda su telefono, sette su tablet.
+  const passoTelefono = Math.max(1, Math.ceil(tutte.length / 4));
+  const passoTablet = Math.max(1, Math.ceil(tutte.length / 7));
 
   return (
     <figure className="m-0">
@@ -96,16 +100,25 @@ export function TrendChart({
       </svg>
       {/* Le etichette vanno messe sopra il punto a cui si riferiscono: con un
           semplice space-between quelle in mezzo scivolano, perche' sono larghe
-          diverse l'una dall'altra. */}
+          diverse l'una dall'altra.
+
+          Su telefono pero' non ci stanno tutte: dodici "Mar 2026" in trecento
+          pixel diventano una macchia illeggibile. Quante mostrarne lo decide
+          la larghezza: quattro sul telefono, sette sul tablet, tutte da
+          1024px in su. La prima e l'ultima restano sempre, perche' sono gli
+          estremi dell'asse. */}
       <figcaption className="relative h-4 mt-2">
         {tutte.map((l, i) => {
           const frazione = i / (tutte.length - 1);
           const primo = i === 0;
           const ultimo = i === tutte.length - 1;
+          const sempre = primo || ultimo || i % passoTelefono === 0;
+          const daTablet = !sempre && i % passoTablet === 0;
+          const visibilita = sempre ? "" : daTablet ? "hidden sm:block" : "hidden lg:block";
           return (
             <span
               key={i}
-              className={`absolute top-0 text-[11px] whitespace-nowrap ${
+              className={`absolute top-0 text-[11px] whitespace-nowrap ${visibilita} ${
                 i < labels.length ? "text-ink-muted dark:text-neutral-500" : "text-accent/70"
               }`}
               style={

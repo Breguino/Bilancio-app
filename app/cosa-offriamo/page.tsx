@@ -62,7 +62,7 @@ export default function CosaOffriamoPage() {
     <div className="min-h-screen">
       <SiteHeader />
 
-      <main className="max-w-6xl mx-auto px-6">
+      <main id="contenuto" className="max-w-6xl mx-auto px-6">
         <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div>
             <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.cosaOffriamo.eyebrow}</span>

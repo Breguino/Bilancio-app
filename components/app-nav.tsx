@@ -5,13 +5,13 @@ import { usePathname } from "next/navigation";
 
 export type NavLink = { href: string; label: string };
 
-export function AppNav({ links }: { links: NavLink[] }) {
+export function AppNav({ links, navLabel }: { links: NavLink[]; navLabel: string }) {
   const pathname = usePathname();
 
   // Da 1280px in su: sotto, otto voci più i comandi non entrano nella barra e
   // la facevano traboccare. Lì subentra il menu compatto.
   return (
-    <nav className="hidden xl:flex items-center gap-1 text-sm font-medium">
+    <nav aria-label={navLabel} className="hidden xl:flex items-center gap-1 text-sm font-medium">
       {links.map((l) => {
         const active = pathname === l.href;
         return (

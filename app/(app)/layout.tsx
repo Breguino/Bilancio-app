@@ -61,6 +61,15 @@ export default async function AppLayout({
   return (
     <div className="min-h-screen">
       <header className="print:hidden sticky top-0 z-20 relative border-b border-border dark:border-neutral-800 backdrop-blur bg-white/90 dark:bg-neutral-950/90">
+        {/* Primo elemento raggiungibile col tabulatore: senza, chi naviga da
+            tastiera deve attraversare otto voci di menu e cinque comandi a
+            ogni pagina. Resta invisibile finché non prende il fuoco. */}
+        <a
+          href="#contenuto"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+        >
+          {t.common.skipToContent}
+        </a>
         <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
           <Link
             href="/dashboard"
@@ -71,7 +80,7 @@ export default async function AppLayout({
                 Compare da 640px in su, dove lo spazio c'è. */}
             <Brand size={28} nameClassName="hidden sm:inline text-lg" />
           </Link>
-          <AppNav links={navLinks} />
+          <AppNav links={navLinks} navLabel={t.common.mainNavLabel} />
           <div className="flex items-center gap-2">
             <Link
               href="/"
@@ -92,7 +101,7 @@ export default async function AppLayout({
             <LanguageSwitcher locale={locale} label={t.common.langSwitchLabel} />
             <ThemeToggle ariaLabel={t.shared.themeToggle.ariaLabel} title={t.shared.themeToggle.title} />
             <div className="xl:hidden">
-              <MobileMenu items={menuCompattoLinks} />
+              <MobileMenu items={menuCompattoLinks} navLabel={t.common.mainNavLabel} />
             </div>
             <form action="/logout" method="post">
               <button
@@ -105,7 +114,7 @@ export default async function AppLayout({
           </div>
         </div>
       </header>
-      <main className="max-w-5xl mx-auto px-6 py-8">{children}</main>
+      <main id="contenuto" className="max-w-5xl mx-auto px-6 py-8">{children}</main>
     </div>
   );
 }

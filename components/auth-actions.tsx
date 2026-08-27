@@ -13,10 +13,12 @@ type NavDict = ReturnType<typeof dictionaryFor>["nav"];
 export function AuthActions({
   loggedIn,
   nav,
+  navLabel,
   marketingNavLinks,
 }: {
   loggedIn: boolean;
   nav: NavDict;
+  navLabel: string;
   marketingNavLinks: { href: string; label: string }[];
 }) {
   const mobileItems = loggedIn
@@ -34,7 +36,7 @@ export function AuthActions({
         </Link>
       ) : null}
       <div className="sm:hidden">
-        <MobileMenu items={mobileItems} />
+        <MobileMenu items={mobileItems} navLabel={navLabel} />
       </div>
       <Link
         href={loggedIn ? "/dashboard" : "/signup"}

@@ -89,7 +89,9 @@ export function DemoTour({
         </figure>
 
         <div className="mt-5 max-w-[62ch]">
-          <h3 className="text-xl font-bold mb-2">{current.title}</h3>
+          {/* h2 e non h3: viene subito dopo l'h1 della pagina, e saltare un
+              livello confonde chi naviga per intestazioni. */}
+          <h2 className="text-xl font-bold mb-2">{current.title}</h2>
           <p className="text-ink-secondary dark:text-neutral-400 leading-relaxed">{current.body}</p>
         </div>
       </div>
