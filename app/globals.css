@@ -217,3 +217,21 @@ h1, h2 {
   font-family: var(--font-fraunces), Georgia, serif;
   font-optical-sizing: auto;
 }
+
+/* Il petrolio del marchio è nato per fondi chiari: su bianco dà 5,9:1, ma in
+   tema scuro finisce su fondi quasi neri e scende fra 2,6 e 3,3, dove ne
+   servono 4,5. Lo si vede sugli occhielli delle pagine pubbliche, sui numeri
+   in evidenza, sulla voce di menu attiva e sulle pastiglie dei contatti.
+
+   Qui cambia solo quando fa da TESTO: come sfondo (i pulsanti pieni, con
+   sopra il bianco) deve restare scuro, altrimenti il bianco non si legge più.
+   Sta in @layer components apposta: così vince sulla utility .text-accent,
+   che è meno specifica, ma perde contro un dark:text-… scritto a mano, che è
+   ugualmente specifico e viene dopo. Le venti righe che hanno già una loro
+   variante scura continuano quindi a decidere da sé. */
+@layer components {
+  .dark .text-accent,
+  .dark .hover\:text-accent:hover {
+    color: #45a6ba;
+  }
+}
