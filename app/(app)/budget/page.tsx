@@ -62,6 +62,11 @@ export default async function BudgetPage({
 
   const hrefFor = (m: string) => (m === currentMonth ? "/budget" : `/budget?month=${m}`);
 
+  // La frase in cima e' un modello unico invece di tre pezzi cuciti insieme:
+  // messi in fila davano "… entrate agosto" in italiano e "… income August" in
+  // inglese. Qui si spezza sui segnaposto solo per mettere i numeri in grassetto.
+  const rigaAssegnato = t.budget.assignedLine.split(/(\{assigned\}|\{income\}|\{month\})/);
+
   const addPanel = (
     <>
       <div className="mb-4">
@@ -125,11 +130,17 @@ export default async function BudgetPage({
 
       <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
         <span className="text-sm text-ink-secondary dark:text-neutral-400">
-          {t.budget.assignedPre}{" "}
-          <strong className="num text-ink dark:text-neutral-100">{eur.format(totalAssigned)}</strong>{" "}
-          {t.budget.assignedOf}{" "}
-          <strong className="num text-ink dark:text-neutral-100">{eur.format(income)}</strong>{" "}
-          {t.budget.assignedIncome} {monthName(month, intlLocale)}
+          {rigaAssegnato.map((pezzo, i) =>
+            pezzo === "{assigned}" ? (
+              <strong key={i} className="num text-ink dark:text-neutral-100">{eur.format(totalAssigned)}</strong>
+            ) : pezzo === "{income}" ? (
+              <strong key={i} className="num text-ink dark:text-neutral-100">{eur.format(income)}</strong>
+            ) : pezzo === "{month}" ? (
+              <span key={i}>{monthName(month, intlLocale)}</span>
+            ) : (
+              <span key={i}>{pezzo}</span>
+            )
+          )}
         </span>
         <div className="flex-1 h-1.5 rounded-full bg-surface-alt dark:bg-neutral-800 max-w-xs">
           <div

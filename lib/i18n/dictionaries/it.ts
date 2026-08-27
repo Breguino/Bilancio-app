@@ -263,6 +263,7 @@ const it = {
     noContactInfo: "Nessun recapito",
     totalRevenueLinked: "Entrate totali collegate:",
     newNoteTitle: "Nuova nota / promemoria",
+    newNoteAction: "Nuova nota",
     noteLabel: "Nota",
     notePlaceholder: "Es. Richiamare per rinnovo contratto",
     reminderLabel: "Promemoria (opzionale)",
@@ -464,9 +465,7 @@ const it = {
   budget: {
     thisMonth: "Questo mese",
     title: "Categorie e budget",
-    assignedPre: "Budget assegnato:",
-    assignedOf: "di",
-    assignedIncome: "entrate",
+    assignedLine: "Budget assegnato: {assigned} sui {income} di {month}",
     overIncome: "oltre le entrate",
     toAssign: "da assegnare",
     setBudgetTitle: "Imposta budget",
