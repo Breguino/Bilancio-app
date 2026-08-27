@@ -101,7 +101,7 @@ export default async function StatisticsPage() {
                 <span className="w-3.5 h-[3px] rounded-full bg-accent" /> {t.statistics.recordedLabel}
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <span className="w-3.5 h-[3px] rounded-full bg-accent/40" /> {t.statistics.projectionLabel}
+                <span className="w-3.5 h-[3px] rounded-full bg-accent/70" /> {t.statistics.projectionLabel}
               </span>
             </div>
             <TrendChart
