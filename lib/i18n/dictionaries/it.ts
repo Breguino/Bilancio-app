@@ -1129,6 +1129,9 @@ const it = {
       forgotPassword: "Password dimenticata?",
       submit: "Accedi",
       submitPending: "Accesso…",
+      metaTitle: "Accedi a Bilancino",
+      metaDescription:
+        "Entra nel tuo account Bilancino per vedere movimenti, budget, obiettivi e clienti. I dati di ogni account sono separati e privati.",
       noAccount: "Non hai un account?",
       signupLink: "Registrati",
     },
@@ -1138,6 +1141,9 @@ const it = {
       passwordLabel: "Password",
       submit: "Registrati",
       haveAccount: "Hai già un account?",
+      metaTitle: "Crea un account gratuito su Bilancino",
+      metaDescription:
+        "Registrati gratis: budget personale e scheda clienti in un unico posto, senza collegare la banca e senza carta di credito.",
       loginLink: "Accedi",
       submitPending: "Creazione…",
       checkEmailTitle: "Controlla la tua email",
@@ -1154,6 +1160,9 @@ const it = {
       subtitle: "Inserisci l'email del tuo account: ti mandiamo un link per impostarne una nuova.",
       submit: "Invia link",
       submitPending: "Invio…",
+      metaTitle: "Password dimenticata — Bilancino",
+      metaDescription:
+        "Hai dimenticato la password di Bilancino? Inserisci l'email del tuo account e ti mando un link per impostarne una nuova.",
       sentTitle: "Controlla la tua email",
       sentBodyPre:
         "Se esiste un account con quell'indirizzo, ti abbiamo inviato un link per reimpostare la password. Aprilo per continuare, poi torna ad",

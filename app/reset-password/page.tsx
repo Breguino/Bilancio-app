@@ -6,6 +6,24 @@ import { AuthLegalFooter } from "@/components/auth-legal";
 import { ErrorBanner } from "@/components/error-banner";
 import { authErrorText } from "@/lib/auth/auth-error";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import type { Metadata } from "next";
+import { dictionaryFor } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
+
+
+// Senza metadati propri queste pagine ereditavano dal layout radice il titolo
+// della home e il canonical "/": stanno nella sitemap e sono aperte ai motori,
+// ma dichiaravano che la pagina vera era un'altra, quindi non venivano
+// indicizzate.
+export function generateMetadata(): Metadata {
+  const { metaTitle: title, metaDescription: description } = dictionaryFor(getLocale()).auth.resetPassword;
+  return {
+    title,
+    description,
+    alternates: { canonical: "/reset-password" },
+    robots: { index: true, follow: true },
+  };
+}
 
 export default function ResetPasswordPage({
   searchParams,
