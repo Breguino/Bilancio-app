@@ -25,7 +25,9 @@ export function SiteHeader() {
           href="/"
           className="inline-flex items-center gap-2 sm:gap-2.5 -ml-2 px-2 py-2 rounded-full hover:bg-surface-alt dark:hover:bg-neutral-800 transition-colors"
         >
-          <Brand size={30} />
+          {/* Sotto i 360px la barra era già al limite prima che ci fosse un
+              nome da scrivere: lì resta il solo simbolo. */}
+          <Brand size={30} nameClassName="text-base sm:text-xl max-[359px]:hidden" />
         </Link>
         <div className="hidden sm:flex items-center gap-1 text-sm font-medium text-ink-secondary dark:text-neutral-400">
           {marketingNavLinks.map((link) => (
