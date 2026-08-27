@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { signup } from "./actions";
-import { Logo } from "@/components/logo";
+import { Brand } from "@/components/brand";
 import { PasswordInput } from "@/components/password-input";
 import { GoogleSignInButton } from "@/components/google-signin-button";
 import { ErrorBanner } from "@/components/error-banner";
@@ -66,8 +66,8 @@ export default function SignupPage({
           {t.auth.backToHome}
         </Link>
 
-        <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg mb-8" aria-label="Bilancino">
-          <Logo size={40} />
+        <Link href="/" className="inline-flex items-center gap-2.5 mb-8">
+          <Brand size={40} nameClassName="text-2xl" />
         </Link>
 
         <h1 className="text-2xl font-extrabold tracking-tight mb-1">{t.auth.signup.title}</h1>

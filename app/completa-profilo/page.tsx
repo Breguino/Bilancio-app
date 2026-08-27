@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { completeProfile } from "./actions";
-import { Logo } from "@/components/logo";
+import { Brand } from "@/components/brand";
 import { ErrorBanner } from "@/components/error-banner";
 import { authErrorText } from "@/lib/auth/auth-error";
 import { SubmitButton } from "@/components/submit-button";
@@ -40,8 +40,8 @@ export default async function CompletaProfiloPage({
   return (
     <main className="min-h-screen flex justify-center px-6 py-10">
       <div className="w-full max-w-sm my-auto">
-        <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg mb-8" aria-label="Bilancino">
-          <Logo size={40} />
+        <Link href="/" className="inline-flex items-center gap-2.5 mb-8">
+          <Brand size={40} nameClassName="text-2xl" />
         </Link>
 
         <h1 className="text-2xl font-extrabold tracking-tight mb-1">{t.auth.completeProfile.title}</h1>

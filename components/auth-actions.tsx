@@ -38,7 +38,7 @@ export function AuthActions({
       </div>
       <Link
         href={loggedIn ? "/dashboard" : "/signup"}
-        className="inline-flex items-center h-9 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-4 transition-colors whitespace-nowrap"
+        className="inline-flex items-center h-9 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-3 sm:px-4 transition-colors whitespace-nowrap"
       >
         <span className="sm:hidden">{loggedIn ? nav.vaiDashboardShort : nav.creaAccountShort}</span>
         <span className="hidden sm:inline">{loggedIn ? nav.vaiDashboard : nav.creaAccount}</span>
