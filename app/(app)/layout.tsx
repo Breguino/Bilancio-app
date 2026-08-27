@@ -97,7 +97,7 @@ export default async function AppLayout({
             <form action="/logout" method="post">
               <button
                 type="submit"
-                className="inline-flex items-center h-9 border border-border dark:border-neutral-700 rounded-full px-4 text-sm font-medium hover:border-accent hover:text-accent transition-colors"
+                className="inline-flex items-center h-9 shrink-0 whitespace-nowrap border border-border dark:border-neutral-700 rounded-full px-4 text-sm font-medium hover:border-accent hover:text-accent transition-colors"
               >
                 {t.appShell.logout}
               </button>

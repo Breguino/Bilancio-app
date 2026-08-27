@@ -265,6 +265,7 @@ const en: Dictionary = {
     noContactInfo: "No contact info",
     totalRevenueLinked: "Total linked income:",
     newNoteTitle: "New note / reminder",
+    newNoteAction: "New note",
     noteLabel: "Note",
     notePlaceholder: "E.g. Call back about contract renewal",
     reminderLabel: "Reminder (optional)",
@@ -466,9 +467,7 @@ const en: Dictionary = {
   budget: {
     thisMonth: "This month",
     title: "Categories and budgets",
-    assignedPre: "Budget assigned:",
-    assignedOf: "of",
-    assignedIncome: "income",
+    assignedLine: "Budget assigned: {assigned} of the {income} earned in {month}",
     overIncome: "over income",
     toAssign: "left to assign",
     setBudgetTitle: "Set a budget",

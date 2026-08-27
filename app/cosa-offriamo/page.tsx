@@ -90,7 +90,7 @@ export default function CosaOffriamoPage() {
                 src="/schermata-cliente.png"
             srcDark="/schermata-cliente-dark.png"
                 width={1600}
-                height={700}
+                height={466}
                 alt={t.shared.screenshots.clienteAlt}
                 caption={t.shared.screenshots.caption}
               />
