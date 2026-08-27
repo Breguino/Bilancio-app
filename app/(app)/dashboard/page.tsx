@@ -236,11 +236,15 @@ export default async function DashboardPage({
   const last = incomeSeries.length - 1;
   const comparedTo = `${t.dashboard.comparedToPrefix} ${monthName(trendMonths[last - 1], intlLocale)}`;
 
+  // L'etichetta per i movimenti senza categoria: era scritta in italiano
+  // dentro il codice, quindi la vedeva così anche chi usa l'app in inglese.
+  const senzaCategoria = t.common.uncategorized;
+
   const spendByCategory = new Map<string, number>();
   rows
     .filter((t) => t.amount < 0)
     .forEach((t) => {
-      const key = t.category || "Senza categoria";
+      const key = t.category || senzaCategoria;
       spendByCategory.set(key, (spendByCategory.get(key) || 0) - Number(t.amount));
     });
   const allBudgets = (budgets || []).map((b) => {
@@ -568,13 +572,24 @@ export default async function DashboardPage({
                   la riga unica non ci stava e la descrizione veniva troncata
                   dopo poche lettere, che è proprio il dato da leggere. */}
               {visibleRows.map((tx: any) => (
-                <div key={tx.id} className="flex items-center gap-3 px-5 py-3 text-sm">
-                  <span className="text-ink-muted dark:text-neutral-500 num text-xs sm:text-[13px] w-11 shrink-0 self-start pt-0.5">
-                    {tx.date.slice(8, 10)}/{tx.date.slice(5, 7)}
-                  </span>
-                  <div className="min-w-0 flex-1 flex flex-col gap-1">
-                    <span className="truncate">{tx.description}</span>
-                    <div className="flex flex-wrap items-center gap-1.5">
+                <div
+                  key={tx.id}
+                  className="px-5 py-3 text-sm flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3"
+                >
+                  {/* Su telefono la riga va su due linee: data e descrizione
+                      sopra, etichette e importo sotto. Su una sola linea la
+                      descrizione — che è il dato da leggere — restava con
+                      ottanta pixel e veniva tagliata dopo poche lettere.
+                      Da 640px in su i due gruppi diventano display:contents e
+                      si torna alla riga unica. */}
+                  <div className="flex items-center gap-3 min-w-0 sm:contents">
+                    <span className="text-ink-muted dark:text-neutral-500 num text-xs sm:text-[13px] w-11 shrink-0 sm:self-start sm:pt-0.5">
+                      {tx.date.slice(8, 10)}/{tx.date.slice(5, 7)}
+                    </span>
+                    <span className="truncate flex-1 min-w-0 sm:order-none">{tx.description}</span>
+                  </div>
+                  <div className="flex items-center gap-2 pl-[3.5rem] sm:pl-0 sm:contents">
+                    <div className="flex flex-wrap items-center gap-1.5 min-w-0 sm:shrink-0">
                       {tx.category ? (
                         <span className="text-xs text-ink-muted dark:text-neutral-400 bg-surface-alt dark:bg-neutral-800 rounded-full px-2 py-0.5">
                           {tx.category}
@@ -586,38 +601,38 @@ export default async function DashboardPage({
                         </span>
                       ) : null}
                     </div>
+                    <span
+                      className={`num font-semibold shrink-0 ml-auto ${
+                        tx.amount > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-ink dark:text-neutral-100"
+                      }`}
+                    >
+                      {tx.amount > 0 ? "+" : "−"}
+                      {eur.format(Math.abs(Number(tx.amount)))}
+                    </span>
+                    {tx.amount > 0 && tx.contact_id ? (
+                      <Link
+                        href={`/receipt/${tx.id}`}
+                        aria-label={t.dashboard.receiptLink}
+                        title={t.dashboard.receiptLink}
+                        className="w-8 h-8 rounded-full border border-border dark:border-neutral-700 text-ink-muted dark:text-neutral-500 flex items-center justify-center hover:border-accent hover:text-accent transition-colors shrink-0"
+                      >
+                        <Receipt size={14} strokeWidth={1.8} />
+                      </Link>
+                    ) : null}
+                    <form action={deleteTransaction} className="shrink-0">
+                      <input type="hidden" name="id" value={tx.id} />
+                      <input type="hidden" name="return_path" value={returnPath} />
+                      <ConfirmButton
+                        confirmMessage={t.dashboard.confirmDeleteTemplate.replace("{description}", tx.description)}
+                        confirmLabel={t.common.deleteAction}
+                        cancelLabel={t.common.cancelAction}
+                        ariaLabel={t.dashboard.deleteAriaLabel}
+                        className="text-ink-muted dark:text-neutral-500 hover:text-red-600 w-8 h-8 -mr-1.5 rounded-full flex items-center justify-center shrink-0"
+                      >
+                        <X size={14} strokeWidth={2.2} />
+                      </ConfirmButton>
+                    </form>
                   </div>
-                  <span
-                    className={`num font-semibold shrink-0 ${
-                      tx.amount > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-ink dark:text-neutral-100"
-                    }`}
-                  >
-                    {tx.amount > 0 ? "+" : "−"}
-                    {eur.format(Math.abs(Number(tx.amount)))}
-                  </span>
-                  {tx.amount > 0 && tx.contact_id ? (
-                    <Link
-                      href={`/receipt/${tx.id}`}
-                      aria-label={t.dashboard.receiptLink}
-                      title={t.dashboard.receiptLink}
-                      className="w-8 h-8 rounded-full border border-border dark:border-neutral-700 text-ink-muted dark:text-neutral-500 flex items-center justify-center hover:border-accent hover:text-accent transition-colors shrink-0"
-                    >
-                      <Receipt size={14} strokeWidth={1.8} />
-                    </Link>
-                  ) : null}
-                  <form action={deleteTransaction}>
-                    <input type="hidden" name="id" value={tx.id} />
-                    <input type="hidden" name="return_path" value={returnPath} />
-                    <ConfirmButton
-                      confirmMessage={t.dashboard.confirmDeleteTemplate.replace("{description}", tx.description)}
-                      confirmLabel={t.common.deleteAction}
-                      cancelLabel={t.common.cancelAction}
-                      ariaLabel={t.dashboard.deleteAriaLabel}
-                      className="text-ink-muted dark:text-neutral-500 hover:text-red-600 w-8 h-8 -mr-1.5 rounded-full flex items-center justify-center shrink-0"
-                    >
-                      <X size={14} strokeWidth={2.2} />
-                    </ConfirmButton>
-                  </form>
                 </div>
               ))}
             </div>

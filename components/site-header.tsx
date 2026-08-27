@@ -19,7 +19,16 @@ export function SiteHeader() {
   ];
 
   return (
-    <nav className="sticky top-0 z-20 relative border-b border-transparent backdrop-blur bg-white/90 dark:bg-neutral-950/90">
+    <header className="sticky top-0 z-20 relative border-b border-transparent backdrop-blur bg-white/90 dark:bg-neutral-950/90">
+      {/* Primo elemento raggiungibile col tabulatore: senza, chi naviga da
+          tastiera deve attraversare tutta l'intestazione a ogni pagina. Resta
+          invisibile finché non prende il fuoco. */}
+      <a
+        href="#contenuto"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+      >
+        {t.common.skipToContent}
+      </a>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-2 sm:gap-4">
         <Link
           href="/"
@@ -29,7 +38,10 @@ export function SiteHeader() {
               nome da scrivere: lì resta il solo simbolo. */}
           <Brand size={30} nameClassName="text-base sm:text-xl max-[359px]:hidden" />
         </Link>
-        <div className="hidden sm:flex items-center gap-1 text-sm font-medium text-ink-secondary dark:text-neutral-400">
+        <nav
+          aria-label={t.common.mainNavLabel}
+          className="hidden sm:flex items-center gap-1 text-sm font-medium text-ink-secondary dark:text-neutral-400"
+        >
           {marketingNavLinks.map((link) => (
             <Link
               key={link.href}
@@ -39,13 +51,13 @@ export function SiteHeader() {
               {link.label}
             </Link>
           ))}
-        </div>
+        </nav>
         <div className="flex items-center gap-1.5 sm:gap-2">
           <LanguageSwitcher locale={locale} label={t.common.langSwitchLabel} />
           <ThemeToggle ariaLabel={t.shared.themeToggle.ariaLabel} title={t.shared.themeToggle.title} />
-          <AuthActions loggedIn={loggedIn} nav={t.nav} marketingNavLinks={marketingNavLinks} />
+          <AuthActions loggedIn={loggedIn} nav={t.nav} navLabel={t.common.mainNavLabel} marketingNavLinks={marketingNavLinks} />
         </div>
       </div>
-    </nav>
+    </header>
   );
 }

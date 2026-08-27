@@ -40,11 +40,15 @@ export default async function BudgetPage({
   const budgetRows = budgets || [];
   const income = rows.filter((t) => t.amount > 0).reduce((s, t) => s + Number(t.amount), 0);
 
+  // L'etichetta per i movimenti senza categoria: era scritta in italiano
+  // dentro il codice, quindi la vedeva così anche chi usa l'app in inglese.
+  const senzaCategoria = t.common.uncategorized;
+
   const spendByCategory = new Map<string, number>();
   rows
     .filter((t) => t.amount < 0)
     .forEach((t) => {
-      const key = t.category || "Senza categoria";
+      const key = t.category || senzaCategoria;
       spendByCategory.set(key, (spendByCategory.get(key) || 0) - Number(t.amount));
     });
 

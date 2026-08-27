@@ -34,7 +34,7 @@ export function SiteFooter() {
             {t.siteFooter.novita}
           </Link>
         </div>
-        <nav className="flex items-center gap-5 flex-wrap justify-center">
+        <nav aria-label={t.common.footerNavLabel} className="flex items-center gap-5 flex-wrap justify-center">
           {marketingFooterLinks.map((link) => (
             <Link key={link.href} href={link.href} className="hover:text-accent">
               {link.label}

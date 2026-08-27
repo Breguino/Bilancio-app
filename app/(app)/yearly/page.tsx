@@ -21,11 +21,15 @@ export default async function YearlyPage() {
   const net = income - expense;
   const rate = income > 0 ? (net / income) * 100 : 0;
 
+  // L'etichetta per i movimenti senza categoria: era scritta in italiano
+  // dentro il codice, quindi la vedeva così anche chi usa l'app in inglese.
+  const senzaCategoria = t.common.uncategorized;
+
   const byCategory = new Map<string, number>();
   rows
     .filter((t) => t.amount < 0)
     .forEach((t) => {
-      const cat = t.category || "Senza categoria";
+      const cat = t.category || senzaCategoria;
       byCategory.set(cat, (byCategory.get(cat) || 0) + -Number(t.amount));
     });
   const ranked = Array.from(byCategory.entries())

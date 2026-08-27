@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import { linearRegression, confidenceInterval95, sampleStdDev, mean } from "@/lib/statistics";
 
 const DEFAULT_VALUES = [620, 780, 710, 890, 940];
@@ -35,6 +35,9 @@ export function StatsDemo({
   numberLocale?: string;
 } = {}) {
   const [values, setValues] = useState<number[]>(DEFAULT_VALUES);
+  // Identificativi stabili fra server e browser, per collegare ogni etichetta
+  // al suo campo.
+  const idBase = useId();
   const eur = useMemo(
     () =>
       // useGrouping esplicito: per l'italiano i dati CLDR dicono di raggruppare
@@ -72,10 +75,14 @@ export function StatsDemo({
       <div className="grid grid-cols-5 gap-2 mb-6">
         {values.map((v, i) => (
           <div key={i} className="flex flex-col gap-1">
-            <label className="text-[10px] font-semibold uppercase text-ink-muted dark:text-neutral-500 text-center">
+            <label
+              htmlFor={`${idBase}-${i}`}
+              className="text-[10px] font-semibold uppercase text-ink-muted dark:text-neutral-500 text-center"
+            >
               {labels.monthLabel} {i + 1}
             </label>
             <input
+              id={`${idBase}-${i}`}
               type="number"
               value={v}
               onChange={(e) => updateValue(i, e.target.value)}

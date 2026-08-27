@@ -48,10 +48,14 @@ export default async function StatisticsPage() {
   const ci = netSeries.length >= 2 ? confidenceInterval95(netSeries) : null;
   const stdDev = netSeries.length >= 2 ? sampleStdDev(netSeries) : 0;
 
+  // L'etichetta per i movimenti senza categoria: era scritta in italiano
+  // dentro il codice, quindi la vedeva così anche chi usa l'app in inglese.
+  const senzaCategoria = t.common.uncategorized;
+
   const byCategory = new Map<string, { id: string; amount: number }[]>();
   for (const t of rows) {
     if (Number(t.amount) >= 0) continue;
-    const cat = t.category || "Senza categoria";
+    const cat = t.category || senzaCategoria;
     const arr = byCategory.get(cat) || [];
     arr.push({ id: t.id, amount: -Number(t.amount) });
     byCategory.set(cat, arr);

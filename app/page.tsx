@@ -108,6 +108,7 @@ export default function HomePage() {
       />
       <SiteHeader />
 
+      <main id="contenuto">
       <header className="max-w-6xl mx-auto px-6 pt-16 pb-14 sm:pt-20 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
         <div>
           <span className="text-xs font-bold uppercase tracking-wide text-accent">
@@ -216,7 +217,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6">
         <section id="funzionalita" className="py-12 sm:py-14 scroll-mt-20 border-t border-border dark:border-neutral-800">
           <div className="max-w-[62ch] mb-8">
             <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.home.featuresEyebrow}</span>
@@ -342,6 +343,7 @@ export default function HomePage() {
             </div>
           </Reveal>
         </section>
+      </div>
       </main>
 
       <SiteFooter />

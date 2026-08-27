@@ -6,7 +6,7 @@ import { useState } from "react";
 
 type MenuItem = { href: string; label: string };
 
-export function MobileMenu({ items }: { items: MenuItem[] }) {
+export function MobileMenu({ items, navLabel }: { items: MenuItem[]; navLabel: string }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
@@ -39,7 +39,7 @@ export function MobileMenu({ items }: { items: MenuItem[] }) {
         }`}
         aria-hidden={!open}
       >
-        <nav className="flex flex-col gap-1 p-3 text-base font-semibold">
+        <nav aria-label={navLabel} className="flex flex-col gap-1 p-3 text-base font-semibold">
           {items.map((item) => {
             const active = pathname === item.href;
             return (

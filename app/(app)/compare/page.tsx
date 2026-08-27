@@ -28,7 +28,8 @@ function lastMonths(n: number) {
 
 async function totalsFor(
   supabase: ReturnType<typeof createClient>,
-  key: string
+  key: string,
+  senzaCategoria: string
 ) {
   const { start, end } = monthRange(key);
   const { data } = await supabase
@@ -44,7 +45,7 @@ async function totalsFor(
   rows
     .filter((t) => t.amount < 0)
     .forEach((t) => {
-      const cat = t.category || "Senza categoria";
+      const cat = t.category || senzaCategoria;
       byCategory.set(cat, (byCategory.get(cat) || 0) + -Number(t.amount));
     });
   return { income, expense, net: income - expense, byCategory };
@@ -104,7 +105,7 @@ export default async function ComparePage({
   const a = searchParams.a && months.includes(searchParams.a) ? searchParams.a : months[1] || months[0];
 
   const supabase = createClient();
-  const [totalsA, totalsB] = await Promise.all([totalsFor(supabase, a), totalsFor(supabase, b)]);
+  const [totalsA, totalsB] = await Promise.all([totalsFor(supabase, a, t.common.uncategorized), totalsFor(supabase, b, t.common.uncategorized)]);
 
   const categories = Array.from(
     new Set([...totalsA.byCategory.keys(), ...totalsB.byCategory.keys()])

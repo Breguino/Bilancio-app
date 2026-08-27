@@ -1,6 +1,10 @@
 const it = {
   common: {
     langSwitchLabel: "Cambia lingua",
+    skipToContent: "Salta al contenuto",
+    mainNavLabel: "Navigazione principale",
+    footerNavLabel: "Collegamenti a piè di pagina",
+    uncategorized: "Senza categoria",
     deleteAction: "Elimina",
     cancelAction: "Annulla",
     notFoundError: "Elemento non trovato o già rimosso.",

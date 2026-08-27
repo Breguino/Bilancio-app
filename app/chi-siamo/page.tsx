@@ -55,7 +55,7 @@ export default function ChiSiamoPage() {
       />
       <SiteHeader />
 
-      <main className="max-w-6xl mx-auto px-6">
+      <main id="contenuto" className="max-w-6xl mx-auto px-6">
         <header className="pt-16 pb-14 sm:pt-20 sm:pb-16 max-w-[62ch]">
           <span className="text-xs font-bold uppercase tracking-wide text-accent">{t.chiSiamo.eyebrow}</span>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] [text-wrap:balance] mt-3 mb-6">

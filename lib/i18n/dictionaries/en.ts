@@ -3,6 +3,10 @@ import type { Dictionary } from "./it";
 const en: Dictionary = {
   common: {
     langSwitchLabel: "Change language",
+    skipToContent: "Skip to content",
+    mainNavLabel: "Main navigation",
+    footerNavLabel: "Footer links",
+    uncategorized: "Uncategorised",
     deleteAction: "Delete",
     cancelAction: "Cancel",
     notFoundError: "Item not found or already removed.",
