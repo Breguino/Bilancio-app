@@ -88,14 +88,14 @@ export function TrendChart({
             strokeDasharray="6 5"
             strokeLinejoin="round"
             strokeLinecap="round"
-            className="stroke-accent/40"
+            className="stroke-accent/70"
           />
         ) : null}
         {reali.map((p, i) => (
           <circle key={i} cx={p.x} cy={p.y} r="4" strokeWidth="2.5" className="fill-white dark:fill-neutral-900 stroke-accent" />
         ))}
         {previsti.map((p, i) => (
-          <circle key={`f${i}`} cx={p.x} cy={p.y} r="4" strokeWidth="2.5" className="fill-white dark:fill-neutral-900 stroke-accent/40" />
+          <circle key={`f${i}`} cx={p.x} cy={p.y} r="4" strokeWidth="2.5" className="fill-white dark:fill-neutral-900 stroke-accent/70" />
         ))}
       </svg>
       {/* Le etichette vanno messe sopra il punto a cui si riferiscono: con un
@@ -119,7 +119,7 @@ export function TrendChart({
             <span
               key={i}
               className={`absolute top-0 text-[11px] whitespace-nowrap ${visibilita} ${
-                i < labels.length ? "text-ink-muted dark:text-neutral-500" : "text-accent/70"
+                i < labels.length ? "text-ink-muted dark:text-neutral-500" : "text-accent"
               }`}
               style={
                 primo
