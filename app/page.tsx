@@ -57,10 +57,14 @@ const featureIcons = [BarChart3, RefreshCw, Users, Target, Receipt];
 export default function HomePage() {
   const chart = buildHeroChart();
   const { locale, t } = getDictionary();
+  // useGrouping esplicito come in tutto il resto dell'app: senza, in italiano
+  // mille e qualcosa resta senza punto e i numeri qui sopra non combaciano con
+  // quelli del riquadro interattivo più sotto.
   const eur0 = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
     style: "currency",
     currency: "EUR",
     maximumFractionDigits: 0,
+    useGrouping: true,
   });
 
   const heroFeature = { ...t.home.heroFeature, icon: LineChart };

@@ -8,6 +8,24 @@ import { authErrorText } from "@/lib/auth/auth-error";
 import { SubmitButton } from "@/components/submit-button";
 import { AuthLegalFooter } from "@/components/auth-legal";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import type { Metadata } from "next";
+import { dictionaryFor } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
+
+
+// Senza metadati propri queste pagine ereditavano dal layout radice il titolo
+// della home e il canonical "/": stanno nella sitemap e sono aperte ai motori,
+// ma dichiaravano che la pagina vera era un'altra, quindi non venivano
+// indicizzate.
+export function generateMetadata(): Metadata {
+  const { metaTitle: title, metaDescription: description } = dictionaryFor(getLocale()).auth.login;
+  return {
+    title,
+    description,
+    alternates: { canonical: "/login" },
+    robots: { index: true, follow: true },
+  };
+}
 
 export default function LoginPage({
   searchParams,

@@ -1131,6 +1131,9 @@ const en: Dictionary = {
       forgotPassword: "Forgot your password?",
       submit: "Log in",
       submitPending: "Signing in…",
+      metaTitle: "Log in to Bilancino",
+      metaDescription:
+        "Sign in to your Bilancino account to see your transactions, budgets, goals and clients. Every account's data is separate and private.",
       noAccount: "Don't have an account?",
       signupLink: "Sign up",
     },
@@ -1140,6 +1143,9 @@ const en: Dictionary = {
       passwordLabel: "Password",
       submit: "Sign up",
       submitPending: "Creating…",
+      metaTitle: "Create a free Bilancino account",
+      metaDescription:
+        "Sign up for free: personal budgeting and client records in one place, with no bank connection and no credit card.",
       haveAccount: "Already have an account?",
       loginLink: "Log in",
       checkEmailTitle: "Check your email",
@@ -1156,6 +1162,9 @@ const en: Dictionary = {
       subtitle: "Enter your account's email: we'll send you a link to set a new one.",
       submit: "Send link",
       submitPending: "Sending…",
+      metaTitle: "Forgot your password — Bilancino",
+      metaDescription:
+        "Forgot your Bilancino password? Enter your account's email and I'll send you a link to set a new one.",
       sentTitle: "Check your email",
       sentBodyPre:
         "If an account with that address exists, we've sent you a link to reset your password. Open it to continue, then come back to",

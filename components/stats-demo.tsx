@@ -36,7 +36,17 @@ export function StatsDemo({
 } = {}) {
   const [values, setValues] = useState<number[]>(DEFAULT_VALUES);
   const eur = useMemo(
-    () => new Intl.NumberFormat(numberLocale, { style: "currency", currency: "EUR", maximumFractionDigits: 0 }),
+    () =>
+      // useGrouping esplicito: per l'italiano i dati CLDR dicono di raggruppare
+      // solo da cinque cifre in su, e Node e il browser applicano quella regola
+      // in versioni diverse. Il server scriveva "1013 €" e il browser "1.013 €":
+      // React buttava via l'HTML del server e ridisegnava tutto il riquadro.
+      new Intl.NumberFormat(numberLocale, {
+        style: "currency",
+        currency: "EUR",
+        maximumFractionDigits: 0,
+        useGrouping: true,
+      }),
     [numberLocale]
   );
 
