@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import * as Sentry from "@sentry/nextjs";
 import Link from "next/link";
 import { Brand } from "@/components/brand";
 import { dictionaryFor } from "@/lib/i18n/dictionaries";
@@ -23,6 +24,10 @@ export default function ErrorPage({
   const [locale, setLocale] = useState<Locale>(defaultLocale);
 
   useEffect(() => {
+    // console.error finisce nella console di chi ha il problema, cioè dove
+    // non la legge nessuno. Sentry lo manda anche a noi — e se il DSN non è
+    // impostato questa riga non fa niente.
+    Sentry.captureException(error);
     console.error(error);
     setLocale(readLocaleCookie());
   }, [error]);
