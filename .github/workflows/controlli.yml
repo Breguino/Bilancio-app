@@ -1,0 +1,49 @@
+# I controlli che prima giravano solo a mano.
+#
+# Fino a ieri su una pull request partiva soltanto il deploy di Vercel, che
+# dice se il progetto compila e nient'altro: i 60 test e il controllo dei tipi
+# passavano unicamente se qualcuno si ricordava di lanciarli. Ora girano da
+# soli su ogni PR verso main e su ogni push su main.
+#
+# Manca il lint, e non è una dimenticanza: `next lint` non è mai stato
+# configurato in questo progetto e si apre in una procedura interattiva, che
+# in CI resterebbe appesa. Va aggiunto qui dopo aver configurato ESLint.
+name: Controlli
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Se arriva un altro push sullo stesso ramo, la corsa precedente si ferma:
+# conta l'ultimo commit, non quello di due minuti fa.
+concurrency:
+  group: controlli-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verifica:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Installa le dipendenze
+        run: npm ci
+
+      - name: Controllo dei tipi
+        run: npx tsc --noEmit
+
+      - name: Test
+        run: npm test
+
+      # La build non ha bisogno di nessun segreto: le chiavi di Supabase
+      # vengono lette a ogni richiesta, non al momento della compilazione.
+      # Verificato togliendo .env.local e ricompilando.
+      - name: Build
+        run: npm run build
