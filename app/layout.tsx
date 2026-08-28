@@ -7,6 +7,7 @@ import { AnalyticsConsent } from "@/components/analytics-consent";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { gaMeasurementId } from "@/lib/analytics";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
+import { SITE_URL } from "@/lib/site-url";
 
 // Il sito non sceglieva un carattere: si affidava allo stack di sistema, che
 // rende diverso su ogni computer. Inter per il testo, Fraunces per i titoli.
@@ -18,7 +19,7 @@ export function generateMetadata(): Metadata {
   const { metaTitle: title, metaDescription: description } = dictionaryFor(locale).home;
 
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+    metadataBase: new URL(SITE_URL),
     title,
     description,
     alternates: {

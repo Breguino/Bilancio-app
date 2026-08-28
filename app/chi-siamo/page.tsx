@@ -7,6 +7,7 @@ import { AuthGate } from "@/components/auth-gate";
 import { Reveal } from "@/components/reveal";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
+import { SITE_URL } from "@/lib/site-url";
 
 export function generateMetadata(): Metadata {
   const t = dictionaryFor(getLocale());
@@ -45,7 +46,7 @@ export default function ChiSiamoPage() {
             mainEntity: {
               "@type": "Person",
               name: "Angelo Bregu",
-              image: "https://bilancino.it.com/angelo-bregu.png",
+              image: `${SITE_URL}/angelo-bregu.png`,
               email: "a2n0g004@gmail.com",
               jobTitle: "Sviluppatore",
               worksFor: { "@type": "Organization", name: "Bilancino" },

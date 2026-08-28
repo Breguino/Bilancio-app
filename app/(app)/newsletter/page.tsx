@@ -8,6 +8,7 @@ import { ConfirmButton } from "@/components/confirm-button";
 import { NewsletterDraftForm } from "@/components/newsletter-draft-form";
 import { saveDraft, sendNow, deleteDraft } from "./actions";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { SITE_URL } from "@/lib/site-url";
 
 export default async function NewsletterAdminPage({
   searchParams,
@@ -96,7 +97,7 @@ export default async function NewsletterAdminPage({
           draftId={selectedDraft?.id || ""}
           initialSubject={selectedDraft?.subject || ""}
           initialBody={selectedDraft?.body_html || ""}
-          siteUrl={process.env.NEXT_PUBLIC_SITE_URL || "https://bilancino.it.com"}
+          siteUrl={SITE_URL}
           labels={{
             subjectLabel: t.newsletterAdmin.subjectLabel,
             bodyLabel: t.newsletterAdmin.bodyLabel,

@@ -15,7 +15,7 @@ const securityHeaders = [
   // Un file caricato come .txt non viene eseguito come script perché il
   // browser "indovina" un tipo diverso da quello dichiarato.
   { key: "X-Content-Type-Options", value: "nosniff" },
-  // Verso siti esterni parte solo l'origine (https://bilancino.it.com), non il
+  // Verso siti esterni parte solo l'origine (il dominio nudo), non il
   // percorso: i link con token dentro l'URL non finiscono nei log altrui.
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   // Non usiamo nessuna di queste: dichiararlo evita che uno script di terze
