@@ -1,3 +1,5 @@
+import { withSentryConfig } from "@sentry/nextjs";
+
 // Intestazioni di sicurezza. Vercel manda già `strict-transport-security`, il
 // resto no: senza queste il sito si lascia incorniciare in un iframe da
 // chiunque (clickjacking) e manda l'indirizzo completo della pagina, con
@@ -27,9 +29,47 @@ const securityHeaders = [
 const nextConfig = {
   // Non serve annunciare al mondo con che cosa è fatto il sito.
   poweredByHeader: false,
+  // Fa caricare instrumentation.ts all'avvio di ogni runtime, che è dove
+  // Sentry si inizializza per server ed edge. Su Next 14 è ancora dietro a
+  // "experimental"; dalla 15 è il comportamento normale.
+  experimental: {
+    instrumentationHook: true,
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+  // Il pacchetto di Sentry porta con sé il tracing delle prestazioni e il
+  // Session Replay. Qui non se ne usa nessuno dei due, ma restano nel bundle
+  // finché non glielo si dice: queste bandiere li fanno togliere in fase di
+  // compilazione invece che caricare a ogni visita codice che non parte mai.
+  webpack(config, { webpack }) {
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        __SENTRY_DEBUG__: false,
+        __SENTRY_TRACING__: false,
+        __RRWEB_EXCLUDE_IFRAME__: true,
+        __RRWEB_EXCLUDE_SHADOW_DOM__: true,
+        __SENTRY_EXCLUDE_REPLAY_WORKER__: true,
+      })
+    );
+    return config;
+  },
 };
 
-export default nextConfig;
+// Sentry avvolge la configurazione per compilare i suoi file e, quando c'è un
+// token, caricare le source map così gli stack trace sono leggibili invece
+// che minificati.
+//
+// Senza le variabili d'ambiente non succede niente di tutto questo: nessun
+// caricamento, nessuna chiamata, e il client resta spento. Il sito continua a
+// compilare e a girare identico — è quello che accade oggi, finché il DSN non
+// viene impostato su Vercel.
+export default withSentryConfig(nextConfig, {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  // Niente rumore nel log di build quando il token non c'è.
+  silent: true,
+  // Toglie dal pacchetto il logger di debug di Sentry: è peso che in
+  // produzione non serve a nessuno.
+  disableLogger: true,
+});
