@@ -1,6 +1,12 @@
 import * as Sentry from "@sentry/nextjs";
 
-// Errori nel browser. Senza NEXT_PUBLIC_SENTRY_DSN il client non parte e non
+// Errori nel browser.
+//
+// Sentry avvisa in fase di build che questo file andrebbe rinominato in
+// instrumentation-client.ts. Non ancora: quella convenzione la legge Next
+// dalla 15.3 in poi, e su Next 14 il file verrebbe semplicemente ignorato —
+// cioè il monitoraggio nel browser si spegnerebbe in silenzio. Va rinominato
+// insieme all'aggiornamento di Next, non prima. Senza NEXT_PUBLIC_SENTRY_DSN il client non parte e non
 // manda niente da nessuna parte: in locale e nella CI resta inerte.
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
