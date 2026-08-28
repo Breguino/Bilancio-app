@@ -71,5 +71,9 @@ export default withSentryConfig(nextConfig, {
   silent: true,
   // Toglie dal pacchetto il logger di debug di Sentry: è peso che in
   // produzione non serve a nessuno.
-  disableLogger: true,
+  webpack: {
+    treeshake: {
+      removeDebugLogging: true,
+    },
+  },
 });

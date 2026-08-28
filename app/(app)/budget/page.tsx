@@ -26,7 +26,6 @@ export default async function BudgetPage({
 
   const currentMonth = monthKeyOf();
   const month = resolveMonth(searchParams.month, currentMonth);
-  const isCurrentMonth = month === currentMonth;
   const { start, end } = monthBounds(month);
 
   const supabase = createClient();

@@ -4,10 +4,6 @@
 # dice se il progetto compila e nient'altro: i 60 test e il controllo dei tipi
 # passavano unicamente se qualcuno si ricordava di lanciarli. Ora girano da
 # soli su ogni PR verso main e su ogni push su main.
-#
-# Manca il lint, e non è una dimenticanza: `next lint` non è mai stato
-# configurato in questo progetto e si apre in una procedura interattiva, che
-# in CI resterebbe appesa. Va aggiunto qui dopo aver configurato ESLint.
 name: Controlli
 
 on:
@@ -38,6 +34,13 @@ jobs:
 
       - name: Controllo dei tipi
         run: npx tsc --noEmit
+
+      # --max-warnings=0 perché oggi il progetto è pulito: senza, gli avvisi si
+      # accumulano finché nessuno li guarda più. Se un giorno una nuova regola
+      # ne fa comparire una legittima, si sistema o si disattiva la regola —
+      # ma la si vede.
+      - name: Lint
+        run: npx next lint --max-warnings=0
 
       - name: Test
         run: npm test
