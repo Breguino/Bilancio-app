@@ -7,6 +7,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { sendDraftNewsletter } from "@/lib/newsletter/send";
 import { formatNewsletterBody } from "@/lib/newsletter/format-body";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { SITE_URL } from "@/lib/site-url";
 
 async function assertOwner() {
   const supabase = createClient();
@@ -86,7 +87,7 @@ export async function sendNow(formData: FormData) {
   const { t } = getDictionary();
   const id = String(formData.get("id") || "").trim();
 
-  const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://bilancino-app.vercel.app";
+  const origin = SITE_URL;
   const result = await sendDraftNewsletter(origin, id || undefined);
 
   revalidatePath("/newsletter");
