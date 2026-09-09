@@ -43,6 +43,12 @@ describe("diario delle novità", () => {
     expect(date).toEqual([...date].sort().reverse());
   });
 
+  // La lista "A cosa sto pensando" è scritta due volte come il diario, e corre
+  // lo stesso rischio: un'idea aggiunta in italiano e dimenticata in inglese.
+  test("lists the same number of ideas in both languages", () => {
+    expect(dictionaries.en.novita.ideas.length).toBe(dictionaries.it.novita.ideas.length);
+  });
+
   test("has no empty entry", () => {
     for (const lingua of ["it", "en"] as const) {
       for (const v of voci[lingua]) {
