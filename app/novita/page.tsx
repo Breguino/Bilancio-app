@@ -41,7 +41,13 @@ export default function NovitaPage() {
           <p className="text-ink-secondary dark:text-neutral-400 text-lg leading-relaxed">
             {t.novita.heroBody}
           </p>
-          <p className="text-ink-muted dark:text-neutral-500 text-sm mt-4">{t.novita.lastUpdatedPrefix} {t.novita.lastUpdated}</p>
+          {/* La data viene dalla prima voce del diario, non da un campo a parte.
+              Prima erano due valori da tenere allineati a mano, e infatti non lo
+              erano: la pagina dichiarava "ultimo aggiornamento 22 agosto" mentre
+              sotto c'erano voci più recenti. Un dato solo non può divergere. */}
+          <p className="text-ink-muted dark:text-neutral-500 text-sm mt-4">
+            {t.novita.lastUpdatedPrefix} {t.novita.entries[0].date}
+          </p>
         </header>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">

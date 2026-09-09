@@ -885,9 +885,45 @@ const it = {
     heroTitle: "Cosa è cambiato, aggiornamento dopo aggiornamento.",
     heroBody:
       "Sviluppo Bilancino da solo, quindi qui trovi esattamente cosa ho fatto e quando: niente numeri di versione gonfiati, solo le cose che sono cambiate davvero.",
-    lastUpdated: "22 agosto 2026",
     lastUpdatedPrefix: "Ultimo aggiornamento:",
     entries: [
+      {
+        date: "9 settembre 2026",
+        items: [
+          "Le email di Bilancino adesso partono firmate. Il dominio non era autenticato, e senza firma la newsletter poteva finire in quarantena o nello spam per colpa del mittente e non del contenuto: ora la firma c'è ed è verificata.",
+        ],
+      },
+      {
+        date: "28 agosto 2026",
+        items: [
+          "Le email avevano il logo rotto. L'intestazione caricava un'immagine che non esisteva: in ogni newsletter e in ogni promemoria arrivati finora, al posto del marchio c'era il riquadro grigio delle immagini mancanti. Riparato.",
+          "Le email erano rimaste sul viola predefinito dello strumento con cui è costruito il sito, mentre il sito era passato al petrolio settimane prima. Chi apriva un promemoria e poi cliccava sul link vedeva due marchi diversi. Ora sono la stessa cosa.",
+          "Sotto il cofano: ogni modifica al codice passa da una serie di controlli automatici prima di poter andare online, e se l'app va in errore per qualcuno adesso lo vengo a sapere, invece di scoprirlo per caso.",
+        ],
+      },
+      {
+        date: "27 agosto 2026",
+        items: [
+          "Ridisegnate tutte le schermate dell'app. I moduli per inserire i dati occupavano il posto migliore, in cima alla pagina, e per vedere i tuoi numeri bisognava scorrere: ora stanno dietro un pulsante e quello spazio è dei dati.",
+          "Aggiunto il selettore del mese in cima a ogni schermata. Prima si poteva guardare soltanto il mese in corso, e per il mese scorso non c'era nessuna strada.",
+          "Nuovo grafico dell'andamento nella Panoramica, con la previsione del mese prossimo tratteggiata.",
+          "I filtri sono raccolti sotto \"Altri filtri\": in vista restano le poche cose che si usano davvero ogni giorno.",
+          "Il testo di supporto e gli importi erano troppo chiari per essere letti senza sforzo. I grigi, e il verde, l'ambra e il rosso delle cifre, sono stati abbassati quanto basta per stare sopra la soglia di leggibilità, mantenendo la stessa tinta.",
+          "In tema scuro il petrolio del marchio finiva su fondi quasi neri e spariva. Ora si schiarisce quando fa da testo, e resta pieno sui pulsanti.",
+          "Sistemati sette difetti di accessibilità: il sito si percorre tutto da tastiera, e la prima cosa che incontri col tabulatore è un collegamento per saltare dritto al contenuto.",
+          "Chiuse tre porte lasciate aperte: le intestazioni di sicurezza che il sito non mandava, i permessi del database, e la lista degli iscritti alla newsletter, sulla quale si poteva scrivere dall'esterno.",
+          "Corretto un difetto della home: il riquadro dei numeri veniva ridisegnato a ogni visita, perché server e browser scrivevano le migliaia in modo diverso.",
+          "Il tuo nome compare nell'intestazione dell'app al posto dell'indirizzo email, e anche sulla pagina di errore e sul 404.",
+        ],
+      },
+      {
+        date: "23 agosto 2026",
+        items: [
+          "Aggiunta una demo pubblica: si guarda com'è fatta l'app dentro, senza registrarsi e senza lasciare niente.",
+          "Le schermate mostrate sul sito esistono ora anche in tema scuro, e seguono il tema del tuo browser invece di restare sempre chiare.",
+          "Una fotografia vera accanto al nome, sulla pagina Chi sono.",
+        ],
+      },
       {
         date: "22 agosto 2026",
         items: [
