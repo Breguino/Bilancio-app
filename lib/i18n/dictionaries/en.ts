@@ -1019,6 +1019,8 @@ const en: Dictionary = {
     ideasBody:
       "As with the rest of Bilancino, I'd rather not promise dates or features before actually building them. This is just the list of things I'm thinking about right now. They might change, get scaled down, or never arrive.",
     ideas: [
+      "A search across transactions. Today you filter by month, by type and by category: to find one particular expense you have to remember when it happened, and the more transactions there are the more awkward that gets.",
+      "Currencies other than the euro. Right now the euro is the only one there is, written into the code: anyone taking payment in francs or pounds can't use Bilancino for the work side.",
       "Evaluating an installable version (PWA) for more convenient mobile use.",
     ],
   },

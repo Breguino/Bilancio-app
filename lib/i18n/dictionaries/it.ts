@@ -1017,6 +1017,8 @@ const it = {
     ideasBody:
       "Come per il resto di Bilancino, preferisco non prometterti date o funzioni prima di averle davvero costruite. Questa è solo la lista di cose a cui sto pensando in questo momento. Potrebbero cambiare, essere ridimensionate o non arrivare mai.",
     ideas: [
+      "Una ricerca fra i movimenti. Oggi si filtra per mese, per tipo e per categoria: per ritrovare una spesa precisa bisogna ricordarsi quando è stata fatta, e più movimenti ci sono più la cosa diventa scomoda.",
+      "Valute diverse dall'euro. Adesso l'euro è l'unica possibile, scritta fissa nel codice: chi incassa in franchi o in sterline non può usare Bilancino per la parte di lavoro.",
       "Valutare una versione installabile (PWA) per un uso più comodo da mobile.",
     ],
   },
