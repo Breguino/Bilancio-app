@@ -887,9 +887,45 @@ const en: Dictionary = {
     heroTitle: "What's changed, update after update.",
     heroBody:
       "I build Bilancino solo, so here you'll find exactly what I did and when: no inflated version numbers, just the things that actually changed.",
-    lastUpdated: "August 22, 2026",
     lastUpdatedPrefix: "Last updated:",
     entries: [
+      {
+        date: "September 9, 2026",
+        items: [
+          "Bilancino's emails are now signed. The domain wasn't authenticated, and without a signature the newsletter could land in quarantine or spam because of the sender rather than the content: the signature is now in place and verified.",
+        ],
+      },
+      {
+        date: "August 28, 2026",
+        items: [
+          "The emails had a broken logo. The header loaded an image that didn't exist: in every newsletter and every reminder sent so far, the brand was a grey missing-image box. Fixed.",
+          "The emails were still using the default purple of the toolkit the site is built with, while the site had moved to teal weeks earlier. Anyone who opened a reminder and then clicked through saw two different brands. Now they match.",
+          "Under the hood: every change to the code now goes through a set of automated checks before it can go live, and if the app errors out for someone I find out about it instead of stumbling on it by chance.",
+        ],
+      },
+      {
+        date: "August 27, 2026",
+        items: [
+          "Redesigned every screen in the app. The forms for entering data took the best spot, at the top of the page, and you had to scroll to see your own numbers: now they sit behind a button and that space belongs to the data.",
+          "Added a month switcher at the top of every screen. Before, you could only look at the current month, and there was no route to last month at all.",
+          "New trend chart on the Overview, with next month's forecast drawn as a dashed line.",
+          "Filters are collected under \"More filters\": what stays in view is the handful you actually use every day.",
+          "Supporting text and amounts were too light to read without effort. The greys, and the green, amber and red of the figures, have been darkened just enough to clear the legibility threshold, keeping the same hue.",
+          "In dark mode the brand teal ended up on near-black backgrounds and disappeared. It now lightens when it acts as text, and stays solid on buttons.",
+          "Fixed seven accessibility defects: the whole site can be navigated by keyboard, and the first thing the tab key reaches is a link that skips straight to the content.",
+          "Closed three doors left open: the security headers the site wasn't sending, the database permissions, and the newsletter subscriber list, which could be written to from outside.",
+          "Fixed a defect on the home page: the box of numbers was being redrawn on every visit, because the server and the browser wrote thousands separators differently.",
+          "Your name appears in the app header instead of your email address, and on the error page and the 404 as well.",
+        ],
+      },
+      {
+        date: "August 23, 2026",
+        items: [
+          "Added a public demo: you can see what the app looks like inside, without signing up and without leaving anything behind.",
+          "The screenshots shown on the site now exist in dark mode too, and follow your browser's theme instead of always staying light.",
+          "A real photograph next to the name, on the About page.",
+        ],
+      },
       {
         date: "August 22, 2026",
         items: [
