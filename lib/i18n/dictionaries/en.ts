@@ -892,6 +892,7 @@ const en: Dictionary = {
       {
         date: "2026-09-09",
         items: [
+          "Every update on this page now has an address of its own: you can link to a single date instead of saying \"scroll down to late August\". Click an entry's date to grab its link.",
           "Bilancino's emails are now signed. The domain wasn't authenticated, and without a signature the newsletter could land in quarantine or spam because of the sender rather than the content: the signature is now in place and verified.",
         ],
       },

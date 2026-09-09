@@ -890,6 +890,7 @@ const it = {
       {
         date: "2026-09-09",
         items: [
+          "Ogni aggiornamento di questa pagina ha adesso un indirizzo suo: puoi linkare una singola data invece di dire \"scorri fino a fine agosto\". Clicca la data di una voce per copiarne il collegamento.",
           "Le email di Bilancino adesso partono firmate. Il dominio non era autenticato, e senza firma la newsletter poteva finire in quarantena o nello spam per colpa del mittente e non del contenuto: ora la firma c'è ed è verificata.",
         ],
       },
