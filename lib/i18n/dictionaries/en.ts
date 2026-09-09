@@ -890,13 +890,13 @@ const en: Dictionary = {
     lastUpdatedPrefix: "Last updated:",
     entries: [
       {
-        date: "September 9, 2026",
+        date: "2026-09-09",
         items: [
           "Bilancino's emails are now signed. The domain wasn't authenticated, and without a signature the newsletter could land in quarantine or spam because of the sender rather than the content: the signature is now in place and verified.",
         ],
       },
       {
-        date: "August 28, 2026",
+        date: "2026-08-28",
         items: [
           "The emails had a broken logo. The header loaded an image that didn't exist: in every newsletter and every reminder sent so far, the brand was a grey missing-image box. Fixed.",
           "The emails were still using the default purple of the toolkit the site is built with, while the site had moved to teal weeks earlier. Anyone who opened a reminder and then clicked through saw two different brands. Now they match.",
@@ -904,7 +904,7 @@ const en: Dictionary = {
         ],
       },
       {
-        date: "August 27, 2026",
+        date: "2026-08-27",
         items: [
           "Redesigned every screen in the app. The forms for entering data took the best spot, at the top of the page, and you had to scroll to see your own numbers: now they sit behind a button and that space belongs to the data.",
           "Added a month switcher at the top of every screen. Before, you could only look at the current month, and there was no route to last month at all.",
@@ -919,7 +919,7 @@ const en: Dictionary = {
         ],
       },
       {
-        date: "August 23, 2026",
+        date: "2026-08-23",
         items: [
           "Added a public demo: you can see what the app looks like inside, without signing up and without leaving anything behind.",
           "The screenshots shown on the site now exist in dark mode too, and follow your browser's theme instead of always staying light.",
@@ -927,7 +927,7 @@ const en: Dictionary = {
         ],
       },
       {
-        date: "August 22, 2026",
+        date: "2026-08-22",
         items: [
           "New logo, redrawn as a vector: it stays sharp at any size, from the browser tab icon to the header.",
           "The site's images were computer-generated and it showed: the laptop screen displayed unreadable text and made-up figures. They've been replaced with real screenshots of the app, captured on a demo account with example data.",
@@ -939,7 +939,7 @@ const en: Dictionary = {
         ],
       },
       {
-        date: "August 5, 2026",
+        date: "2026-08-05",
         items: [
           "Added Google sign-in for login and signup, alongside email and password.",
           "Fixed an issue where, in some cases, signing in with Google would land you on the homepage instead of the Overview.",
@@ -952,7 +952,7 @@ const en: Dictionary = {
         ],
       },
       {
-        date: "August 4, 2026",
+        date: "2026-08-04",
         items: [
           "Fixed several spots in the app (goals, budget, contacts, recurring transactions, trash, newsletter) where an action could fail without showing anything, leaving you wondering if it worked. You'll now always see a clear message if something doesn't go through.",
           "Resuming an already-expired recurring transaction now warns you with an error instead of silently generating a transaction outside its intended date range.",
@@ -961,13 +961,13 @@ const en: Dictionary = {
         ],
       },
       {
-        date: "August 3, 2026",
+        date: "2026-08-03",
         items: [
           "Added Google Analytics to understand how the site is used, off by default: it only runs if you consent via the cookie banner on first visit, and you can change your mind anytime from \"Manage cookie preferences\" at the bottom of the site.",
         ],
       },
       {
-        date: "August 2, 2026",
+        date: "2026-08-02",
         items: [
           "Bilancino is now available in English too, with a language switcher in the header (public site and app).",
           "Fixed several labels left in Italian on already-translated pages: error messages, the 404 page, CSV export, the newsletter footer.",
@@ -975,14 +975,14 @@ const en: Dictionary = {
         ],
       },
       {
-        date: "July 30, 2026",
+        date: "2026-07-30",
         items: [
           "Added a trash bin: deleted transactions stay recoverable for 30 days before being gone for good, instead of being removed immediately.",
           "Rebuilt the mobile menu: solid background instead of transparent, rounded corners, smoother opening animation.",
         ],
       },
       {
-        date: "July 29, 2026",
+        date: "2026-07-29",
         items: [
           "New monthly newsletter, optional: sign up with your email at the bottom of the site, one email a month, no spam, one-click unsubscribe from every email.",
           "Importing a CSV is now a single step: pick the file and the import starts right away, no need to look for a second \"Import\" button.",
@@ -993,7 +993,7 @@ const en: Dictionary = {
         ],
       },
       {
-        date: "July 25, 2026",
+        date: "2026-07-25",
         items: [
           "CSV import and export for transactions, compatible with Excel and Google Sheets: useful for bringing data over from another app or a spreadsheet, or just for making a backup.",
           "The app now recognizes when you're already logged in: no more \"Create an account\" buttons when you're already in, neither in the header nor on the homepage.",
@@ -1003,7 +1003,7 @@ const en: Dictionary = {
         ],
       },
       {
-        date: "July 24, 2026",
+        date: "2026-07-24",
         items: [
           "Added the About us, What we offer, and The service pages, to answer the most common questions before signing up.",
           "New Statistics page: trend via linear regression, 95% confidence interval, and anomalous expense detection per category.",

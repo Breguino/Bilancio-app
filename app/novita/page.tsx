@@ -26,7 +26,21 @@ export function generateMetadata(): Metadata {
 }
 
 export default function NovitaPage() {
-  const t = dictionaryFor(getLocale());
+  const locale = getLocale();
+  const t = dictionaryFor(locale);
+
+  // Le date del diario sono scritte in ISO nel dizionario e formattate qui.
+  // Prima erano frasi battute a mano, diverse per lingua ("27 agosto 2026" e
+  // "August 27, 2026"): ventisei stringhe da comporre a mano, che nessuno
+  // poteva confrontare fra loro e che per una macchina non erano date. In ISO
+  // le due lingue si controllano l'una con l'altra (c'è un test che lo fa) e
+  // il <time> qui sotto le rende leggibili anche a un motore di ricerca.
+  const dataEstesa = new Intl.DateTimeFormat(locale === "it" ? "it-IT" : "en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+  const scrivi = (iso: string) => dataEstesa.format(new Date(`${iso}T12:00:00Z`));
 
   return (
     <div className="min-h-screen">
@@ -46,30 +60,48 @@ export default function NovitaPage() {
               erano: la pagina dichiarava "ultimo aggiornamento 22 agosto" mentre
               sotto c'erano voci più recenti. Un dato solo non può divergere. */}
           <p className="text-ink-muted dark:text-neutral-500 text-sm mt-4">
-            {t.novita.lastUpdatedPrefix} {t.novita.entries[0].date}
+            {t.novita.lastUpdatedPrefix}{" "}
+            <time dateTime={t.novita.entries[0].date}>{scrivi(t.novita.entries[0].date)}</time>
           </p>
         </header>
 
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <div className="flex flex-col gap-10">
             {t.novita.entries.map((entry, i) => (
-              <Reveal
-                key={entry.date}
-                delay={i * 80}
-                className="grid grid-cols-1 sm:grid-cols-[10rem_1fr] gap-4 sm:gap-8"
-              >
-                <p className="num text-sm font-bold text-accent sm:pt-0.5">{entry.date}</p>
-                <ul className="flex flex-col gap-3">
-                  {entry.items.map((item) => (
-                    <li
-                      key={item}
-                      className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed pl-4 relative before:content-['—'] before:absolute before:left-0 before:text-ink-muted dark:before:text-neutral-600"
+              // L'id sta sull'<article> e non dentro Reveal: Reveal parte
+              // trasparente e si mostra quando entra nello schermo, e un
+              // bersaglio invisibile è un bersaglio che il browser fatica a
+              // raggiungere. Così l'ancora punta sempre a un elemento vero.
+              <article key={entry.date} id={entry.date} className="scroll-mt-24">
+                <Reveal
+                  delay={i * 80}
+                  className="grid grid-cols-1 sm:grid-cols-[10rem_1fr] gap-4 sm:gap-8"
+                >
+                  {/* Ogni aggiornamento ha un indirizzo suo: /novita#2026-08-27.
+                      Prima l'unico modo di indicarne uno era dire "scorri fino a
+                      fine agosto". La data fa anche da titolo della voce, così
+                      chi usa un lettore di schermo salta da un aggiornamento
+                      all'altro invece di attraversarli tutti. */}
+                  <h2 className="sm:pt-0.5">
+                    <a
+                      href={`#${entry.date}`}
+                      className="num text-sm font-bold text-accent hover:underline underline-offset-4"
                     >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
+                      <time dateTime={entry.date}>{scrivi(entry.date)}</time>
+                    </a>
+                  </h2>
+                  <ul className="flex flex-col gap-3">
+                    {entry.items.map((item) => (
+                      <li
+                        key={item}
+                        className="text-sm text-ink-secondary dark:text-neutral-400 leading-relaxed pl-4 relative before:content-['—'] before:absolute before:left-0 before:text-ink-muted dark:before:text-neutral-600"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </Reveal>
+              </article>
             ))}
           </div>
         </section>
