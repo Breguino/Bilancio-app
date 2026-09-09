@@ -888,13 +888,13 @@ const it = {
     lastUpdatedPrefix: "Ultimo aggiornamento:",
     entries: [
       {
-        date: "9 settembre 2026",
+        date: "2026-09-09",
         items: [
           "Le email di Bilancino adesso partono firmate. Il dominio non era autenticato, e senza firma la newsletter poteva finire in quarantena o nello spam per colpa del mittente e non del contenuto: ora la firma c'è ed è verificata.",
         ],
       },
       {
-        date: "28 agosto 2026",
+        date: "2026-08-28",
         items: [
           "Le email avevano il logo rotto. L'intestazione caricava un'immagine che non esisteva: in ogni newsletter e in ogni promemoria arrivati finora, al posto del marchio c'era il riquadro grigio delle immagini mancanti. Riparato.",
           "Le email erano rimaste sul viola predefinito dello strumento con cui è costruito il sito, mentre il sito era passato al petrolio settimane prima. Chi apriva un promemoria e poi cliccava sul link vedeva due marchi diversi. Ora sono la stessa cosa.",
@@ -902,7 +902,7 @@ const it = {
         ],
       },
       {
-        date: "27 agosto 2026",
+        date: "2026-08-27",
         items: [
           "Ridisegnate tutte le schermate dell'app. I moduli per inserire i dati occupavano il posto migliore, in cima alla pagina, e per vedere i tuoi numeri bisognava scorrere: ora stanno dietro un pulsante e quello spazio è dei dati.",
           "Aggiunto il selettore del mese in cima a ogni schermata. Prima si poteva guardare soltanto il mese in corso, e per il mese scorso non c'era nessuna strada.",
@@ -917,7 +917,7 @@ const it = {
         ],
       },
       {
-        date: "23 agosto 2026",
+        date: "2026-08-23",
         items: [
           "Aggiunta una demo pubblica: si guarda com'è fatta l'app dentro, senza registrarsi e senza lasciare niente.",
           "Le schermate mostrate sul sito esistono ora anche in tema scuro, e seguono il tema del tuo browser invece di restare sempre chiare.",
@@ -925,7 +925,7 @@ const it = {
         ],
       },
       {
-        date: "22 agosto 2026",
+        date: "2026-08-22",
         items: [
           "Nuovo marchio, ridisegnato in formato vettoriale: resta nitido a qualunque dimensione, dall'icona nella scheda del browser all'intestazione.",
           "Le immagini del sito erano generate al computer e si vedeva: lo schermo del portatile mostrava testo illeggibile e cifre inventate. Ora al loro posto ci sono schermate vere dell'app, catturate su un account dimostrativo con dati di esempio.",
@@ -937,7 +937,7 @@ const it = {
         ],
       },
       {
-        date: "5 agosto 2026",
+        date: "2026-08-05",
         items: [
           "Aggiunto l'accesso con Google in fase di login e registrazione, oltre a email e password.",
           "Risolto un problema per cui, in alcuni casi, dopo l'accesso con Google si finiva sulla home invece che sulla Panoramica.",
@@ -950,7 +950,7 @@ const it = {
         ],
       },
       {
-        date: "4 agosto 2026",
+        date: "2026-08-04",
         items: [
           "Sistemati diversi punti dell'app (obiettivi, budget, contatti, movimenti ricorrenti, cestino, newsletter) dove un'azione poteva fallire senza mostrare nulla, lasciandoti a chiederti se avesse funzionato. Ora vedi sempre un messaggio chiaro se qualcosa non va a buon fine.",
           "Riattivare una ricorrenza già scaduta ora avvisa con un errore invece di generare in silenzio un movimento fuori dalla data prevista.",
@@ -959,13 +959,13 @@ const it = {
         ],
       },
       {
-        date: "3 agosto 2026",
+        date: "2026-08-03",
         items: [
           "Aggiunto Google Analytics per capire come viene usato il sito, disattivato di default: parte solo se acconsenti dal banner cookie al primo accesso, e puoi cambiare idea in ogni momento da \"Gestisci preferenze cookie\" in fondo al sito.",
         ],
       },
       {
-        date: "2 agosto 2026",
+        date: "2026-08-02",
         items: [
           "Bilancino è ora disponibile anche in inglese, con un selettore di lingua nell'header (sito pubblico e app).",
           "Sistemate diverse etichette rimaste in italiano nelle pagine già tradotte: messaggi di errore, pagina 404, esportazione CSV, footer della newsletter.",
@@ -973,14 +973,14 @@ const it = {
         ],
       },
       {
-        date: "30 luglio 2026",
+        date: "2026-07-30",
         items: [
           "Aggiunto un cestino: i movimenti eliminati restano recuperabili per 30 giorni prima di sparire per sempre, invece di essere cancellati subito.",
           "Rifatto il menu mobile: sfondo pieno invece che trasparente, angoli arrotondati, animazione di apertura più fluida.",
         ],
       },
       {
-        date: "29 luglio 2026",
+        date: "2026-07-29",
         items: [
           "Nuova newsletter mensile, facoltativa: iscriviti con la tua email dal fondo del sito, un'email al mese, niente spam, disiscrizione con un clic da ogni email.",
           "Importare un CSV ora è un solo passaggio: scegli il file e l'importazione parte subito, senza dover cercare un secondo pulsante \"Importa\".",
@@ -991,7 +991,7 @@ const it = {
         ],
       },
       {
-        date: "25 luglio 2026",
+        date: "2026-07-25",
         items: [
           "Importazione ed esportazione dei movimenti in CSV, compatibile con Excel e Fogli Google: utile per portare dati da un'altra app o da un foglio di calcolo, o semplicemente per farsi un backup.",
           "L'app ora riconosce se sei già loggato: niente più pulsanti \"Crea un account\" quando sei già dentro, né nell'header né nella home.",
@@ -1001,7 +1001,7 @@ const it = {
         ],
       },
       {
-        date: "24 luglio 2026",
+        date: "2026-07-24",
         items: [
           "Aggiunte le pagine Chi siamo, Cosa offriamo e Il servizio, per rispondere alle domande più comuni prima di iscriversi.",
           "Nuova pagina Statistiche: trend con regressione lineare, intervallo di confidenza al 95% e rilevamento delle spese anomale per categoria.",
