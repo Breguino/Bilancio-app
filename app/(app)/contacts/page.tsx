@@ -9,6 +9,8 @@ import { addContact, deleteContact, importContacts } from "./actions";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { PageHeader } from "@/components/page-header";
 import { Search, X } from "lucide-react";
+import { moneyFormatter } from "@/lib/currency";
+import { getUserCurrency } from "@/lib/currency-server";
 
 export default async function ContactsPage({
   searchParams,
@@ -16,11 +18,8 @@ export default async function ContactsPage({
   searchParams: { q?: string; error?: string; success?: string };
 }) {
   const { locale, t } = getDictionary();
-  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
-    style: "currency",
-    currency: "EUR",
-    useGrouping: true,
-  });
+  const valuta = await getUserCurrency();
+  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
 
   const supabase = createClient();
   const today = new Date().toISOString().slice(0, 10);
@@ -191,7 +190,7 @@ export default async function ContactsPage({
                         className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 rounded-full px-2.5 py-1 num"
                         title={t.contacts.totalRevenueTitle}
                       >
-                        {eur.format(revenue)}
+                        {soldi.format(revenue)}
                       </span>
                     ) : null}
                     <form action={deleteContact}>

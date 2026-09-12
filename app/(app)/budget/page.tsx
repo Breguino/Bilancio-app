@@ -8,6 +8,8 @@ import { MonthStepper } from "@/components/month-stepper";
 import { setBudget, deleteBudget } from "./actions";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { monthBounds, monthKeyOf, monthLabel, monthName, resolveMonth } from "@/lib/month";
+import { moneyFormatter } from "@/lib/currency";
+import { getUserCurrency } from "@/lib/currency-server";
 
 export default async function BudgetPage({
   searchParams,
@@ -15,12 +17,9 @@ export default async function BudgetPage({
   searchParams: { month?: string; error?: string; success?: string };
 }) {
   const { locale, t } = getDictionary();
+  const valuta = await getUserCurrency();
   const intlLocale = locale === "it" ? "it-IT" : "en-IE";
-  const eur = new Intl.NumberFormat(intlLocale, {
-    style: "currency",
-    currency: "EUR",
-    useGrouping: true,
-  });
+  const soldi = moneyFormatter(intlLocale, valuta);
   const pct1 = (n: number) =>
     n.toLocaleString(intlLocale, { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
 
@@ -135,9 +134,9 @@ export default async function BudgetPage({
         <span className="text-sm text-ink-secondary dark:text-neutral-400">
           {rigaAssegnato.map((pezzo, i) =>
             pezzo === "{assigned}" ? (
-              <strong key={i} className="num text-ink dark:text-neutral-100">{eur.format(totalAssigned)}</strong>
+              <strong key={i} className="num text-ink dark:text-neutral-100">{soldi.format(totalAssigned)}</strong>
             ) : pezzo === "{income}" ? (
-              <strong key={i} className="num text-ink dark:text-neutral-100">{eur.format(income)}</strong>
+              <strong key={i} className="num text-ink dark:text-neutral-100">{soldi.format(income)}</strong>
             ) : pezzo === "{month}" ? (
               <span key={i}>{monthName(month, intlLocale)}</span>
             ) : (
@@ -155,8 +154,8 @@ export default async function BudgetPage({
           className={`num text-sm font-semibold ${remaining < 0 ? "text-red-600" : "text-ink dark:text-neutral-100"}`}
         >
           {remaining < 0
-            ? `${eur.format(Math.abs(remaining))} ${t.budget.overIncome}`
-            : `${eur.format(remaining)} ${t.budget.toAssign}`}
+            ? `${soldi.format(Math.abs(remaining))} ${t.budget.overIncome}`
+            : `${soldi.format(remaining)} ${t.budget.toAssign}`}
         </span>
       </div>
 
@@ -175,8 +174,8 @@ export default async function BudgetPage({
                   <div className="flex items-center justify-between text-sm mb-1.5 gap-2">
                     <span className="font-medium truncate">{c.category}</span>
                     <span className="num shrink-0">
-                      {eur.format(c.spend)}{" "}
-                      <span className="text-ink-muted dark:text-neutral-500">/ {eur.format(c.limit)}</span>
+                      {soldi.format(c.spend)}{" "}
+                      <span className="text-ink-muted dark:text-neutral-500">/ {soldi.format(c.limit)}</span>
                     </span>
                   </div>
                   <div className="h-2.5 rounded bg-surface-alt dark:bg-neutral-800 overflow-hidden">
@@ -206,7 +205,7 @@ export default async function BudgetPage({
                           bisognava fare la sottrazione a mente. */}
                       {left > 0 ? (
                         <span className="text-xs text-ink-muted dark:text-neutral-500 num">
-                          {t.budget.remainingShort} {eur.format(left)}
+                          {t.budget.remainingShort} {soldi.format(left)}
                         </span>
                       ) : null}
                       <form action={deleteBudget}>

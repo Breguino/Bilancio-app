@@ -593,6 +593,13 @@ const en: Dictionary = {
     logout: "Log out",
   },
   impostazioni: {
+    currencySectionTitle: "Currency",
+    currencyBody:
+      "What currency your amounts are in. It applies across the whole app: overview, budgets, goals, charts. Bilancino converts nothing — it only changes how the figures are written, so the totals stay exactly what you entered.",
+    currencyLabel: "Account currency",
+    currencySave: "Save",
+    currencySaved: "Currency updated.",
+    currencyInvalidError: "Currency not recognised.",
     title: "Settings",
     accountSectionTitle: "Account",
     emailLabel: "Email",
@@ -898,6 +905,9 @@ const en: Dictionary = {
       {
         date: "2026-09-12",
         items: [
+          "Bilancino is no longer euro-only. Settings now let you pick the account currency from twelve, and the whole app follows: overview, budgets, goals, contacts, charts, receipts. There are no conversions and no exchange rates — what changes is how the figures are written, not the figures.",
+          "CSV import now accepts amounts with any currency symbol in front, not just the euro: \"CHF 120.50\", \"£120.50\", \"$120.50\". Those rows used to be dropped with no explanation.",
+          "Fixed an import defect that rarely showed up while everything was in euros: in an English-formatted file, \"1,234.50\" was read as one point two instead of one thousand two hundred and thirty-four. The decimal separator is now recognised by its position, so both formats work.",
           "Search across transactions was already there, but it sat behind the \"More filters\" button, which gave no hint of containing it. The box is now in plain sight above the list, and it searches every month.",
           "Searching now also looks at the category and the contact's name, not just the description. Searching \"Verdi\" now finds the expenses tied to Verdi even when that name never appears in the description: before, nothing came back.",
           "When more transactions match than the page can show, it now says so. Before it stopped at the first two hundred and wrote \"200 transactions\", which looked like a total and wasn't.",

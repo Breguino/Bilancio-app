@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { TrendingDown, TrendingUp, Minus } from "lucide-react";
 import type { Dictionary } from "@/lib/i18n/dictionaries/it";
+import { moneyFormatter } from "@/lib/currency";
+import { getUserCurrency } from "@/lib/currency-server";
 
 function monthKey(d: Date) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
@@ -93,11 +95,8 @@ export default async function ComparePage({
   searchParams: { a?: string; b?: string };
 }) {
   const { locale, t } = getDictionary();
-  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
-    style: "currency",
-    currency: "EUR",
-    useGrouping: true,
-  });
+  const valuta = await getUserCurrency();
+  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
   const pct1 = (n: number) => n.toLocaleString(locale === "it" ? "it-IT" : "en-IE", { maximumFractionDigits: 1, minimumFractionDigits: 1 });
 
   const months = lastMonths(12);
@@ -122,7 +121,7 @@ export default async function ComparePage({
       : (differenzaNetto > 0 ? t.compare.verdictMore : t.compare.verdictLess)
           .replace("{a}", nomeA)
           .replace("{b}", nomeB)
-          .replace("{x}", eur.format(Math.abs(differenzaNetto)));
+          .replace("{x}", soldi.format(Math.abs(differenzaNetto)));
 
   const maxValue = Math.max(totalsA.income, totalsB.income, totalsA.expense, totalsB.expense, 1);
   const chartRows = [
@@ -239,7 +238,7 @@ export default async function ComparePage({
                       style={{ width: `${(m.va / maxValue) * 100}%` }}
                     />
                   </div>
-                  <span className="num text-xs w-24 text-right shrink-0">{eur.format(m.va)}</span>
+                  <span className="num text-xs w-24 text-right shrink-0">{soldi.format(m.va)}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex-1 h-2.5 rounded bg-surface-alt dark:bg-neutral-800 overflow-hidden">
@@ -248,7 +247,7 @@ export default async function ComparePage({
                       style={{ width: `${(m.vb / maxValue) * 100}%` }}
                     />
                   </div>
-                  <span className="num text-xs w-24 text-right shrink-0">{eur.format(m.vb)}</span>
+                  <span className="num text-xs w-24 text-right shrink-0">{soldi.format(m.vb)}</span>
                 </div>
               </div>
             </div>
@@ -274,32 +273,32 @@ export default async function ComparePage({
                 return (
                   <tr key={cat} className="border-b border-border dark:border-neutral-800 last:border-0">
                     <td className="px-5 py-2.5">{cat}</td>
-                    <td className="px-5 py-2.5 text-right num">{eur.format(va)}</td>
-                    <td className="px-5 py-2.5 text-right num">{eur.format(vb)}</td>
+                    <td className="px-5 py-2.5 text-right num">{soldi.format(va)}</td>
+                    <td className="px-5 py-2.5 text-right num">{soldi.format(vb)}</td>
                     <td className="px-5 py-2.5 text-right">{deltaBadge(vb, va, false, pct1, t.compare.new)}</td>
                   </tr>
                 );
               })}
               <tr className="border-t-2 border-ink font-bold">
                 <td className="px-5 py-2.5">{t.compare.totalExpense}</td>
-                <td className="px-5 py-2.5 text-right num">{eur.format(totalsA.expense)}</td>
-                <td className="px-5 py-2.5 text-right num">{eur.format(totalsB.expense)}</td>
+                <td className="px-5 py-2.5 text-right num">{soldi.format(totalsA.expense)}</td>
+                <td className="px-5 py-2.5 text-right num">{soldi.format(totalsB.expense)}</td>
                 <td className="px-5 py-2.5 text-right">
                   {deltaBadge(totalsB.expense, totalsA.expense, false, pct1, t.compare.new)}
                 </td>
               </tr>
               <tr className="font-bold">
                 <td className="px-5 py-2.5">{t.compare.income}</td>
-                <td className="px-5 py-2.5 text-right num">{eur.format(totalsA.income)}</td>
-                <td className="px-5 py-2.5 text-right num">{eur.format(totalsB.income)}</td>
+                <td className="px-5 py-2.5 text-right num">{soldi.format(totalsA.income)}</td>
+                <td className="px-5 py-2.5 text-right num">{soldi.format(totalsB.income)}</td>
                 <td className="px-5 py-2.5 text-right">
                   {deltaBadge(totalsB.income, totalsA.income, true, pct1, t.compare.new)}
                 </td>
               </tr>
               <tr className="font-bold">
                 <td className="px-5 py-2.5">{t.compare.netSavings}</td>
-                <td className="px-5 py-2.5 text-right num">{eur.format(totalsA.net)}</td>
-                <td className="px-5 py-2.5 text-right num">{eur.format(totalsB.net)}</td>
+                <td className="px-5 py-2.5 text-right num">{soldi.format(totalsA.net)}</td>
+                <td className="px-5 py-2.5 text-right num">{soldi.format(totalsB.net)}</td>
                 <td className="px-5 py-2.5 text-right">
                   {deltaBadge(totalsB.net, totalsA.net, true, pct1, t.compare.new)}
                 </td>

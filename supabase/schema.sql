@@ -406,3 +406,21 @@ create trigger on_auth_user_created
 insert into public.profiles (user_id)
 select id from auth.users
 on conflict (user_id) do nothing;
+
+-- ---------- Valuta dell'account ----------
+-- Una sola valuta per utente: tutti gli importi sono in quella, quindi i
+-- totali restano veri senza convertire niente e senza dipendere da un
+-- fornitore di cambi. L'elenco è chiuso apposta — un codice sbagliato in una
+-- colonna che decide come si legge ogni cifra dell'app è un guasto silenzioso,
+-- e Intl scriverebbe "XYZ 12,00" senza lamentarsi. Lo stesso elenco sta in
+-- lib/currency.ts: aggiungerne una vuol dire toccare tutti e due i posti.
+alter table public.profiles
+  add column if not exists currency text not null default 'EUR';
+
+alter table public.profiles
+  drop constraint if exists profiles_currency_valida;
+
+alter table public.profiles
+  add constraint profiles_currency_valida check (
+    currency in ('EUR','CHF','GBP','USD','SEK','NOK','DKK','PLN','CZK','CAD','AUD','JPY')
+  );

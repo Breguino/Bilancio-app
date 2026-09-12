@@ -9,6 +9,8 @@ import { addNote, deleteNote, toggleNoteDone } from "./actions";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { PageHeader } from "@/components/page-header";
 import { X } from "lucide-react";
+import { moneyFormatter } from "@/lib/currency";
+import { getUserCurrency } from "@/lib/currency-server";
 
 export default async function ContactDetailPage({
   params,
@@ -18,11 +20,8 @@ export default async function ContactDetailPage({
   searchParams: { error?: string; success?: string };
 }) {
   const { locale, t } = getDictionary();
-  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
-    style: "currency",
-    currency: "EUR",
-    useGrouping: true,
-  });
+  const valuta = await getUserCurrency();
+  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
 
   const supabase = createClient();
 
@@ -107,7 +106,7 @@ export default async function ContactDetailPage({
           {revenue > 0 ? (
             <span className="text-sm text-ink-secondary dark:text-neutral-400">
               {t.contactDetail.totalRevenueLinked}{" "}
-              <strong className="num text-ink dark:text-neutral-100">{eur.format(revenue)}</strong>
+              <strong className="num text-ink dark:text-neutral-100">{soldi.format(revenue)}</strong>
             </span>
           ) : (
             <span />

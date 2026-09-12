@@ -591,6 +591,13 @@ const it = {
     logout: "Esci",
   },
   impostazioni: {
+    currencySectionTitle: "Valuta",
+    currencyBody:
+      "In che valuta sono i tuoi importi. Vale per tutta l'app: panoramica, budget, obiettivi, grafici. Bilancino non converte niente — cambia solo come vengono scritte le cifre, quindi i totali restano quelli che hai inserito.",
+    currencyLabel: "Valuta dell'account",
+    currencySave: "Salva",
+    currencySaved: "Valuta aggiornata.",
+    currencyInvalidError: "Valuta non riconosciuta.",
     title: "Impostazioni",
     accountSectionTitle: "Account",
     emailLabel: "Email",
@@ -896,6 +903,9 @@ const it = {
       {
         date: "2026-09-12",
         items: [
+          "Bilancino non è più solo in euro. In Impostazioni si sceglie la valuta dell'account fra dodici, e da lì tutta l'app la usa: panoramica, budget, obiettivi, contatti, grafici, ricevute. Non ci sono conversioni né tassi di cambio — cambia come vengono scritte le cifre, non le cifre.",
+          "L'import CSV accetta gli importi con qualunque simbolo davanti, non più solo l'euro: \"CHF 120.50\", \"£120.50\", \"$120.50\". Prima quelle righe venivano scartate senza spiegare perché.",
+          "Corretto un difetto dell'import che con l'euro si vedeva di rado: in un file in formato inglese, \"1,234.50\" veniva letto come uno virgola due invece che milleduecentotrentaquattro. Adesso il separatore dei decimali si riconosce dalla posizione, quindi valgono tutti e due i formati.",
           "La ricerca fra i movimenti c'era già, ma stava dietro il pulsante \"Altri filtri\", che non annunciava di contenerla. Adesso la casella è in vista, sopra l'elenco, e cerca su tutti i mesi.",
           "Cercando si guarda anche la categoria e il nome del contatto, non più solo la descrizione. Cercare \"Verdi\" adesso trova le spese legate a Verdi anche quando il suo nome nella descrizione non compare: prima non usciva niente.",
           "Quando le corrispondenze sono più di quante la pagina ne possa mostrare, adesso lo dice. Prima si fermava alle prime duecento e scriveva \"200 movimenti\", che sembrava un totale e non lo era.",

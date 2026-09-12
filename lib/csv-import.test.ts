@@ -168,3 +168,51 @@ describe("parseContactsCsv", () => {
     expect(result.rows[0]).toMatchObject({ name: "Giulia Bianchi", email: "giulia@example.com" });
   });
 });
+
+// L'app non è più solo in euro: un estratto conto può arrivare con qualunque
+// simbolo davanti all'importo, e prima veniva scartato senza dire niente.
+describe("importi con valute diverse dall'euro", () => {
+  const conImporto = (testo: string) =>
+    parseImportCsv(
+      ["Data;Descrizione;Importo", `23/07/2026;Spesa;${testo}`].join("\r\n"),
+      noContacts
+    ).rows[0]?.amount;
+
+  it("reads amounts with any currency symbol or code in front", () => {
+    expect(conImporto("€ 120,50")).toBe(120.5);
+    expect(conImporto("CHF 120.50")).toBe(120.5);
+    expect(conImporto("£120.50")).toBe(120.5);
+    expect(conImporto("$120.50")).toBe(120.5);
+    expect(conImporto("120,50 kr")).toBe(120.5);
+    expect(conImporto("¥1200")).toBe(1200);
+  });
+
+  it("keeps the minus sign and the thousands separator", () => {
+    expect(conImporto("CHF -1.234,50")).toBe(-1234.5);
+    expect(conImporto("-£1,234.50")).toBe(-1234.5);
+  });
+});
+
+describe("formato inglese degli importi", () => {
+  const conImporto = (testo: string) =>
+    parseImportCsv(
+      ["Data;Descrizione;Importo", `23/07/2026;Spesa;${testo}`].join("\r\n"),
+      noContacts
+    ).rows[0]?.amount;
+
+  // Il separatore dei decimali è l'ultimo che compare: in "1.234,50" è la
+  // virgola, in "1,234.50" è il punto. Senza questa regola un estratto conto
+  // inglese leggeva 1,23450 dove c'era milleduecentotrentaquattro.
+  it("tells the Italian and the English thousands separator apart", () => {
+    expect(conImporto("1.234,50")).toBe(1234.5);
+    expect(conImporto("1,234.50")).toBe(1234.5);
+    expect(conImporto("1.234.567,89")).toBe(1234567.89);
+    expect(conImporto("1,234,567.89")).toBe(1234567.89);
+  });
+
+  it("still handles a single separator on its own", () => {
+    expect(conImporto("1234,50")).toBe(1234.5);
+    expect(conImporto("1234.50")).toBe(1234.5);
+    expect(conImporto("1234")).toBe(1234);
+  });
+});

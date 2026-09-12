@@ -16,6 +16,8 @@ import { addTransaction, deleteTransaction, importTransactions } from "./actions
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { lastMonthKeys, monthBounds, monthKeyOf, monthLabel, monthName, resolveMonth } from "@/lib/month";
 import { transactionSearchFilter } from "@/lib/transaction-search";
+import { moneyFormatter } from "@/lib/currency";
+import { getUserCurrency } from "@/lib/currency-server";
 
 // Quanti movimenti stanno in panoramica prima del collegamento all'elenco
 // completo. Prima ci finiva tutto il mese: la colonna dei budget accanto
@@ -72,12 +74,9 @@ export default async function DashboardPage({
   };
 }) {
   const { locale, t } = getDictionary();
+  const valuta = await getUserCurrency();
   const intlLocale = locale === "it" ? "it-IT" : "en-IE";
-  const eur = new Intl.NumberFormat(intlLocale, {
-    style: "currency",
-    currency: "EUR",
-    useGrouping: true,
-  });
+  const soldi = moneyFormatter(intlLocale, valuta);
   const pct1 = (n: number) =>
     n.toLocaleString(intlLocale, { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
 
@@ -217,7 +216,7 @@ export default async function DashboardPage({
       date: r.next_date as string,
       kind: "recurring" as const,
       title: r.description as string,
-      sub: `${Number(r.amount) > 0 ? "+" : "−"}${eur.format(Math.abs(Number(r.amount)))} · ${t.dashboard.recurringSuffix}`,
+      sub: `${Number(r.amount) > 0 ? "+" : "−"}${soldi.format(Math.abs(Number(r.amount)))} · ${t.dashboard.recurringSuffix}`,
       href: "/recurring",
     })),
     ...(upcomingReminders || []).map((n) => ({
@@ -433,7 +432,7 @@ export default async function DashboardPage({
           <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex items-start justify-between gap-3">
             <div>
               <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">{t.home.entrate}</p>
-              <p className="text-2xl font-bold num whitespace-nowrap">{eur.format(income)}</p>
+              <p className="text-2xl font-bold num whitespace-nowrap">{soldi.format(income)}</p>
               {trendBadge(incomeSeries[last], incomeSeries[last - 1] ?? 0, true, pct1, t.dashboard.trendNew, comparedTo)}
             </div>
             <Sparkline values={incomeSeries} />
@@ -441,7 +440,7 @@ export default async function DashboardPage({
           <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex items-start justify-between gap-3">
             <div>
               <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">{t.home.uscite}</p>
-              <p className="text-2xl font-bold num whitespace-nowrap">{eur.format(expense)}</p>
+              <p className="text-2xl font-bold num whitespace-nowrap">{soldi.format(expense)}</p>
               {trendBadge(expenseSeries[last], expenseSeries[last - 1] ?? 0, false, pct1, t.dashboard.trendNew, comparedTo)}
             </div>
             <Sparkline values={expenseSeries} />
@@ -449,7 +448,7 @@ export default async function DashboardPage({
           <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex items-start justify-between gap-3">
             <div>
               <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">{t.home.netto}</p>
-              <p className="text-2xl font-bold num whitespace-nowrap">{eur.format(net)}</p>
+              <p className="text-2xl font-bold num whitespace-nowrap">{soldi.format(net)}</p>
               {trendBadge(netSeries[last], netSeries[last - 1] ?? 0, true, pct1, t.dashboard.trendNew, comparedTo)}
             </div>
             <Sparkline values={netSeries} />
@@ -676,7 +675,7 @@ export default async function DashboardPage({
                       }`}
                     >
                       {tx.amount > 0 ? "+" : "−"}
-                      {eur.format(Math.abs(Number(tx.amount)))}
+                      {soldi.format(Math.abs(Number(tx.amount)))}
                     </span>
                     {tx.amount > 0 && tx.contact_id ? (
                       <Link
@@ -722,7 +721,7 @@ export default async function DashboardPage({
                 {countLabel} · {t.dashboard.balanceLabel}{" "}
                 <b className="num font-semibold text-ink dark:text-neutral-100">
                   {listBalance >= 0 ? "+" : "−"}
-                  {eur.format(Math.abs(listBalance))}
+                  {soldi.format(Math.abs(listBalance))}
                 </b>
               </span>
               {totalRows > visibleRows.length ? (
@@ -746,7 +745,7 @@ export default async function DashboardPage({
                 </div>
                 <div className="flex items-baseline justify-between gap-2 rounded-lg bg-accent-soft dark:bg-accent/15 px-3.5 py-3 mb-4">
                   <span className="text-xs text-ink-secondary dark:text-neutral-300">{t.dashboard.remainingLabel}</span>
-                  <span className="num text-lg font-bold text-accent dark:text-accent-soft">{eur.format(budgetLeft)}</span>
+                  <span className="num text-lg font-bold text-accent dark:text-accent-soft">{soldi.format(budgetLeft)}</span>
                 </div>
                 <div className="flex flex-col gap-4">
                   {budgetStatus.map((b) => {
@@ -758,8 +757,8 @@ export default async function DashboardPage({
                         <div className="flex items-center justify-between text-sm mb-1 gap-2">
                           <span className="font-medium truncate">{b.category}</span>
                           <span className="num shrink-0">
-                            {eur.format(b.spend)}{" "}
-                            <span className="text-ink-muted dark:text-neutral-500">/ {eur.format(b.limit)}</span>
+                            {soldi.format(b.spend)}{" "}
+                            <span className="text-ink-muted dark:text-neutral-500">/ {soldi.format(b.limit)}</span>
                           </span>
                         </div>
                         <div className="h-2.5 rounded bg-surface-alt dark:bg-neutral-800 overflow-hidden">
