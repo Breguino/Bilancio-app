@@ -15,7 +15,7 @@ export type ReminderSendResult = {
 // promemoria resta "scaduto" e non segnato come fatto, per non diventare una
 // notifica ripetitiva: il promemoria resta comunque visibile in app.
 export async function sendDueReminders(siteUrl: string): Promise<ReminderSendResult> {
-  const { t } = getDictionary();
+  const { t } = await getDictionary();
   const supabase = createAdminClient();
   const today = new Date().toISOString().slice(0, 10);
 

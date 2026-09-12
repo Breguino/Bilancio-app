@@ -7,16 +7,15 @@ import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { moneyFormatter } from "@/lib/currency";
 import { getUserCurrency } from "@/lib/currency-server";
 
-export default async function CestinoPage({
-  searchParams,
-}: {
-  searchParams: { success?: string; error?: string };
+export default async function CestinoPage(props: {
+  searchParams: Promise<{ success?: string; error?: string }>;
 }) {
-  const { locale, t } = getDictionary();
+  const searchParams = await props.searchParams;
+  const { locale, t } = await getDictionary();
   const valuta = await getUserCurrency();
   const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: trashed } = await supabase
     .from("transactions")
     .select("*, contact:contacts(id, name)")

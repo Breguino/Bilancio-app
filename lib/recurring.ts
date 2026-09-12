@@ -1,6 +1,8 @@
 import type { createClient } from "@/lib/supabase/server";
 
-type SupabaseServerClient = ReturnType<typeof createClient>;
+// `createClient()` è async da Next 16 (`cookies()` va atteso): il tipo utile
+// qui è quello del client già risolto, non della promessa.
+type SupabaseServerClient = Awaited<ReturnType<typeof createClient>>;
 
 export type Frequency = "weekly" | "monthly" | "yearly";
 

@@ -1,8 +1,8 @@
 import { getLocale } from "./get-locale";
 import { dictionaries, dictionaryFor } from "./dictionaries";
 
-export function getDictionary() {
-  const locale = getLocale();
+export async function getDictionary() {
+  const locale = await getLocale();
   return { locale, t: dictionaries[locale] };
 }
 

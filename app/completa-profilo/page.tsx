@@ -10,13 +10,12 @@ import { createClient } from "@/lib/supabase/server";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { isProfileComplete, type Profile } from "@/lib/profile";
 
-export default async function CompletaProfiloPage({
-  searchParams,
-}: {
-  searchParams: { error?: string };
+export default async function CompletaProfiloPage(props: {
+  searchParams: Promise<{ error?: string }>;
 }) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const searchParams = await props.searchParams;
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

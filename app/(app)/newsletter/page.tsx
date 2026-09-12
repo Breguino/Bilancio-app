@@ -10,13 +10,12 @@ import { saveDraft, sendNow, deleteDraft } from "./actions";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { SITE_URL } from "@/lib/site-url";
 
-export default async function NewsletterAdminPage({
-  searchParams,
-}: {
-  searchParams: { error?: string; success?: string; draft?: string };
+export default async function NewsletterAdminPage(props: {
+  searchParams: Promise<{ error?: string; success?: string; draft?: string }>;
 }) {
-  const { locale, t } = getDictionary();
-  const supabase = createClient();
+  const searchParams = await props.searchParams;
+  const { locale, t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

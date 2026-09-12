@@ -6,9 +6,9 @@ import { AuthActions } from "@/components/auth-actions";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { isLoggedIn } from "@/lib/auth/session";
 
-export function SiteHeader() {
-  const { locale, t } = getDictionary();
-  const loggedIn = isLoggedIn();
+export async function SiteHeader() {
+  const { locale, t } = await getDictionary();
+  const loggedIn = await isLoggedIn();
 
   const marketingNavLinks = [
     { href: "/chi-siamo", label: t.nav.chiSiamo },

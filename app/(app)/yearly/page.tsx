@@ -5,13 +5,13 @@ import { moneyFormatter } from "@/lib/currency";
 import { getUserCurrency } from "@/lib/currency-server";
 
 export default async function YearlyPage() {
-  const { locale, t } = getDictionary();
+  const { locale, t } = await getDictionary();
   const valuta = await getUserCurrency();
   const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
   const pct1 = (n: number) =>
     n.toLocaleString(locale === "it" ? "it-IT" : "en-IE", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: transactions } = await supabase.from("transactions").select("*").is("deleted_at", null);
   const rows = transactions || [];
 

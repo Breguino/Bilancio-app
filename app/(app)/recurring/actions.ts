@@ -14,8 +14,8 @@ function revalidateAll() {
 }
 
 export async function addRecurring(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -56,8 +56,8 @@ export async function addRecurring(formData: FormData) {
 }
 
 export async function toggleRecurring(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -97,8 +97,8 @@ export async function toggleRecurring(formData: FormData) {
 }
 
 export async function deleteRecurring(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

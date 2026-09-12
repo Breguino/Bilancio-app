@@ -6,10 +6,10 @@ import { createClient } from "@/lib/supabase/server";
 
 export async function requestPasswordReset(formData: FormData) {
   const email = String(formData.get("email") || "").trim();
-  const origin = headers().get("origin");
+  const origin = (await headers()).get("origin");
 
   if (email) {
-    const supabase = createClient();
+    const supabase = await createClient();
     // Non controlliamo né segnaliamo l'esito: rispondere diversamente a seconda
     // che l'email esista rivelerebbe quali indirizzi hanno un account (user
     // enumeration). Mostriamo sempre lo stesso messaggio di conferma.

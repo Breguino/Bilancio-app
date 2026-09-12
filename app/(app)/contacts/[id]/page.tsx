@@ -12,18 +12,17 @@ import { X } from "lucide-react";
 import { moneyFormatter } from "@/lib/currency";
 import { getUserCurrency } from "@/lib/currency-server";
 
-export default async function ContactDetailPage({
-  params,
-  searchParams,
-}: {
-  params: { id: string };
-  searchParams: { error?: string; success?: string };
+export default async function ContactDetailPage(props: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ error?: string; success?: string }>;
 }) {
-  const { locale, t } = getDictionary();
+  const searchParams = await props.searchParams;
+  const params = await props.params;
+  const { locale, t } = await getDictionary();
   const valuta = await getUserCurrency();
   const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const [{ data: contact }, { data: notes }, { data: transactions }] = await Promise.all([
     supabase.from("contacts").select("*").eq("id", params.id).maybeSingle(),

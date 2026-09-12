@@ -17,8 +17,8 @@ import { getLocale } from "@/lib/i18n/get-locale";
 // della home e il canonical "/": stanno nella sitemap e sono aperte ai motori,
 // ma dichiaravano che la pagina vera era un'altra, quindi non venivano
 // indicizzate.
-export function generateMetadata(): Metadata {
-  const { metaTitle: title, metaDescription: description } = dictionaryFor(getLocale()).auth.login;
+export async function generateMetadata(): Promise<Metadata> {
+  const { metaTitle: title, metaDescription: description } = dictionaryFor(await getLocale()).auth.login;
   return {
     title,
     description,
@@ -27,12 +27,11 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function LoginPage({
-  searchParams,
-}: {
-  searchParams: { error?: string; next?: string };
+export default async function LoginPage(props: {
+  searchParams: Promise<{ error?: string; next?: string }>;
 }) {
-  const { t } = getDictionary();
+  const searchParams = await props.searchParams;
+  const { t } = await getDictionary();
 
   return (
     // my-auto sul figlio, non items-center sul padre: se il contenuto supera il

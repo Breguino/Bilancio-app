@@ -10,7 +10,7 @@ export async function login(formData: FormData) {
   const password = String(formData.get("password") || "");
   const next = safeNext(String(formData.get("next") || "/dashboard"));
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {

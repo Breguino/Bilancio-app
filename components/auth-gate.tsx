@@ -8,12 +8,12 @@ import { isLoggedIn } from "@/lib/auth/session";
 //
 // I due rami restano JSX già pronto (non una render prop) perché così le
 // pagine possono passarli senza dover diventare Client Component.
-export function AuthGate({
+export async function AuthGate({
   loggedIn,
   loggedOut,
 }: {
   loggedIn: React.ReactNode;
   loggedOut: React.ReactNode;
 }) {
-  return <>{isLoggedIn() ? loggedIn : loggedOut}</>;
+  return <>{(await isLoggedIn()) ? loggedIn : loggedOut}</>;
 }

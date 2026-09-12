@@ -16,7 +16,7 @@ export type SendResult =
 // (usato dal cron mensile, che non sa quale bozza scegliere tra più
 // disponibili).
 export async function sendDraftNewsletter(siteUrl: string, issueId?: string): Promise<SendResult> {
-  const { t } = getDictionary();
+  const { t } = await getDictionary();
   const supabase = createAdminClient();
 
   const { data: issue } = await (issueId

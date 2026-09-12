@@ -10,7 +10,7 @@ import { toCurrency, type Currency } from "@/lib/currency";
 //
 // Quale riga torni lo decide la RLS: un utente vede solo il proprio profilo.
 export const getUserCurrency = cache(async (): Promise<Currency> => {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data } = await supabase.from("profiles").select("currency").maybeSingle();
   return toCurrency(data?.currency);
 });

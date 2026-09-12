@@ -8,12 +8,11 @@ import { SubmitButton } from "@/components/submit-button";
 import { AuthLegalFooter } from "@/components/auth-legal";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
-export default function ImpostaPasswordPage({
-  searchParams,
-}: {
-  searchParams: { error?: string };
+export default async function ImpostaPasswordPage(props: {
+  searchParams: Promise<{ error?: string }>;
 }) {
-  const { t } = getDictionary();
+  const searchParams = await props.searchParams;
+  const { t } = await getDictionary();
 
   return (
     <main className="min-h-screen flex justify-center px-6 py-10">

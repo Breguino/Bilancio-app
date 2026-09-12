@@ -9,10 +9,10 @@ import { hasSessionCookie } from "./session-cookie";
 // chi visita una pagina pubblica.
 //
 // Non è un controllo di sicurezza e non deve diventarlo: la sicurezza vera
-// resta middleware + RLS lato server. Vale comunque quanto il precedente
+// resta proxy + RLS lato server. Vale comunque quanto il precedente
 // `getSession()` lato client, che allo stesso modo si fidava del token locale
-// senza validarlo; anzi qui il middleware ha appena rinnovato o ripulito i
+// senza validarlo; anzi qui il proxy ha appena rinnovato o ripulito i
 // cookie con `getUser()`, quindi il segnale è semmai più fresco.
-export function isLoggedIn() {
-  return hasSessionCookie(cookies().getAll());
+export async function isLoggedIn() {
+  return hasSessionCookie((await cookies()).getAll());
 }

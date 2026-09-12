@@ -903,14 +903,9 @@ const en: Dictionary = {
     lastUpdatedPrefix: "Last updated:",
     entries: [
       {
-        date: "2026-09-13",
-        items: [
-          "Every page of the site is thirty-four kilobytes lighter: from 121 down to 87. There was an error-reporting system that was never switched on — so it downloaded on every visit and did nothing — and it has been removed. The error page is still there, and still readable.",
-        ],
-      },
-      {
         date: "2026-09-12",
         items: [
+          "Every page of the site is thirty-four kilobytes lighter: from 121 down to 87. There was an error-reporting system that was never switched on — so it downloaded on every visit and did nothing — and it has been removed. The error page is still there, and still readable.",
           "Bilancino can be installed on your phone. From the browser, with \"Add to Home Screen\" or by accepting the install prompt: the icon joins your apps and opens full screen, with no address bar, straight onto the Overview.",
           "It is not an app that works offline, and that is deliberate: the data always comes from the server, so what you read is what is actually there — a stale balance shown with confidence would be worse than an error. Only the site's own files are kept, so they are not downloaded again every time you open it.",
           "Bilancino is no longer euro-only. Settings now let you pick the account currency from twelve, and the whole app follows: overview, budgets, goals, contacts, charts, receipts. There are no conversions and no exchange rates — what changes is how the figures are written, not the figures.",
@@ -919,6 +914,7 @@ const en: Dictionary = {
           "Search across transactions was already there, but it sat behind the \"More filters\" button, which gave no hint of containing it. The box is now in plain sight above the list, and it searches every month.",
           "Searching now also looks at the category and the contact's name, not just the description. Searching \"Verdi\" now finds the expenses tied to Verdi even when that name never appears in the description: before, nothing came back.",
           "When more transactions match than the page can show, it now says so. Before it stopped at the first two hundred and wrote \"200 transactions\", which looked like a total and wasn't.",
+          "Under the hood: the foundations the site is built on have been updated. Nothing you see changes; it is what keeps the security fixes coming and stops a backlog that gets more expensive every month.",
         ],
       },
       {

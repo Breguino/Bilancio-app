@@ -38,6 +38,10 @@ export default function GlobalError({ error }: { error: Error & { digest?: strin
           <p style={{ margin: "0 0 20px", color: "#55565f", fontSize: "14px" }}>
             La pagina non è riuscita a caricarsi. Riprova fra un momento.
           </p>
+          {/* Qui il layout radice è saltato e con lui il router di Next:
+              `next/link` non avrebbe niente su cui navigare, e un
+              ricaricamento pieno è esattamente la via d'uscita che serve. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a
             href="/"
             style={{

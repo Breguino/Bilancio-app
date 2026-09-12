@@ -9,8 +9,8 @@ import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { SITE_URL } from "@/lib/site-url";
 
-export function generateMetadata(): Metadata {
-  const t = dictionaryFor(getLocale());
+export async function generateMetadata(): Promise<Metadata> {
+  const t = dictionaryFor(await getLocale());
   const { metaTitle: title, metaDescription: description } = t.chiSiamo;
   return {
     title,
@@ -20,7 +20,7 @@ export function generateMetadata(): Metadata {
       title,
       description,
       images: ["/og-image.jpg"],
-      locale: getLocale() === "it" ? "it_IT" : "en_US",
+      locale: (await getLocale()) === "it" ? "it_IT" : "en_US",
       type: "website",
     },
     twitter: {
@@ -32,8 +32,8 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function ChiSiamoPage() {
-  const t = dictionaryFor(getLocale());
+export default async function ChiSiamoPage() {
+  const t = dictionaryFor(await getLocale());
 
   return (
     <div className="min-h-screen">

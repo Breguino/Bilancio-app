@@ -25,8 +25,8 @@ import {
   Upload,
 } from "lucide-react";
 
-export function generateMetadata(): Metadata {
-  const t = dictionaryFor(getLocale());
+export async function generateMetadata(): Promise<Metadata> {
+  const t = dictionaryFor(await getLocale());
   const { metaTitle: title, metaDescription: description } = t.cosaOffriamo;
   return {
     title,
@@ -36,7 +36,7 @@ export function generateMetadata(): Metadata {
       title,
       description,
       images: ["/og-image.jpg"],
-      locale: getLocale() === "it" ? "it_IT" : "en_US",
+      locale: (await getLocale()) === "it" ? "it_IT" : "en_US",
       type: "website",
     },
     twitter: { card: "summary_large_image", title, description, images: ["/og-image.jpg"] },
@@ -50,8 +50,8 @@ const groupIcons = [
   [Download, Upload],
 ];
 
-export default function CosaOffriamoPage() {
-  const t = dictionaryFor(getLocale());
+export default async function CosaOffriamoPage() {
+  const t = dictionaryFor(await getLocale());
 
   const groups = t.cosaOffriamo.groups.map((group, gi) => ({
     ...group,

@@ -41,8 +41,8 @@ const jsonLd = {
   publisher: { "@type": "Organization", name: "Bilancino" },
 };
 
-export default function ContiPersonaliELavoroPage() {
-  const t = dictionaryFor(getLocale());
+export default async function ContiPersonaliELavoroPage() {
+  const t = dictionaryFor(await getLocale());
 
   return (
     <div className="min-h-screen">

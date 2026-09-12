@@ -6,8 +6,8 @@ import { track } from "@vercel/analytics/server";
 import { createClient } from "@/lib/supabase/server";
 
 export async function signInWithGoogle() {
-  const origin = headers().get("origin");
-  const supabase = createClient();
+  const origin = (await headers()).get("origin");
+  const supabase = await createClient();
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",

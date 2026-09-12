@@ -11,7 +11,7 @@ export async function subscribeToNewsletter(
   _prevState: SubscribeState,
   formData: FormData
 ): Promise<SubscribeState> {
-  const { t } = getDictionary();
+  const { t } = await getDictionary();
   const email = String(formData.get("email") || "").trim().toLowerCase();
 
   if (!EMAIL_PATTERN.test(email)) {

@@ -10,7 +10,7 @@ import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { SITE_URL } from "@/lib/site-url";
 
 async function assertOwner() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -22,7 +22,7 @@ async function assertOwner() {
 
 export async function saveDraft(formData: FormData) {
   await assertOwner();
-  const { t } = getDictionary();
+  const { t } = await getDictionary();
 
   const subject = String(formData.get("subject") || "").trim();
   const bodyHtml = formatNewsletterBody(String(formData.get("body_html") || ""));
@@ -64,7 +64,7 @@ export async function saveDraft(formData: FormData) {
 
 export async function deleteDraft(formData: FormData) {
   await assertOwner();
-  const { t } = getDictionary();
+  const { t } = await getDictionary();
   const id = String(formData.get("id") || "").trim();
 
   const admin = createAdminClient();
@@ -84,7 +84,7 @@ export async function deleteDraft(formData: FormData) {
 
 export async function sendNow(formData: FormData) {
   await assertOwner();
-  const { t } = getDictionary();
+  const { t } = await getDictionary();
   const id = String(formData.get("id") || "").trim();
 
   const origin = SITE_URL;
