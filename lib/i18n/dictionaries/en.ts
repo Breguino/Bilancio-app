@@ -528,6 +528,12 @@ const en: Dictionary = {
     importTitle: "Import a CSV file with columns Date, Description, Category, Client, Amount",
     importHint:
       "Same columns as the exported CSV (Date, Description, Category, Client, Amount). Clients are only linked if the name matches an existing contact exactly.",
+    searchAllPlaceholder: "Search across all transactions…",
+    searchSubmit: "Search",
+    searchClear: "Clear the search",
+    searchResultsFor: "Results for “{q}”, across every month.",
+    searchTruncated:
+      "More than {n} transactions match: these are the first {n}, newest first. Narrow the dates or add a word to reach the one you want.",
     searchLabel: "Search",
     descriptionPlaceholder: "Description…",
     categoryLabel: "Category",
@@ -890,6 +896,14 @@ const en: Dictionary = {
     lastUpdatedPrefix: "Last updated:",
     entries: [
       {
+        date: "2026-09-12",
+        items: [
+          "Search across transactions was already there, but it sat behind the \"More filters\" button, which gave no hint of containing it. The box is now in plain sight above the list, and it searches every month.",
+          "Searching now also looks at the category and the contact's name, not just the description. Searching \"Verdi\" now finds the expenses tied to Verdi even when that name never appears in the description: before, nothing came back.",
+          "When more transactions match than the page can show, it now says so. Before it stopped at the first two hundred and wrote \"200 transactions\", which looked like a total and wasn't.",
+        ],
+      },
+      {
         date: "2026-09-09",
         items: [
           "Every update on this page now has an address of its own: you can link to a single date instead of saying \"scroll down to late August\". Click an entry's date to grab its link.",
@@ -1019,7 +1033,6 @@ const en: Dictionary = {
     ideasBody:
       "As with the rest of Bilancino, I'd rather not promise dates or features before actually building them. This is just the list of things I'm thinking about right now. They might change, get scaled down, or never arrive.",
     ideas: [
-      "A search across transactions. Today you filter by month, by type and by category: to find one particular expense you have to remember when it happened, and the more transactions there are the more awkward that gets.",
       "Currencies other than the euro. Right now the euro is the only one there is, written into the code: anyone taking payment in francs or pounds can't use Bilancino for the work side.",
       "Evaluating an installable version (PWA) for more convenient mobile use.",
     ],
