@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AnalyticsConsent } from "@/components/analytics-consent";
+import { ServiceWorker } from "@/components/service-worker";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { gaMeasurementId } from "@/lib/analytics";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
@@ -13,6 +14,16 @@ import { SITE_URL } from "@/lib/site-url";
 // rende diverso su ogni computer. Inter per il testo, Fraunces per i titoli.
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
+
+// Il colore della barra di sistema quando l'app è installata. Il manifesto ne
+// dichiara uno solo; qui se ne danno due, uno per tema, così la barra segue la
+// pagina invece di restare chiara sopra uno sfondo quasi nero.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbfbf8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b10" },
+  ],
+};
 
 export function generateMetadata(): Metadata {
   const locale = getLocale();
@@ -24,6 +35,18 @@ export function generateMetadata(): Metadata {
     description,
     alternates: {
       canonical: "/",
+    },
+    // iOS non ricava tutto dal manifesto: l'icona sulla schermata Home la
+    // prende da qui, e senza "capable" l'app aggiunta si aprirebbe dentro
+    // Safari con la barra degli indirizzi, cioè non come un'app.
+    appleWebApp: {
+      capable: true,
+      title: "Bilancino",
+      statusBarStyle: "default",
+    },
+    icons: {
+      icon: "/icon.svg",
+      apple: "/apple-touch-icon.png",
     },
     robots: {
       index: true,
@@ -67,6 +90,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
         <Analytics />
+        <ServiceWorker />
         <AnalyticsConsent
           gaId={gaMeasurementId()}
           message={t.cookieConsent.message}

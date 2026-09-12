@@ -905,6 +905,8 @@ const en: Dictionary = {
       {
         date: "2026-09-12",
         items: [
+          "Bilancino can be installed on your phone. From the browser, with \"Add to Home Screen\" or by accepting the install prompt: the icon joins your apps and opens full screen, with no address bar, straight onto the Overview.",
+          "It is not an app that works offline, and that is deliberate: the data always comes from the server, so what you read is what is actually there — a stale balance shown with confidence would be worse than an error. Only the site's own files are kept, so they are not downloaded again every time you open it.",
           "Bilancino is no longer euro-only. Settings now let you pick the account currency from twelve, and the whole app follows: overview, budgets, goals, contacts, charts, receipts. There are no conversions and no exchange rates — what changes is how the figures are written, not the figures.",
           "CSV import now accepts amounts with any currency symbol in front, not just the euro: \"CHF 120.50\", \"£120.50\", \"$120.50\". Those rows used to be dropped with no explanation.",
           "Fixed an import defect that rarely showed up while everything was in euros: in an English-formatted file, \"1,234.50\" was read as one point two instead of one thousand two hundred and thirty-four. The decimal separator is now recognised by its position, so both formats work.",
@@ -1042,10 +1044,11 @@ const en: Dictionary = {
     ideasTitle: "Ideas, not promises",
     ideasBody:
       "As with the rest of Bilancino, I'd rather not promise dates or features before actually building them. This is just the list of things I'm thinking about right now. They might change, get scaled down, or never arrive.",
-    ideas: [
-      "Currencies other than the euro. Right now the euro is the only one there is, written into the code: anyone taking payment in francs or pounds can't use Bilancino for the work side.",
-      "Evaluating an installable version (PWA) for more convenient mobile use.",
-    ],
+    // Empty for now, and better empty than filled with things already
+    // shipped: the two that were here — other currencies and the installable
+    // version — both went out on 12 September. The section disappears from the
+    // page until there is something real to put back.
+    ideas: [] as string[],
   },
   privacy: {
     metaTitle: "Privacy — Bilancino",
