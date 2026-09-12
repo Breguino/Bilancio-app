@@ -1,18 +1,18 @@
 "use client";
 
 import { useEffect } from "react";
-import * as Sentry from "@sentry/nextjs";
 
 // L'ultima rete: error.tsx sta dentro il layout, quindi non può catturare un
 // errore del layout stesso. Quando salta quello, salta anche l'HTML intorno —
 // per questo qui ci sono <html> e <body>, e nessuna classe del tema: è il caso
 // in cui non si può dare per buono niente di quello che c'è sopra.
 //
-// Succede raramente. È esattamente il guasto di cui altrimenti non sapremmo
-// mai niente.
+// Succede raramente, e resta anche senza il monitoraggio degli errori: il suo
+// lavoro non è segnalare il guasto a noi, è dare a chi lo incontra una pagina
+// leggibile invece di uno schermo bianco.
 export default function GlobalError({ error }: { error: Error & { digest?: string } }) {
   useEffect(() => {
-    Sentry.captureException(error);
+    console.error(error);
   }, [error]);
 
   return (
