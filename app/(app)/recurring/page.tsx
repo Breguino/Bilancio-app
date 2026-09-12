@@ -8,6 +8,8 @@ import { addRecurring, deleteRecurring, toggleRecurring } from "./actions";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { PageHeader } from "@/components/page-header";
 import { X } from "lucide-react";
+import { moneyFormatter } from "@/lib/currency";
+import { getUserCurrency } from "@/lib/currency-server";
 
 export default async function RecurringPage({
   searchParams,
@@ -15,11 +17,8 @@ export default async function RecurringPage({
   searchParams: { error?: string; success?: string };
 }) {
   const { locale, t } = getDictionary();
-  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
-    style: "currency",
-    currency: "EUR",
-    useGrouping: true,
-  });
+  const valuta = await getUserCurrency();
+  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
   const frequencyLabels: Record<string, string> = {
     weekly: t.recurring.frequencyWeekly,
     monthly: t.recurring.frequencyMonthly,
@@ -172,12 +171,12 @@ export default async function RecurringPage({
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900">
           <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">{t.recurring.perMonthOut}</p>
-          <p className="text-[22px] font-bold num">{eur.format(usciteMese)}</p>
+          <p className="text-[22px] font-bold num">{soldi.format(usciteMese)}</p>
           <p className="text-xs text-ink-muted dark:text-neutral-500 mt-1">{quante(nUscite)}</p>
         </div>
         <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900">
           <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">{t.recurring.perMonthIn}</p>
-          <p className="text-[22px] font-bold num">{eur.format(entrateMese)}</p>
+          <p className="text-[22px] font-bold num">{soldi.format(entrateMese)}</p>
           <p className="text-xs text-ink-muted dark:text-neutral-500 mt-1">{quante(nEntrate)}</p>
         </div>
         <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900">
@@ -236,7 +235,7 @@ export default async function RecurringPage({
                     }`}
                   >
                     {r.amount > 0 ? "+" : "−"}
-                    {eur.format(Math.abs(Number(r.amount)))}
+                    {soldi.format(Math.abs(Number(r.amount)))}
                   </span>
                   <form action={toggleRecurring} className="flex items-center">
                     <input type="hidden" name="id" value={r.id} />

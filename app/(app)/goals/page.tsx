@@ -7,6 +7,8 @@ import { PageHeader } from "@/components/page-header";
 import { X } from "lucide-react";
 import { addGoal, contribute, deleteGoal } from "./actions";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { moneyFormatter } from "@/lib/currency";
+import { getUserCurrency } from "@/lib/currency-server";
 
 // Raggio e circonferenza dell'anello: servono a tradurre la percentuale in un
 // tratteggio, che e' come si disegna un arco in SVG.
@@ -19,12 +21,9 @@ export default async function GoalsPage({
   searchParams: { error?: string; success?: string };
 }) {
   const { locale, t } = getDictionary();
+  const valuta = await getUserCurrency();
   const intlLocale = locale === "it" ? "it-IT" : "en-IE";
-  const eur = new Intl.NumberFormat(intlLocale, {
-    style: "currency",
-    currency: "EUR",
-    useGrouping: true,
-  });
+  const soldi = moneyFormatter(intlLocale, valuta);
   const pct1 = (n: number) =>
     n.toLocaleString(intlLocale, { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
 
@@ -93,9 +92,9 @@ export default async function GoalsPage({
           <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
             <span className="text-sm text-ink-secondary dark:text-neutral-400">
               {t.goals.setAsidePre}{" "}
-              <strong className="num text-ink dark:text-neutral-100">{eur.format(totalSaved)}</strong>{" "}
+              <strong className="num text-ink dark:text-neutral-100">{soldi.format(totalSaved)}</strong>{" "}
               {t.goals.setAsideOf}{" "}
-              <strong className="num text-ink dark:text-neutral-100">{eur.format(totalTarget)}</strong>{" "}
+              <strong className="num text-ink dark:text-neutral-100">{soldi.format(totalTarget)}</strong>{" "}
               {t.goals.setAsideSuffix}
             </span>
             <div className="flex-1 h-1.5 rounded-full bg-surface-alt dark:bg-neutral-800 max-w-xs">
@@ -152,13 +151,13 @@ export default async function GoalsPage({
                       ) : null}
                     </p>
                     <p className="text-sm num mt-1">
-                      {eur.format(Number(g.saved))}{" "}
-                      <span className="text-ink-muted dark:text-neutral-500">/ {eur.format(Number(g.target))}</span>
+                      {soldi.format(Number(g.saved))}{" "}
+                      <span className="text-ink-muted dark:text-neutral-500">/ {soldi.format(Number(g.target))}</span>
                     </p>
                     <p className="text-xs text-ink-muted dark:text-neutral-500 mt-1.5">
                       {reached
                         ? t.goals.reachedSuffix.replace(/^—\s*/, "")
-                        : `${t.goals.missingPre} ${eur.format(missing)}`}
+                        : `${t.goals.missingPre} ${soldi.format(missing)}`}
                     </p>
 
                     <form action={contribute} className="flex flex-wrap items-center gap-2 mt-3">

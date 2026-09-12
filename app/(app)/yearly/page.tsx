@@ -1,14 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { ArrowDown, ArrowUp, Minus } from "lucide-react";
+import { moneyFormatter } from "@/lib/currency";
+import { getUserCurrency } from "@/lib/currency-server";
 
 export default async function YearlyPage() {
   const { locale, t } = getDictionary();
-  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
-    style: "currency",
-    currency: "EUR",
-    useGrouping: true,
-  });
+  const valuta = await getUserCurrency();
+  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
   const pct1 = (n: number) =>
     n.toLocaleString(locale === "it" ? "it-IT" : "en-IE", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
 
@@ -80,15 +79,15 @@ export default async function YearlyPage() {
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900">
           <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">{t.yearly.totalIncome}</p>
-          <p className="text-xl font-bold num">{eur.format(income)}</p>
+          <p className="text-xl font-bold num">{soldi.format(income)}</p>
         </div>
         <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900">
           <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">{t.yearly.totalExpense}</p>
-          <p className="text-xl font-bold num">{eur.format(expense)}</p>
+          <p className="text-xl font-bold num">{soldi.format(expense)}</p>
         </div>
         <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900">
           <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">{t.yearly.netSavings}</p>
-          <p className="text-xl font-bold num">{eur.format(net)}</p>
+          <p className="text-xl font-bold num">{soldi.format(net)}</p>
         </div>
         <div className="border border-border dark:border-neutral-800 rounded-xl p-4 bg-white dark:bg-neutral-900">
           <p className="text-xs font-semibold uppercase text-ink-muted dark:text-neutral-500 mb-1">{t.yearly.savingsRate}</p>
@@ -119,12 +118,12 @@ export default async function YearlyPage() {
                     <span
                       className="flex-1 max-w-[22px] rounded-t bg-accent"
                       style={{ height: `${(voce.entrate / massimoMese) * 100}%` }}
-                      title={`${t.home.entrate}: ${eur.format(voce.entrate)}`}
+                      title={`${t.home.entrate}: ${soldi.format(voce.entrate)}`}
                     />
                     <span
                       className="flex-1 max-w-[22px] rounded-t bg-border dark:bg-neutral-700"
                       style={{ height: `${(voce.uscite / massimoMese) * 100}%` }}
-                      title={`${t.home.uscite}: ${eur.format(voce.uscite)}`}
+                      title={`${t.home.uscite}: ${soldi.format(voce.uscite)}`}
                     />
                   </div>
                   <span
@@ -155,7 +154,7 @@ export default async function YearlyPage() {
                 <div key={r.category}>
                   <div className="flex items-center justify-between text-sm mb-1">
                     <span className="font-medium">{r.category}</span>
-                    <span className="num">{eur.format(r.value)}</span>
+                    <span className="num">{soldi.format(r.value)}</span>
                   </div>
                   <div className="h-2.5 rounded bg-surface-alt dark:bg-neutral-800 overflow-hidden">
                     <div className="bar-fill h-full rounded bg-accent" style={{ width: `${width}%` }} />
@@ -180,7 +179,7 @@ export default async function YearlyPage() {
                 <span className="block">{t.yearly.bestMonth}</span>
                 <span className="block text-xs text-ink-muted dark:text-neutral-500">{etichettaMeseLunga(migliore.chiave)}</span>
               </span>
-              <span className="num font-semibold ml-auto shrink-0">{eur.format(migliore.valore)}</span>
+              <span className="num font-semibold ml-auto shrink-0">{soldi.format(migliore.valore)}</span>
             </div>
             <div className="flex items-center gap-3 text-sm">
               <span className="w-8 h-8 rounded-full bg-red-50 text-red-600 dark:bg-red-950/40 dark:text-red-400 flex items-center justify-center shrink-0">
@@ -190,7 +189,7 @@ export default async function YearlyPage() {
                 <span className="block">{t.yearly.worstMonth}</span>
                 <span className="block text-xs text-ink-muted dark:text-neutral-500">{etichettaMeseLunga(peggiore.chiave)}</span>
               </span>
-              <span className="num font-semibold ml-auto shrink-0">{eur.format(peggiore.valore)}</span>
+              <span className="num font-semibold ml-auto shrink-0">{soldi.format(peggiore.valore)}</span>
             </div>
             <div className="flex items-center gap-3 text-sm">
               <span className="w-8 h-8 rounded-full bg-surface-alt text-ink-secondary dark:bg-neutral-800 dark:text-neutral-400 flex items-center justify-center shrink-0">
@@ -200,7 +199,7 @@ export default async function YearlyPage() {
                 <span className="block">{t.yearly.averageMonth}</span>
                 <span className="block text-xs text-ink-muted dark:text-neutral-500">{t.yearly.averageMonthSub}</span>
               </span>
-              <span className="num font-semibold ml-auto shrink-0">{eur.format(mediaMensile)}</span>
+              <span className="num font-semibold ml-auto shrink-0">{soldi.format(mediaMensile)}</span>
             </div>
           </div>
         </div>

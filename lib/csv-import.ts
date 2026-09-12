@@ -80,13 +80,27 @@ function parseDate(raw: string): string | null {
 }
 
 function parseAmount(raw: string): number | null {
-  let s = unescapeCsvField(raw).trim().replace(/[€\s]/g, "");
+  // Si toglie tutto quello che non è una cifra, un separatore o il segno meno.
+  // Prima si toglieva solo l'euro e gli spazi, perché l'euro era l'unica valuta
+  // possibile: un estratto conto con "CHF 120.00" o "£120" veniva scartato
+  // riga per riga, senza spiegare perché. Sopravvivono i separatori, che
+  // servono a capire se 1.234 è milleduecento o uno virgola due.
+  let s = unescapeCsvField(raw).trim().replace(/[^\d,.-]/g, "");
   if (!s) return null;
-  const hasComma = s.includes(",");
-  const hasDot = s.includes(".");
-  if (hasComma && hasDot) {
-    s = s.replace(/\./g, "").replace(",", ".");
-  } else if (hasComma) {
+  // Quale dei due separatori è quello dei decimali lo dice la posizione:
+  // l'ultimo che compare. In "1.234,50" è la virgola, in "1,234.50" è il punto.
+  // Prima si dava per scontato il formato italiano, e un file in formato
+  // inglese — cioè quello che esporta una banca britannica o americana —
+  // leggeva 1.234,50 dove c'era 1234,50: sbagliato di mille volte, e in
+  // silenzio. Con l'euro come unica valuta capitava di rado; con le valute
+  // aperte sarebbe la norma.
+  const ultimaVirgola = s.lastIndexOf(",");
+  const ultimoPunto = s.lastIndexOf(".");
+  if (ultimaVirgola >= 0 && ultimoPunto >= 0) {
+    const decimale = ultimaVirgola > ultimoPunto ? "," : ".";
+    const migliaia = decimale === "," ? "." : ",";
+    s = s.split(migliaia).join("").replace(decimale, ".");
+  } else if (ultimaVirgola >= 0) {
     s = s.replace(",", ".");
   }
   const n = parseFloat(s);

@@ -4,6 +4,8 @@ import { ErrorBanner } from "@/components/error-banner";
 import { Toast } from "@/components/toast";
 import { restoreTransaction, permanentlyDeleteTransaction } from "../dashboard/actions";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { moneyFormatter } from "@/lib/currency";
+import { getUserCurrency } from "@/lib/currency-server";
 
 export default async function CestinoPage({
   searchParams,
@@ -11,11 +13,8 @@ export default async function CestinoPage({
   searchParams: { success?: string; error?: string };
 }) {
   const { locale, t } = getDictionary();
-  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
-    style: "currency",
-    currency: "EUR",
-    useGrouping: true,
-  });
+  const valuta = await getUserCurrency();
+  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
 
   const supabase = createClient();
   const { data: trashed } = await supabase
@@ -78,7 +77,7 @@ export default async function CestinoPage({
                     }`}
                   >
                     {tx.amount > 0 ? "+" : "−"}
-                    {eur.format(Math.abs(Number(tx.amount)))}
+                    {soldi.format(Math.abs(Number(tx.amount)))}
                   </span>
                   <form action={restoreTransaction}>
                     <input type="hidden" name="id" value={tx.id} />

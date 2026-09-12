@@ -3,14 +3,13 @@ import { createClient } from "@/lib/supabase/server";
 import { Logo } from "@/components/logo";
 import { PrintButton } from "@/components/print-button";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { moneyFormatter } from "@/lib/currency";
+import { getUserCurrency } from "@/lib/currency-server";
 
 export default async function ReceiptPage({ params }: { params: { id: string } }) {
   const { locale, t } = getDictionary();
-  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
-    style: "currency",
-    currency: "EUR",
-    useGrouping: true,
-  });
+  const valuta = await getUserCurrency();
+  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
   const dateFmt = new Intl.DateTimeFormat(locale === "it" ? "it-IT" : "en-GB", {
     day: "2-digit",
     month: "long",
@@ -88,13 +87,13 @@ export default async function ReceiptPage({ params }: { params: { id: string } }
                 <span className="text-ink-muted dark:text-neutral-500"> · {transaction.category}</span>
               ) : null}
             </span>
-            <span className="num font-medium shrink-0">{eur.format(Number(transaction.amount))}</span>
+            <span className="num font-medium shrink-0">{soldi.format(Number(transaction.amount))}</span>
           </div>
         </div>
 
         <div className="flex items-center justify-between border-t border-ink dark:border-neutral-100 pt-4">
           <span className="font-bold">{t.receipt.totalReceived}</span>
-          <span className="num text-xl font-extrabold">{eur.format(Number(transaction.amount))}</span>
+          <span className="num text-xl font-extrabold">{soldi.format(Number(transaction.amount))}</span>
         </div>
       </div>
 

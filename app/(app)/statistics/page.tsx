@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { linearRegression, confidenceInterval95, sampleStdDev, zScoreOutliers } from "@/lib/statistics";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { TrendChart } from "@/components/trend-chart";
+import { moneyFormatter } from "@/lib/currency";
+import { getUserCurrency } from "@/lib/currency-server";
 
 function monthKey(dateStr: string) {
   return dateStr.slice(0, 7);
@@ -9,11 +11,8 @@ function monthKey(dateStr: string) {
 
 export default async function StatisticsPage() {
   const { locale, t } = getDictionary();
-  const eur = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
-    style: "currency",
-    currency: "EUR",
-    useGrouping: true,
-  });
+  const valuta = await getUserCurrency();
+  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
   const num2 = (n: number) => n.toLocaleString(locale === "it" ? "it-IT" : "en-IE", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
   const monthLabel = (key: string) => {
     const [y, m] = key.split("-").map(Number);
@@ -93,7 +92,7 @@ export default async function StatisticsPage() {
             <p className="text-sm mb-4">
               {t.statistics.trendPre} {regression.slope >= 0 ? t.statistics.increasing : t.statistics.decreasing}{" "}
               {t.statistics.trendMid}{" "}
-              <strong className="num">{eur.format(Math.abs(regression.slope))}</strong>{" "}
+              <strong className="num">{soldi.format(Math.abs(regression.slope))}</strong>{" "}
               {t.statistics.trendPost} {num2(regression.r2)}).
             </p>
             <div className="flex items-center gap-4 text-xs text-ink-secondary dark:text-neutral-400 mb-3">
@@ -109,7 +108,7 @@ export default async function StatisticsPage() {
               values={netSeries}
               forecast={forecasts}
               forecastLabels={forecasts.map((_, i) => `+${i + 1}`)}
-              format={(n) => eur.format(n)}
+              format={(n) => soldi.format(n)}
               ariaLabel={t.statistics.trendTitle}
             />
             {forecasts.length > 0 ? (
@@ -117,7 +116,7 @@ export default async function StatisticsPage() {
                 {forecasts.map((v, i) => (
                   <span key={`f${i}`} className="text-ink-secondary dark:text-neutral-400">
                     {t.statistics.forecastLabel.replace("{n}", String(i + 1))}:{" "}
-                    <b className="num font-semibold text-ink dark:text-neutral-100">{eur.format(v)}</b>
+                    <b className="num font-semibold text-ink dark:text-neutral-100">{soldi.format(v)}</b>
                   </span>
                 ))}
               </div>
@@ -135,22 +134,22 @@ export default async function StatisticsPage() {
           <p className="text-sm text-ink-muted dark:text-neutral-500">{t.statistics.noDataAvailable}</p>
         ) : !ci ? (
           <p className="text-sm text-ink-muted dark:text-neutral-500">
-            {t.statistics.singleMonthNoticeTemplate.replace("{amount}", eur.format(netSeries[0]))}
+            {t.statistics.singleMonthNoticeTemplate.replace("{amount}", soldi.format(netSeries[0]))}
           </p>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div>
               <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{t.statistics.monthlyAverage}</p>
-              <p className="num font-bold">{eur.format(ci.mean)}</p>
+              <p className="num font-bold">{soldi.format(ci.mean)}</p>
             </div>
             <div>
               <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{t.statistics.stdDev}</p>
-              <p className="num font-bold">{eur.format(stdDev)}</p>
+              <p className="num font-bold">{soldi.format(stdDev)}</p>
             </div>
             <div className="col-span-2">
               <p className="text-xs text-ink-muted dark:text-neutral-500 mb-1">{t.statistics.confidenceInterval95}</p>
               <p className="num font-bold">
-                {eur.format(ci.lower)} — {eur.format(ci.upper)}
+                {soldi.format(ci.lower)} — {soldi.format(ci.upper)}
               </p>
             </div>
           </div>
@@ -175,7 +174,7 @@ export default async function StatisticsPage() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="num text-red-600 dark:text-red-400 font-semibold">{eur.format(o.amount)}</span>
+                  <span className="num text-red-600 dark:text-red-400 font-semibold">{soldi.format(o.amount)}</span>
                   <span className="text-xs font-semibold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 rounded-full px-2 py-0.5">
                     z={o.zScore.toFixed(1)}
                   </span>
