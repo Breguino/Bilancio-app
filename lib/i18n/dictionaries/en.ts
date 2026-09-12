@@ -903,6 +903,12 @@ const en: Dictionary = {
     lastUpdatedPrefix: "Last updated:",
     entries: [
       {
+        date: "2026-09-13",
+        items: [
+          "Every page of the site is thirty-four kilobytes lighter: from 121 down to 87. There was an error-reporting system that was never switched on — so it downloaded on every visit and did nothing — and it has been removed. The error page is still there, and still readable.",
+        ],
+      },
+      {
         date: "2026-09-12",
         items: [
           "Bilancino can be installed on your phone. From the browser, with \"Add to Home Screen\" or by accepting the install prompt: the icon joins your apps and opens full screen, with no address bar, straight onto the Overview.",

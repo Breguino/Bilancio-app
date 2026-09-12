@@ -901,6 +901,12 @@ const it = {
     lastUpdatedPrefix: "Ultimo aggiornamento:",
     entries: [
       {
+        date: "2026-09-13",
+        items: [
+          "Ogni pagina del sito pesa trentaquattro kilobyte in meno: da 121 a 87. C'era un sistema di segnalazione degli errori che non è mai stato attivato — quindi si scaricava a ogni visita senza fare niente — ed è stato tolto. La pagina di errore continua a esserci, e resta leggibile.",
+        ],
+      },
+      {
         date: "2026-09-12",
         items: [
           "Bilancino si installa sul telefono. Dal browser, con \"Aggiungi alla schermata Home\" o accettando la proposta di installazione: l'icona finisce fra le tue app e si apre a schermo intero, senza la barra degli indirizzi, direttamente sulla Panoramica.",
