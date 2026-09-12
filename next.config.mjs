@@ -36,7 +36,18 @@ const nextConfig = {
     instrumentationHook: true,
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      {
+        // Il service worker non va tenuto in cache. È il file che decide come
+        // si comportano tutti gli altri: se il browser o la CDN ne servono una
+        // copia vecchia, una correzione può restare invisibile per ore a chi
+        // ne avrebbe bisogno. I browser recenti lo rileggono comunque, ma
+        // dirlo esplicitamente costa tre righe.
+        source: "/sw.js",
+        headers: [{ key: "Cache-Control", value: "public, max-age=0, must-revalidate" }],
+      },
+    ];
   },
   // Il pacchetto di Sentry porta con sé il tracing delle prestazioni e il
   // Session Replay. Qui non se ne usa nessuno dei due, ma restano nel bundle

@@ -106,6 +106,10 @@ export default function NovitaPage() {
           </div>
         </section>
 
+        {/* Quando non c'è niente in cantiere la sezione non si mostra affatto.
+            Una pagina "A cosa sto pensando" con sotto un riquadro vuoto sembra
+            rotta; con dentro cose già fatte è peggio, perché mente. */}
+        {t.novita.ideas.length > 0 ? (
         <section className="py-12 sm:py-14 border-t border-border dark:border-neutral-800">
           <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
@@ -129,6 +133,7 @@ export default function NovitaPage() {
             </ul>
           </Reveal>
         </section>
+        ) : null}
 
         <section className="py-14 sm:py-20 border-t border-border dark:border-neutral-800">
           <Reveal className="flex flex-col items-center text-center gap-5">

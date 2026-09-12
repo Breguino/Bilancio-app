@@ -903,6 +903,8 @@ const it = {
       {
         date: "2026-09-12",
         items: [
+          "Bilancino si installa sul telefono. Dal browser, con \"Aggiungi alla schermata Home\" o accettando la proposta di installazione: l'icona finisce fra le tue app e si apre a schermo intero, senza la barra degli indirizzi, direttamente sulla Panoramica.",
+          "Non è un'app che funziona senza rete, ed è voluto: i dati arrivano sempre dal server, quindi quello che leggi è quello che c'è davvero — un saldo vecchio mostrato con sicurezza sarebbe peggio di un errore. Restano in memoria solo i file del sito, che così non vengono riscaricati a ogni apertura.",
           "Bilancino non è più solo in euro. In Impostazioni si sceglie la valuta dell'account fra dodici, e da lì tutta l'app la usa: panoramica, budget, obiettivi, contatti, grafici, ricevute. Non ci sono conversioni né tassi di cambio — cambia come vengono scritte le cifre, non le cifre.",
           "L'import CSV accetta gli importi con qualunque simbolo davanti, non più solo l'euro: \"CHF 120.50\", \"£120.50\", \"$120.50\". Prima quelle righe venivano scartate senza spiegare perché.",
           "Corretto un difetto dell'import che con l'euro si vedeva di rado: in un file in formato inglese, \"1,234.50\" veniva letto come uno virgola due invece che milleduecentotrentaquattro. Adesso il separatore dei decimali si riconosce dalla posizione, quindi valgono tutti e due i formati.",
@@ -1040,10 +1042,11 @@ const it = {
     ideasTitle: "Idee, non promesse",
     ideasBody:
       "Come per il resto di Bilancino, preferisco non prometterti date o funzioni prima di averle davvero costruite. Questa è solo la lista di cose a cui sto pensando in questo momento. Potrebbero cambiare, essere ridimensionate o non arrivare mai.",
-    ideas: [
-      "Valute diverse dall'euro. Adesso l'euro è l'unica possibile, scritta fissa nel codice: chi incassa in franchi o in sterline non può usare Bilancino per la parte di lavoro.",
-      "Valutare una versione installabile (PWA) per un uso più comodo da mobile.",
-    ],
+    // Vuota, per ora, ed è meglio vuota che con dentro cose già fatte: le due
+    // che c'erano — le valute e la versione installabile — sono uscite
+    // entrambe il 12 settembre. La sezione sparisce dalla pagina finché non
+    // torna a esserci qualcosa di vero da scriverci.
+    ideas: [] as string[],
   },
   privacy: {
     metaTitle: "Privacy — Bilancino",
