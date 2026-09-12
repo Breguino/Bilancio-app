@@ -15,19 +15,18 @@ import { getUserCurrency } from "@/lib/currency-server";
 const RAGGIO = 30;
 const GIRO = 2 * Math.PI * RAGGIO;
 
-export default async function GoalsPage({
-  searchParams,
-}: {
-  searchParams: { error?: string; success?: string };
+export default async function GoalsPage(props: {
+  searchParams: Promise<{ error?: string; success?: string }>;
 }) {
-  const { locale, t } = getDictionary();
+  const searchParams = await props.searchParams;
+  const { locale, t } = await getDictionary();
   const valuta = await getUserCurrency();
   const intlLocale = locale === "it" ? "it-IT" : "en-IE";
   const soldi = moneyFormatter(intlLocale, valuta);
   const pct1 = (n: number) =>
     n.toLocaleString(intlLocale, { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: goals } = await supabase.from("goals").select("*").order("created_at");
   const rows = goals || [];
 

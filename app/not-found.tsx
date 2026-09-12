@@ -3,8 +3,8 @@ import { Brand } from "@/components/brand";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 
-export default function NotFound() {
-  const t = dictionaryFor(getLocale());
+export default async function NotFound() {
+  const t = dictionaryFor(await getLocale());
 
   return (
     <main className="min-h-screen flex justify-center px-6 py-10">

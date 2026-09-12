@@ -5,16 +5,16 @@ import { SiteFooter } from "@/components/site-footer";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 
-export function generateMetadata(): Metadata {
-  const t = dictionaryFor(getLocale());
+export async function generateMetadata(): Promise<Metadata> {
+  const t = dictionaryFor(await getLocale());
   return {
     title: t.newsletterUnsub.metaTitle,
     robots: { index: false, follow: false },
   };
 }
 
-export default function NewsletterUnsubscribedPage() {
-  const t = dictionaryFor(getLocale());
+export default async function NewsletterUnsubscribedPage() {
+  const t = dictionaryFor(await getLocale());
 
   return (
     <div className="min-h-screen">

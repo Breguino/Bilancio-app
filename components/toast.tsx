@@ -7,6 +7,10 @@ export function Toast({ message }: { message?: string }) {
 
   useEffect(() => {
     if (!message) return;
+    // serve per rifare comparire il messaggio quando ne arriva un altro a
+    // componente già montato: il valore iniziale dello stato copre solo il
+    // primo.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVisible(true);
     const hide = setTimeout(() => setVisible(false), 2200);
     const clean = setTimeout(() => {

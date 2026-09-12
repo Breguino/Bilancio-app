@@ -18,7 +18,7 @@ export async function signup(formData: FormData) {
   const firstName = String(formData.get("first_name") || "").trim();
   const lastName = String(formData.get("last_name") || "").trim();
   const birthDate = String(formData.get("birth_date") || "").trim();
-  const origin = headers().get("origin");
+  const origin = (await headers()).get("origin");
 
   // I campi sono già "required" nel form, ma il browser non è l'ultima parola:
   // la stessa richiesta può arrivare senza passare dall'HTML, quindi validiamo
@@ -37,7 +37,7 @@ export async function signup(formData: FormData) {
 
   await track("signup_started");
 
-  const supabase = createClient();
+  const supabase = await createClient();
   // I dati anagrafici viaggiano nei metadati della registrazione: con la
   // conferma email attiva non c'è ancora una sessione, quindi non potremmo
   // scrivere noi la riga in "profiles" (la RLS la bloccherebbe). Ci pensa il
@@ -59,7 +59,7 @@ export async function signup(formData: FormData) {
     redirect(`/signup?error=${authErrorCode(error)}`);
   }
 
-  cookies().set(PENDING_EMAIL_COOKIE, email, {
+  (await cookies()).set(PENDING_EMAIL_COOKIE, email, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
@@ -72,10 +72,10 @@ export async function signup(formData: FormData) {
 }
 
 export async function resendConfirmation() {
-  const email = cookies().get(PENDING_EMAIL_COOKIE)?.value;
+  const email = (await cookies()).get(PENDING_EMAIL_COOKIE)?.value;
 
   if (email) {
-    const supabase = createClient();
+    const supabase = await createClient();
     // Come per il reset password, l'esito non viene distinto: rispondere in
     // modo diverso a seconda che l'indirizzo esista o sia già confermato
     // direbbe a chiunque quali email hanno un account.

@@ -901,14 +901,9 @@ const it = {
     lastUpdatedPrefix: "Ultimo aggiornamento:",
     entries: [
       {
-        date: "2026-09-13",
-        items: [
-          "Ogni pagina del sito pesa trentaquattro kilobyte in meno: da 121 a 87. C'era un sistema di segnalazione degli errori che non è mai stato attivato — quindi si scaricava a ogni visita senza fare niente — ed è stato tolto. La pagina di errore continua a esserci, e resta leggibile.",
-        ],
-      },
-      {
         date: "2026-09-12",
         items: [
+          "Ogni pagina del sito pesa trentaquattro kilobyte in meno: da 121 a 87. C'era un sistema di segnalazione degli errori che non è mai stato attivato — quindi si scaricava a ogni visita senza fare niente — ed è stato tolto. La pagina di errore continua a esserci, e resta leggibile.",
           "Bilancino si installa sul telefono. Dal browser, con \"Aggiungi alla schermata Home\" o accettando la proposta di installazione: l'icona finisce fra le tue app e si apre a schermo intero, senza la barra degli indirizzi, direttamente sulla Panoramica.",
           "Non è un'app che funziona senza rete, ed è voluto: i dati arrivano sempre dal server, quindi quello che leggi è quello che c'è davvero — un saldo vecchio mostrato con sicurezza sarebbe peggio di un errore. Restano in memoria solo i file del sito, che così non vengono riscaricati a ogni apertura.",
           "Bilancino non è più solo in euro. In Impostazioni si sceglie la valuta dell'account fra dodici, e da lì tutta l'app la usa: panoramica, budget, obiettivi, contatti, grafici, ricevute. Non ci sono conversioni né tassi di cambio — cambia come vengono scritte le cifre, non le cifre.",
@@ -917,6 +912,7 @@ const it = {
           "La ricerca fra i movimenti c'era già, ma stava dietro il pulsante \"Altri filtri\", che non annunciava di contenerla. Adesso la casella è in vista, sopra l'elenco, e cerca su tutti i mesi.",
           "Cercando si guarda anche la categoria e il nome del contatto, non più solo la descrizione. Cercare \"Verdi\" adesso trova le spese legate a Verdi anche quando il suo nome nella descrizione non compare: prima non usciva niente.",
           "Quando le corrispondenze sono più di quante la pagina ne possa mostrare, adesso lo dice. Prima si fermava alle prime duecento e scriveva \"200 movimenti\", che sembrava un totale e non lo era.",
+          "Sotto il cofano: aggiornate le fondamenta su cui il sito è costruito. Non cambia niente di quello che vedi; serve a continuare a ricevere le correzioni di sicurezza e a non accumulare un arretrato che ogni mese costa di più.",
         ],
       },
       {

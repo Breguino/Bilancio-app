@@ -11,12 +11,11 @@ import { monthBounds, monthKeyOf, monthLabel, monthName, resolveMonth } from "@/
 import { moneyFormatter } from "@/lib/currency";
 import { getUserCurrency } from "@/lib/currency-server";
 
-export default async function BudgetPage({
-  searchParams,
-}: {
-  searchParams: { month?: string; error?: string; success?: string };
+export default async function BudgetPage(props: {
+  searchParams: Promise<{ month?: string; error?: string; success?: string }>;
 }) {
-  const { locale, t } = getDictionary();
+  const searchParams = await props.searchParams;
+  const { locale, t } = await getDictionary();
   const valuta = await getUserCurrency();
   const intlLocale = locale === "it" ? "it-IT" : "en-IE";
   const soldi = moneyFormatter(intlLocale, valuta);
@@ -27,7 +26,7 @@ export default async function BudgetPage({
   const month = resolveMonth(searchParams.month, currentMonth);
   const { start, end } = monthBounds(month);
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const [{ data: budgets }, { data: transactions }] = await Promise.all([
     supabase.from("budgets").select("*").order("category"),

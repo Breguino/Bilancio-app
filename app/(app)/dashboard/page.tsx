@@ -57,10 +57,8 @@ function trendBadge(
   );
 }
 
-export default async function DashboardPage({
-  searchParams,
-}: {
-  searchParams: {
+export default async function DashboardPage(props: {
+  searchParams: Promise<{
     month?: string;
     type?: string;
     category?: string;
@@ -71,16 +69,17 @@ export default async function DashboardPage({
     tutti?: string;
     error?: string;
     success?: string;
-  };
+  }>;
 }) {
-  const { locale, t } = getDictionary();
+  const searchParams = await props.searchParams;
+  const { locale, t } = await getDictionary();
   const valuta = await getUserCurrency();
   const intlLocale = locale === "it" ? "it-IT" : "en-IE";
   const soldi = moneyFormatter(intlLocale, valuta);
   const pct1 = (n: number) =>
     n.toLocaleString(intlLocale, { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

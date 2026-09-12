@@ -5,8 +5,8 @@ import { getDictionary } from "@/lib/i18n/get-dictionary";
 // effettivamente raccolti: l'art. 13 GDPR vuole l'informativa al momento della
 // raccolta, non solo raggiungibile da qualche parte nel sito. Non è una spunta
 // perché la base giuridica è il contratto, non il consenso — vedi /privacy.
-export function AuthConsentNote({ variant = "signup" }: { variant?: "signup" | "continue" }) {
-  const { t } = getDictionary();
+export async function AuthConsentNote({ variant = "signup" }: { variant?: "signup" | "continue" }) {
+  const { t } = await getDictionary();
   const lead = variant === "signup" ? t.auth.legal.consentSignup : t.auth.legal.consentContinue;
 
   return (
@@ -26,8 +26,8 @@ export function AuthConsentNote({ variant = "signup" }: { variant?: "signup" | "
 
 // Piè di pagina presente su ogni schermata di autenticazione: prima di questo
 // non c'era modo di leggere termini e privacy senza tornare alla home.
-export function AuthLegalFooter({ align = "left" }: { align?: "left" | "center" }) {
-  const { t } = getDictionary();
+export async function AuthLegalFooter({ align = "left" }: { align?: "left" | "center" }) {
+  const { t } = await getDictionary();
 
   return (
     <div

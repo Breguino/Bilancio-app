@@ -9,15 +9,14 @@ import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { CURRENCIES, moneyFormatter } from "@/lib/currency";
 import { getUserCurrency } from "@/lib/currency-server";
 
-export default async function ImpostazioniPage({
-  searchParams,
-}: {
-  searchParams: { error?: string; success?: string };
+export default async function ImpostazioniPage(props: {
+  searchParams: Promise<{ error?: string; success?: string }>;
 }) {
-  const { locale, t } = getDictionary();
+  const searchParams = await props.searchParams;
+  const { locale, t } = await getDictionary();
   const intlLocale = locale === "it" ? "it-IT" : "en-IE";
   const valuta = await getUserCurrency();
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

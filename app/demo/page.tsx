@@ -8,8 +8,8 @@ import { DemoTour } from "@/components/demo-tour";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 
-export function generateMetadata(): Metadata {
-  const locale = getLocale();
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const { metaTitle: title, metaDescription: description } = dictionaryFor(locale).demo;
   return {
     title,
@@ -26,8 +26,8 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function DemoPage() {
-  const locale = getLocale();
+export default async function DemoPage() {
+  const locale = await getLocale();
   const t = dictionaryFor(locale);
 
   return (

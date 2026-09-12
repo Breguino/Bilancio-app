@@ -4,8 +4,8 @@ import { csvField } from "@/lib/csv-export";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export async function GET(request: Request) {
-  const { locale, t } = getDictionary();
-  const supabase = createClient();
+  const { locale, t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

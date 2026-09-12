@@ -15,7 +15,7 @@ export default async function AppLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -36,7 +36,7 @@ export default async function AppLayout({
     }
   }
 
-  const { locale, t } = getDictionary();
+  const { locale, t } = await getDictionary();
 
   const navLinks = [
     { href: "/dashboard", label: t.appShell.navPanoramica },

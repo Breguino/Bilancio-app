@@ -7,8 +7,8 @@ import { Reveal } from "@/components/reveal";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 
-export function generateMetadata(): Metadata {
-  const t = dictionaryFor(getLocale());
+export async function generateMetadata(): Promise<Metadata> {
+  const t = dictionaryFor(await getLocale());
   const { metaTitle: title, metaDescription: description } = t.novita;
   return {
     title,
@@ -18,15 +18,15 @@ export function generateMetadata(): Metadata {
       title,
       description,
       images: ["/og-image.jpg"],
-      locale: getLocale() === "it" ? "it_IT" : "en_US",
+      locale: (await getLocale()) === "it" ? "it_IT" : "en_US",
       type: "website",
     },
     twitter: { card: "summary_large_image", title, description, images: ["/og-image.jpg"] },
   };
 }
 
-export default function NovitaPage() {
-  const locale = getLocale();
+export default async function NovitaPage() {
+  const locale = await getLocale();
   const t = dictionaryFor(locale);
 
   // Le date del diario sono scritte in ISO nel dizionario e formattate qui.

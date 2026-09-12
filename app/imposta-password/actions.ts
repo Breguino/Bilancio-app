@@ -6,8 +6,8 @@ import { authErrorCode } from "@/lib/auth/auth-error";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export async function updatePassword(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

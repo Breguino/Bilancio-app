@@ -29,7 +29,7 @@ function lastMonths(n: number) {
 }
 
 async function totalsFor(
-  supabase: ReturnType<typeof createClient>,
+  supabase: Awaited<ReturnType<typeof createClient>>,
   key: string,
   senzaCategoria: string
 ) {
@@ -89,12 +89,11 @@ function deltaBadge(curr: number, prev: number, higherIsGood: boolean, pct1: (n:
   );
 }
 
-export default async function ComparePage({
-  searchParams,
-}: {
-  searchParams: { a?: string; b?: string };
+export default async function ComparePage(props: {
+  searchParams: Promise<{ a?: string; b?: string }>;
 }) {
-  const { locale, t } = getDictionary();
+  const searchParams = await props.searchParams;
+  const { locale, t } = await getDictionary();
   const valuta = await getUserCurrency();
   const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
   const pct1 = (n: number) => n.toLocaleString(locale === "it" ? "it-IT" : "en-IE", { maximumFractionDigits: 1, minimumFractionDigits: 1 });
@@ -103,7 +102,7 @@ export default async function ComparePage({
   const b = searchParams.b && months.includes(searchParams.b) ? searchParams.b : months[0];
   const a = searchParams.a && months.includes(searchParams.a) ? searchParams.a : months[1] || months[0];
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const [totalsA, totalsB] = await Promise.all([totalsFor(supabase, a, t.common.uncategorized), totalsFor(supabase, b, t.common.uncategorized)]);
 
   const categories = Array.from(

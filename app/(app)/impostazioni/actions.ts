@@ -12,8 +12,8 @@ import { isCurrency } from "@/lib/currency";
 // si controlla di nuovo qui, perché un <select> non è una garanzia: la stessa
 // richiesta si può rifare a mano con qualunque valore dentro.
 export async function setCurrency(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -47,8 +47,8 @@ export async function setCurrency(formData: FormData) {
 // basta a far sparire in automatico movimenti, budget, obiettivi, contatti,
 // note e ricorrenze — non serve cancellarli uno per uno a mano.
 export async function deleteAccount() {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

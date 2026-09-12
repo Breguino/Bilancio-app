@@ -10,8 +10,8 @@ import { getDictionary } from "@/lib/i18n/get-dictionary";
 const MAX_IMPORT_FILE_BYTES = 2 * 1024 * 1024;
 
 export async function addTransaction(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -54,8 +54,8 @@ export async function addTransaction(formData: FormData) {
 }
 
 export async function importTransactions(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -116,8 +116,8 @@ function withParam(path: string, key: string, value: string) {
 }
 
 export async function deleteTransaction(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -151,8 +151,8 @@ export async function deleteTransaction(formData: FormData) {
 }
 
 export async function restoreTransaction(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -177,8 +177,8 @@ export async function restoreTransaction(formData: FormData) {
 }
 
 export async function permanentlyDeleteTransaction(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

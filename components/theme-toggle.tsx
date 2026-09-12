@@ -13,6 +13,9 @@ export function ThemeToggle({
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  // il tema vero lo sa solo il browser: al primo render il server non può
+  // indovinarlo e disegnare il bottone sbagliato farebbe lampeggiare l'icona.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {

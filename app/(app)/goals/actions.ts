@@ -6,8 +6,8 @@ import { createClient } from "@/lib/supabase/server";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export async function addGoal(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -25,8 +25,8 @@ export async function addGoal(formData: FormData) {
 }
 
 export async function contribute(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -67,8 +67,8 @@ export async function contribute(formData: FormData) {
 }
 
 export async function deleteGoal(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

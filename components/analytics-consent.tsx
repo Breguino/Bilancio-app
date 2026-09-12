@@ -38,6 +38,9 @@ export function AnalyticsConsent({
       setConsent(stored === "accepted" || stored === "rejected" ? stored : null);
     };
     read();
+    // la scelta sui cookie sta in localStorage, che sul server non c'è: prima
+    // del mount non abbiamo niente da mostrare.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setReady(true);
     window.addEventListener("cookie-consent-changed", read);
     return () => window.removeEventListener("cookie-consent-changed", read);

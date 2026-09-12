@@ -25,8 +25,8 @@ export const viewport: Viewport = {
   ],
 };
 
-export function generateMetadata(): Metadata {
-  const locale = getLocale();
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const { metaTitle: title, metaDescription: description } = dictionaryFor(locale).home;
 
   return {
@@ -76,12 +76,12 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const locale = getLocale();
+  const locale = await getLocale();
   const t = dictionaryFor(locale);
   return (
     <html lang={locale} className={`${inter.variable} ${fraunces.variable}`} suppressHydrationWarning>

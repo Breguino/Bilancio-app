@@ -28,6 +28,9 @@ export default function ErrorPage({
     // mai stato acceso, e pesava trentaquattro kilobyte su ogni pagina —
     // quindi è stato tolto. Il giorno che serva davvero, si rimette.
     console.error(error);
+    // la lingua sta in un cookie e questo è un Client Component: `cookies()`
+    // qui non esiste, quindi il valore può arrivare solo dopo il mount.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLocale(readLocaleCookie());
   }, [error]);
 

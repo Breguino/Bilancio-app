@@ -10,7 +10,7 @@ function monthKey(dateStr: string) {
 }
 
 export default async function StatisticsPage() {
-  const { locale, t } = getDictionary();
+  const { locale, t } = await getDictionary();
   const valuta = await getUserCurrency();
   const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
   const num2 = (n: number) => n.toLocaleString(locale === "it" ? "it-IT" : "en-IE", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
@@ -19,7 +19,7 @@ export default async function StatisticsPage() {
     return `${t.statistics.monthNamesShort[m - 1]} ${y}`;
   };
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: transactions } = await supabase
     .from("transactions")
     .select("id, date, description, category, amount")

@@ -5,8 +5,8 @@ import { ManageCookiePreferencesLink } from "@/components/manage-cookie-preferen
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { gaMeasurementId } from "@/lib/analytics";
 
-export function SiteFooter() {
-  const { locale, t } = getDictionary();
+export async function SiteFooter() {
+  const { locale, t } = await getDictionary();
 
   const marketingFooterLinks = [
     { href: "/chi-siamo", label: t.nav.chiSiamo },

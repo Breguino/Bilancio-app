@@ -53,7 +53,7 @@ promessa salta.
 
 ## Prima di aprire una PR
 
-`npx tsc --noEmit` · `npx next lint --max-warnings=0` · `npm test` · `npm run build`
+`npx tsc --noEmit` · `npx eslint . --max-warnings=0` · `npm test` · `npm run build`
 
 Girano comunque in CI su ogni PR (`.github/workflows/controlli.yml`), ma
 scoprirlo prima costa meno.

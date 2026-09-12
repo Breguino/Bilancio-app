@@ -6,8 +6,8 @@ import { Reveal } from "@/components/reveal";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 
-export function generateMetadata(): Metadata {
-  const t = dictionaryFor(getLocale());
+export async function generateMetadata(): Promise<Metadata> {
+  const t = dictionaryFor(await getLocale());
   const { metaTitle: title, metaDescription: description } = t.privacy;
   return {
     title,
@@ -17,8 +17,8 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function PrivacyPage() {
-  const t = dictionaryFor(getLocale());
+export default async function PrivacyPage() {
+  const t = dictionaryFor(await getLocale());
 
   return (
     <div className="min-h-screen">

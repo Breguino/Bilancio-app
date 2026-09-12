@@ -6,8 +6,8 @@ import { createClient } from "@/lib/supabase/server";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
 export async function addNote(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -33,8 +33,8 @@ export async function addNote(formData: FormData) {
 }
 
 export async function toggleNoteDone(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -59,8 +59,8 @@ export async function toggleNoteDone(formData: FormData) {
 }
 
 export async function deleteNote(formData: FormData) {
-  const { t } = getDictionary();
-  const supabase = createClient();
+  const { t } = await getDictionary();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

@@ -6,8 +6,9 @@ import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { moneyFormatter } from "@/lib/currency";
 import { getUserCurrency } from "@/lib/currency-server";
 
-export default async function ReceiptPage({ params }: { params: { id: string } }) {
-  const { locale, t } = getDictionary();
+export default async function ReceiptPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+  const { locale, t } = await getDictionary();
   const valuta = await getUserCurrency();
   const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
   const dateFmt = new Intl.DateTimeFormat(locale === "it" ? "it-IT" : "en-GB", {
@@ -16,7 +17,7 @@ export default async function ReceiptPage({ params }: { params: { id: string } }
     year: "numeric",
   });
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
