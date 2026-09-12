@@ -15,11 +15,17 @@ import { CollapsibleFilters } from "@/components/collapsible-filters";
 import { addTransaction, deleteTransaction, importTransactions } from "./actions";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { lastMonthKeys, monthBounds, monthKeyOf, monthLabel, monthName, resolveMonth } from "@/lib/month";
+import { transactionSearchFilter } from "@/lib/transaction-search";
 
 // Quanti movimenti stanno in panoramica prima del collegamento all'elenco
 // completo. Prima ci finiva tutto il mese: la colonna dei budget accanto
 // finiva a meta' pagina e sotto restava mezzo schermo vuoto.
 const RIGHE_IN_PANORAMICA = 8;
+// Quanti movimenti al massimo tornano da una ricerca. Il tetto c'era già
+// (.limit(200)) ma era muto: oltre le duecento corrispondenze la pagina ne
+// mostrava duecento e scriveva "200 movimenti", che sembra un totale e non lo
+// è. Adesso ne chiede una in più per sapere se il taglio c'è stato, e lo dice.
+const RIGHE_MASSIME_RICERCA = 200;
 
 function trendBadge(
   curr: number,
@@ -167,9 +173,13 @@ export default async function DashboardPage({
   const filterFrom = searchParams.from?.trim() || "";
   const filterTo = searchParams.to?.trim() || "";
   const showAll = searchParams.tutti === "1";
-  // I filtri avanzati sono quelli nascosti dietro "Altri filtri": se uno e'
-  // attivo il pannello deve aprirsi da solo.
+  // Qualunque di questi porta la ricerca fuori dal mese aperto, su tutti i
+  // movimenti.
   const hasAdvancedFilters = Boolean(filterCategory || filterContact || filterQuery || filterFrom || filterTo);
+  // Il pannello "Altri filtri" si apre da solo se uno dei filtri che contiene
+  // e' attivo. La ricerca non c'e' piu' dentro — sta in vista sopra l'elenco —
+  // quindi non deve piu' aprirlo.
+  const hasPanelFilters = Boolean(filterCategory || filterContact || filterFrom || filterTo);
   const hasFilters = hasAdvancedFilters || Boolean(filterType);
 
   const paramsWith = (changes: Record<string, string | undefined>) => {
@@ -259,23 +269,51 @@ export default async function DashboardPage({
   const budgetLeft = allBudgets.reduce((s, b) => s + Math.max(0, b.limit - b.spend), 0);
 
   let displayRows = rows;
+  // Vero quando la ricerca ha trovato piu' risultati di quanti se ne possano
+  // mostrare: senza dirlo, il conteggio sotto l'elenco sembrerebbe un totale.
+  let risultatiTagliati = false;
   if (hasAdvancedFilters) {
+    // La ricerca guarda anche il nome del contatto, che pero' sta in un'altra
+    // tabella: prima si trovano i contatti che corrispondono, poi i loro
+    // movimenti entrano nell'or insieme a descrizione e categoria. Cercare
+    // "Verdi" adesso trova le spese legate a Verdi anche quando il suo nome
+    // nella descrizione non c'e'.
+    let contattiTrovati: string[] = [];
+    if (filterQuery) {
+      const { data: corrispondenti } = await supabase
+        .from("contacts")
+        .select("id")
+        .ilike("name", `%${filterQuery}%`);
+      contattiTrovati = (corrispondenti || []).map((c) => c.id as string);
+    }
+
     let filterQueryBuilder = supabase
       .from("transactions")
       .select("*, contact:contacts(id, name)")
       .is("deleted_at", null)
       .order("date", { ascending: false })
-      .limit(200);
+      // Una riga in piu' del tetto: se torna, il taglio c'e' stato.
+      .limit(RIGHE_MASSIME_RICERCA + 1);
     if (filterCategory) filterQueryBuilder = filterQueryBuilder.eq("category", filterCategory);
     if (filterContact) filterQueryBuilder = filterQueryBuilder.eq("contact_id", filterContact);
-    if (filterQuery) filterQueryBuilder = filterQueryBuilder.ilike("description", `%${filterQuery}%`);
+    if (filterQuery) filterQueryBuilder = filterQueryBuilder.or(transactionSearchFilter(filterQuery, contattiTrovati));
     if (filterFrom) filterQueryBuilder = filterQueryBuilder.gte("date", filterFrom);
     if (filterTo) filterQueryBuilder = filterQueryBuilder.lte("date", filterTo);
+    // Entrate e uscite si filtravano qui in JavaScript, dopo il taglio: con
+    // piu' di duecento corrispondenze si sarebbero contate solo le entrate
+    // delle prime duecento righe. Adesso lo decide il database.
+    if (filterType === "income") filterQueryBuilder = filterQueryBuilder.gt("amount", 0);
+    if (filterType === "expense") filterQueryBuilder = filterQueryBuilder.lt("amount", 0);
     const { data: filtered } = await filterQueryBuilder;
-    displayRows = filtered || [];
+    const trovati = filtered || [];
+    risultatiTagliati = trovati.length > RIGHE_MASSIME_RICERCA;
+    displayRows = risultatiTagliati ? trovati.slice(0, RIGHE_MASSIME_RICERCA) : trovati;
+  } else {
+    // Fuori dalla ricerca si guarda il mese aperto, che arriva gia' per
+    // intero: qui filtrare in memoria non nasconde niente.
+    if (filterType === "income") displayRows = displayRows.filter((r: any) => Number(r.amount) > 0);
+    if (filterType === "expense") displayRows = displayRows.filter((r: any) => Number(r.amount) < 0);
   }
-  if (filterType === "income") displayRows = displayRows.filter((r: any) => Number(r.amount) > 0);
-  if (filterType === "expense") displayRows = displayRows.filter((r: any) => Number(r.amount) < 0);
 
   const totalRows = displayRows.length;
   const visibleRows = showAll ? displayRows : displayRows.slice(0, RIGHE_IN_PANORAMICA);
@@ -457,10 +495,47 @@ export default async function DashboardPage({
             </div>
           </div>
 
+          {/* La ricerca stava dentro "Altri filtri", cioè dietro un pulsante che
+              non annunciava di contenerla: l'autore stesso non sapeva che
+              l'app cercasse. Ora è la prima cosa sopra l'elenco. Ha un form
+              suo, e gli altri filtri attivi viaggiano come campi nascosti:
+              cercare non deve azzerare il mese o la categoria che hai scelto. */}
+          <form method="get" role="search" className="px-5 pb-3 flex gap-2">
+            {isCurrentMonth ? null : <input type="hidden" name="month" value={month} />}
+            {filterType ? <input type="hidden" name="type" value={filterType} /> : null}
+            {filterCategory ? <input type="hidden" name="category" value={filterCategory} /> : null}
+            {filterContact ? <input type="hidden" name="contact" value={filterContact} /> : null}
+            {filterFrom ? <input type="hidden" name="from" value={filterFrom} /> : null}
+            {filterTo ? <input type="hidden" name="to" value={filterTo} /> : null}
+            <input
+              type="search"
+              name="q"
+              defaultValue={filterQuery}
+              aria-label={t.dashboard.searchLabel}
+              placeholder={t.dashboard.searchAllPlaceholder}
+              className="flex-1 min-w-0 border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+            />
+            <button
+              type="submit"
+              className="shrink-0 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-full px-4 py-2 transition-colors"
+            >
+              {t.dashboard.searchSubmit}
+            </button>
+            {filterQuery ? (
+              <Link
+                href={paramsWith({ q: "" })}
+                aria-label={t.dashboard.searchClear}
+                className="shrink-0 inline-flex items-center border border-border dark:border-neutral-700 rounded-full px-3 text-ink-muted dark:text-neutral-500 hover:border-accent hover:text-accent transition-colors"
+              >
+                <X size={15} strokeWidth={2} />
+              </Link>
+            ) : null}
+          </form>
+
           <CollapsibleFilters
             moreLabel={t.dashboard.moreFilters}
             lessLabel={t.dashboard.lessFilters}
-            defaultOpen={hasAdvancedFilters}
+            defaultOpen={hasPanelFilters}
             chips={
               <>
                 <Link href={paramsWith({ type: "", tutti: "" })} className={chipClass(!filterType)}>
@@ -478,15 +553,9 @@ export default async function DashboardPage({
             <form method="get" className="flex flex-col sm:flex-row sm:flex-wrap sm:items-end gap-3">
               {filterType ? <input type="hidden" name="type" value={filterType} /> : null}
               {isCurrentMonth ? null : <input type="hidden" name="month" value={month} />}
-              <div className="flex flex-col gap-1 w-full sm:w-auto">
-                <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.searchLabel}</label>
-                <input
-                  name="q"
-                  defaultValue={filterQuery}
-                  placeholder={t.dashboard.descriptionPlaceholder}
-                  className="w-full sm:w-auto border border-border dark:border-neutral-700 dark:bg-neutral-950 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-                />
-              </div>
+              {/* La ricerca ha la sua casella qui sopra: qui viaggia nascosta,
+                  altrimenti applicare un filtro la cancellerebbe. */}
+              {filterQuery ? <input type="hidden" name="q" value={filterQuery} /> : null}
               <div className="flex flex-col gap-1 w-full sm:w-auto">
                 <label className="text-xs font-semibold text-ink-secondary dark:text-neutral-400">{t.dashboard.categoryLabel}</label>
                 <select
@@ -547,9 +616,9 @@ export default async function DashboardPage({
               >
                 {t.dashboard.filterSubmit}
               </button>
-              {hasAdvancedFilters ? (
+              {hasPanelFilters ? (
                 <Link
-                  href={paramsWith({ category: "", contact: "", q: "", from: "", to: "" })}
+                  href={paramsWith({ category: "", contact: "", from: "", to: "" })}
                   className="text-xs font-semibold text-ink-muted dark:text-neutral-500 hover:text-accent px-1 py-2 text-center sm:text-left"
                 >
                   {t.dashboard.resetFilters}
@@ -637,6 +706,15 @@ export default async function DashboardPage({
               ))}
             </div>
           )}
+
+          {/* Quando i risultati sono piu' del tetto, il conteggio qui sotto non e'
+              un totale: dirlo e' l'unico modo perche' "200 movimenti" non venga
+              letto come "ne esistono 200". */}
+          {risultatiTagliati ? (
+            <p className="px-5 pb-3 text-[13px] text-ink-secondary dark:text-neutral-400">
+              {t.dashboard.searchTruncated.replaceAll("{n}", String(RIGHE_MASSIME_RICERCA))}
+            </p>
+          ) : null}
 
           {visibleRows.length > 0 ? (
             <div className="flex items-center justify-between gap-3 px-5 py-3 text-[13px] text-ink-muted dark:text-neutral-500 border-t border-border dark:border-neutral-800">

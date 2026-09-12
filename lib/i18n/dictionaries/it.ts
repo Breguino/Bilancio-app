@@ -526,6 +526,12 @@ const it = {
     importTitle: "Importa un file CSV con colonne Data, Descrizione, Categoria, Cliente, Importo",
     importHint:
       "Stesse colonne del CSV esportato (Data, Descrizione, Categoria, Cliente, Importo). I clienti vengono collegati solo se il nome corrisponde esattamente a un contatto già esistente.",
+    searchAllPlaceholder: "Cerca fra tutti i movimenti…",
+    searchSubmit: "Cerca",
+    searchClear: "Annulla la ricerca",
+    searchResultsFor: "Risultati per “{q}”, su tutti i mesi.",
+    searchTruncated:
+      "Ci sono più di {n} movimenti che corrispondono: qui vedi i primi {n}, dal più recente. Restringi il periodo o aggiungi una parola per arrivare a quello che cerchi.",
     searchLabel: "Cerca",
     descriptionPlaceholder: "Descrizione…",
     categoryLabel: "Categoria",
@@ -888,6 +894,14 @@ const it = {
     lastUpdatedPrefix: "Ultimo aggiornamento:",
     entries: [
       {
+        date: "2026-09-12",
+        items: [
+          "La ricerca fra i movimenti c'era già, ma stava dietro il pulsante \"Altri filtri\", che non annunciava di contenerla. Adesso la casella è in vista, sopra l'elenco, e cerca su tutti i mesi.",
+          "Cercando si guarda anche la categoria e il nome del contatto, non più solo la descrizione. Cercare \"Verdi\" adesso trova le spese legate a Verdi anche quando il suo nome nella descrizione non compare: prima non usciva niente.",
+          "Quando le corrispondenze sono più di quante la pagina ne possa mostrare, adesso lo dice. Prima si fermava alle prime duecento e scriveva \"200 movimenti\", che sembrava un totale e non lo era.",
+        ],
+      },
+      {
         date: "2026-09-09",
         items: [
           "Ogni aggiornamento di questa pagina ha adesso un indirizzo suo: puoi linkare una singola data invece di dire \"scorri fino a fine agosto\". Clicca la data di una voce per copiarne il collegamento.",
@@ -1017,7 +1031,6 @@ const it = {
     ideasBody:
       "Come per il resto di Bilancino, preferisco non prometterti date o funzioni prima di averle davvero costruite. Questa è solo la lista di cose a cui sto pensando in questo momento. Potrebbero cambiare, essere ridimensionate o non arrivare mai.",
     ideas: [
-      "Una ricerca fra i movimenti. Oggi si filtra per mese, per tipo e per categoria: per ritrovare una spesa precisa bisogna ricordarsi quando è stata fatta, e più movimenti ci sono più la cosa diventa scomoda.",
       "Valute diverse dall'euro. Adesso l'euro è l'unica possibile, scritta fissa nel codice: chi incassa in franchi o in sterline non può usare Bilancino per la parte di lavoro.",
       "Valutare una versione installabile (PWA) per un uso più comodo da mobile.",
     ],
