@@ -18,7 +18,10 @@ const PUBLIC_EXACT = [
 // "/guide" è un prefisso e non un elenco di indirizzi esatti: le guide servono a
 // farsi trovare da chi non ha ancora un account, quindi ogni nuova guida deve
 // essere pubblica da subito senza doversi ricordare di aggiungerla qui.
-const PUBLIC_PREFIXES = ["/login", "/signup", "/auth", "/logout", "/guide", "/api/cron", "/api/newsletter"];
+// "/api/webhooks" è pubblico per forza: chi lo chiama è Resend, che non ha un
+// account. Non è una porta aperta — la route si difende da sola verificando la
+// firma sul corpo del messaggio.
+const PUBLIC_PREFIXES = ["/login", "/signup", "/auth", "/logout", "/guide", "/api/cron", "/api/newsletter", "/api/webhooks"];
 
 function isPublicPath(path: string) {
   if (PUBLIC_EXACT.includes(path)) return true;
