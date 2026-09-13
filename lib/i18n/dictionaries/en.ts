@@ -903,6 +903,12 @@ const en: Dictionary = {
     lastUpdatedPrefix: "Last updated:",
     entries: [
       {
+        date: "2026-09-13",
+        items: [
+          "Newsletter emails now declare unsubscription to your mail app: in Gmail, \"Unsubscribe\" appears next to the sender and one tap is enough. Before, the only convenient way to stop them was \"Report spam\" — the worst outcome, because from then on even the service emails risk not arriving.",
+        ],
+      },
+      {
         date: "2026-09-12",
         items: [
           "Every page of the site is thirty-four kilobytes lighter: from 121 down to 87. There was an error-reporting system that was never switched on — so it downloaded on every visit and did nothing — and it has been removed. The error page is still there, and still readable.",

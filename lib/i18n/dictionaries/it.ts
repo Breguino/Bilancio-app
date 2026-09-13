@@ -901,6 +901,12 @@ const it = {
     lastUpdatedPrefix: "Ultimo aggiornamento:",
     entries: [
       {
+        date: "2026-09-13",
+        items: [
+          "Le email della newsletter adesso dichiarano la disiscrizione al programma di posta: in Gmail compare \"Annulla iscrizione\" accanto al mittente, e basta toccarlo una volta. Prima l'unico modo comodo per smettere di riceverle era \"Segnala come spam\" — che è la cosa peggiore, perché da lì in poi rischiano di non arrivare più nemmeno le email di servizio.",
+        ],
+      },
+      {
         date: "2026-09-12",
         items: [
           "Ogni pagina del sito pesa trentaquattro kilobyte in meno: da 121 a 87. C'era un sistema di segnalazione degli errori che non è mai stato attivato — quindi si scaricava a ogni visita senza fare niente — ed è stato tolto. La pagina di errore continua a esserci, e resta leggibile.",
