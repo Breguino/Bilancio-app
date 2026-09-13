@@ -2,6 +2,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getResendClient, NEWSLETTER_FROM } from "@/lib/resend";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { buildNewsletterEmailHtml } from "@/lib/newsletter/email-template";
+import { buildUnsubscribeUrl, unsubscribeHeaders } from "@/lib/newsletter/unsubscribe";
 
 const BATCH_SIZE = 100;
 
@@ -48,21 +49,30 @@ export async function sendDraftNewsletter(siteUrl: string, issueId?: string): Pr
 
   for (let i = 0; i < subscribers.length; i += BATCH_SIZE) {
     const batch = subscribers.slice(i, i + BATCH_SIZE);
-    const emails = batch.map((s) => ({
-      from: NEWSLETTER_FROM,
-      to: s.email,
-      subject: issue.subject,
-      html: buildNewsletterEmailHtml({
-        siteUrl,
-        bodyHtml: issue.body_html,
-        unsubscribeUrl: `${siteUrl}/api/newsletter/unsubscribe?token=${s.unsubscribe_token}`,
-        unsubscribePrompt: t.newsletterAdmin.unsubscribePrompt,
-        unsubscribeLinkText: t.newsletterAdmin.unsubscribeLinkText,
-        ctaLabel: t.newsletterAdmin.emailCtaLabel,
-        novitaPrompt: t.newsletterAdmin.emailNovitaPrompt,
-        novitaLinkText: t.newsletterAdmin.emailNovitaLinkText,
-      }),
-    }));
+    const emails = batch.map((s) => {
+      const unsubscribeUrl = buildUnsubscribeUrl(siteUrl, s.unsubscribe_token);
+
+      return {
+        from: NEWSLETTER_FROM,
+        to: s.email,
+        subject: issue.subject,
+        // Senza queste due intestazioni il programma di posta non ha un modo
+        // pulito di disiscrivere chi legge, e l'unica via che gli resta è
+        // "Segnala come spam" — che costa alla consegna di tutte le email
+        // successive, comprese quelle di servizio.
+        headers: unsubscribeHeaders(unsubscribeUrl),
+        html: buildNewsletterEmailHtml({
+          siteUrl,
+          bodyHtml: issue.body_html,
+          unsubscribeUrl,
+          unsubscribePrompt: t.newsletterAdmin.unsubscribePrompt,
+          unsubscribeLinkText: t.newsletterAdmin.unsubscribeLinkText,
+          ctaLabel: t.newsletterAdmin.emailCtaLabel,
+          novitaPrompt: t.newsletterAdmin.emailNovitaPrompt,
+          novitaLinkText: t.newsletterAdmin.emailNovitaLinkText,
+        }),
+      };
+    });
 
     // batchValidation "permissive": se un destinatario non è consegnabile
     // (tipico in modalità sandbox senza dominio verificato, o un indirizzo
