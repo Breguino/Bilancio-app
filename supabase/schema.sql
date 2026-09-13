@@ -424,3 +424,43 @@ alter table public.profiles
   add constraint profiles_currency_valida check (
     currency in ('EUR','CHF','GBP','USD','SEK','NOK','DKK','PLN','CZK','CAD','AUD','JPY')
   );
+
+-- ---------- Esiti degli invii email (webhook di Resend) ----------
+-- Quando un'email rimbalza, il motivo vero lo scrive il server che la
+-- rifiuta ("550 ...", "421 ..."). Resend quel testo lo conserva solo se c'e'
+-- un webhook che lo riceve: senza, resta visibile a mano nel pannello e
+-- sparisce dalla memoria di chiunque. Qui ci finisce, cosi' la prossima volta
+-- che una consegna fallisce la risposta e' gia' scritta.
+create table if not exists public.email_events (
+  id uuid primary key default gen_random_uuid(),
+  -- L'identificativo della consegna del webhook. Resend riprova se non
+  -- risponde 2xx, quindi la stessa notifica puo' arrivare piu' volte: questo
+  -- vincolo la fa scrivere una volta sola.
+  svix_id text unique,
+  type text not null,
+  email_id text,
+  recipient text,
+  subject text,
+  -- Il motivo per esteso, quando c'e' (i rimbalzi ce l'hanno, le consegne no).
+  reason text,
+  -- "Transient" o "Permanent": cambia completamente cosa conviene fare.
+  bounce_type text,
+  -- Il resto del messaggio, intatto: se domani serve un campo che oggi non
+  -- stiamo leggendo, e' gia' qui e non va richiesto di nuovo a nessuno.
+  payload jsonb not null,
+  created_at timestamptz not null default now()
+);
+
+alter table public.email_events enable row level security;
+
+-- Come per newsletter_subscribers: qui dentro ci sono indirizzi email di
+-- persone. Nessun permesso ai ruoli pubblici, si legge e si scrive solo lato
+-- server con la service role key.
+revoke all on table public.email_events from anon, authenticated;
+
+-- Il divieto scritto per esteso, cosi' non sembra una dimenticanza.
+create policy "email_events_solo_service_role" on public.email_events
+  for all to anon, authenticated using (false) with check (false);
+
+create index if not exists email_events_created_idx
+  on public.email_events (created_at desc);
