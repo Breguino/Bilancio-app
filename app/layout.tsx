@@ -86,6 +86,24 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${inter.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <body>
+        {/* I blocchi animati (`.reveal` in globals.css) partono a opacità zero e
+            li accende JavaScript quando entrano nello schermo. Senza
+            JavaScript non li accende nessuno: il testo resta nell'HTML — i
+            motori di ricerca lo vedono — ma la persona davanti allo schermo
+            vede l'apertura e poi una parete bianca. Le sei aree, le
+            statistiche, le domande frequenti e l'invito finale: tutto
+            invisibile, per sempre.
+
+            Tre righe rimettono le cose a posto. `<noscript>` lo capiscono
+            tutti i browser: `@media (scripting: none)` sarebbe più elegante ma
+            Safari 16.4 non lo conosce, ed è fra quelli che l'app dichiara di
+            supportare.
+
+            Se un giorno questo blocco sembra inutile e viene tolto, il modo di
+            accorgersene è aprire la home con JavaScript disattivato. */}
+        <noscript>
+          <style>{`.reveal { opacity: 1 !important; transform: none !important; transition: none !important; }`}</style>
+        </noscript>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
