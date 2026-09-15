@@ -309,13 +309,13 @@ export default async function DashboardPage(props: {
   } else {
     // Fuori dalla ricerca si guarda il mese aperto, che arriva gia' per
     // intero: qui filtrare in memoria non nasconde niente.
-    if (filterType === "income") displayRows = displayRows.filter((r: any) => Number(r.amount) > 0);
-    if (filterType === "expense") displayRows = displayRows.filter((r: any) => Number(r.amount) < 0);
+    if (filterType === "income") displayRows = displayRows.filter((r) => Number(r.amount) > 0);
+    if (filterType === "expense") displayRows = displayRows.filter((r) => Number(r.amount) < 0);
   }
 
   const totalRows = displayRows.length;
   const visibleRows = showAll ? displayRows : displayRows.slice(0, RIGHE_IN_PANORAMICA);
-  const listBalance = displayRows.reduce((s: number, r: any) => s + Number(r.amount), 0);
+  const listBalance = displayRows.reduce((s, r) => s + Number(r.amount), 0);
   const countLabel = (totalRows === 1 ? t.dashboard.countOne : t.dashboard.countMany).replace(
     "{n}",
     String(totalRows)
@@ -328,6 +328,14 @@ export default async function DashboardPage(props: {
         : "border border-border dark:border-neutral-700 text-ink-secondary dark:text-neutral-400 font-medium hover:border-accent hover:text-accent"
     }`;
 
+  // La query dello storico esclude già le righe senza categoria
+  // (`.not("category", "is", null)`), ma PostgREST quella promessa non sa
+  // scriverla nel tipo: per TypeScript la colonna resta `string | null`.
+  // Questo filtro è l'eco della promessa, e su trecento righe non costa niente.
+  const storicoCategorie = (categoryHistory ?? []).flatMap((h) =>
+    h.category ? [{ description: h.description, category: h.category }] : []
+  );
+
   const sideCards = budgetStatus.length > 0 || upcoming.length > 0;
 
   const addPanel = (
@@ -338,7 +346,7 @@ export default async function DashboardPage(props: {
       <form action={addTransaction} className="grid grid-cols-1 sm:grid-cols-6 gap-3 items-end">
         <DescriptionCategoryFields
           key={rows.length}
-          history={categoryHistory || []}
+          history={storicoCategorie}
           descriptionLabel={t.dashboard.formDescriptionLabel}
           categoryLabel={t.dashboard.formCategoryLabel}
           categoryPlaceholder={t.dashboard.formCategoryPlaceholder}
@@ -638,7 +646,7 @@ export default async function DashboardPage(props: {
               {/* Descrizione sulla prima riga, etichette sotto: in due colonne
                   la riga unica non ci stava e la descrizione veniva troncata
                   dopo poche lettere, che è proprio il dato da leggere. */}
-              {visibleRows.map((tx: any) => (
+              {visibleRows.map((tx) => (
                 <div
                   key={tx.id}
                   className="px-5 py-3 text-sm flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3"

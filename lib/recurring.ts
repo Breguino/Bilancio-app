@@ -1,4 +1,5 @@
 import type { createClient } from "@/lib/supabase/server";
+import type { TablesInsert } from "@/lib/supabase/database.types";
 
 // `createClient()` è async da Next 16 (`cookies()` va atteso): il tipo utile
 // qui è quello del client già risolto, non della promessa.
@@ -57,7 +58,7 @@ export async function generateDueRecurringTransactions(supabase: SupabaseServerC
 
   for (const r of due) {
     let cursor = r.next_date as string;
-    const toInsert: Record<string, unknown>[] = [];
+    const toInsert: TablesInsert<"transactions">[] = [];
     let guard = 0;
 
     while (cursor <= today && guard < 500) {

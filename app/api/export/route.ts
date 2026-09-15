@@ -23,7 +23,7 @@ export async function GET(request: Request) {
     .order("date", { ascending: true });
 
   const rows = [csvHeaders(t.csv.headers, valuta)];
-  (transactions || []).forEach((t2: any) => {
+  (transactions || []).forEach((t2) => {
     rows.push([
       t2.date,
       t2.description,
