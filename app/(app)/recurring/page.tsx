@@ -39,19 +39,21 @@ export default async function RecurringPage(props: {
   const contactList = contacts || [];
   const today = new Date().toISOString().slice(0, 10);
 
-  const perMese = (r: any) => {
+  // Il tipo viene dalla query, non riscritto a mano: se domani cambia la
+  // select, questa riga cambia con lei invece di mentire.
+  const perMese = (r: (typeof rows)[number]) => {
     const importo = Number(r.amount);
     if (r.frequency === "weekly") return (importo * 52) / 12;
     if (r.frequency === "yearly") return importo / 12;
     return importo;
   };
-  const attive = rows.filter((r: any) => r.active);
-  const usciteMese = attive.filter((r: any) => perMese(r) < 0).reduce((s: number, r: any) => s - perMese(r), 0);
-  const entrateMese = attive.filter((r: any) => perMese(r) > 0).reduce((s: number, r: any) => s + perMese(r), 0);
+  const attive = rows.filter((r) => r.active);
+  const usciteMese = attive.filter((r) => perMese(r) < 0).reduce((s, r) => s - perMese(r), 0);
+  const entrateMese = attive.filter((r) => perMese(r) > 0).reduce((s, r) => s + perMese(r), 0);
   const quante = (n: number) =>
     n === 1 ? t.recurring.fromOneRule : t.recurring.fromNRules.replace("{n}", String(n));
-  const nUscite = attive.filter((r: any) => perMese(r) < 0).length;
-  const nEntrate = attive.filter((r: any) => perMese(r) > 0).length;
+  const nUscite = attive.filter((r) => perMese(r) < 0).length;
+  const nEntrate = attive.filter((r) => perMese(r) > 0).length;
   // Le regole arrivano gia' ordinate per data: la prima attiva e' la prossima.
   const prossima = attive[0];
 
@@ -198,7 +200,7 @@ export default async function RecurringPage(props: {
           <p className="text-sm text-ink-muted dark:text-neutral-500 px-5 py-6">{t.recurring.emptyState}</p>
         ) : (
           <div className="divide-y divide-border dark:divide-neutral-800 mt-3">
-            {rows.map((r: any) => (
+            {rows.map((r) => (
               <div
                 key={r.id}
                 className={`flex flex-wrap items-center justify-between px-5 py-3 text-sm gap-3 ${
