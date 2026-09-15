@@ -903,6 +903,7 @@ const it = {
       {
         date: "2026-09-15",
         items: [
+          "Il file CSV esportato adesso dice in che valuta sono le cifre: l'intestazione della colonna degli importi diventa \"Importo (EUR)\", o quella che hai scelto tu. Prima uscivano numeri nudi, e da quando la valuta si sceglie per account non era più una domanda oziosa. Il codice sta nell'intestazione e non ripetuto in ogni riga, così la colonna resta un numero e in Excel si somma ancora.",
           "Chi naviga con JavaScript disattivato — per scelta o per via di un'estensione — vedeva la home fermarsi subito dopo l'apertura: sotto, una parete bianca. Le sei aree, le statistiche, le domande frequenti c'erano nel testo della pagina, ma restavano invisibili. Adesso il sito si legge per intero anche così, semplicemente senza le animazioni di entrata.",
         ],
       },

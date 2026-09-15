@@ -107,6 +107,17 @@ function parseAmount(raw: string): number | null {
   return Number.isFinite(n) && n !== 0 ? n : null;
 }
 
+// Il nostro export scrive "Importo (EUR)", perché un file di cifre nude non
+// dice in che valuta sono. Senza questa normalizzazione quella colonna non
+// verrebbe riconosciuta e ogni riga finirebbe scartata: reimportare il proprio
+// export darebbe zero movimenti, in silenzio.
+//
+// Toglie una parentesi finale, quindi vale anche per le banche che scrivono
+// "Importo (EUR)" o "Amount (GBP)" per conto loro.
+function normalizzaIntestazione(raw: string): string {
+  return raw.trim().toLowerCase().replace(/\s*\([^)]*\)\s*$/, "").trim();
+}
+
 const HEADER_ALIASES: Record<string, string> = {
   data: "date",
   date: "date",
@@ -130,7 +141,7 @@ export function parseImportCsv(
   const lines = parseCsvLines(text);
   if (lines.length === 0) return { rows: [], imported: 0, skipped: 0, unmatchedContacts: 0 };
 
-  const headerRow = lines[0].map((h) => HEADER_ALIASES[h.trim().toLowerCase()] || "");
+  const headerRow = lines[0].map((h) => HEADER_ALIASES[normalizzaIntestazione(h)] || "");
   const looksLikeHeader = headerRow.includes("date") && headerRow.includes("amount");
   const dataLines = looksLikeHeader ? lines.slice(1) : lines;
   const columns = looksLikeHeader ? headerRow : ["date", "description", "category", "contact", "amount"];
