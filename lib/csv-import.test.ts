@@ -216,3 +216,40 @@ describe("formato inglese degli importi", () => {
     expect(conImporto("1234")).toBe(1234);
   });
 });
+
+// L'export scrive "Importo (EUR)" perché un file di cifre nude non dice in che
+// valuta sono. Se l'import non riconoscesse quell'intestazione, la colonna
+// degli importi resterebbe non mappata e *ogni riga* verrebbe scartata:
+// reimportare il proprio export darebbe zero movimenti, senza un errore.
+describe("intestazioni con la valuta fra parentesi", () => {
+  const riga = "2026-09-15;Spesa;Casa;;-30,50";
+
+  it("riconosce la colonna importo scritta con la valuta", () => {
+    const esito = parseImportCsv(`Data;Descrizione;Categoria;Cliente;Importo (EUR)\n${riga}`, []);
+    expect(esito.skipped).toBe(0);
+    expect(esito.rows[0].amount).toBe(-30.5);
+  });
+
+  it("continua ad accettare i file esportati prima di questo cambiamento", () => {
+    // Chi ha un CSV scaricato la settimana scorsa non deve trovarselo rifiutato.
+    const esito = parseImportCsv(`Data;Descrizione;Categoria;Cliente;Importo\n${riga}`, []);
+    expect(esito.skipped).toBe(0);
+    expect(esito.rows[0].amount).toBe(-30.5);
+  });
+
+  it("vale anche per le altre colonne e per l'inglese", () => {
+    const esito = parseImportCsv(
+      `Date;Description;Category;Client;Amount (GBP)\n2026-09-15;Shopping;Home;;-30.50`,
+      []
+    );
+    expect(esito.skipped).toBe(0);
+    expect(esito.rows[0].amount).toBe(-30.5);
+  });
+
+  it("non si confonde con una parentesi che sta in mezzo", () => {
+    // "Importo (netto) finale" non è un'intestazione che conosciamo, e deve
+    // restare sconosciuta: la normalizzazione toglie solo una parentesi finale.
+    const esito = parseImportCsv(`Data;Descrizione;Categoria;Cliente;Importo (netto) finale\n${riga}`, []);
+    expect(esito.skipped).toBeGreaterThan(0);
+  });
+});

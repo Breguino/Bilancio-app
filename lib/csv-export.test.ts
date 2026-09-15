@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { csvField } from "@/lib/csv-export";
+import { csvField, csvHeaders } from "@/lib/csv-export";
 import { parseImportCsv } from "@/lib/csv-import";
 
 // `csvField` è dieci righe e fino a oggi non aveva un test. Non è una
@@ -74,7 +74,8 @@ describe("un export rientra dalla porta dell'import", () => {
     return "﻿" + righe.map((r) => r.map(csvField).join(";")).join("\r\n");
   }
 
-  const intestazioni = ["Data", "Descrizione", "Categoria", "Cliente", "Importo"];
+  // Come le scrive l'export da quando la valuta finisce nell'intestazione.
+  const intestazioni = ["Data", "Descrizione", "Categoria", "Cliente", "Importo (EUR)"];
 
   it("riporta indietro spese, entrate e contatti senza perdere una riga", () => {
     const csv = esporta([
@@ -116,5 +117,29 @@ describe("un export rientra dalla porta dell'import", () => {
     // file che sta sul disco l'apice c'era.
     expect(esito.rows[0].description).toBe("=1+1");
     expect(csv).toContain("'=1+1");
+  });
+});
+
+describe("csvHeaders: la valuta finisce nell'intestazione", () => {
+  const it_ = ["Data", "Descrizione", "Categoria", "Cliente", "Importo"];
+  const en = ["Date", "Description", "Category", "Client", "Amount"];
+
+  it("scrive il codice sulla colonna degli importi", () => {
+    expect(csvHeaders(it_, "EUR")).toEqual(["Data", "Descrizione", "Categoria", "Cliente", "Importo (EUR)"]);
+    expect(csvHeaders(en, "CHF")).toEqual(["Date", "Description", "Category", "Client", "Amount (CHF)"]);
+  });
+
+  it("non tocca le altre colonne", () => {
+    expect(csvHeaders(it_, "JPY").slice(0, 4)).toEqual(it_.slice(0, 4));
+  });
+
+  it("quello che produce è quello che l'import sa rileggere", () => {
+    // Le due metà devono restare d'accordo: se un giorno il formato cambia da
+    // una parte sola, il giro completo qui sopra se ne accorge.
+    for (const valuta of ["EUR", "CHF", "GBP", "JPY"]) {
+      const ultima = csvHeaders(it_, valuta).at(-1)!;
+      const esito = parseImportCsv(`Data;Descrizione;Categoria;Cliente;${ultima}\n2026-09-15;Spesa;Casa;;-30,50`, []);
+      expect(esito.skipped, `${valuta} non viene riletta`).toBe(0);
+    }
   });
 });

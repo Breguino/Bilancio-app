@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { csvField } from "@/lib/csv-export";
+import { csvField, csvHeaders } from "@/lib/csv-export";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getUserCurrency } from "@/lib/currency-server";
 
 export async function GET(request: Request) {
   const { locale, t } = await getDictionary();
+  const valuta = await getUserCurrency();
   const supabase = await createClient();
   const {
     data: { user },
@@ -20,7 +22,7 @@ export async function GET(request: Request) {
     .is("deleted_at", null)
     .order("date", { ascending: true });
 
-  const rows = [t.csv.headers];
+  const rows = [csvHeaders(t.csv.headers, valuta)];
   (transactions || []).forEach((t2: any) => {
     rows.push([
       t2.date,

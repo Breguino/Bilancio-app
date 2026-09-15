@@ -905,6 +905,7 @@ const en: Dictionary = {
       {
         date: "2026-09-15",
         items: [
+          "The exported CSV now says which currency the figures are in: the amount column's header becomes \"Amount (EUR)\", or whichever you picked. It used to be bare numbers, and since the currency is chosen per account that was no longer an idle question. The code sits in the header rather than repeated on every row, so the column stays a number and still adds up in Excel.",
           "Anyone browsing with JavaScript turned off — by choice or because of an extension — saw the home page stop right after the opening: below it, a blank wall. The six areas, the statistics and the questions were all in the page's text, but stayed invisible. The site now reads in full that way too, simply without the entrance animations.",
         ],
       },
