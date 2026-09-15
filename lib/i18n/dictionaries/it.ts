@@ -901,6 +901,12 @@ const it = {
     lastUpdatedPrefix: "Ultimo aggiornamento:",
     entries: [
       {
+        date: "2026-09-15",
+        items: [
+          "Chi naviga con JavaScript disattivato — per scelta o per via di un'estensione — vedeva la home fermarsi subito dopo l'apertura: sotto, una parete bianca. Le sei aree, le statistiche, le domande frequenti c'erano nel testo della pagina, ma restavano invisibili. Adesso il sito si legge per intero anche così, semplicemente senza le animazioni di entrata.",
+        ],
+      },
+      {
         date: "2026-09-13",
         items: [
           "Le email della newsletter adesso dichiarano la disiscrizione al programma di posta: in Gmail compare \"Annulla iscrizione\" accanto al mittente, e basta toccarlo una volta. Prima l'unico modo comodo per smettere di riceverle era \"Segnala come spam\" — che è la cosa peggiore, perché da lì in poi rischiano di non arrivare più nemmeno le email di servizio.",

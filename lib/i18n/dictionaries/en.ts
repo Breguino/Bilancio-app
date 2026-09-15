@@ -903,6 +903,12 @@ const en: Dictionary = {
     lastUpdatedPrefix: "Last updated:",
     entries: [
       {
+        date: "2026-09-15",
+        items: [
+          "Anyone browsing with JavaScript turned off — by choice or because of an extension — saw the home page stop right after the opening: below it, a blank wall. The six areas, the statistics and the questions were all in the page's text, but stayed invisible. The site now reads in full that way too, simply without the entrance animations.",
+        ],
+      },
+      {
         date: "2026-09-13",
         items: [
           "Newsletter emails now declare unsubscription to your mail app: in Gmail, \"Unsubscribe\" appears next to the sender and one tap is enough. Before, the only convenient way to stop them was \"Report spam\" — the worst outcome, because from then on even the service emails risk not arriving.",
