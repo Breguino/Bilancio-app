@@ -5,11 +5,11 @@ import { moneyFormatter } from "@/lib/currency";
 import { getUserCurrency } from "@/lib/currency-server";
 
 export default async function YearlyPage() {
-  const { locale, t } = await getDictionary();
+  const { t, intlLocale } = await getDictionary();
   const valuta = await getUserCurrency();
-  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
+  const soldi = moneyFormatter(intlLocale, valuta);
   const pct1 = (n: number) =>
-    n.toLocaleString(locale === "it" ? "it-IT" : "en-IE", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
+    n.toLocaleString(intlLocale, { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";
 
   const supabase = await createClient();
   const { data: transactions } = await supabase.from("transactions").select("*").is("deleted_at", null);
@@ -53,7 +53,6 @@ export default async function YearlyPage() {
   const migliore = ordinati[0];
   const peggiore = ordinati[ordinati.length - 1];
   const mediaMensile = netti.length ? netti.reduce((s, m) => s + m.valore, 0) / netti.length : 0;
-  const intlLocale = locale === "it" ? "it-IT" : "en-IE";
   const etichettaMese = (chiave: string) => {
     const [y, m] = chiave.split("-").map(Number);
     return new Intl.DateTimeFormat(intlLocale, { month: "short" }).format(new Date(y, m - 1, 1));

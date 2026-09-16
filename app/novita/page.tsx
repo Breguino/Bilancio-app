@@ -6,6 +6,7 @@ import { AuthGate } from "@/components/auth-gate";
 import { Reveal } from "@/components/reveal";
 import { dictionaryFor } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
+import { intlLocaleFor } from "@/lib/i18n/locales";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = dictionaryFor(await getLocale());
@@ -35,7 +36,7 @@ export default async function NovitaPage() {
   // poteva confrontare fra loro e che per una macchina non erano date. In ISO
   // le due lingue si controllano l'una con l'altra (c'è un test che lo fa) e
   // il <time> qui sotto le rende leggibili anche a un motore di ricerca.
-  const dataEstesa = new Intl.DateTimeFormat(locale === "it" ? "it-IT" : "en-GB", {
+  const dataEstesa = new Intl.DateTimeFormat(intlLocaleFor(locale), {
     day: "numeric",
     month: "long",
     year: "numeric",

@@ -15,9 +15,9 @@ export default async function RecurringPage(props: {
   searchParams: Promise<{ error?: string; success?: string }>;
 }) {
   const searchParams = await props.searchParams;
-  const { locale, t } = await getDictionary();
+  const { t, intlLocale } = await getDictionary();
   const valuta = await getUserCurrency();
-  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
+  const soldi = moneyFormatter(intlLocale, valuta);
   const frequencyLabels: Record<string, string> = {
     weekly: t.recurring.frequencyWeekly,
     monthly: t.recurring.frequencyMonthly,

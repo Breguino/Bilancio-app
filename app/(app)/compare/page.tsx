@@ -93,10 +93,10 @@ export default async function ComparePage(props: {
   searchParams: Promise<{ a?: string; b?: string }>;
 }) {
   const searchParams = await props.searchParams;
-  const { locale, t } = await getDictionary();
+  const { t, intlLocale } = await getDictionary();
   const valuta = await getUserCurrency();
-  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
-  const pct1 = (n: number) => n.toLocaleString(locale === "it" ? "it-IT" : "en-IE", { maximumFractionDigits: 1, minimumFractionDigits: 1 });
+  const soldi = moneyFormatter(intlLocale, valuta);
+  const pct1 = (n: number) => n.toLocaleString(intlLocale, { maximumFractionDigits: 1, minimumFractionDigits: 1 });
 
   const months = lastMonths(12);
   const b = searchParams.b && months.includes(searchParams.b) ? searchParams.b : months[0];

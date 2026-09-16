@@ -10,10 +10,10 @@ function monthKey(dateStr: string) {
 }
 
 export default async function StatisticsPage() {
-  const { locale, t } = await getDictionary();
+  const { t, intlLocale } = await getDictionary();
   const valuta = await getUserCurrency();
-  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
-  const num2 = (n: number) => n.toLocaleString(locale === "it" ? "it-IT" : "en-IE", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+  const soldi = moneyFormatter(intlLocale, valuta);
+  const num2 = (n: number) => n.toLocaleString(intlLocale, { maximumFractionDigits: 2, minimumFractionDigits: 2 });
   const monthLabel = (key: string) => {
     const [y, m] = key.split("-").map(Number);
     return `${t.statistics.monthNamesShort[m - 1]} ${y}`;
