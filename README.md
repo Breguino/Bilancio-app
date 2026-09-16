@@ -1,3 +1,5 @@
+**Italiano** · [English](README.en.md)
+
 # Bilancino
 
 Budget personale e schede cliente in un unico posto, per chi ha qualche cliente
