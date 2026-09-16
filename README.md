@@ -1,92 +1,144 @@
-# Bilancino — versione multi-utente
+# Bilancino
 
-**Sito live:** https://bilancino.it.com
+Budget personale e schede cliente in un unico posto, per chi ha qualche cliente
+e non la partita IVA. Applicazione completa con account reali, dati isolati per
+utente e import dell'estratto conto in CSV — senza chiedere a nessuno le
+credenziali della banca.
 
-Budget personale + CRM contatti, con **account reali** (login/registrazione) e dati
-separati per ogni utente. A differenza della versione precedente (un Artifact statico),
-questa è un'applicazione vera: **Next.js** per il frontend/backend e **Supabase**
-(Postgres + autenticazione) per dati e login.
+**Live:** [bilancino.it.com](https://bilancino.it.com) · **Demo senza registrazione:**
+[/demo](https://bilancino.it.com/demo) · **Cosa è cambiato:** [/novita](https://bilancino.it.com/novita)
 
-La sicurezza multi-utente non è "finta": ogni tabella nel database ha una policy di
-**Row Level Security** che impedisce a un utente di leggere o scrivere i dati di un
-altro, applicata dal database stesso — non solo dal codice dell'app.
+Next.js 16 · React 19 · TypeScript · Supabase (Postgres + Auth) · Tailwind · Vitest
 
-## Prerequisiti
+---
 
-Su questo computer **Node.js non è installato**. Serve per installare le librerie e
-avviare il progetto in locale.
+## Cosa guardare, se hai cinque minuti
 
-1. Scarica e installa Node.js (versione LTS) da **https://nodejs.org**
-2. Verifica l'installazione aprendo un nuovo terminale ed eseguendo:
-   ```
-   node --version
-   npm --version
-   ```
+Invece di elencare aggettivi, questi sono i punti in cui il codice fa qualcosa
+che vale la pena leggere.
 
-## 1. Crea il database (Supabase, gratuito)
+**[`supabase/schema.sql`](supabase/schema.sql) — la sicurezza sta nel database, non nell'app.**
+Trentuno policy di Row Level Security su dieci tabelle. Un utente non può leggere
+i dati di un altro nemmeno se il codice dell'applicazione avesse un difetto: è
+Postgres a rifiutare la riga. Le tabelle che non devono essere toccate dai ruoli
+pubblici hanno il divieto scritto per esteso, così una tabella con RLS accesa e
+nessuna policy non sembra una dimenticanza.
 
-1. Vai su **https://supabase.com**, crea un account gratuito e un nuovo progetto.
-2. Nel progetto, apri **SQL Editor → New query**, incolla il contenuto di
-   [`supabase/schema.sql`](supabase/schema.sql) ed esegui (▶ Run). Questo crea le
-   tabelle `transactions`, `budgets`, `contacts` con le policy di sicurezza.
-3. Vai su **Project Settings → API**: copia **Project URL** e **anon public key**.
-4. Vai su **Authentication → Providers** e assicurati che "Email" sia abilitato
-   (di default lo è). Per test rapidi puoi disattivare "Confirm email" in
-   **Authentication → Settings**, così i nuovi account sono attivi subito.
+**[`lib/cron-auth.ts`](lib/cron-auth.ts) — i controlli si chiudono quando manca qualcosa.**
+Il controllo delle rotte cron confrontava l'intestazione con ``"Bearer " + process.env.CRON_SECRET``.
+Con la variabile impostata funziona; senza, l'interpolazione di `undefined` produce
+la stringa `"Bearer undefined"` — e chiunque mandi esattamente quella entra. Un
+cron che invia email a tutti gli iscritti si apriva al mondo per una variabile
+dimenticata. Ora senza chiave non entra nessuno, e il confronto è a tempo costante.
 
-## 2. Configura il progetto in locale
+**[`lib/routes.test.ts`](lib/routes.test.ts) — un test che legge le cartelle vere.**
+L'elenco delle pagine riservate è scritto a mano. Chi aggiunge una pagina sotto
+`app/(app)` e si dimentica di dichiararla non riceve nessun errore: quella pagina
+diventa semplicemente pubblica, con i movimenti di qualcuno dentro. Il test
+enumera il filesystem e pretende che ogni pagina sia dichiarata, togliendo il
+"ricordarsene" dal percorso.
 
-Nella cartella `bilancino-app`:
+**[`lib/webhooks/resend-signature.ts`](lib/webhooks/resend-signature.ts) — verifica di firma senza dipendenze.**
+Schema Svix implementato con `node:crypto`: HMAC-SHA256 su `id.timestamp.corpo`,
+finestra di freschezza contro il replay, confronto a tempo costante. Il corpo si
+legge grezzo e non come JSON, perché riserializzare un oggetto cambia spazi e
+ordine delle chiavi e la firma non torna più.
+
+**[`lib/csv-export.ts`](lib/csv-export.ts) + [`lib/csv-import.test.ts`](lib/csv-import.test.ts) — il giro completo.**
+Protezione contro la CSV injection (un campo che inizia per `=`, `+`, `-` o `@`
+viene eseguito come formula da Excel), e un test che verifica il giro intero: un
+file esportato da Bilancino deve poter rientrare in Bilancino. È già successo che
+non fosse vero.
+
+---
+
+## Test
+
+**171 test in 18 file**, su `npm test`. Sono test sulla logica pura — date,
+statistica, parsing CSV, autorizzazione, firme — non sul rendering.
+
+Il criterio con cui sono stati scritti: **un test che non è mai stato visto
+fallire non dimostra niente.** Ognuno di questi è stato provato rompendo di
+proposito il codice che sorveglia, e il messaggio di errore è pensato per dire
+cosa manca, non solo che qualcosa non va.
+
+| Area | File | Test |
+|---|---|---|
+| Date e mesi | `lib/month.test.ts` | 25 |
+| Statistica (regressione, deviazione, intervallo di confidenza) | `lib/statistics.test.ts` | 22 |
+| Import CSV | `lib/csv-import.test.ts` | 20 |
+| Export CSV e protezione formule | `lib/csv-export.test.ts` | 13 |
+| Firma dei webhook | `lib/webhooks/resend-signature.test.ts` | 11 |
+| Rotte riservate | `lib/routes.test.ts` | 9 |
+| Valute | `lib/currency.test.ts` | 9 |
+| …e altri undici file | | 62 |
+
+## Controlli automatici
+
+Su ogni pull request e su ogni push verso `main`
+([`.github/workflows/controlli.yml`](.github/workflows/controlli.yml)):
+
+```
+npx tsc --noEmit          # tipi
+npx eslint . --max-warnings=0
+npm test                  # 171 test
+npm run build
+```
+
+`--max-warnings=0` perché gli avvisi, se si accumulano, smettono di essere letti.
+
+## Com'è fatto
+
+```
+app/
+  (app)/          pagine riservate: panoramica, budget, contatti, obiettivi,
+                  ricorrenti, statistiche, confronto anni, cestino
+  api/            export CSV, cron (promemoria, newsletter), webhook Resend
+  guide/          contenuti pubblici
+lib/
+  supabase/       tre client: sessione utente, service role, proxy
+  i18n/           dizionari italiano e inglese, con test anti-deriva
+  statistics.ts   regressione lineare, deviazione standard, intervalli
+  csv-import.ts   parsing tollerante: separatore decimale dedotto dalla posizione
+proxy.ts          protezione delle rotte riservate (era middleware.ts fino a Next 15)
+supabase/
+  schema.sql      tabelle, policy RLS, trigger, funzioni
+```
+
+Qualche scelta che vale la pena spiegare:
+
+- **Una valuta per account, non per movimento.** Nessuna conversione, nessun
+  tasso di cambio, nessuna dipendenza da un fornitore di dati: cambia come si
+  scrivono le cifre, non le cifre.
+- **Il service worker non serve niente offline.** I dati arrivano sempre dal
+  server, così quello che leggi è quello che c'è davvero — un saldo vecchio
+  mostrato con sicurezza sarebbe peggio di un errore. In memoria restano solo i
+  file del sito.
+- **Il separatore decimale si deduce dalla posizione.** In `1.234,50` è la
+  virgola, in `1,234.50` è il punto. Prima si dava per scontato il formato
+  italiano, e un estratto conto inglese veniva letto sbagliato di mille volte,
+  in silenzio.
+
+## Provarlo in locale
+
+Serve Node.js 20.9 o superiore.
 
 ```bash
 npm install
-cp .env.local.example .env.local
-```
-
-Apri `.env.local` e incolla i valori copiati da Supabase:
-
-```
-NEXT_PUBLIC_SUPABASE_URL=https://tuo-progetto.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=la-tua-anon-key
-```
-
-Poi avvia il server di sviluppo:
-
-```bash
+cp .env.local.example .env.local   # poi riempi i valori
 npm run dev
 ```
 
-Apri **http://localhost:3000** — registra un account, conferma l'email (se richiesto),
-accedi. Prova ad aprire la stessa app in una finestra anonima con un secondo account:
-ognuno vedrà solo i propri movimenti e contatti.
+Per il database: su [supabase.com](https://supabase.com) crea un progetto
+gratuito, esegui [`supabase/schema.sql`](supabase/schema.sql) nell'SQL Editor, e
+copia URL e chiave anonima da *Project Settings → API* dentro `.env.local`.
+L'elenco completo delle variabili sta in
+[`.env.local.example`](.env.local.example).
 
-## 3. Metti online il sito (deploy)
+Per vedere la separazione dei dati all'opera: registra due account e apri il
+secondo in una finestra anonima. Nessuno dei due vede i movimenti dell'altro, e
+non perché lo decida l'interfaccia.
 
-Il modo più semplice è **Vercel** (gratuito per progetti personali), che compila il
-progetto lui stesso — non serve Node.js sul computer per questo passaggio:
+---
 
-1. Crea un repository su GitHub e caricaci questa cartella (`git init`, `git add .`,
-   `git commit`, poi collega il repo remoto e fai push).
-2. Vai su **https://vercel.com**, "Add New Project", importa il repository.
-3. In "Environment Variables" aggiungi le stesse due variabili di `.env.local`.
-4. Deploy. Otterrai un URL pubblico reale (es. `bilancino.vercel.app`).
-
-## Cosa c'è già
-
-- Registrazione / accesso / uscita con Supabase Auth
-- **Panoramica**: entrate, uscite, netto del mese, aggiungi/elimina movimenti
-- **Budget**: limite di spesa per categoria, indicatore "budget assegnato vs entrate"
-- **Obiettivi**: crea obiettivi di risparmio, aggiungi contributi, barra di progresso
-- **Confronta**: due mesi a confronto, categoria per categoria, con delta colorati
-- **Annuale**: totali e classifica di spesa su tutto lo storico
-- **Contatti (CRM)**: elenco clienti/contatti con nome, email, telefono, note
-- **Movimenti collegati ai contatti**: ogni movimento può essere associato a un cliente; la pagina Contatti mostra quanto ha fruttato ciascun cliente
-- **Esporta CSV**: scarica tutti i movimenti da "Panoramica"
-- **Tema chiaro/scuro**: selezionabile dall'icona in alto a destra
-- Ogni dato è isolato per utente a livello di database (Row Level Security)
-
-## Progetto Supabase già creato
-
-Il progetto **"bilancino"** è già stato creato nell'organizzazione Supabase e lo
-schema (incluso `goals`) è già applicato — non serve rifare il passaggio 1 del
-setup, `.env.local` ha già le chiavi corrette.
+Progetto indipendente di Angelo Bregu.
