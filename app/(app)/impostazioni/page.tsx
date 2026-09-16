@@ -13,8 +13,7 @@ export default async function ImpostazioniPage(props: {
   searchParams: Promise<{ error?: string; success?: string }>;
 }) {
   const searchParams = await props.searchParams;
-  const { locale, t } = await getDictionary();
-  const intlLocale = locale === "it" ? "it-IT" : "en-IE";
+  const { t, intlLocale } = await getDictionary();
   const valuta = await getUserCurrency();
   const supabase = await createClient();
   const {

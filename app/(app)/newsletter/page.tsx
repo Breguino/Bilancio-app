@@ -14,7 +14,7 @@ export default async function NewsletterAdminPage(props: {
   searchParams: Promise<{ error?: string; success?: string; draft?: string }>;
 }) {
   const searchParams = await props.searchParams;
-  const { locale, t } = await getDictionary();
+  const { t, intlLocale } = await getDictionary();
   const supabase = await createClient();
   const {
     data: { user },
@@ -152,7 +152,7 @@ export default async function NewsletterAdminPage(props: {
               <li key={i.id} className="flex items-center justify-between gap-3">
                 <span className="truncate">{i.subject}</span>
                 <span className="text-xs text-ink-muted dark:text-neutral-500 shrink-0">
-                  {i.sent_at ? new Date(i.sent_at).toLocaleDateString(locale === "it" ? "it-IT" : "en-GB") : ""}
+                  {i.sent_at ? new Date(i.sent_at).toLocaleDateString(intlLocale) : ""}
                 </span>
               </li>
             ))}

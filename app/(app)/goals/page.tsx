@@ -19,9 +19,8 @@ export default async function GoalsPage(props: {
   searchParams: Promise<{ error?: string; success?: string }>;
 }) {
   const searchParams = await props.searchParams;
-  const { locale, t } = await getDictionary();
+  const { t, intlLocale } = await getDictionary();
   const valuta = await getUserCurrency();
-  const intlLocale = locale === "it" ? "it-IT" : "en-IE";
   const soldi = moneyFormatter(intlLocale, valuta);
   const pct1 = (n: number) =>
     n.toLocaleString(intlLocale, { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%";

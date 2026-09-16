@@ -56,11 +56,11 @@ const featureIcons = [BarChart3, RefreshCw, Users, Target, Receipt];
 
 export default async function HomePage() {
   const chart = buildHeroChart();
-  const { locale, t } = await getDictionary();
+  const { t, intlLocale } = await getDictionary();
   // useGrouping esplicito come in tutto il resto dell'app: senza, in italiano
   // mille e qualcosa resta senza punto e i numeri qui sopra non combaciano con
   // quelli del riquadro interattivo più sotto.
-  const eur0 = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-IE", {
+  const eur0 = new Intl.NumberFormat(intlLocale, {
     style: "currency",
     currency: "EUR",
     maximumFractionDigits: 0,
@@ -290,7 +290,7 @@ export default async function HomePage() {
                 {t.home.statsNote}
               </p>
             </div>
-            <StatsDemo labels={t.shared.statsDemo} numberLocale={locale === "it" ? "it-IT" : "en-IE"} />
+            <StatsDemo labels={t.shared.statsDemo} numberLocale={intlLocale} />
           </Reveal>
         </section>
 

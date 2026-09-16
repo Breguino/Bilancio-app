@@ -18,9 +18,9 @@ export default async function ContactDetailPage(props: {
 }) {
   const searchParams = await props.searchParams;
   const params = await props.params;
-  const { locale, t } = await getDictionary();
+  const { t, intlLocale } = await getDictionary();
   const valuta = await getUserCurrency();
-  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
+  const soldi = moneyFormatter(intlLocale, valuta);
 
   const supabase = await createClient();
 

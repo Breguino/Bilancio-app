@@ -8,10 +8,10 @@ import { getUserCurrency } from "@/lib/currency-server";
 
 export default async function ReceiptPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
-  const { locale, t } = await getDictionary();
+  const { t, intlLocale } = await getDictionary();
   const valuta = await getUserCurrency();
-  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
-  const dateFmt = new Intl.DateTimeFormat(locale === "it" ? "it-IT" : "en-GB", {
+  const soldi = moneyFormatter(intlLocale, valuta);
+  const dateFmt = new Intl.DateTimeFormat(intlLocale, {
     day: "2-digit",
     month: "long",
     year: "numeric",

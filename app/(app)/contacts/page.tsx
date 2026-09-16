@@ -16,9 +16,9 @@ export default async function ContactsPage(props: {
   searchParams: Promise<{ q?: string; error?: string; success?: string }>;
 }) {
   const searchParams = await props.searchParams;
-  const { locale, t } = await getDictionary();
+  const { t, intlLocale } = await getDictionary();
   const valuta = await getUserCurrency();
-  const soldi = moneyFormatter(locale === "it" ? "it-IT" : "en-IE", valuta);
+  const soldi = moneyFormatter(intlLocale, valuta);
 
   const supabase = await createClient();
   const today = new Date().toISOString().slice(0, 10);
